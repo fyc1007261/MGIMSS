@@ -59,25 +59,26 @@ def main():
     train = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(loss)
     init = tf.global_variables_initializer()
     saver = tf.train.Saver()
-    with tf.Session(config=tf.ConfigProto(log_device_placement=False)) as sess:
-        if isTrain == 0 or isTrain == 2:
-            # Load
-            ckpt = tf.train.get_checkpoint_state('Trained_networks/')
-            saver.restore(sess, ckpt.model_checkpoint_path)
-        if isTrain == 1 or isTrain == 2:
-            # Train
-            if isTrain == 1:
-                sess.run(init)
-            iters = int(input("Number of iterations? "))
-            for i in range(iters):
-                for j in range(num_batch):
-                    xx = x[batch_size * j: batch_size * (j + 1)]
-                    yy = y[batch_size * j: batch_size * (j + 1)]
-                    sess.run(train, feed_dict={v_x: xx, v_y: yy})
-                    if j == 0:
-                        print(i, sess.run(loss/batch_size, feed_dict={v_x: xx, v_y: yy}))
-                        # Save the network
-            saver.save(sess, 'Trained_networks/network.ckpt')
+    with tf.Session(config=tf.ConfigProto(log_device_placement=True)) as sess:
+        with tf.device("/gpu:0"):
+            if isTrain == 0 or isTrain == 2:
+                # Load
+                ckpt = tf.train.get_checkpoint_state('Trained_networks/')
+                saver.restore(sess, ckpt.model_checkpoint_path)
+            if isTrain == 1 or isTrain == 2:
+                # Train
+                if isTrain == 1:
+                    sess.run(init)
+                iters = int(input("Number of iterations? "))
+                for i in range(iters):
+                    for j in range(num_batch):
+                        xx = x[batch_size * j: batch_size * (j + 1)]
+                        yy = y[batch_size * j: batch_size * (j + 1)]
+                        sess.run(train, feed_dict={v_x: xx, v_y: yy})
+                        if j == 0:
+                            print(i, sess.run(loss/batch_size, feed_dict={v_x: xx, v_y: yy}))
+                            # Save the network
+                saver.save(sess, 'Trained_networks/network.ckpt')
 
         # Test
         test_y = sess.run(layer2, feed_dict={v_x: test_x})
