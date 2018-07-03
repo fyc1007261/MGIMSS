@@ -1,0 +1,46 @@
+class Appliance:
+    def __init__(self, name="unknown appliance", voltage=220, current=0, status=0):
+        self.__voltage = voltage
+        self.__current = current
+        self.__name = name
+        # status==1 for on and 0 for off.
+        self.__status = status
+
+    def set_voltage(self, voltage):
+        self.__voltage = voltage
+
+    def set_current(self, current):
+        self.__current = current
+
+    def set_name(self, name):
+        self.__name = name
+
+    def turn_on(self):
+        if self.__status == 1:
+            return -1
+        status = 1
+        return 0
+
+    def turn_off(self):
+        if self.__status == 0:
+            return -1
+        status = 0
+        return 0
+
+    def get_voltage(self):
+        return self.__voltage
+
+    def get_current(self):
+        return self.__current
+
+    def get_name(self):
+        return self.__name
+
+    def get_status(self):
+        # 1 for on and 0 for off
+        return self.__status
+
+    def get_all(self):
+        # get the name, voltage, current and status of the appliance
+        return self.get_name(), self.get_voltage(), self.get_current(), self.get_status()
+
