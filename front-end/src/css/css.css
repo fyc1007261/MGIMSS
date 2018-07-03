@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css?family=Forum");
+
+#Welcome {
+    background-color: #444;
+    color: rgba(255, 255, 255, 0.75);
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: 8em 0 6em 0;
+    background-image: url("../images/welcome.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    text-align: center;
+    position: relative;
+    cursor: default;
+}
+
+#Welcome:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    background-image: url("../images/overlay.png");
+}
+
+#Welcome h1 {
+    color: #ffffff;
+    margin-bottom: 0.5em;
+}
+
+#Welcome .inner {
+    position: relative;
+    z-index: 1;
+}
+
+
+#Welcome button {
+    position: relative;
+    z-index: 1;
+}
+
+#Welcome.alt {
+    height: 20em;
+    min-height: 20em;
+    min-height: 75vh;
+}
+
+#Welcome.alt h1 {
+    font-size: 4em;
+    padding: 0 0.5em 0.25em 0.5em;
+    border-bottom: solid 2px #ffffff;
+    font-weight: 200;
+    font-family: "Forum", cursive;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+#Welcome.alt p {
+    text-transform: uppercase;
+    letter-spacing: 0.325rem;
+    font-weight: 400;
+    font-size: 0.8em;
+    padding: 0 1.25em;
+}
+
+#Welcome.alt .inner {
+    -moz-transition: opacity 2s ease;
+    -webkit-transition: opacity 2s ease;
+    transition: opacity 2s ease;
+    opacity: 1;
+    margin-bottom: 10em;
+}
