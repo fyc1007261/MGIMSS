@@ -14,6 +14,6 @@ public class Hello{
     @RequestMapping("/post_appliance")
     String hello(String name, float voltage, float current, int status){
 
-        return name + " " + voltage + " " + current + " " + status + "\n";
+        return name + " " + voltage + " " + current + " " + status;
     }
 }
