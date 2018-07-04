@@ -2,10 +2,11 @@ from appliance import Appliance
 import requests
 import time
 import threading
+import datetime
 
 # frequency in seconds
 frequency = 15
-# global temp_id
+global temp_id
 server = "http://localhost:12333/post_appliance"
 lock = threading.Lock()
 
@@ -18,13 +19,14 @@ def get_apps(apps):
 
 
 def all_to_server(url, apps):
+    now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     for app in apps:
-        single_to_server(url, app)
+        single_to_server(url, app, now)
 
 
-def single_to_server(url, appliance):
+def single_to_server(url, appliance, now):
     app_id, name, voltage, current, status = appliance.get_all()
-    payload = {'id': app_id, 'name': name, 'voltage': voltage, 'current': current, 'status': status}
+    payload = {'time': now, 'id': app_id, 'name': name, 'voltage': voltage, 'current': current, 'status': status}
     try:
         r = requests.post(url=url, data=payload)
         print(r.text)
@@ -69,6 +71,7 @@ def change_properties(apps, app_id, info):
             break
     else:
         print("No such appliance.")
+        lock.release()
         return -1
     lock.release()
     return 0
@@ -81,14 +84,17 @@ def switch_status(apps, app_id):
             status = appliance.get_status()
             if status == 1:
                 if appliance.turn_off() != 0:
+                    lock.release()
                     return -1
                 break
             else:
                 if appliance.turn_on() != 0:
+                    lock.release()
                     return -1
                 break
     else:
         print("No such appliance.")
+        lock.release()
         return -1
     lock.release()
     return 0
