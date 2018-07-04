@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="javabuilder">
     <CLASSES>
-      <root url="jar://D:/matlab2/javabuilder.jar!/" />
+      <root url="jar://D:/matlabruntime/v91/toolbox/javabuilder/jar/javabuilder.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
