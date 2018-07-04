@@ -5,12 +5,15 @@ import threading
 
 # frequency in seconds
 frequency = 15
+# global temp_id
 server = "http://localhost:12333/post_appliance"
 lock = threading.Lock()
 
 
 def get_apps(apps):
-    app = Appliance("light", 220, 0.2, 1)
+    global temp_id
+    app = Appliance(temp_id, "light", 220, 0.2, 1)
+    temp_id += 1
     apps.append(app)
 
 
@@ -20,8 +23,8 @@ def all_to_server(url, apps):
 
 
 def single_to_server(url, appliance):
-    name, voltage, current, status = appliance.get_all()
-    payload = {'name': name, 'voltage': voltage, 'current': current, 'status': status}
+    app_id, name, voltage, current, status = appliance.get_all()
+    payload = {'id': app_id, 'name': name, 'voltage': voltage, 'current': current, 'status': status}
     try:
         r = requests.post(url=url, data=payload)
         print(r.text)
@@ -43,46 +46,57 @@ def show_all_apps(apps):
 
 
 def create_app(apps, info):
+    global temp_id
     lock.acquire()
     for appliance in apps:
         if appliance.get_name() == info["name"]:
             print("duplicate name of appliances.")
             lock.release()
             return -1
-    app = Appliance(info["name"], info["voltage"], info["current"])
+    app = Appliance(temp_id, info["name"], info["voltage"], info["current"])
+    temp_id += 1
     apps.append(app)
     lock.release()
+    return 0
 
 
-def change_properties(apps, name, info):
+def change_properties(apps, app_id, info):
     lock.acquire()
     for appliance in apps:
-        if appliance.get_name() == name:
+        if appliance.get_id() == app_id:
             appliance.set_current(info["current"])
             appliance.set_voltage(info["voltage"])
             break
     else:
         print("No such appliance.")
+        return -1
     lock.release()
+    return 0
 
 
-def switch_status(apps, name):
+def switch_status(apps, app_id):
     lock.acquire()
     for appliance in apps:
-        if appliance.get_name() == name:
+        if appliance.get_id() == app_id:
             status = appliance.get_status()
             if status == 1:
-                appliance.turn_off()
+                if appliance.turn_off() != 0:
+                    return -1
                 break
             else:
-                appliance.turn_on()
+                if appliance.turn_on() != 0:
+                    return -1
                 break
     else:
         print("No such appliance.")
+        return -1
     lock.release()
+    return 0
 
 
 def main():
+    global temp_id
+    temp_id = 0
     # including all the appliances added
     apps = []
     get_apps(apps)
@@ -112,23 +126,36 @@ def main():
             info["name"] = name
             info["voltage"] = voltage
             info["current"] = current
-            create_app(apps, info)
+            if create_app(apps, info) == 0:
+                print("Success")
+            else:
+                print("Error")
         elif selection == "3":
             try:
-                name = input("Name?")
+                app_id = int(input("ID?"))
                 voltage = float(input("Voltage?"))
                 current = float(input("Current?"))
             except ValueError:
                 print("Invalid input")
                 continue
             info = dict()
-            info["name"] = name
+            info["id"] = app_id
             info["voltage"] = voltage
             info["current"] = current
-            change_properties(apps, name, info)
+            if change_properties(apps, app_id, info) == 0:
+                print("Success")
+            else:
+                print("Error")
         elif selection == "4":
-            name = input("Name?")
-            switch_status(apps, name)
+            try:
+                app_id = int(input("ID?"))
+            except ValueError:
+                print("Invalid input")
+                continue
+            if switch_status(apps, app_id) == 0:
+                print("Success")
+            else:
+                print("Error")
 
 
 main()
