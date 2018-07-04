@@ -8,7 +8,7 @@ import socket
 
 # define
 # frequency in seconds
-frequency = 15
+frequency = 150
 server = "http://localhost:12333/post_appliance"
 file_name = "appliances.mgimss"
 host = "localhost"
@@ -37,11 +37,9 @@ def save_apps(apps):
 
 
 def all_to_server(url, apps):
-    lock.acquire()
     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     for app in apps:
         single_to_server(url, app, now)
-    lock.release()
 
 
 def single_to_server(url, appliance, now):
@@ -49,7 +47,10 @@ def single_to_server(url, appliance, now):
     payload = {'time': now, 'id': app_id, 'name': name, 'voltage': voltage, 'current': current, 'status': status}
     try:
         r = requests.post(url=url, data=payload)
-        # print(r.text)
+        if r.text != now:
+            print("Error during sending status to server")
+        else:
+            print(r.text)
     except requests.exceptions.ConnectionError:
         print("Cannot connect to the server")
 
@@ -123,7 +124,7 @@ def switch_status(apps, app_id):
     return 0
 
 
-def wait_server():
+def wait_server(apps):
     sk = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sk.bind((host, port))
     sk.listen(1)
@@ -131,7 +132,9 @@ def wait_server():
         conn, addr = sk.accept()
         print("Connected by back-end.")
         data = conn.recv(1024)
-        print(str(data))
+        if data == b'request_current_status':
+            conn.send(b'Data will be delivered via http post.')
+            all_to_server(server, apps)
         conn.close()
 
 
@@ -144,8 +147,8 @@ def main():
     # create a thread to continually send info to the server
     thread_cont_send = threading.Thread(target=continuous_sending, args=(server, apps,))
     thread_cont_send.start()
-    # create a thread to process requests from back-end
-    thread_proccess_request = threading.Thread(target=wait_server, args=())
+    # create a thread to process requests from back-end2
+    thread_proccess_request = threading.Thread(target=wait_server, args=(apps,))
     thread_proccess_request.start()
 
     # man-made operations

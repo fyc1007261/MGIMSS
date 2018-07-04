@@ -6,7 +6,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import com.mgimss.mgimss.classes.Appliance;
 import com.mgimss.mgimss.classes.ApplianceRepository;
+import com.mgimss.mgimss.classes.LatestTime;
+import com.mgimss.mgimss.classes.LatestTimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,11 +17,30 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApplianceProcessingImpl implements ApplianceProcessing {
     @Autowired
     ApplianceRepository applianceRepository;
+    @Autowired
+    LatestTimeRepository latestTimeRepository;
 
     public String get_current_status(String time, int id, String name,
                                      float voltage, float current, int status)
     {
-        return time+"\n"+id+' '+name+' '+voltage+' '+current+' '+status;
+        Appliance appliance = new Appliance();
+        appliance.setTime(time);
+        appliance.setCurrent(current);
+        appliance.setName(name);
+        appliance.setStatus(status);
+        appliance.setVoltage(voltage);
+        appliance.setId(id);
+        applianceRepository.save(appliance);
+        applianceRepository.flush();
+
+        // set the latest time
+        LatestTime latestTime =  latestTimeRepository.getLatestTime();
+        latestTime.setTime(time);
+        latestTimeRepository.save(latestTime);
+        latestTimeRepository.flush();
+
+        // return time for client to check for validity
+        return time;
     }
 
     public String request_status(String message){

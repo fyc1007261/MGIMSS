@@ -1,28 +1,66 @@
 package com.mgimss.mgimss.classes;
 
+import org.hibernate.id.Assigned;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
 @Table(name= "appliance")
+@IdClass(Appliance.ApplianceId.class)
 public class Appliance {
+
+
+
     @Id
+    @Column(name = "id")
     private int id;
+    @Id
+    @Column(name = "time")
+    private String time;
 
     private String name;
-    private String time;
     private float voltage;
     private float current;
     private int status;
 
+    public static class ApplianceId implements Serializable{
+        private int id;
+        private String time;
+
+        public String getTime() {
+            return time;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+    }
+
     public String getTime() {
         return time;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setTime(String time) {
         this.time = time;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public float getCurrent() {
         return current;
     }
