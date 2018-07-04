@@ -10,6 +10,9 @@ public interface ApplianceProcessing {
     String get_current_status(String time, int id, String name,
                               float voltage, float current, int status);
 
+    @RequestMapping("/request_status")
+    String request_status(String message);
+
     @RequestMapping("/test")
     String test();
 

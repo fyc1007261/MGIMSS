@@ -3,25 +3,45 @@ import requests
 import time
 import threading
 import datetime
+import socket
 
+
+# define
 # frequency in seconds
 frequency = 15
-global temp_id
 server = "http://localhost:12333/post_appliance"
+file_name = "appliances.mgimss"
+host = "localhost"
+port = 12334
+
 lock = threading.Lock()
+global temp_id
 
 
 def get_apps(apps):
     global temp_id
-    app = Appliance(temp_id, "light", 220, 0.2, 1)
-    temp_id += 1
-    apps.append(app)
+    with open(file_name, 'r') as file:
+        info = file.readlines()
+        for line in info:
+            line = eval(line)
+            app = Appliance(line[0], line[1], line[2], line[3], line[4])
+            temp_id += 1
+            apps.append(app)
+
+
+def save_apps(apps):
+    with open(file_name, 'w') as file:
+        for app in apps:
+            file.write(str(app.get_all()))
+            file.write("\n")
 
 
 def all_to_server(url, apps):
+    lock.acquire()
     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     for app in apps:
         single_to_server(url, app, now)
+    lock.release()
 
 
 def single_to_server(url, appliance, now):
@@ -29,7 +49,7 @@ def single_to_server(url, appliance, now):
     payload = {'time': now, 'id': app_id, 'name': name, 'voltage': voltage, 'current': current, 'status': status}
     try:
         r = requests.post(url=url, data=payload)
-        print(r.text)
+        # print(r.text)
     except requests.exceptions.ConnectionError:
         print("Cannot connect to the server")
 
@@ -58,6 +78,7 @@ def create_app(apps, info):
     app = Appliance(temp_id, info["name"], info["voltage"], info["current"])
     temp_id += 1
     apps.append(app)
+    save_apps(apps)
     lock.release()
     return 0
 
@@ -73,6 +94,7 @@ def change_properties(apps, app_id, info):
         print("No such appliance.")
         lock.release()
         return -1
+    save_apps(apps)
     lock.release()
     return 0
 
@@ -96,8 +118,21 @@ def switch_status(apps, app_id):
         print("No such appliance.")
         lock.release()
         return -1
+    save_apps(apps)
     lock.release()
     return 0
+
+
+def wait_server():
+    sk = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sk.bind((host, port))
+    sk.listen(1)
+    while 1:
+        conn, addr = sk.accept()
+        print("Connected by back-end.")
+        data = conn.recv(1024)
+        print(str(data))
+        conn.close()
 
 
 def main():
@@ -109,6 +144,10 @@ def main():
     # create a thread to continually send info to the server
     thread_cont_send = threading.Thread(target=continuous_sending, args=(server, apps,))
     thread_cont_send.start()
+    # create a thread to process requests from back-end
+    thread_proccess_request = threading.Thread(target=wait_server, args=())
+    thread_proccess_request.start()
+
     # man-made operations
     while 1:
         print()
