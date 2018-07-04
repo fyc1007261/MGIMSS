@@ -14,7 +14,7 @@ class Welcome extends Component {
         console.log(this.state.redirect);
         if(this.state.redirect) {
             return (
-                <Redirect push to="/login"/>
+                <Redirect push to="/login&register"/>
             );
         }
         return(

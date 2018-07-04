@@ -1404,7 +1404,7 @@ table.alt tbody tr td {
 .WelcomeButton {
     position: absolute;
     z-index: 3;
-    top:60%;
+    top:80%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -1417,7 +1417,7 @@ table.alt tbody tr td {
 #header.alt {
     height: 20em;
     min-height: 20em;
-    min-height: 75vh;
+    min-height: 100vh;
 }
 
 #header.alt:before {
@@ -1468,7 +1468,7 @@ body.is-loading #header.alt .inner {
     opacity: 0;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1366px) {
 
     #header {
         background-attachment: scroll;
@@ -1480,7 +1480,7 @@ body.is-loading #header.alt .inner {
 
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1366px) {
 
     #header {
         padding: 4em 2em 2em 2em;
