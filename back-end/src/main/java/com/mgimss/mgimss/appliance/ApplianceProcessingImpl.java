@@ -5,6 +5,7 @@ package com.mgimss.mgimss.appliance;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.List;
 
 import com.mgimss.mgimss.classes.Appliance;
 import com.mgimss.mgimss.classes.ApplianceRepository;
@@ -20,7 +21,7 @@ public class ApplianceProcessingImpl implements ApplianceProcessing {
     @Autowired
     LatestTimeRepository latestTimeRepository;
 
-    public String get_current_status(String time, int id, String name,
+    public String receive_current_status(String time, int id, String name,
                                      float voltage, float current, int status)
     {
         Appliance appliance = new Appliance();
@@ -76,7 +77,9 @@ public class ApplianceProcessingImpl implements ApplianceProcessing {
         }
     }
 
-    public String test(){
-        return "hahahhaha";
+    public List<Appliance> get_latest_status(){
+        LatestTime latestTime = latestTimeRepository.getLatestTime();
+        String time = latestTime.getTime();
+        return applianceRepository.getAppliancesByTime(time);
     }
 }
