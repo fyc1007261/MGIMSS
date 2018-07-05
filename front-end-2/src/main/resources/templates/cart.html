@@ -1,0 +1,411 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Cart</title>
+    <link href="/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link href="/css/buttons.css" rel="stylesheet"/>
+    <link href="/css/fontawesome-all.css" rel="stylesheet"/>
+    <link href="/css/remodal.css" rel="stylesheet"/>
+    <link href="/css/remodal-default-theme.css" rel="stylesheet"/>
+
+</head>
+<body>
+
+<div th:insert="~{ header :: nav}"></div>
+
+
+<div th:if="${messages} != null" class="col-12 " style="margin-top: 100px">
+    <div id="firework" style=" position:fixed;top:0px;z-index:0;"></div>
+    <div th:each="msg:${messages}" class="bctmsg" style="text-align: center">
+        <p th:text="${msg}"></p>
+    </div>
+
+</div>
+<div th:if="${items} != null" style="margin-top: 100px">
+    <table>
+        <thead>
+        <tr>
+            <th>Book</th>
+            <th>Title</th>
+            <th>Amount</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <div th:each="item:${items}" style="text-align: center">
+            <tr>
+                <td data-label="Book">
+                    <div class="bctimg expand">
+                        <img class="img-responsive bctimgd "
+                             th:src="'/image/books/'+${item.key.id}+'_image.jpg'"/>
+                    </div>
+                </td>
+                <td data-label="Title">
+                        <p class="bcttitle expand" th:text="${item.key.title}"></p>
+                </td>
+                <td data-label="Amount">
+                    <form class="col-sm-12 col-md-8 col-md-offset-2">
+                        <div>
+                            <div class="input-group" style="text-align: center">
+                                <span class="input-group-btn"><button type="button" th:value="${item.key.id}"
+                                                                          class="btn bctbuyb"
+                                                                          onclick="deduct(this.value)"
+                                                                          onmouseout="changecount(this.value)"><p
+                                            class="bctaddon">-</p></button></span>
+                                <input class="form-control bctbuyi" th:id="${item.key.id}" type="number"
+                                       th:value="${item.value}" th:name="${item.key.stock}"
+                                       onkeyup="checkInput(this)" onBlur="changecount(this.id)" name="count"
+                                       placeholder="1"/>
+                                <span class="input-group-btn"><button type="button" th:value="${item.key.id}"
+                                                                      class="btn bctbuyb"
+                                                                      onclick="increase(this.value)"
+                                                                      onmouseout="changecount(this.value)"><p
+                                        class="bctaddon">+</p></button></span>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+                <td data-label="Delete">
+                    <button type="button" th:value="${item.key.id}" onclick="dele(this.value)"
+                            class="button button-tiny button-rounded button-caution">Delete
+                    </button>
+                </td>
+            </tr>
+        </div>
+        </tbody>
+    </table>
+    <div style="text-align: center; padding-top:30px">
+        <button class="button button-action button-rounded button-small" onclick="order()">Pay Now</button>
+    </div>
+</div>
+
+
+<div th:if="${order} != null" class="col-12" style="top:0;padding-left:0; padding-right:0;">
+    <div class="wonder">
+        <div class="receipt col-xs-12 col-sm-4 " th:each="oitem:${order}" >
+            <h2 class="receipt__title">Thank you for shopping!</h2>
+            <p class="receipt__subtitle">Here is the receipt:</p>
+            <ul class="receipt__lines">
+                <li class="receipt__line" th:each="item: ${oitem.key}">
+                    <span class="receipt__line__item" th:text="${item.key} + '('+ ${item.value.get(0)}+')'"></span>
+                    <span class="receipt__line__price" th:text="'$'+${item.value.get(1)}"></span>
+                </li>
+            </ul>
+            <p class="receipt__total">
+                <span class="receipt__total__item">Sum：</span>
+                <span class="receipt__total__price" th:text="'$'+${oitem.value}"></span>
+            </p>
+            <p class="receipt__back">
+                <br>
+                <a class="magic" href="/bookstore">View other books!</a>
+                <br>
+                <br>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="remodal" data-remodal-id="infomodal" role="dialog" aria-labelledby="modalTitle"
+     aria-describedby="modalDesc">
+    <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+    <div>
+        <h2 id="modalTitle">Attention</h2>
+        <p id="modalDesc" class="bmodal">
+            Are you sure to delete this book ?
+        </p>
+    </div>
+    <br>
+    <button data-remodal-action="cancel" class="remodal-cancel">NO</button>
+    <button data-remodal-action="confirm" class="remodal-confirm">YES</button>
+</div>
+
+<div class="remodal" data-remodal-id="zeromodal" data-remodal-options="hashTracking: false" role="dialog" aria-labelledby="zmodalTitle"
+     aria-describedby="zmodalDesc">
+    <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+    <div>
+        <h2 id="zmodalTitle">Emmm</h2>
+        <p id="zmodalDesc" class="bmodal">
+            Seems that you deduct its amount to 0 !<br>
+            Do you wish to delete it or remain one ?
+        </p>
+    </div>
+    <br>
+    <button data-remodal-action="cancel" class="remodal-cancel">Delete</button>
+    <button data-remodal-action="confirm" class="remodal-confirm">Keep one</button>
+</div>
+
+<div class="remodal" data-remodal-id="confirmmodal" role="dialog" aria-labelledby="cmodalTitle"
+     aria-describedby="cmodalDesc">
+    <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+    <div>
+        <h2 id="cmodalTitle">Sweet!</h2>
+        <p id="cmodalDesc" class="bmodal">
+            Pay now? (*•̀ㅂ•́)و
+        </p>
+    </div>
+    <br>
+    <button data-remodal-action="cancel" class="remodal-cancel">No way</button>
+    <button data-remodal-action="confirm" class="remodal-confirm">Of course</button>
+</div>
+
+</body>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/remodal.js"></script>
+<script src="/js/addShopping.js" type="text/javascript"></script>
+<script src="js/sketch.min.js"></script>
+
+
+<script>
+
+    function deduct(id) {
+        var inst = $('[data-remodal-id=zeromodal]').remodal();
+        var inst2 = $('[data-remodal-id=confirmmodal]').remodal();
+        var inst3 = $('[data-remodal-id=infomodal]').remodal();
+
+        var count = document.getElementById(id).value;
+
+
+        if (count > '1') {
+            document.getElementById(id).value--;
+        }
+        else if (count==='1') {
+            var state2 = inst2.getState();
+            var state3 = inst3.getState();
+            if (state2 !== 'opened' && state2 !== 'opening'
+                && state3 !== 'opened' && state3 !== 'opening') {
+                inst.open();
+                $(document).on('cancellation', '.remodal', function () {
+                    /*there is a sh*ting bug and have brought me weariness and suppression,
+                     * I've thought I've figured, but...Fortunately 2018/5/3/20:13 I finally do it!! */
+                    if (id !== null){
+                        $.get("/bookstore/delefromcart?id=" + id, function (data, status) {
+                            // alert("data:"+data+"\nStatus:"+status);
+                            if (data.indexOf("good") >= 0) {
+                                window.location = "/cart";
+                            }
+                            else if (data.indexOf("bad") >= 0) {
+                                alert("No! Something bad onsets!");
+                            }
+                            else {
+                                alert("No cart");
+                            }
+                        });
+                    }
+                });
+                $(document).on('confirmation', '.remodal', function (){
+                    id=null;
+                });
+            }
+        }
+    }
+
+    function changecount(id) {
+        var count = document.getElementById(id).value;
+        if (count == null) {
+            alert("count = null");
+            count = 1;
+        }
+        $.get("/bookstore/changecount?id=" + id + "&count=" + count, function (data, status) {
+            // alert("data:"+data+"\nStatus:"+status);
+            if (data.indexOf("good") >= 0) {
+            }
+            else if (data.indexOf("bad") >= 0) {
+                alert("No! Something bad onsets!");
+            }
+            else {
+                alert("No cart");
+            }
+        });
+    }
+
+    function checkInput(obj) {
+        var stock = obj.name;
+        var count = obj.value;
+        if (!/^\d+$/.test(count)) {
+            obj.value = obj.value.replace(/[^\d]+/g, '');
+        }
+        else if (parseInt(obj.value) > stock) {
+            obj.value = stock;
+        }
+    }
+
+    function increase(id) {
+        var count = document.getElementById(id).value;
+        var stock = parseInt(document.getElementById(id).name);
+        if (count < stock) {
+            document.getElementById(id).value++;
+        }
+        else {
+            alert("已达到上限");
+        }
+    }
+
+    function dele(id) {
+        var inst = $('[data-remodal-id=infomodal]').remodal();
+        var inst2 = $('[data-remodal-id=zeromodal]').remodal();
+        var inst3 = $('[data-remodal-id=confirmmodal]').remodal();
+        var state2 = inst2.getState();
+        var state3 = inst3.getState();
+        if (state2 !== 'opened'&&state2!=='opening'
+            &&state3 !== 'opened' && state3 !== 'opening'){
+            inst.open();
+            $(document).on('confirmation', '.remodal', function () {
+                if (id !== null){
+                    $.get("/bookstore/delefromcart?id=" + id, function (data, status) {
+                        // alert("data:"+data+"\nStatus:"+status);
+                        if (data.indexOf("good") >= 0) {
+                            window.location = "/cart";
+                        }
+                        else if (data.indexOf("bad") >= 0) {
+                            alert("No! Something bad onsets!");
+                        }
+                        else {
+                            alert("No cart");
+                        }
+                    });
+                }
+            });
+            $(document).on('cancellation', '.remodal', function (){
+                id=null;
+            });
+        }
+    }
+
+    function order() {
+        var inst = $('[data-remodal-id=confirmmodal]').remodal();
+        var inst2 = $('[data-remodal-id=infomodal]').remodal();
+        var inst3 = $('[data-remodal-id=zeromodal]').remodal();
+        var state2 = inst2.getState();
+        var state3 = inst3.getState();
+        var valid = 1;
+        if (state2 !== 'opened'&&state2!=='opening'
+            &&state3 !== 'opened' && state3 !== 'opening'){
+            inst.open();
+            $(document).on('confirmation', '.remodal', function () {
+                if (valid !== null)
+                    window.location = "/cart/order";
+            });
+            $(document).on('cancellation', '.remodal', function () {
+                valid = null;
+            });
+        }
+    }
+</script>
+<script>
+
+    /* ----------------------------------------
+    /* Particle
+     */
+    function Particle(x, y, radius) {
+        this.init(x, y, radius);
+    }
+
+    Particle.prototype = {
+        init: function (x, y, radius) {
+            this.alive = true;
+            this.radius = radius || 10;
+            this.wander = 0.15;
+            this.theta = random(TWO_PI);
+            this.drag = 0.92;
+            this.color = '#f9f6d9';
+            this.x = x || 0.0;
+            this.y = y || 0.0;
+            this.vx = 0.0;
+            this.vy = 0.0;
+        },
+        move: function () {
+            this.x += this.vx;
+            this.y += this.vy;
+            this.vx *= this.drag;
+            this.vy *= this.drag;
+            this.theta += random(-0.5, 0.5) * this.wander;
+            this.vx += sin(this.theta) * 0.1;
+            this.vy += cos(this.theta) * 0.1;
+            this.radius *= 0.96;
+            this.alive = this.radius > 0.5;
+        },
+        draw: function (ctx) {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, TWO_PI);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
+    };
+    /* ----------------------------------------
+    /* Example
+    */
+    var MAX_PARTICLES = 280;
+    var COLOURS = ['#D1DF7F', '#feb734', '#E0E4CC', '#f3f38d', '#fae1dd',
+        '#d9ff7e', '#F9D423'];
+    var particles = [];
+    var COLOR = '#E0E4CC';
+    var pool = [];
+    var demo = Sketch.create({
+        container: document.getElementById('firework')
+
+    });
+
+    demo.setup = function () {
+        // Set off some initial particles.
+        var i, x, y;
+        //  for ( i = 0; i < 20; i++ ) {
+        x = (demo.width * 0.5) + random(-100, 100);
+        y = (demo.height * 0.5) + random(-100, 100);
+        demo.spawn(0, 999);
+        // }
+
+    };
+
+    demo.spawn = function (x, y) {
+        if (particles.length >= MAX_PARTICLES)
+            pool.push(particles.shift());
+        particle = pool.length ? pool.pop() : new Particle();
+        particle.init(x, y, random(5, 40));
+        particle.wander = random(0.5, 2.0);
+        particle.color = random(COLOURS);
+        particle.drag = random(0.9, 0.99);
+        theta = random(TWO_PI);
+        force = random(2, 8);
+        particle.vx = sin(theta) * force;
+        particle.vy = cos(theta) * force;
+        particles.push(particle);
+    };
+
+    demo.update = function () {
+        var i, particle;
+        for (i = particles.length - 1; i >= 0; i--) {
+            particle = particles[i];
+            if (particle.alive)
+                particle.move();
+            else
+                pool.push(particles.splice(i, 1)[0]);
+        }
+    };
+
+    demo.draw = function () {
+        demo.globalCompositeOperation = 'lighter';
+        for (var i = particles.length - 1; i >= 0; i--) {
+            particles[i].draw(demo);
+        }
+    };
+
+    demo.mousemove = function () {
+        var particle, theta, force, touch, max, i, j, n;
+        for (i = 0, n = demo.touches.length; i < n; i++) {
+            touch = demo.touches[i], max = random(1, 4);
+            for (j = 0; j < max; j++) {
+                demo.spawn(touch.x, touch.y);
+            }
+        }
+    };
+
+</script>
+
+</html>

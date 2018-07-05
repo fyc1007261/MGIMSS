@@ -1,0 +1,340 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Book Dedail</title>
+    <link href="/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/buttons.css" rel="stylesheet" />
+    <link href="/css/fontawesome-all.css" rel="stylesheet" />
+    <link href="/css/remodal.css" rel="stylesheet" />
+    <link href="/css/remodal-default-theme.css" rel="stylesheet" />
+
+<body>
+<div th:insert="~{ header :: nav}"></div>
+<div id="firework" style=" position:fixed;top:0px;z-index:0;"></div>
+<div class="container" style="margin-top: 100px">
+    <div class="row col-xs-offset-1">
+        <button onclick="goBack()" class="button  button-rounded button-action button-small" >Back</button>
+    </div>
+    <div style="padding-top: 80px">
+        <div th:each="book : ${books}" style="text-align: center">
+
+                <div class="container bitem col-sm-10 col-sm-offset-1">
+                    <div class="row">
+                        <div class="col-12 col-sm-4 ">
+                            <div class="bimg expand">
+                                <img th:id="${book.id}+'img'" class="img-responsive bimgd"
+                                     th:name="'/image/books/'+${book.id}+'_image.jpg'"
+                                     th:src="'/image/books/'+${book.id}+'_image.jpg'"/>
+                            </div>
+                            <form>
+                                <div class="form-group">
+                                    <div style="margin-top: 15px">
+                                        <div class="input-group col-xs-8 col-xs-offset-2">
+                                            <span class="input-group-btn"><button type="button" class="btn" onclick="deduct()">-</button></span>
+                                            <input class="form-control" id="count" type="number" value="1" onkeyup="checkInput()" name="count" placeholder="1"/>
+                                            <span class="input-group-btn"><button type="button" class="btn" onclick="increase()">+</button></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button name="bbtn" th:id="${book.id}+'btn'" th:value="${book.id}" type="button" onclick="add(this.value)" class="button button-small button-rounded button-action baddbtn">Add to cart</button>
+                                <button th:id="${book.id}+'in_btn'" th:value="${book.id}" type="button" style="display: none" onclick="addToCart(this.value)" ></button>
+                            </form>
+                        </div>
+                        <div class="col-12 col-sm-8 col-sm-offset binfo">
+                            <div class="row">
+                                <p class="btitle expand col-12" th:text="${book.title}"></p>
+                                <p class="bauthor expand col-12" th:text="${book.author}"></p>
+                            </div>
+                                <div class="row">
+                                    <div class="bbar col-12 col-sm-4 expand" style="background-color: #ff7680;border-radius: 10px 10px 10px 10px;">
+                                        <div class="central">
+                                            <a class="col-5 bpricet badge badge-warning">New</a>
+                                            <p class="col-5 bpriced" th:text="'$'+${book.price}"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="bbar col-12 col-sm-4 expand" >
+                                        <div class="central">
+                                            <div class="stars">
+                                                <form id="score_form">
+                                                    <div class="star_evaluate">
+                                                        <input type="radio" id="scoreId_1" class="score score_1" disabled="disabled" th:checked= "(${book.star} == 1)"/>
+                                                        <label for="scoreId_1" class="star star_1"></label>
+                                                        <input type="radio" id="scoreId_1h" class="score score_1h" disabled="disabled" th:checked= "(${book.star} == 2)"/>
+                                                        <label for="scoreId_1h" class="star star_1h"></label>
+                                                        <input type="radio" id="scoreId_2" class="score score_2" disabled="disabled" th:checked= "(${book.star} == 3)"/>
+                                                        <label for="scoreId_2" class="star star_2"></label>
+                                                        <input type="checkbox" id="scoreId_2h" class="score score_2h"  disabled="disabled" th:checked= "(${book.star} == 4)"/>
+                                                        <label for="scoreId_2h" class="star star_2h"></label>
+                                                        <input type="radio" id="scoreId_3" class="score score_3" disabled="disabled"  th:checked= "(${book.star} == 5)"/>
+                                                        <label for="scoreId_3" class="star star_3"></label>
+                                                        <input type="radio" id="scoreId_3h" class="score score_3h" disabled="disabled" th:checked= "(${book.star} == 6)"/>
+                                                        <label for="scoreId_3h" class="star star_3h"></label>
+                                                        <input type="radio" id="scoreId_4" class="score score_4"  disabled="disabled"  th:checked= "(${book.star} == 7)"/>
+                                                        <label for="scoreId_4" class="star star_4"></label>
+                                                        <input type="radio" id="scoreId_4h" class="score score_4h" disabled="disabled" th:checked= "(${book.star} == 8)"/>
+                                                        <label for="scoreId_4h" class="star star_4h"></label>
+                                                        <input type="radio" id="scoreId_5" class="score score_5" disabled="disabled" th:checked= "(${book.star} == 9)"/>
+                                                        <label for="scoreId_5" class="star star_5"></label>
+                                                        <input type="radio" id="scoreId_5h" class="score score_5h"disabled="disabled" th:checked= "(${book.star} == 10)"/>
+                                                        <label for="scoreId_5h" class="star star_5h"></label>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bbar col-12 col-sm-4 expand" style="background-color: #d1d243;    border-radius: 10px 10px 10px 10px;">
+                                        <div class="central">
+                                            <p class="bstockd col-6" id="stock" th:text="${book.stock}"></p>
+                                            <p class="bstocka col-6">in stock</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="row">
+                                <div class="binfobar col-12 col-sm-4" style="margin-top: 9px;">
+                                    <div class="central2 expand" >
+                                        <p class="binfot col-6">language:</p>
+                                        <p class="binfod col-6" th:text="${book.language}"></p>
+                                    </div>
+                                    <div class="central2 expand">
+                                        <p class="binfot col-6">published:</p>
+                                        <p class="binfod col-6" th:text="${book.published}"></p>
+                                    </div>
+                                    <div class="central2 expand">
+                                        <p class="binfot col-6">sales:</p>
+                                        <p class="binfod col-6" th:text="${book.sales}"></p>
+                                    </div>
+                                    </div>
+                                <div class="col-12 col-sm-8" style="margin-top: 9px;">
+                                    <div class="row expand">
+                                        <p class="binfot">description:</p>
+                                    </div>
+                                    <div class="expand">
+                                        <p class="bdescribed" th:text="${book.description}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<div class="remodal" data-remodal-id="infomodal" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+    <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+    <div>
+        <h2 id="modalTitle">Ah hah</h2>
+        <p id="modalDesc" class="bmodal">
+            Dear customer, you've just added more books to cart than we currently stored!
+            <br/>Click yes to add all of the stock, click no to recall last operation.
+        </p>
+    </div>
+    <br>
+    <button data-remodal-action="cancel" class="remodal-cancel">NO</button>
+    <button data-remodal-action="confirm" class="remodal-confirm">YES</button>
+</div>
+
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="js/sketch.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/remodal.js"></script>
+<script src="/js/addShopping.js" type="text/javascript"></script>
+
+
+<script>
+    var i = 0;
+    function goBack() {
+        window.location.href = "/bookstore";
+    }
+    function deduct(){
+        var count =  document.getElementById('count').value;
+        if (count>1){
+            document.getElementById('count').value--;
+        }
+    }
+
+    function checkInput(){
+        var inputdom = document.getElementById('count');
+        var stock = parseInt(document.getElementById('stock').innerText);
+        var count = inputdom.value;
+        if (count > stock){
+            inputdom.value = stock;
+        }
+        if( inputdom.value.equals("")){
+            inputdom.value = 1;
+        }
+    }
+
+    function increase(){
+        var count =  document.getElementById('count').value;
+        var stock = parseInt(document.getElementById('stock').innerText);
+        if (count < stock)
+            document.getElementById('count').value++;
+        else{
+            alert("已达到上限");
+        }
+    }
+
+    function add(id){
+        var btnId = id+'btn';
+        var in_btnId = id+'in_btn';
+        var imgId = id+'img';
+        var imgpath = document.getElementById(imgId).name;
+        $('#'+btnId).shoping({
+            endElement:".cartli",
+            iconCSS:"",
+            iconImg:imgpath
+
+        });
+        if (i === 1){
+            i--;
+            addToCart(id);
+        }
+        else{
+            i++;
+            $('#'+btnId).click();
+        }
+
+    }
+
+    function addToCart(id){
+        var imgId = id+'img';
+        var count = document.getElementById('count').value;
+
+
+        $.get("/bookstore/addtocart?id="+id+"&count="+count, function(data, status){
+              // alert("data:"+data+"\nStatus:"+status);
+               if (data.indexOf("good") >= 0){
+
+               }
+               else if (data.indexOf("over") >= 0){
+                   inst.open();
+                   $(document).on('confirmation', '.remodal', function () {
+                       $.get("/bookstore/addtocart?id="+id+"&all="+1, function(data, status){});
+                   });
+               }
+               else{
+                   alert("No! Something bad onsets!");
+               }
+        });
+    }
+
+</script>
+<script>
+
+    /* ----------------------------------------
+    /* Particle
+     */
+    function Particle(x, y, radius) {
+        this.init(x, y, radius);
+    }
+
+    Particle.prototype = {
+        init: function (x, y, radius) {
+            this.alive = true;
+            this.radius = radius || 10;
+            this.wander = 0.15;
+            this.theta = random(TWO_PI);
+            this.drag = 0.92;
+            this.color = '#fff';
+            this.x = x || 0.0;
+            this.y = y || 0.0;
+            this.vx = 0.0;
+            this.vy = 0.0;
+        },
+        move: function () {
+            this.x += this.vx;
+            this.y += this.vy;
+            this.vx *= this.drag;
+            this.vy *= this.drag;
+            this.theta += random(-0.5, 0.5) * this.wander;
+            this.vx += sin(this.theta) * 0.1;
+            this.vy += cos(this.theta) * 0.1;
+            this.radius *= 0.96;
+            this.alive = this.radius > 0.5;
+        },
+        draw: function (ctx) {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, TWO_PI);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
+    };
+    /* ----------------------------------------
+    /* Example
+    */
+    var MAX_PARTICLES = 280;
+    var COLOURS = ['#D1DF7F', '#feb734', '#E0E4CC', '#F38630', '#FA6900',
+        '#FF4E50', '#F9D423'];
+    var particles = [];
+    var pool = [];
+    var demo = Sketch.create({
+        container: document.getElementById('firework')
+
+    });
+
+    demo.setup = function () {
+        // Set off some initial particles.
+        var i, x, y;
+        //  for ( i = 0; i < 20; i++ ) {
+        x = (demo.width * 0.5) + random(-100, 100);
+        y = (demo.height * 0.5) + random(-100, 100);
+        demo.spawn(0, 999);
+        // }
+
+    };
+
+    demo.spawn = function (x, y) {
+        if (particles.length >= MAX_PARTICLES)
+            pool.push(particles.shift());
+        particle = pool.length ? pool.pop() : new Particle();
+        particle.init(x, y, random(5, 40));
+        particle.wander = random(0.5, 2.0);
+        particle.color = random(COLOURS);
+        particle.drag = random(0.9, 0.99);
+        theta = random(TWO_PI);
+        force = random(2, 8);
+        particle.vx = sin(theta) * force;
+        particle.vy = cos(theta) * force;
+        particles.push(particle);
+    };
+
+    demo.update = function () {
+        var i, particle;
+        for (i = particles.length - 1; i >= 0; i--) {
+            particle = particles[i];
+            if (particle.alive)
+                particle.move();
+            else
+                pool.push(particles.splice(i, 1)[0]);
+        }
+    };
+
+    demo.draw = function () {
+        demo.globalCompositeOperation = 'lighter';
+        for (var i = particles.length - 1; i >= 0; i--) {
+            particles[i].draw(demo);
+        }
+    };
+
+    demo.mousemove = function () {
+        var particle, theta, force, touch, max, i, j, n;
+        for (i = 0, n = demo.touches.length; i < n; i++) {
+            touch = demo.touches[i], max = random(1, 4);
+            for (j = 0; j < max; j++) {
+                demo.spawn(touch.x, touch.y);
+            }
+        }
+    };
+
+</script>
+</html>
