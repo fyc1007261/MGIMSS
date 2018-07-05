@@ -1,6 +1,5 @@
 package com.mgimss.mgimss.classes;
 
-import org.hibernate.id.Assigned;
 
 import javax.persistence.*;
 import java.io.Serializable;
