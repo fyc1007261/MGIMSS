@@ -17,7 +17,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="css.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="css.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/css.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="157">
@@ -27,11 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="106" column="42" lean-forward="false" selection-start-line="106" selection-start-column="27" selection-end-line="106" selection-end-column="42" />
+            <state relative-caret-position="261">
+              <caret line="607" column="19" lean-forward="true" selection-start-line="607" selection-start-column="19" selection-end-line="607" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -125,13 +125,11 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>text</find>
       <find>@media</find>
       <find>layoutBox</find>
       <find>bothForm</find>
       <find>RegisterForm</find>
       <find>LoginForm</find>
-      <find>w3layouts-main</find>
       <find>rotateForm</find>
       <find>main-agile</find>
       <find>Login</find>
@@ -155,6 +153,8 @@
       <find>haveAccBtn</find>
       <find>submit</find>
       <find>button</find>
+      <find>w3la</find>
+      <find>w3layouts-main</find>
     </findStrings>
     <replaceStrings>
       <replace>order</replace>
@@ -224,8 +224,8 @@
         <option value="$PROJECT_DIR$/src/main/resources/static/css/font-awesome.css" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/login.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/css/style.css" />
         <option value="$PROJECT_DIR$/src/main/resources/static/css/css.css" />
+        <option value="$PROJECT_DIR$/src/main/resources/static/css/style.css" />
       </list>
     </option>
   </component>
@@ -241,11 +241,11 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="150" />
-    <option name="y" value="89" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="232" />
+    <option name="y" value="241" />
     <option name="width" value="1658" />
-    <option name="height" value="1012" />
+    <option name="height" value="1069" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -692,7 +692,7 @@
       <workItem from="1530511362339" duration="3360000" />
       <workItem from="1530667022159" duration="15000" />
       <workItem from="1530671424615" duration="2162000" />
-      <workItem from="1530770034578" duration="27476000" />
+      <workItem from="1530770034578" duration="29191000" />
     </task>
     <servers />
   </component>
@@ -720,10 +720,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="448019000" />
+    <option name="totallyTimeSpent" value="449734000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="150" y="89" width="1658" height="1012" extended-state="0" />
+    <frame x="232" y="241" width="1658" height="1069" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -742,7 +742,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32821724" sideWeight="0.4949495" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30752212" sideWeight="0.4949495" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22979797" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1113,18 +1113,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="106" column="42" lean-forward="false" selection-start-line="106" selection-start-column="27" selection-end-line="106" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/css.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="157">
           <caret line="359" column="26" lean-forward="true" selection-start-line="359" selection-start-column="26" selection-end-line="359" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="607" column="19" lean-forward="true" selection-start-line="607" selection-start-column="19" selection-end-line="607" selection-end-column="19" />
           <folding />
         </state>
       </provider>
