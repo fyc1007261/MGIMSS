@@ -72,6 +72,8 @@ public class Api {
     {
         private Time startTime;
         private Time stopTime;
+        private int intStopTime;
+        private int intStartTime;
         private int perPower;
         private int jobId;
         public void setStartTime(Time startTime)
@@ -106,6 +108,22 @@ public class Api {
         public int getJobId()
         {
             return this.jobId;
+        }
+        public void setIntStartTime(int intStartTime)
+        {
+            this.intStartTime = intStartTime;
+        }
+        public int getIntStartTime()
+        {
+            return this.intStartTime;
+        }
+        public void setIntStopTime(int intStopTime)
+        {
+            this.intStopTime = intStopTime;
+        }
+        public int getIntStopTime()
+        {
+            return this.intStopTime;
         }
     }
 
@@ -144,6 +162,8 @@ public class Api {
     {
         private Time startTime;
         private Time stopTime;
+        private int intStopTime;
+        private int intStartTime;
         private int interval;
         private ArrayList forecastList;
         public void setStartTime(Time startTime)
@@ -178,6 +198,22 @@ public class Api {
         public ArrayList getForecastList()
         {
             return this.forecastList;
+        }
+        public void setIntStartTime(int intStartTime)
+        {
+            this.intStartTime = intStartTime;
+        }
+        public int getIntStartTime()
+        {
+            return this.intStartTime;
+        }
+        public void setIntStopTime(int intStopTime)
+        {
+            this.intStopTime = intStopTime;
+        }
+        public int getIntStopTime()
+        {
+            return this.intStopTime;
         }
 
     }
