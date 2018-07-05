@@ -21,7 +21,7 @@ public class ApplianceProcessingImpl implements ApplianceProcessing {
     @Autowired
     LatestTimeRepository latestTimeRepository;
 
-    public String receive_current_status(String time, int id, String name,
+    public String receive_current_status(String time, int id, String name, String username,
                                      float voltage, float current, int status)
     {
         Appliance appliance = new Appliance();
@@ -31,6 +31,7 @@ public class ApplianceProcessingImpl implements ApplianceProcessing {
         appliance.setStatus(status);
         appliance.setVoltage(voltage);
         appliance.setId(id);
+        appliance.setUsername(username);
         applianceRepository.save(appliance);
         applianceRepository.flush();
 

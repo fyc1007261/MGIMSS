@@ -13,6 +13,7 @@ frequency = 150
 # as a http client
 server = "http://localhost:12333/post_appliance"
 file_name = "appliances.mgimss"
+username = "admin"
 # as a socket server
 host = "localhost"
 port = 12334
@@ -47,7 +48,8 @@ def all_to_server(url, apps):
 
 def single_to_server(url, appliance, now):
     app_id, name, voltage, current, status = appliance.get_all()
-    payload = {'time': now, 'id': app_id, 'name': name, 'voltage': voltage, 'current': current, 'status': status}
+    payload = {'time': now, 'id': app_id, 'name': name, 'username':username,
+               'voltage': voltage, 'current': current, 'status': status}
     try:
         r = requests.post(url=url, data=payload)
         if r.text != now:
@@ -91,7 +93,7 @@ def delete_app(apps, app_id):
     lock.acquire()
     for i in range(len(apps)):
         if apps[i].get_id() == app_id:
-            del apps[i]
+            del(apps[i])
             break
     else:
         print("nothing to delete")
