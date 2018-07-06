@@ -44,13 +44,14 @@ def save_apps(apps):
 def all_to_server(url, apps):
     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     for app in apps:
-        single_to_server(url, app, now)
+        if app.get_status == 1:
+            single_to_server(url, app, now)
 
 
 def single_to_server(url, appliance, now):
     app_id, name, voltage, current, status = appliance.get_all()
     payload = {'time': now, 'id': app_id, 'name': name,
-               'voltage': voltage, 'current': current, 'status': status}
+               'voltage': voltage, 'current': current}
     try:
         r = requests.post(url=url, data=payload)
         if r.text != now:
