@@ -13,8 +13,7 @@ public class StatisticsImpl implements Statistics
     public float consumption_of_period(String username, int app_id,
                                 String from, String to)
     {
-        List<Appliance> applianceList = applianceRepository.
-
+        // not finished yet
         return 0;
     }
 }
