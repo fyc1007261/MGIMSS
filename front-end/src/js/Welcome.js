@@ -1,6 +1,9 @@
 import React , {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import '../css/css.css';
+import '../css/bootstrap.css';
+import '../css/style.css';
+import '../css/font-awesome.css';
 
 class Welcome extends Component {
     constructor() {
@@ -28,7 +31,7 @@ class Welcome extends Component {
                     </div>
                 </header>
                 <div className="WelcomeButton">
-                    <button onClick={this.handleLoginClick}>Login</button>
+                    <button className="button" onClick={this.handleLoginClick}>Start</button>
                 </div>
             </div>
         );
