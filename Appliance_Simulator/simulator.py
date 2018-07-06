@@ -4,6 +4,7 @@ import time
 import threading
 import datetime
 import socket
+import random
 
 
 # define
@@ -48,7 +49,7 @@ def all_to_server(url, apps):
 
 def single_to_server(url, appliance, now):
     app_id, name, voltage, current, status = appliance.get_all()
-    payload = {'time': now, 'id': app_id, 'name': name, 'username':username,
+    payload = {'time': now, 'id': app_id, 'name': name,
                'voltage': voltage, 'current': current, 'status': status}
     try:
         r = requests.post(url=url, data=payload)
@@ -89,6 +90,21 @@ def create_app(apps, info):
     return 0
 
 
+def create_app_from_server(apps, info):
+    global temp_id
+    lock.acquire()
+    for appliance in apps:
+        if appliance.get_id() == info["id"]:
+            print("duplicate ids of appliances.")
+            lock.release()
+            return -1
+    app = Appliance(info["id"], info["name"], info["voltage"], info["current"])
+    apps.append(app)
+    save_apps(apps)
+    lock.release()
+    return 0
+
+
 def delete_app(apps, app_id):
     lock.acquire()
     for i in range(len(apps)):
@@ -120,11 +136,15 @@ def change_properties(apps, app_id, info):
     return 0
 
 
-def switch_status(apps, app_id):
+# option: 1 for on, 0 for off, -1 for switch
+def switch_status(apps, app_id, option=-1):
     lock.acquire()
     for appliance in apps:
         if appliance.get_id() == app_id:
             status = appliance.get_status()
+            if status == option:
+                lock.release()
+                return -1
             if status == 1:
                 if appliance.turn_off() != 0:
                     lock.release()
@@ -147,15 +167,73 @@ def switch_status(apps, app_id):
 def wait_server(apps):
     sk = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sk.bind((host, port))
-    sk.listen(1)
+    sk.listen()
     while 1:
         conn, addr = sk.accept()
-        print("Connected by back-end.")
-        data = conn.recv(1024)
-        if data == b'request_current_status':
-            conn.send(b'Data will be delivered via http post.')
-            all_to_server(server, apps)
-        conn.close()
+        thread_doit = threading.Thread(target=do_server, args=(conn, addr,apps,))
+        thread_doit.start()
+
+
+def do_server(conn, addr, apps):
+    print("Connected by" + addr)
+    data = conn.recv(1024)
+    data = eval(data)
+    option = data["option"]
+    if option == "get":
+        conn.send(b'Data will be delivered via http post.')
+        all_to_server(server, apps)
+    elif option == "on":
+        try:
+            app_id = eval(data["id"])
+        except ValueError:
+            conn.send(b"Invalid input")
+            conn.close()
+            return
+        if switch_status(apps, app_id, 1) == 0:
+            conn.send(b"Success")
+        else:
+            conn.send(b"Error")
+    elif option == "off":
+        try:
+            app_id = eval(data["id"])
+        except ValueError:
+            conn.send(b"Invalid input")
+            conn.close()
+            return
+        if switch_status(apps, app_id, 0) == 0:
+            conn.send(b"Success")
+        else:
+            conn.send(b"Error")
+    elif option == "add":
+        try:
+            app_id = eval(data["id"])
+            app_name = data["name"]
+        except ValueError:
+            conn.send(b"Invalid input")
+            conn.close()
+            return
+        info = dict()
+        info["id"] = app_id
+        info["name"] = app_name
+        info["voltage"] = 220
+        info["current"] = random.randrange(1, 20)/10
+        if create_app(apps, info) == 0:
+            conn.send(b"Success")
+        else:
+            conn.send(b"Error")
+    elif option == "delete":
+        try:
+            app_id = eval(data["id"])
+        except ValueError:
+            conn.send(b"Invalid input")
+            conn.close()
+            return
+        if delete_app(apps, app_id) == 0:
+            conn.send(b"Success")
+        else:
+            conn.send(b"Error")
+
+    conn.close()
 
 
 def main():
