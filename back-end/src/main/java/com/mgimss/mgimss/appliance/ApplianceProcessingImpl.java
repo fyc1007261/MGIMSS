@@ -36,7 +36,7 @@ public class ApplianceProcessingImpl implements ApplianceProcessing {
         applianceRepository.flush();
 
         // set the latest time
-        LatestTime latestTime =  latestTimeRepository.getLatestTime();
+        LatestTime latestTime =  latestTimeRepository.getByUsername(username);
         latestTime.setTime(time);
         latestTimeRepository.save(latestTime);
         latestTimeRepository.flush();
@@ -78,9 +78,9 @@ public class ApplianceProcessingImpl implements ApplianceProcessing {
         }
     }
 
-    public List<Appliance> get_latest_status(){
-        LatestTime latestTime = latestTimeRepository.getLatestTime();
+    public List<Appliance> get_latest_status(String username){
+        LatestTime latestTime = latestTimeRepository.getByUsername(username);
         String time = latestTime.getTime();
-        return applianceRepository.getAppliancesByTime(time);
+        return applianceRepository.getByTimeAndUsername(time,username);
     }
 }

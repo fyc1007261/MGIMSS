@@ -20,7 +20,7 @@ public class ApplianceProcessingTests {
 
     @Test
     public void contextLoads(){
-        List<Appliance> list = applianceProcessing.get_latest_status();
+        List<Appliance> list = applianceProcessing.get_latest_status("admin");
         Assert.assertEquals(6, list.size());
         Assert.assertEquals("jiangfanxu", list.get(0).getName());
     }

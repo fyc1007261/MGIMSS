@@ -10,12 +10,12 @@ import java.util.List;
 public interface ApplianceProcessing {
 
     @RequestMapping("/post_appliance")
-    String receive_current_status(String time, int id, String name,
+    String receive_current_status(String time, int id, String name, String username,
                               float voltage, float current, int status);
 
     @RequestMapping("/request_status")
     String request_status(String message);
 
-    List<Appliance> get_latest_status();
+    List<Appliance> get_latest_status(String username);
 
 }

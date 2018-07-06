@@ -9,9 +9,17 @@ import javax.persistence.Table;
 @Table(name="latest_time")
 public class LatestTime {
     @Id
-    private int id = 1;
+    private String username;
 
     private String time;
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
 
     public void setTime(String time) {
         this.time = time;

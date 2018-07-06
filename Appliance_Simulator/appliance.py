@@ -46,5 +46,6 @@ class Appliance:
 
     def get_all(self):
         # get the name, voltage, current and status of the appliance
-        return self.get_id(), self.get_name(), self.get_voltage(), self.get_current(), self.get_status()
+        return self.get_id(), self.get_name(), self.get_voltage(),\
+               self.get_current(), self.get_status()
 

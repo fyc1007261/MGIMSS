@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface ApplianceRepository extends JpaRepository<Appliance, Long> {
 
-    @Query("select a from Appliance a where a.time=:time")
-    List<Appliance> getAppliancesByTime(@Param("time") String time);
+    @Query("select a from Appliance a where a.time=:time and a.username=:username")
+    List<Appliance> getByTimeAndUsername(@Param("time") String time,
+                                         @Param("username") String username);
 }
