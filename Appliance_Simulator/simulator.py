@@ -7,10 +7,14 @@ import socket
 
 
 # define
+
 # frequency in seconds
 frequency = 150
+# as a http client
 server = "http://localhost:12333/post_appliance"
 file_name = "appliances.mgimss"
+username = "admin"
+# as a socket server
 host = "localhost"
 port = 12334
 
@@ -25,7 +29,7 @@ def get_apps(apps):
         for line in info:
             line = eval(line)
             app = Appliance(line[0], line[1], line[2], line[3], line[4])
-            temp_id += 1
+            temp_id = line[0] + 1
             apps.append(app)
 
 
@@ -44,7 +48,8 @@ def all_to_server(url, apps):
 
 def single_to_server(url, appliance, now):
     app_id, name, voltage, current, status = appliance.get_all()
-    payload = {'time': now, 'id': app_id, 'name': name, 'voltage': voltage, 'current': current, 'status': status}
+    payload = {'time': now, 'id': app_id, 'name': name, 'username':username,
+               'voltage': voltage, 'current': current, 'status': status}
     try:
         r = requests.post(url=url, data=payload)
         if r.text != now:
@@ -79,6 +84,21 @@ def create_app(apps, info):
     app = Appliance(temp_id, info["name"], info["voltage"], info["current"])
     temp_id += 1
     apps.append(app)
+    save_apps(apps)
+    lock.release()
+    return 0
+
+
+def delete_app(apps, app_id):
+    lock.acquire()
+    for i in range(len(apps)):
+        if apps[i].get_id() == app_id:
+            del(apps[i])
+            break
+    else:
+        print("nothing to delete")
+        lock.release()
+        return -1
     save_apps(apps)
     lock.release()
     return 0
@@ -159,6 +179,7 @@ def main():
         print("2. Add new appliance")
         print("3. Change properties of an appliance")
         print("4. Turn on/off an appliance")
+        print("5. Delete an appliance")
         selection = input()
         if selection == "1":
             show_all_apps(apps)
@@ -201,6 +222,16 @@ def main():
                 print("Invalid input")
                 continue
             if switch_status(apps, app_id) == 0:
+                print("Success")
+            else:
+                print("Error")
+        elif selection == "5":
+            try:
+                app_id = int(input("ID?"))
+            except ValueError:
+                print("Invalid input")
+                continue
+            if delete_app(apps, app_id) == 0:
                 print("Success")
             else:
                 print("Error")

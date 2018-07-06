@@ -1,6 +1,5 @@
 package com.mgimss.mgimss.classes;
 
-import org.hibernate.id.Assigned;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,6 +18,9 @@ public class Appliance {
     @Id
     @Column(name = "time")
     private String time;
+    @Id
+    @Column(name="username")
+    private String username;
 
     private String name;
     private float voltage;
@@ -28,6 +30,15 @@ public class Appliance {
     public static class ApplianceId implements Serializable{
         private int id;
         private String time;
+        private String username;
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
 
         public String getTime() {
             return time;
@@ -44,6 +55,14 @@ public class Appliance {
         public void setId(int id) {
             this.id = id;
         }
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getTime() {
