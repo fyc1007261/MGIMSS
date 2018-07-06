@@ -74,4 +74,14 @@ public class Job
     {
         return this.lastTime;
     }
+    public void myinit(  int intStopTime, int intStartTime, int intTrueStopTime, int lastTime, int perPower, int jobId)
+    {
+        setIntStartTime(intStartTime);
+        setIntStopTime(intStopTime);
+        setIntTrueStopTime(intTrueStopTime);
+        setJobId(jobId);
+        setLastTime(lastTime);
+        setPerPower(perPower);
+        System.out.println("jobId:"+jobId);
+    }
 }
