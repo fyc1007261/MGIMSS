@@ -13,6 +13,7 @@ import random
 frequency = 150
 # as a http client
 server = "http://localhost:12333/post_appliance"
+server_change = "http://localhost:12333/changeAppState"
 file_name = "appliances.mgimss"
 username = "admin"
 # as a socket server
@@ -52,6 +53,18 @@ def single_to_server(url, appliance, now):
     app_id, name, voltage, current, status = appliance.get_all()
     payload = {'time': now, 'id': app_id, 'name': name,
                'voltage': voltage, 'current': current}
+    try:
+        r = requests.post(url=url, data=payload)
+        if r.text != now:
+            print("Error during sending status to server")
+        else:
+            print(r.text)
+    except requests.exceptions.ConnectionError:
+        print("Cannot connect to the server")
+
+
+def send_status_change(url, app_id, status):
+    payload = {'id': app_id, 'mode': status}
     try:
         r = requests.post(url=url, data=payload)
         if r.text != now:
@@ -148,11 +161,13 @@ def switch_status(apps, app_id, option=-1):
                 return -1
             if status == 1:
                 if appliance.turn_off() != 0:
+                    send_status_change(server_change, app_id, 0)
                     lock.release()
                     return -1
                 break
             else:
                 if appliance.turn_on() != 0:
+                    send_status_change(server_change, app_id, 1)
                     lock.release()
                     return -1
                 break
@@ -192,6 +207,7 @@ def do_server(conn, addr, apps):
             return
         if switch_status(apps, app_id, 1) == 0:
             conn.send(b"Success")
+            send_status_change(server_change, app_id, 1)
         else:
             conn.send(b"Error")
     elif option == "off":
@@ -203,6 +219,7 @@ def do_server(conn, addr, apps):
             return
         if switch_status(apps, app_id, 0) == 0:
             conn.send(b"Success")
+            send_status_change(server_change, app_id, 0)
         else:
             conn.send(b"Error")
     elif option == "add":
