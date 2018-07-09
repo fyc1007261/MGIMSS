@@ -1,3 +1,4 @@
+package com.mgimss.mgimss.businessModel;
 import java.util.ArrayList;
 
 public class Api {
