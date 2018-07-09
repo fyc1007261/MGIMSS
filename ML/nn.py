@@ -12,6 +12,7 @@ num_batch = 1
 batch_size = 40000
 learning_rate = 0.05
 
+
 def add_hidden_layer(input_size, input_data, output_size, activate_func=None):
     weights = tf.Variable(tf.random_normal([input_size, output_size]), dtype=tf.float32)
     bias = tf.Variable(tf.zeros([1, output_size])-1)
