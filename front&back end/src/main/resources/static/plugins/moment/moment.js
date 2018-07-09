@@ -1809,7 +1809,7 @@
                 } else {
                     // treat as if there is no base config
                     deprecateSimple('parentLocaleUndefined',
-                            'specified%20parentLocale%20is%20not%20defined%20yet.%20See%20http_/momentjs.com/guides/index.html#/warnings/parent-locale/');
+                            'specified%20parentLocale%20is%20not%20defined%20yet.%20See%20http_/momentjs.com/guides/welcome.html#/warnings/parent-locale/');
                 }
             }
             locales[name] = new Locale(mergeConfigs(parentConfig, config));
@@ -3632,7 +3632,7 @@
     momentPrototype__proto.months = deprecate('months accessor is deprecated. Use month instead', getSetMonth);
     momentPrototype__proto.years  = deprecate('years accessor is deprecated. Use year instead', getSetYear);
     momentPrototype__proto.zone   = deprecate('moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/', getSetZone);
-    momentPrototype__proto.isDSTShifted = deprecate('isDSTShifted%20is%20deprecated.%20See%20http_/momentjs.com/guides/index.html#/warnings/dst-shifted/ for more information', isDaylightSavingTimeShifted);
+    momentPrototype__proto.isDSTShifted = deprecate('isDSTShifted%20is%20deprecated.%20See%20http_/momentjs.com/guides/welcome.html#/warnings/dst-shifted/ for more information', isDaylightSavingTimeShifted);
 
     var momentPrototype = momentPrototype__proto;
 

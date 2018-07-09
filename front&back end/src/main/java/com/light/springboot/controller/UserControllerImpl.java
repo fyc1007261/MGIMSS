@@ -93,7 +93,7 @@ public class UserControllerImpl implements UserController {
         SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
 
         request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
-        ModelAndView mav = new ModelAndView("main/main");
+        ModelAndView mav = new ModelAndView("app/dashboard");
         return mav;
     }
 

@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="MGIMSS-front&amp;back-end" />
         <module name="wordladder-maven" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="wordladder-maven" target="1.8" />
+      <module name="MGIMSS-front&amp;back-end" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
