@@ -5,10 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by sang on 2017/1/10.
@@ -16,6 +13,7 @@ import java.util.Set;
 @Entity
 
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long uid;
@@ -23,28 +21,39 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private String email;
+    private String phone;
+    private String  hardwareHost;
+    private String hardwarePort;
+
+    @OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    @JoinColumn(name="uid")
+    private Set<Appliance> appliances;
 
 
     @ManyToMany(cascade = {CascadeType.REFRESH},fetch = FetchType.EAGER)
     private List<Role> roles;
 
-    @OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
-    @JoinColumn(name="uid")
-    private Set<Comment> comments;
-
-    @OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
-    @JoinColumn(name="uid")
-    private Set<BookOrder> orders;
-
     public User(){
 
     }
 
-    public Long getId() {
+    public User(String username, String password, String email,
+                String phone, String  hardwareHost, String hardwarePort, List<Role> roles){
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.hardwareHost = hardwareHost;
+        this.hardwarePort = hardwarePort;
+        this.roles = roles;
+    }
+
+
+    public Long getUid() {
         return uid;
     }
 
-    public void setId(Long uid) {
+    public void setUid(Long uid) {
         this.uid = uid;
     }
 
@@ -64,20 +73,37 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public Set<Comment> getComments() {
-        return comments;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public Set<BookOrder> getOrders() {
-        return orders;
+
+    public String getHardwarePort() {
+        return hardwarePort;
     }
 
-    public void setOrders(Set<BookOrder> orders) {
-        this.orders = orders;
+    public void setHardwarePort(String hardwarePort) {
+        this.hardwarePort = hardwarePort;
+    }
+
+    public String getHardwareHost() {
+        return hardwareHost;
+    }
+
+    public void setHardwareHost(String hardwareHost) {
+        this.hardwareHost = hardwareHost;
+    }
+
+    public Set<Appliance> getAppliances() {
+        return appliances;
+    }
+
+    public void setAppliances(Set<Appliance> appliances) {
+        this.appliances = appliances;
     }
 
     @Override
@@ -98,6 +124,7 @@ public class User implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
+
 
     @Override
     public String getPassword() {
@@ -128,8 +155,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-
-
 
 }

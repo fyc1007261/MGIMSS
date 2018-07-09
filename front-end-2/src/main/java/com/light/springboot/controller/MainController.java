@@ -21,11 +21,10 @@ public class MainController {
         return "login";
     }
 
-    @GetMapping("/signup")
-    public String signup(){
-        return "signup";
+    @RequestMapping("/main")
+    public String main(){
+        return "/home";
     }
-
 
 }
 

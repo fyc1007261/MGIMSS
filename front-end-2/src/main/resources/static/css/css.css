@@ -1320,14 +1320,14 @@ table.alt tbody tr td {
 
 }
 .fade {
-    display: -moz-flex;
     z-index:2;
+    height: 100%;
+    width: 100%;
 
+    display: -moz-flex;
     display: -ms-flex;
     display: flex;
     display: -webkit-flex;
-    height: 100%;
-    width: 100%;
 
     -webkit-align-items: center;
     align-items: center;
@@ -1338,22 +1338,37 @@ table.alt tbody tr td {
     flex-direction: column;
     padding: 0 0 0 0;
     background-color: #444444;
-    -webkit-animation: IDENT 5s ease;
-    animation-fill-mode : forwards;
+    -webkit-animation-name: IDENT, GONE;
+    -webkit-animation-duration:  3s, 0.1ms;
+    -webkit-animation-delay: 0s, 3s;
+    animation-fill-mode : forwards, forwards;
     position: absolute;
     top: 0;
     left: 0;
     cursor: default;
 }
 
+
 @-webkit-keyframes IDENT {
     from {
-        opacity:100;
+        opacity: 100;
     }
     to {
-        opacity:0;
+        opacity: 0;
     }
+
 }
+
+@-webkit-keyframes GONE {
+    from {
+        visibility: initial;
+    }
+    to {
+        visibility: hidden;
+    }
+
+}
+
 
 @-webkit-keyframes slide {
     0% {background-position: left;}
@@ -1412,7 +1427,6 @@ table.alt tbody tr td {
 
 .WelcomeButton {
     position: absolute;
-    z-index: 3;
     top:80%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -1443,7 +1457,7 @@ table.alt tbody tr td {
 #header.alt h1 {
     font-size: 7em;
     padding: 0.5em 0.5em 0.2em 0.5em;
-    border-bottom: solid 1px #ffffff;
+    border-bottom: solid 0.2px #ffffff;
     font-weight: 200;
     font-family: Obscura, cursive;
     font-style: revert;

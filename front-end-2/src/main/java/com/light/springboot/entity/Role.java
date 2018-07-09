@@ -6,8 +6,8 @@ import javax.persistence.*;
  * Created by sang on 2017/1/10.
  */
 @Entity
-
 public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/wordladder-maven.iml" filepath="$PROJECT_DIR$/wordladder-maven.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MGIMSS-front&amp;back-end.iml" filepath="$PROJECT_DIR$/MGIMSS-front&amp;back-end.iml" />
     </modules>
   </component>
 </project>
