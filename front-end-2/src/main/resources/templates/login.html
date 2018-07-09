@@ -10,7 +10,8 @@
 </head>
 
 <body style="background-color: #f1f1f1; padding-bottom: 0">
-
+<div class="fade" style="background-color:darkslategray">
+</div>
 <div class="layer">
     <div class="slogan">
         <h1  id="slogan">Hi There, Welcome to MGIMSS</h1>
@@ -23,15 +24,21 @@
             <form th:action="@{/login}" method="post">
                 <h2 class="loginhead">Sign In</h2>
                 <div class="email">
-                    <input placeholder="Username" name="Username" type="text">
+                    <input placeholder="Username" name="username" type="text">
                     <span class="icon-right-login"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
                 </div>
                 <div class="email">
-                    <input placeholder="Password" name="Password" type="password">
+                    <input placeholder="Password" name="password" type="password">
                     <span class="icon-right-login"><i class="fa fa-unlock" aria-hidden="true"></i></span>
                 </div>
+                <div th:if="${param.error}">
+                    <p style="text-align: center" class="text-danger" value="${param.error}"></p>
+                </div>
+                <div th:if="${result}">
+                    <p style="text-align: center" class="text-success" th:text="${result}"></p>
+                </div>
                 <div class="loginbtnBox">
-                    <button class="button loginbtn" onclick="login()">Login</button>
+                    <button class="button loginbtn" type="submit">Login</button>
                 </div>
             </form>
         </div>
@@ -40,14 +47,14 @@
             <div class="content-wthree">
                 <input class="haveAccBtn" type="submit" value="Have Account?"
                        onclick="rotateForm(this)" id="RegisterInput">
-                <form class="signUpForm" th:action="@{/register}" method="post">
+                <form class="signUpForm" th:action="@{/signup}" method="post">
                     <h2 class="signUphead">SIGN UP</h2>
                     <div class="email">
-                        <input type="text" placeholder="Username" required/>
+                        <input type="text" placeholder="Username" name="username" required/>
                         <span class="icon-right"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
                     </div>
                     <div class="email">
-                        <input type="password" placeholder="Password" required/>
+                        <input type="password" placeholder="Password"  name="password" required/>
                         <span class="icon-right-lock"><i class="fa fa-lock" aria-hidden="true"></i></span>
                     </div>
                     <div class="email">
@@ -55,15 +62,15 @@
                         <span class="icon-right-lock"><i class="fa fa-lock" aria-hidden="true"></i></span>
                     </div>
                     <div class="email">
-                        <input type="email" placeholder="Email" required/>
+                        <input type="email" placeholder="Email" name="email" required/>
                         <span class="icon-right"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
                     </div>
                     <div class="email">
-                        <input type="text" placeholder="Phonenumber" required/>
+                        <input type="text" placeholder="Phonenumber" name="phone" required/>
                         <span class="icon-right-lock"><i class="fa fa-phone" aria-hidden="true"></i></span>
                     </div>
                     <div class="loginbtnBox">
-                        <button class="button loginbtn">Register</button>
+                        <button class="button loginbtn" type="submit">Register</button>
                     </div>
                 </form>
             </div>

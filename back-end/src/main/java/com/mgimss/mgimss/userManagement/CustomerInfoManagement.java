@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 public interface CustomerInfoManagement {
 
-    @RequestMapping("/login/check_session")
+    @RequestMapping("hardware/login/check_session")
     String checkSession(HttpSession httpSession);
 
     @RequestMapping("/login/logout")

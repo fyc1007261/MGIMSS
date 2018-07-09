@@ -1,0 +1,491 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- META TAGS -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+<meta name="author" content="SmartBox">
+
+<!-- TITLE -->
+<title>SmartBox | Bootstrap3 Admin Dashboard Template</title>
+
+<!-- FAVICON -->
+	<link rel="shortcut icon" href="/image/main/favicon.png">
+
+	<!-- STYLESHEETS -->
+	<link rel="stylesheet" href="/plugins/morris/morris.css">
+	<link rel="stylesheet" href="/css/main/bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="/css/main/core.css" type="text/css" />
+	<link rel="stylesheet" href="/css/main/components.css" type="text/css" />
+	<link rel="stylesheet" href="/css/main/icons.css" type="text/css" />
+	<link rel="stylesheet" href="/css/main/pages.css" type="text/css" />
+	<link rel="stylesheet" href="/css/main/responsive.css" type="text/css" />
+	<link rel="stylesheet" href="/css/font-awesome.css" type="text/css" />
+
+	<!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="/js/main/html5shiv.js"></script>
+	<script src="/js/main/respond.min.js"></script>
+	<![endif]-->
+
+	<!-- MODERNIZER -->
+	<script src="/js/main/modernizr.min.js"></script>
+</head>
+
+<body class="fixed-left close-it">
+<!-- Begin page -->
+<div id="wrapper">
+	<!-- Top Bar Start -->
+	<div class="topbar">
+		<!-- LOGO -->
+		<div class="topbar-left">
+			<a href="javascript:void(0)" class="logo d-logo hidden-xs hidden-sm">
+			</a>
+			<a href="javascript:void(0)" class="logo d-logo hidden visible-xs visible-sm">
+				<img src="/image/main/m-logo.png" alt="SmartBox" class="img-responsive hidden-xs" height="0">
+			</a>
+			<!-- Image Logo here -->
+		</div>
+
+		<!-- Button mobile view to collapse sidebar menu -->
+		<div class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<div class="top-fix-navbar">
+					<div class="pull-left">
+						<button class="button-menu-mobile open-left waves-effect waves-light">
+							<i class="fa fa-outdent"></i>
+						</button>
+						<span class="clearfix"></span>
+					</div>
+					<ul class="nav navbar-nav navbar-right pull-right">
+						<li class="dropdown top-menu-item-xs">
+							<a href="javascript:void(0)" data-target="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
+								<i class="fa fa-bell-o"></i> <span class="badge badge-xs badge-danger">3</span>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-lg">
+								<li class="notifi-title"><span class="label label-default pull-right">New 3</span>Notification</li>
+								<li class="list-group slimscroll-noti notification-list">
+									<!-- list item-->
+									<a href="javascript:void(0);" class="list-group-item">
+										<div class="media">
+											<div class="pull-left p-r-10">
+												<em class="fa fa-diamond noti-primary"></em>
+											</div>
+											<div class="media-body">
+												<h5 class="media-heading">A new order has been placed A new order has been placed</h5>
+												<p class="m-0">
+													<small>There are new settings available</small>
+												</p>
+											</div>
+										</div>
+									</a>
+									<!-- list item-->
+									<a href="javascript:void(0);" class="list-group-item">
+										<div class="media">
+											<div class="pull-left p-r-10">
+												<em class="fa fa-cog noti-warning"></em>
+											</div>
+											<div class="media-body">
+												<h5 class="media-heading">New settings</h5>
+												<p class="m-0">
+													<small>There are new settings available</small>
+												</p>
+											</div>
+										</div>
+									</a>
+									<!-- list item-->
+									<a href="javascript:void(0);" class="list-group-item">
+										<div class="media">
+											<div class="pull-left p-r-10">
+												<em class="fa fa-bell-o noti-custom"></em>
+											</div>
+											<div class="media-body">
+												<h5 class="media-heading">Updates</h5>
+												<p class="m-0">
+													<small>There are <span class="text-primary font-600">2</span> new updates available</small>
+												</p>
+											</div>
+										</div>
+									</a>
+									<!-- list item-->
+									<a href="javascript:void(0);" class="list-group-item">
+										<div class="media">
+											<div class="pull-left p-r-10">
+												<em class="fa fa-user-plus noti-pink"></em>
+											</div>
+											<div class="media-body">
+												<h5 class="media-heading">New user registered</h5>
+												<p class="m-0">
+													<small>You have 10 unread messages</small>
+												</p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);" class="list-group-item text-right">
+										<small class="font-600">See all notifications</small>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown top-menu-item-xs">
+							<a href="javascript:void(0)" class="profile waves-effect waves-light dropdown-toggle waves-effect waves-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="user-name">Hoang.Thai</span>
+								<span class="caret"></span>
+								<img src="/image/main/users/avatar-1.jpg" alt="user-img" class="img-circle">
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="javascript:void(0)"><i class="ti-user m-r-10 text-custom"></i> Profile</a>
+								</li>
+								<li class="divider"></li>
+								<li><a href="javascript:void(0)"><i class="ti-power-off m-r-10 text-danger"></i> Logout</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+	
+	<!-- Top Bar End --> 
+	<!-- ========== Left Sidebar Start ========== -->
+	<div class="left side-menu">
+		<div class="sidebar-inner slimscrollleft">
+			<!--- Divider -->
+			<div id="sidebar-menu">
+				<ul>
+					<li class="menu-title">Navigation</li>
+					<li class="has_sub">
+						<a href="javascript:void(0);" class="waves-effect"> <i class="fa fa-dashboard"></i> <span> Dashboard </span> <span class="label label-success pull-right">1</span> <span class="fa fa-angle-right cb-nav-arrow"></span> </a>
+						<ul class="list-unstyled">
+							<li><a href="dashboard.html">Dashboard1</a> </li>
+						</ul>
+					</li>
+					<li> <a href="mailbox.html" class="waves-effect"> <i class="fa fa-envelope"></i> <span> Mailbox </span> </a> </li>
+					<li> <a href="calendar.html" class="waves-effect"> <i class="fa fa-calendar"></i> <span> Calendar </span> </a> </li>
+					<li class="has_sub">
+						<a href="javascript:void(0);" class="waves-effect subdrop"> <i class="fa fa-file"></i> <span> Pages </span> <span class="label label-warning pull-right">3</span> <span class="fa fa-angle-right cb-nav-arrow"></span> </a>
+						<ul class="list-unstyled block">
+							<li><a href="404.html">404</a> </li>
+							<li><a href="blank.html">Blank</a> </li>
+							<li><a href="buttons.html">Buttons</a> </li>
+						</ul>
+					</li>
+
+					<li> <a href="profile.html" class="waves-effect"> <i class="fa fa-user"></i> <span> Profile</span> </a> </li>
+
+
+					<li class="text-muted menu-title">Component</li>
+
+					<li class="has_sub">
+						<a href="javascript:void(0);" class="waves-effect"> <i class="fa fa-tasks"></i> <span> Forms </span>  <span class="label label-warning pull-right">3</span> <span class="fa fa-angle-right cb-nav-arrow"></span> </a>
+						<ul class="list-unstyled">
+							<li><a href="form-elements.html">Form Elements</a> </li>
+							<li><a href="login.html"> Login</a> </li>
+							<li><a href="login2.html"> login2</a> </li>
+						</ul>
+					</li>
+					<li class="has_sub">
+						<a href="javascript:void(0);" class="waves-effect"> <i class="fa fa-table"></i> <span> Tabels </span> <span class="fa fa-angle-right cb-nav-arrow"></span> </a>
+						<ul class="list-unstyled">
+							<li><a href="tables.html">Tabel 1</a> </li>
+						</ul>
+					</li>
+					<li class="has_sub">
+						<a href="javascript:void(0);" class="waves-effect"> <i class="fa fa-area-chart"></i> <span> Charts </span> <span class="fa fa-angle-right cb-nav-arrow"></span> </a>
+						<ul class="list-unstyled">
+							<li><a href="chart.html">Charts 1</a> </li>
+						</ul>
+					</li>
+
+					<li class="text-muted menu-title">Function</li>
+
+					<li> <a href="visualization.html" class="waves-effect"> <i class="fa fa-area-chart"></i> <span> Visualization </span> </a> </li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+
+		</div>
+	</div>
+	<!-- Left Sidebar End --> 
+ 
+	<!-- ============================================================== --> 
+	<!-- Start right Content here --> 
+	<!-- ============================================================== -->
+	<div class="content-page">
+		<!-- Start content -->
+		<div class="content">
+			<!-- Page-Title -->
+			<div class="page-title-group">
+				<h4 class="page-title">Calendar</h4>
+				<h5 class="text-muted page-title-alt">Sub Title</h5>
+			</div>
+			<div class="cb-page-content">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3 med-12">
+							<div class="draggable-events">
+								<h4>Dragable events</h4>
+								<ul>
+									<li><span></span> Honey's Birthday</li>
+									<li><span></span> Check Customer Feedback</li>
+									<li><span></span> Meeting with Design Team</li>
+									<li><span></span> Free Time</li>
+									<li><span></span> Freelancer</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-9 med-12">
+							<div class="calendar-wrap">
+								<div class="calendar-head">Full Calendar</div>
+								<div id="calendar"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- container --> 
+	</div>
+	<!-- content -->
+
+	<!-- ============================================================== --> 
+	<!-- End Right content here --> 
+	<!-- ============================================================== --> 
+<!-- Right Sidebar -->
+
+	<!-- end row -->
+	<!-- /Right-bar -->
+</div>
+<!-- END wrapper -->
+
+<!-- Page Loader --> 
+<div class="page-loader">
+	<a href="#"><img src="/image/main/logo-2.png" class="img-responsive center-block" alt=""/></a>
+	<span class="text-uppercase">Loading...</span>
+</div>
+
+<!-- SmartBox Js files --> 
+<script>
+       var resizefunc = [];
+</script>
+
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/main/bootstrap.min.js"></script>
+<script src="/js/main/pace.min.js"></script>
+<script src="/js/main/loader.js"></script>
+<script src="/js/main/detect.js"></script>
+<script src="/js/main/fastclick.js"></script>
+<script src="/js/main/waves.js"></script>
+<script src="/js/main/wow.min.js"></script>
+<script src="/js/main/jquery.slimscroll.js"></script>
+<script src="/js/main/jquery.nicescroll.js"></script>
+<script src="/js/main/jquery.scrollTo.min.js"></script>
+<script src="/pages/jquery.todo.js"></script>
+<script src="/plugins/moment/moment.js"></script>
+
+<script src="/plugins/raphael/raphael-min.js"></script>
+<script src="/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+<script src="/pages/jquery.charts-sparkline.js"></script>
+<script src="/js/main/jquery.app.js"></script>
+
+<script src="/js/main/fullcalendar.js"></script>
+
+<!-- Page specific script -->
+<script>
+  $(function() {
+
+      /* initialize the external events
+       -----------------------------------------------------------------*/
+      function ini_events(ele) {
+          ele.each(function() {
+
+              // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+              // it doesn't need to have a start or end
+              var eventObject = {
+                  title: $.trim($(this).text()) // use the element's text as the event title
+              };
+
+              // store the Event Object in the DOM element so we can get to it later
+              $(this).data('eventObject', eventObject);
+
+              // make the event draggable using jQuery UI
+              $(this).draggable({
+                  zIndex: 1070,
+                  revert: true, // will cause the event to go back to its
+                  revertDuration: 0 //  original position after the drag
+              });
+
+          });
+      }
+
+      ini_events($('#external-events div.external-event'));
+
+      /* initialize the calendar
+       -----------------------------------------------------------------*/
+      //Date for the calendar events (dummy data)
+      var date = new Date();
+      var d = date.getDate(),
+          m = date.getMonth(),
+          y = date.getFullYear();
+      $('#calendar').fullCalendar({
+          header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'month,agendaWeek,agendaDay'
+          },
+          buttonText: {
+              today: 'today',
+              month: 'month',
+              week: 'week',
+              day: 'day'
+          },
+          //Random default events
+          events: [{
+                  title: '8:00 PM',
+                  start: new Date(y, m, 1),
+                  backgroundColor: "#fff", //red
+                  borderColor: "#f56954" //red
+              },
+              {
+                  title: '07:30 AM',
+                  start: new Date(y, m, 3),
+                  backgroundColor: "#fff", //red
+                  borderColor: "#60b761" //red
+              },
+              {
+                  title: '08:00 PM',
+                  start: new Date(y, m, 3),
+                  backgroundColor: "#fff", //red
+                  borderColor: "#38bbf7" //red
+              },
+              {
+                  title: "<div class='custom-event'>Baby's Birthday</div>",
+                  textEscape: false, // new option to disable the auto escape		  
+                  start: new Date(y, m, 10),
+                  backgroundColor: "#fff6d8", //yellow
+                  borderColor: "#fff6d8" //yellow
+              },
+              {
+                  title: '07:30 AM',
+                  start: new Date(y, m, 12),
+                  backgroundColor: "#fff", //red
+                  borderColor: "#60b761" //red
+              },
+              {
+                  title: '07:30 AM',
+                  start: new Date(y, m, 16),
+                  backgroundColor: "#fff", //red
+                  borderColor: "#38bbf7" //red
+              },
+              {
+                  title: '08:30 AM',
+                  start: new Date(y, m, 16),
+                  backgroundColor: "#fff", //red
+                  borderColor: "#8763c6" //red
+              },
+              {
+                  title: '09:30 AM',
+                  start: new Date(y, m, 16),
+                  backgroundColor: "#fff", //red
+                  borderColor: "#ffc600" //red
+              },
+              {
+                  title: 'Long Trip',
+                  start: new Date(y, m, 18),
+                  end: new Date(y, m, 22),
+                  backgroundColor: "#ffc600", //yellow
+                  borderColor: "#ffc600", //yellow
+                  textColor: 'white'
+              },
+              {
+                  title: "<div class='custom-event2'>Wedding Anniversary</div>",
+                  start: new Date(y, m, 26),
+                  backgroundColor: "#ffd2d1", //yellow
+                  borderColor: "#ffd2d1" //yellow
+              }
+          ],
+          eventRender: function(event, element) {
+              element.find('span.fc-event-title').html(element.find('span.fc-event-title').text());
+          },
+
+          editable: true,
+          droppable: true, // this allows things to be dropped onto the calendar !!!
+          drop: function(date, allDay) { // this function is called when something is dropped
+
+              // retrieve the dropped element's stored Event Object
+              var originalEventObject = $(this).data('eventObject');
+
+              // we need to copy it, so that multiple events don't have a reference to the same object
+              var copiedEventObject = $.extend({}, originalEventObject);
+
+              // assign it the date that was reported
+              copiedEventObject.start = date;
+              copiedEventObject.allDay = allDay;
+              copiedEventObject.backgroundColor = $(this).css("background-color");
+              copiedEventObject.borderColor = $(this).css("border-color");
+
+              // render the event on the calendar
+              // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+              $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+              // is the "remove after drop" checkbox checked?
+              if ($('#drop-remove').is(':checked')) {
+                  // if so, remove the element from the "Draggable Events" list
+                  $(this).remove();
+              }
+
+          }
+
+
+      });
+
+      /* ADDING EVENTS */
+      var currColor = "#3c8dbc"; //Red by default
+      //Color chooser button
+      var colorChooser = $("#color-chooser-btn");
+      $("#color-chooser > li > a").click(function(e) {
+          e.preventDefault();
+          //Save color
+          currColor = $(this).css("color");
+          //Add color effect to button
+          $('#add-new-event').css({
+              "background-color": currColor,
+              "border-color": currColor
+          });
+      });
+      $("#add-new-event").click(function(e) {
+          e.preventDefault();
+          //Get value and make sure it is not null
+          var val = $("#new-event").val();
+          if (val.length == 0) {
+              return;
+          }
+
+          //Create events
+          var event = $("<div />");
+          event.css({
+              "background-color": currColor,
+              "border-color": currColor,
+              "color": "#fff"
+          }).addClass("external-event");
+          event.html(val);
+          $('#external-events').prepend(event);
+
+          //Add draggable funtionality
+          ini_events(event);
+
+          //Remove event from text input
+          $("#new-event").val("");
+      });
+
+  });  
+</script>
+
+</body>
+</html>
