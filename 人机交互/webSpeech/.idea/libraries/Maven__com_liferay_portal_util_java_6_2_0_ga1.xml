@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.liferay.portal:util-java:6.2.0-ga1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/liferay/portal/util-java/6.2.0-ga1/util-java-6.2.0-ga1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/liferay/portal/util-java/6.2.0-ga1/util-java-6.2.0-ga1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/liferay/portal/util-java/6.2.0-ga1/util-java-6.2.0-ga1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
