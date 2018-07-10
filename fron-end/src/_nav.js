@@ -2,7 +2,7 @@ export default {
   items: [
     {
       name: 'Dashboard',
-      url: '/dashboard',
+      url: '/main/dashboard',
       icon: 'icon-speedometer',
       badge: {
         variant: 'info',
@@ -20,12 +20,12 @@ export default {
     },
     {
       name: 'Colors',
-      url: '/theme/colors',
+      url: '/main/theme/colors',
       icon: 'icon-drop',
     },
     {
       name: 'Typography',
-      url: '/theme/typography',
+      url: '/main/theme/typography',
       icon: 'icon-pencil',
     },
     {
@@ -38,131 +38,131 @@ export default {
     },
     {
       name: 'Base',
-      url: '/base',
+      url: '/main/base',
       icon: 'icon-puzzle',
       children: [
         {
           name: 'Breadcrumbs',
-          url: '/base/breadcrumbs',
+          url: '/main/base/breadcrumbs',
           icon: 'icon-puzzle',
         },
         {
           name: 'Cards',
-          url: '/base/cards',
+          url: '/main/base/cards',
           icon: 'icon-puzzle',
         },
         {
           name: 'Carousels',
-          url: '/base/carousels',
+          url: '/main/base/carousels',
           icon: 'icon-puzzle',
         },
         {
           name: 'Collapses',
-          url: '/base/collapses',
+          url: '/main/base/collapses',
           icon: 'icon-puzzle',
         },
         {
           name: 'Dropdowns',
-          url: '/base/dropdowns',
+          url: '/main/base/dropdowns',
           icon: 'icon-puzzle',
         },
         {
           name: 'Forms',
-          url: '/base/forms',
+          url: '/main/base/forms',
           icon: 'icon-puzzle',
         },
         {
           name: 'Jumbotrons',
-          url: '/base/jumbotrons',
+          url: '/main/base/jumbotrons',
           icon: 'icon-puzzle',
         },
         {
           name: 'List groups',
-          url: '/base/list-groups',
+          url: '/main/base/list-groups',
           icon: 'icon-puzzle',
         },
         {
           name: 'Navs',
-          url: '/base/navs',
+          url: '/main/base/navs',
           icon: 'icon-puzzle',
         },
         {
           name: 'Paginations',
-          url: '/base/paginations',
+          url: '/main/base/paginations',
           icon: 'icon-puzzle',
         },
         {
           name: 'Popovers',
-          url: '/base/popovers',
+          url: '/main/base/popovers',
           icon: 'icon-puzzle',
         },
         {
           name: 'Progress Bar',
-          url: '/base/progress-bar',
+          url: '/main/base/progress-bar',
           icon: 'icon-puzzle',
         },
         {
           name: 'Switches',
-          url: '/base/switches',
+          url: '/main/base/switches',
           icon: 'icon-puzzle',
         },
         {
           name: 'Tables',
-          url: '/base/tables',
+          url: '/main/base/tables',
           icon: 'icon-puzzle',
         },
         {
           name: 'Tabs',
-          url: '/base/tabs',
+          url: '/main/base/tabs',
           icon: 'icon-puzzle',
         },
         {
           name: 'Tooltips',
-          url: '/base/tooltips',
+          url: '/main/base/tooltips',
           icon: 'icon-puzzle',
         },
       ],
     },
     {
       name: 'Buttons',
-      url: '/buttons',
+      url: '/main/buttons',
       icon: 'icon-cursor',
       children: [
         {
           name: 'Buttons',
-          url: '/buttons/buttons',
+          url: '/main/buttons/buttons',
           icon: 'icon-cursor',
         },
         {
           name: 'Button dropdowns',
-          url: '/buttons/button-dropdowns',
+          url: '/main/buttons/button-dropdowns',
           icon: 'icon-cursor',
         },
         {
           name: 'Button groups',
-          url: '/buttons/button-groups',
+          url: '/main/buttons/button-groups',
           icon: 'icon-cursor',
         },
         {
           name: 'Brand Buttons',
-          url: '/buttons/brand-buttons',
+          url: '/main/buttons/brand-buttons',
           icon: 'icon-cursor',
         },
       ],
     },
     {
       name: 'Charts',
-      url: '/charts',
+      url: '/main/charts',
       icon: 'icon-pie-chart',
     },
     {
       name: 'Icons',
-      url: '/icons',
+      url: '/main/icons',
       icon: 'icon-star',
       children: [
         {
           name: 'CoreUI Icons',
-          url: '/icons/coreui-icons',
+          url: '/main/icons/coreui-icons',
           icon: 'icon-star',
           badge: {
             variant: 'info',
@@ -171,12 +171,12 @@ export default {
         },
         {
           name: 'Flags',
-          url: '/icons/flags',
+          url: '/main/icons/flags',
           icon: 'icon-star',
         },
         {
           name: 'Font Awesome',
-          url: '/icons/font-awesome',
+          url: '/main/icons/font-awesome',
           icon: 'icon-star',
           badge: {
             variant: 'secondary',
@@ -185,36 +185,36 @@ export default {
         },
         {
           name: 'Simple Line Icons',
-          url: '/icons/simple-line-icons',
+          url: '/main/icons/simple-line-icons',
           icon: 'icon-star',
         },
       ],
     },
     {
       name: 'Notifications',
-      url: '/notifications',
+      url: '/main/notifications',
       icon: 'icon-bell',
       children: [
         {
           name: 'Alerts',
-          url: '/notifications/alerts',
+          url: '/main/notifications/alerts',
           icon: 'icon-bell',
         },
         {
           name: 'Badges',
-          url: '/notifications/badges',
+          url: '/main/notifications/badges',
           icon: 'icon-bell',
         },
         {
           name: 'Modals',
-          url: '/notifications/modals',
+          url: '/main/notifications/modals',
           icon: 'icon-bell',
         },
       ],
     },
     {
       name: 'Widgets',
-      url: '/widgets',
+      url: '/main/widgets',
       icon: 'icon-calculator',
       badge: {
         variant: 'info',
@@ -230,7 +230,7 @@ export default {
     },
     {
       name: 'Pages',
-      url: '/pages',
+      url: '/main/pages',
       icon: 'icon-star',
       children: [
         {

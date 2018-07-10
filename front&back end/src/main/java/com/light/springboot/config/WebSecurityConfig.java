@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/appliance/**").hasRole("USER")
 //                .antMatchers("/app/**").permitAll()
                 .and()
-                .formLogin().loginPage("/login").defaultSuccessUrl("/app/dashboard").permitAll()////////////////////////////
+                .formLogin().loginPage("/login").defaultSuccessUrl("/mgimss").permitAll()////////////////////////////
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/login");
 
