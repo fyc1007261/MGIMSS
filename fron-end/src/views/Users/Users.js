@@ -5,7 +5,7 @@ import usersData from './UsersData'
 
 function UserRow(props) {
   const user = props.user
-  const userLink = `#/users/${user.id}`
+  const userLink = `/main/users/${user.id}`
 
   const getBadge = (status) => {
     return status === 'Active' ? 'success' :

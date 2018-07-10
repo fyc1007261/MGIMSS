@@ -1427,9 +1427,14 @@ table.alt tbody tr td {
 
 .WelcomeButton {
     position: absolute;
-    top:85%;
+    top:80%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+@media screen and (max-height: 389px)  {
+    .WelcomeButton {
+        top:87%;
+    }
 }
 
 #header .inner {
