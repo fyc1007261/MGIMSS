@@ -8,11 +8,12 @@ export default () => (
     <Router>
         <Switch>
 
-            <Route exact path="/" render={() => window.location.href="http://localhost:8000/welcome.html"} />
-
+            {/*<Route exact path="/" render={() => window.location.href="http://localhost:8000/welcome.html"} />*/}
+            <Route exact path="/" render={() => <Redirect to="app/dashboard" push />} />
             <Route path="/app" component={App} />
             <Route path="/404" component={NotFound} />
-            <Route path="/login" render={() => window.location.href="http://localhost:8000/login.html"} />
+            {/*<Route path="/login" render={() => window.location.href="http://localhost:8000/login.html"} />*/}
+            <Route path="/login" component={Login} />
             <Route component={NotFound} />
         </Switch>
     </Router>

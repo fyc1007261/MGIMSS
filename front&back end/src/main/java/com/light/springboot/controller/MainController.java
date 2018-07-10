@@ -23,19 +23,11 @@ public class MainController {
 //        return "/main/main";
 //    }
 
-    @RequestMapping(value="/{any}", method= RequestMethod.GET)
-    public String jump1(@PathVariable(value="any") String any) {
+    @RequestMapping(value = "/{any}", method = RequestMethod.GET)
+    public String jump1(@PathVariable(value = "any") String any) {
         return any;
     }
-    @RequestMapping(value="/app/dashboard", method= RequestMethod.GET)
-    public String jump2() {
-        System.out.println("hahahahaha");
-        return "index.html";
-    }
 }
-
-
-
 
 
 
