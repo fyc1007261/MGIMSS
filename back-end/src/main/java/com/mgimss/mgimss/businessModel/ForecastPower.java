@@ -5,9 +5,9 @@ public class ForecastPower
 {
     private Time startTime;
     private Time stopTime;
-    private int intStopTime;
-    private int intStartTime;
-    private int interval;
+    private Long intStopTime;
+    private Long intStartTime;
+    private Long interval;
     private ArrayList forecastList;
     public void setStartTime(Time startTime)
     {
@@ -26,11 +26,11 @@ public class ForecastPower
     {
         return this.stopTime;
     }
-    public void setInterval(int interval)
+    public void setInterval(Long interval)
     {
         this.interval = interval;
     }
-    public int getInterval()
+    public Long getInterval()
     {
         return this.interval;
     }
@@ -42,19 +42,19 @@ public class ForecastPower
     {
         return this.forecastList;
     }
-    public void setIntStartTime(int intStartTime)
+    public void setIntStartTime(Long intStartTime)
     {
         this.intStartTime = intStartTime;
     }
-    public int getIntStartTime()
+    public Long getIntStartTime()
     {
         return this.intStartTime;
     }
-    public void setIntStopTime(int intStopTime)
+    public void setIntStopTime(Long intStopTime)
     {
         this.intStopTime = intStopTime;
     }
-    public int getIntStopTime()
+    public Long getIntStopTime()
     {
         return this.intStopTime;
     }
