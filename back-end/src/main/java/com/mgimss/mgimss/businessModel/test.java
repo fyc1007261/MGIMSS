@@ -45,7 +45,6 @@ public class test extends  Thread {
                 for(int k = 0 ;k<beginJob.size();k++)
                 {
                     threadId[k] = new SendAndReceive(this.clientId,beginJob.get(k).getJobId(),beginTime,beginJob.get(k).getLastTime());
-
                 }
 
                 sleep(6 * 100*3);
