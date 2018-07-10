@@ -1431,6 +1431,11 @@ table.alt tbody tr td {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+@media screen and (max-height: 389px)  {
+    .WelcomeButton {
+        top:87%;
+    }
+}
 
 #header .inner {
     position: relative;
@@ -1503,7 +1508,7 @@ body.is-loading #header.alt .inner {
 
 }
 
-@media screen and (max-width: 766px) {
+@media screen and (max-width: 1366px) {
 
     #header {
         padding: 4em 2em 2em 2em;

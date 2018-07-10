@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Decoder">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/webapp/WEB-INF/lib/sun.misc.BASE64Decoder.jar!/Decoder" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

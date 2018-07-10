@@ -1,10 +1,10 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "CoreUI-React",
+  "name": "CoreUI-React sample",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "192x192",
+      "src": "./assets/favicon.png",
+      "sizes": "100x100",
       "type": "image/png"
     }
   ],

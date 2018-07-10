@@ -10,9 +10,14 @@ import random
 
 
 # define
-
+# whether to print log when succeeded
+print_log = 1
 # frequency in seconds
-frequency = 150
+frequency = 10
+# solar generation
+frequency_solar_generation = 1800
+area_of_solar_generator = 60
+server_solar_generation = "http://localhost:12333/battery/post_generation"  #(String time, int generation)
 # as a http client
 server = "http://localhost:12333/appliance/post_appliance"
 server_change = "http://localhost:12333/appliance/notify_status_change"
@@ -27,10 +32,13 @@ port = 12334
 # battery
 max_power = 200000000
 
-
-
 lock = threading.Lock()
 global temp_id
+
+
+def print_debug(obj):
+    if print_log:
+        print(obj)
 
 
 def get_apps(apps):
@@ -54,7 +62,7 @@ def save_apps(apps):
 def all_to_server(url, apps, battery):
     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     for app in apps:
-        if app.get_status == 1:
+        if app.get_status() == 1:
             battery.discharge(app.get_current() * app.get_voltage() * frequency)
             single_to_server(url, app, now)
     # finally send the status of battery
@@ -62,9 +70,13 @@ def all_to_server(url, apps, battery):
     try:
         r = requests.post(url=server_battery, data=payload)
         if r.text != now:
-            print("Error during sending status to server")
+            print("Error during sending battery status to server")
+            print(r.text)
+        else:
+            print_debug("Success when sending battery status to server at" + now)
     except requests.exceptions.ConnectionError:
         print("Cannot connect to the server")
+
 
 def single_to_server(url, appliance, now):
     app_id, name, voltage, current, status = appliance.get_all()
@@ -74,8 +86,9 @@ def single_to_server(url, appliance, now):
         r = requests.post(url=url, data=payload)
         if r.text != now:
             print("Error during sending status to server")
-        else:
             print(r.text)
+        else:
+            print_debug("Success when sending app status to server at" + now)
     except requests.exceptions.ConnectionError:
         print("Cannot connect to the server")
 
@@ -87,6 +100,8 @@ def send_status_change(url, app_id, status):
         if r.text != "success":
             print("Error during sending status to server")
             print(r.text)
+        else:
+            print_debug("Success when sending status change.")
     except requests.exceptions.ConnectionError:
         print("Cannot connect to the server")
 
@@ -224,6 +239,7 @@ def do_server(conn, addr, apps):
             return
         if switch_status(apps, app_id, 1) == 0:
             conn.send(b"Success")
+            print_debug("Success when turning on an app")
             send_status_change(server_change, app_id, 1)
         else:
             conn.send(b"Error")
@@ -236,6 +252,7 @@ def do_server(conn, addr, apps):
             return
         if switch_status(apps, app_id, 0) == 0:
             conn.send(b"Success")
+            print_debug("Success when turning off an app")
             send_status_change(server_change, app_id, 0)
         else:
             conn.send(b"Error")
@@ -254,6 +271,7 @@ def do_server(conn, addr, apps):
         info["current"] = random.randrange(1, 20)/10
         if create_app(apps, info) == 0:
             conn.send(b"Success")
+            print_debug("Success when adding an app")
         else:
             conn.send(b"Error")
     elif option == "delete":
@@ -265,10 +283,28 @@ def do_server(conn, addr, apps):
             return
         if delete_app(apps, app_id) == 0:
             conn.send(b"Success")
+            print_debug("Success when deleting on an app")
         else:
             conn.send(b"Error")
 
     conn.close()
+
+
+def send_solar_generation(battery):
+    while 1:
+        hour = int(datetime.datetime.now().strftime('%H'))
+        value = battery.get_generation_volume()[hour] * area_of_solar_generator
+        r = requests.post(server_solar_generation,
+                          args={"time": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                                "generation": value})
+        if r.text != "success":
+            print("Error when sending solar generation to server.")
+            print(r.text)
+        else:
+            print_debug(r.text)
+        time.sleep(frequency_solar_generation)
+
+
 
 
 def main():
@@ -284,7 +320,9 @@ def main():
     # create a thread to process requests from back-end2
     thread_process_request = threading.Thread(target=wait_server, args=(apps,))
     thread_process_request.start()
-
+    # create a thread to send solar generation
+    thread_solar_generation = threading.Thread(target=send_solar_generation, args=(battery,))
+    thread_solar_generation.start()
     # man-made operations
     while 1:
         print()
