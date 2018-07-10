@@ -3,6 +3,7 @@ import Loadable from 'react-loadable'
 
 import DefaultLayout from './containers/DefaultLayout';
 
+
 function Loading() {
   return <div>Loading...</div>;
 }
@@ -172,13 +173,13 @@ const Widgets = Loadable({
   loading: Loading,
 });
 
-const Users = Loadable({
-  loader: () => import('./views/Users/Users'),
+const Appliances = Loadable({
+  loader: () => import('./views/Users/Appliances'),
   loading: Loading,
 });
 
-const User = Loadable({
-  loader: () => import('./views/Users/User'),
+const Appliance = Loadable({
+  loader: () => import('./views/Users/Appliance'),
   loading: Loading,
 });
 
@@ -225,8 +226,8 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', component: Modals },
   { path: '/widgets', name: 'Widgets', component: Widgets },
   { path: '/charts', name: 'Charts', component: Charts },
-  { path: '/users', exact: true,  name: 'Users', component: Users },
-  { path: '/users/:id', exact: true, name: 'User Details', component: User },
+  { path: '/apps', exact: true,  name: 'Appliances', component: Appliances },
+  { path: '/apps/:id', exact: true, name: 'Appliance Details', component: Appliance },
 ];
 
 export default routes;
