@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import train.train;
 
 public class getForecastData {
-    public static void main(String[] args) throws Exception{
-        Long[] x={};
-        predicted(x);
-    }
+//    public static void main(String[] args) throws Exception{
+//        Long[] x={};
+//        predicted(x);
+//    }
     public static Long[] predicted(Long[] x) throws Exception{
         //System.load("D://大二暑假项目 - 副本//matlab//mclmcrrt9_1.dll");
         Object[] result = null; // 用于保存计算结果

@@ -14,14 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static com.mgimss.mgimss.utils.AidCreator.getNewAid;
 import static com.mgimss.mgimss.utils.ConnectHardware.sendMessage;
 import static com.mgimss.mgimss.utils.ToJson.MapToJson;
 
@@ -165,7 +161,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         //获得新电器应分配的aid
         Set<Appliance> present_apps = user.getAppliances();
         if (present_apps.size() == 0) aid = Long.valueOf(1);
-        else aid = getNewAid(present_apps);
+        else aid = applianceRepository.findMaxAidByUid(user.getUid()) + 1;
 
         //添加时间
         addDate = new Date();

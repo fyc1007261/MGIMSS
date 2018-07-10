@@ -1,8 +1,10 @@
 package com.mgimss.mgimss.businessModel;
 import com.mgimss.mgimss.entity.Battery;
+import com.mgimss.mgimss.entity.SolarPower;
 import com.mgimss.mgimss.entity.Job;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Schedule {
     private Long[] solarPredictData;
@@ -10,8 +12,8 @@ public class Schedule {
     private Long ntimeSlice;
     public Long getTime()
     {
-        nTime = Long.valueOf(100000);
-        return Long.valueOf(100000);
+        nTime = new Date().getTime()/1000;
+        return new Date().getTime()/1000;
     }
     public Long getCharge(Long time)
     {
@@ -22,26 +24,26 @@ public class Schedule {
         Long divTime = time - nTime;
         long i = (divTime / ntimeSlice);
         int j = (int) i;
+        if (j>=20)
+        {
+            j = 19;
+        }
         Long charge = solarPredictData[j];
-        return Long.valueOf(10);
+        return charge;
     }
     public Long getSolarBackCharge(Long time)
     {
-        return Long.valueOf(10);
+        return Long.valueOf(5);
     }
 
-    public ArrayList<Job> doschedule(ArrayList<Job> runJob, ArrayList<Job> pendJob) {
+    public ArrayList<Job> doschedule(ArrayList<Job> runJob, ArrayList<Job> pendJob,Battery battery,Long[] predictData) {
         System.out.println("schedule begin");
+        solarPredictData = predictData;
         Long doit = Long.valueOf(0);
-
         Long nowTime = getTime();
         //---------------------//////////////////////////////////////
-        Battery battery = new Battery();
-        
-        ForecastPower forecastPower = new ForecastPower();
-        battery.setCapacity(Long.valueOf(100000));
-        battery.setRemain(Long.valueOf(50000));
-        forecastPower.setInterval(Long.valueOf(1000));
+
+        SolarPower forecastPower = new SolarPower();
         Long capacity = battery.getCapacity();
         Long remain = battery.getRemain();
         Long timeSlice = forecastPower.getInterval();
@@ -59,7 +61,7 @@ public class Schedule {
                     doit = Long.valueOf(1);
                     beginJob.add(pendJob.get(i));
                 }
-                if (doit == 0)//该job还可以延后执行
+                if (doit == Long.valueOf(0))//该job还可以延后执行
                 {
                     Long doTime = nowTime;//为该job在何时开始
                     Long maxcost = Long.valueOf(1000000000);
@@ -132,7 +134,7 @@ public class Schedule {
                             Long solarPower = (endSimulateTime - simulateTime) * getSolarCharge(simulateTime);
                             if ((simulateRemain + solarPower) > simulateCapacity)
                             {
-                                cost =cost - (simulateRemain + solarPower-simulateCapacity) * getSolarCharge(simulateTime);
+                                cost =cost - (simulateRemain + solarPower-simulateCapacity) * getSolarBackCharge(simulateTime);
                                 simulateRemain = simulateCapacity;
                             }else{
                                 simulateRemain = simulateRemain + solarPower;

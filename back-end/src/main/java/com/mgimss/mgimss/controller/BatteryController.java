@@ -13,4 +13,8 @@ public interface BatteryController {
     //java calls
     @RequestMapping("/battery/get_remaining")
     Long  get_remaining();
+
+    //python calls
+    @RequestMapping("/battery/post_generation")
+    String post_generation(String time, Long generation);
 }

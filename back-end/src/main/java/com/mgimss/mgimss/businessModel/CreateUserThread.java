@@ -1,12 +1,12 @@
 package com.mgimss.mgimss.businessModel;
+import com.mgimss.mgimss.entity.Battery;
 import com.mgimss.mgimss.entity.Job;
-import com.mgimss.mgimss.repository.FinishedJobRepository;
-import com.mgimss.mgimss.repository.PendingJobRepository;
-import com.mgimss.mgimss.repository.RunningJobRepository;
+import com.mgimss.mgimss.entity.User;
+import com.mgimss.mgimss.repository.*;
+import com.mgimss.mgimss.AI.getForecastData;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CreateUserThread extends  Thread {
 
@@ -19,6 +19,15 @@ public class CreateUserThread extends  Thread {
     @Autowired
     FinishedJobRepository finishedJobRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    BattetyRepository battetyRepository;
+
+    @Autowired
+    SolarPowerRepository solarPowerRepository;
+
     private Long clientId;
     public int getTime()
     {
@@ -29,7 +38,7 @@ public class CreateUserThread extends  Thread {
         this.clientId = clientId;
     }
     @Override
-    public void run() {
+    public void run(){
         while (true) {
             try {
 //                Job job1 = new Job();
@@ -55,7 +64,18 @@ public class CreateUserThread extends  Thread {
                 //接受该clientIdDE1runJob，sleepJob;
                 ArrayList<Job> runJob = runningJobRepository.findByUid(clientId);
                 ArrayList<Job> pendJob = pendingJobRepository.findByUid(clientId);
-                beginJob = newschedule.doschedule(runJob, pendJob);
+
+                User user = userRepository.findByUid(clientId);
+                Battery battery = battetyRepository.findByUser(user);
+                ArrayList<Long> predictSourceData = solarPowerRepository.findAllDataByUid(clientId);
+                Long[] data = new Long[predictSourceData.size()];
+                for (int g = 0 ;g<predictSourceData.size();g++)
+                {
+                    data[g] = predictSourceData.get(g);
+                }
+
+                Long[] predictData =  getForecastData.predicted(data);
+                beginJob = newschedule.doschedule(runJob, pendJob,battery,predictData);
                 int threadSize = beginJob.size();
                 Thread[] threadId;
                 threadId = new Thread[threadSize];
@@ -68,7 +88,7 @@ public class CreateUserThread extends  Thread {
 
                 sleep(6 * 100*3);
             }
-            catch (InterruptedException e)
+            catch (Exception e)
             {
                 e.printStackTrace();
             }

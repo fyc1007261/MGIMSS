@@ -19,4 +19,7 @@ public interface ApplianceRepository extends JpaRepository<Appliance, Long> {
 
     @Query("select a from Appliance a where a.user = user and a.runningState = 1")
     List<Appliance> findByUserAndState(@Param("user") User user, @Param("runningState") Long runningState);
+
+    @Query(nativeQuery = true, value="select max(aid) from Appliance A where A.uid = uid")
+    Long findMaxAidByUid(@Param("uid") Long uid);
 }

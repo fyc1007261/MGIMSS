@@ -2,9 +2,11 @@ package com.mgimss.mgimss.controller;
 
 import com.mgimss.mgimss.entity.Battery;
 import com.mgimss.mgimss.entity.BatteryStatus;
+import com.mgimss.mgimss.entity.SolarPower;
 import com.mgimss.mgimss.entity.User;
 import com.mgimss.mgimss.repository.BatteryStatusRepository;
 import com.mgimss.mgimss.repository.BattetyRepository;
+import com.mgimss.mgimss.repository.SolarPowerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -21,6 +23,9 @@ public class BatteryControllerImpl implements BatteryController{
 
     @Autowired
     BattetyRepository battetyRepository;
+
+    @Autowired
+    SolarPowerRepository solarPowerRepository;
 
     //python calls
     public String post_remaining(String time, String remaining){
@@ -80,5 +85,26 @@ public class BatteryControllerImpl implements BatteryController{
         remainingCharge = battery.getRemain();
 
         return remainingCharge;
+    }
+
+    public String post_generation(String time, Long generation){
+        User user;
+        Long new_fid;
+        Long count;
+        SolarPower solarPower;
+
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        Authentication auth = ctx.getAuthentication();
+        user = (User) auth.getPrincipal();
+
+        count = solarPowerRepository.findCount();
+        if (count.equals(Long.valueOf(0))){
+            new_fid = Long.valueOf(0);
+        }
+        else
+            new_fid = solarPowerRepository.findMaxFidByUid(user.getUid()) + 1;
+        solarPower = new SolarPower(user, new_fid, Long.valueOf(1800), generation);
+        solarPowerRepository.save(solarPower);
+        return "success";
     }
 }
