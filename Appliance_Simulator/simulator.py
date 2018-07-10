@@ -14,6 +14,10 @@ import random
 print_log = 1
 # frequency in seconds
 frequency = 10
+# solar generation
+frequency_solar_generation = 1800
+area_of_solar_generator = 60
+server_solar_generation = "http://localhost:12333/battery/post_generation"  #(String time, int generation)
 # as a http client
 server = "http://localhost:12333/appliance/post_appliance"
 server_change = "http://localhost:12333/appliance/notify_status_change"
@@ -286,6 +290,23 @@ def do_server(conn, addr, apps):
     conn.close()
 
 
+def send_solar_generation(battery):
+    while 1:
+        hour = int(datetime.datetime.now().strftime('%H'))
+        value = battery.get_generation_volume()[hour] * area_of_solar_generator
+        r = requests.post(server_solar_generation,
+                          args={"time": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                                "generation": value})
+        if r.text != "success":
+            print("Error when sending solar generation to server.")
+            print(r.text)
+        else:
+            print_debug(r.text)
+        time.sleep(frequency_solar_generation)
+
+
+
+
 def main():
     global temp_id
     temp_id = 0
@@ -299,7 +320,9 @@ def main():
     # create a thread to process requests from back-end2
     thread_process_request = threading.Thread(target=wait_server, args=(apps,))
     thread_process_request.start()
-
+    # create a thread to send solar generation
+    thread_solar_generation = threading.Thread(target=send_solar_generation, args=(battery,))
+    thread_solar_generation.start()
     # man-made operations
     while 1:
         print()

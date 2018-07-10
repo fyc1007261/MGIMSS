@@ -3,6 +3,7 @@ import Loadable from 'react-loadable'
 
 import DefaultLayout from './containers/DefaultLayout';
 
+
 function Loading() {
   return <div>Loading...</div>;
 }
@@ -172,13 +173,13 @@ const Widgets = Loadable({
   loading: Loading,
 });
 
-const Users = Loadable({
-  loader: () => import('./views/Users/Users'),
+const Appliances = Loadable({
+  loader: () => import('./views/Users/Appliances'),
   loading: Loading,
 });
 
-const User = Loadable({
-  loader: () => import('./views/Users/User'),
+const Appliance = Loadable({
+  loader: () => import('./views/Users/Appliance'),
   loading: Loading,
 });
 

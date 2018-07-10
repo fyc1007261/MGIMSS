@@ -5,20 +5,20 @@ generation = {0: 0,
               2: 0,
               3: 0,
               4: 0,
-              5: 50,
-              6: 100,
-              7: 200,
-              8: 400,
-              9: 800,
-              10: 1200,
-              11: 2000,
-              12: 3000,
-              13: 2000,
-              14: 1200,
-              15: 800,
-              16: 400,
-              17: 200,
-              18: 100,
+              5: 16,
+              6: 57,
+              7: 104,
+              8: 148,
+              9: 190,
+              10: 221,
+              11: 236,
+              12: 236,
+              13: 224,
+              14: 197,
+              15: 156,
+              16: 107,
+              17: 57,
+              18: 15,
               19: 0,
               20: 0,
               21: 0,
@@ -31,6 +31,7 @@ class Battery:
     def __init__(self, max_power):
         self.__max_power = max_power
         self.__power = 0
+        self.__generation_volume = generation
 
     def charge(self, value):
         self.__power += value
@@ -44,6 +45,9 @@ class Battery:
 
     def get_power(self):
         return self.__power
+
+    def get_generation_volume(self):
+        return self.__generation_volume
 
 
 if __name__ == "__main__":
