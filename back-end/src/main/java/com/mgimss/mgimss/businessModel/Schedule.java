@@ -1,70 +1,83 @@
 package com.mgimss.mgimss.businessModel;
-import java.awt.*;
+import com.mgimss.mgimss.entity.Battery;
+import com.mgimss.mgimss.entity.Job;
+
 import java.util.ArrayList;
 
 public class Schedule {
-    public int getTime()
+    private Long[] solarPredictData;
+    private Long nTime;
+    private Long ntimeSlice;
+    public Long getTime()
     {
-        return 100000;
+        nTime = Long.valueOf(100000);
+        return Long.valueOf(100000);
     }
-    public int getCharge(int time)
+    public Long getCharge(Long time)
     {
-        return 10;
+        return Long.valueOf(10);
     }
-    public int getSolarCharge(int time)
+    public Long getSolarCharge(Long time)
     {
-        return 10;
+        Long divTime = time - nTime;
+        long i = (divTime / ntimeSlice);
+        int j = (int) i;
+        Long charge = solarPredictData[j];
+        return Long.valueOf(10);
     }
-    public int getSolarBackCharge(int time)
+    public Long getSolarBackCharge(Long time)
     {
-        return 10;
+        return Long.valueOf(10);
     }
 
-    public ArrayList<Job> doschedule(ArrayList<Job> runJob,ArrayList<Job> sleepJob) {
+    public ArrayList<Job> doschedule(ArrayList<Job> runJob, ArrayList<Job> pendJob) {
         System.out.println("schedule begin");
-        int doit = 0;
+        Long doit = Long.valueOf(0);
 
-        int nowTime = getTime();
+        Long nowTime = getTime();
+        //---------------------//////////////////////////////////////
         Battery battery = new Battery();
+        
         ForecastPower forecastPower = new ForecastPower();
-        battery.setCapacity(100000);
-        battery.setRemain(50000);
-        forecastPower.setInterval(1000);
-        int capacity = battery.getCapacity();
-        int remain = battery.getRemain();
-        int timeSlice = forecastPower.getInterval();
+        battery.setCapacity(Long.valueOf(100000));
+        battery.setRemain(Long.valueOf(50000));
+        forecastPower.setInterval(Long.valueOf(1000));
+        Long capacity = battery.getCapacity();
+        Long remain = battery.getRemain();
+        Long timeSlice = forecastPower.getInterval();
+        ntimeSlice = timeSlice;
         ArrayList<Job> beginJob = new ArrayList();
-        for (int i = 0; i < sleepJob.size(); i++) //对每一个 sleepJob做预测
+        for (int i = 0; i < pendJob.size(); i++) //对每一个 sleepJob做预测
         {
-            System.out.println("jobId:"+sleepJob.get(i).getJobId());
-            int startTime = sleepJob.get(i).getIntStartTime();
-            int stopTime = sleepJob.get(i).getIntStopTime();
+            System.out.println("appliance Id:"+pendJob.get(i).getAppliance().getAid());
+            Long startTime = pendJob.get(i).getIntStartTime();
+            Long stopTime = pendJob.get(i).getIntStopTime();
             if (nowTime >= startTime)//该job可以开始
             {
-                if ((nowTime + sleepJob.get(i).getLastTime() + timeSlice) > stopTime)//该job必须开始工作
+                if ((nowTime + pendJob.get(i).getLastTime() + timeSlice) > stopTime)//该job必须开始工作
                 {
-                    doit = 1;
-                    beginJob.add(sleepJob.get(i));
+                    doit = Long.valueOf(1);
+                    beginJob.add(pendJob.get(i));
                 }
                 if (doit == 0)//该job还可以延后执行
                 {
-                    int doTime = nowTime;//为该job在何时开始
-                    int maxcost = 1000000000;
-                    int maxTime = doTime;//对于给定的一个job它的最有开始时间
-                    while ((doTime + sleepJob.get(i).getLastTime()) <= stopTime) //对每一个合理的时间开始JOB
+                    Long doTime = nowTime;//为该job在何时开始
+                    Long maxcost = Long.valueOf(1000000000);
+                    Long maxTime = doTime;//对于给定的一个job它的最有开始时间
+                    while ((doTime + pendJob.get(i).getLastTime()) <= stopTime) //对每一个合理的时间开始JOB
                     {
-                        int simulateTime = nowTime;
-                        int beginTime = doTime;
-                        int endTime = beginTime + sleepJob.get(i).getLastTime();
-                        int simulateRemain = remain;//一次模拟期间的电池容量
-                        int simulateCapacity = capacity;
+                        Long simulateTime = nowTime;
+                        Long beginTime = doTime;
+                        Long endTime = beginTime + pendJob.get(i).getLastTime();
+                        Long simulateRemain = remain;//一次模拟期间的电池容量
+                        Long simulateCapacity = capacity;
 
-                        int cost = 0;
+                        Long cost = Long.valueOf(0);
                         while (simulateTime < stopTime)//开始模拟从nowtime一直到stopTime进行模拟
                         {
                             //System.out.println("simulateTime:"+simulateTime);
 
-                            int endSimulateTime;
+                            Long endSimulateTime;
                             if ((simulateTime + timeSlice) < stopTime) {
                                 endSimulateTime = simulateTime + timeSlice;
                             } else {
@@ -75,18 +88,18 @@ public class Schedule {
                                 if (runJob.get(j).getIntTrueStopTime() <= simulateTime) {
 
                                 } else {
-                                    int runTime;
+                                    Long runTime;
                                     if (runJob.get(j).getIntTrueStopTime() < endSimulateTime) {
                                         runTime = runJob.get(j).getIntTrueStopTime() - simulateTime;
                                     } else {
                                         runTime = endSimulateTime - simulateTime;
                                     }
-                                    int runPower = runTime * runJob.get(j).getPerPower();
+                                    Long runPower = runTime * runJob.get(j).getPerPower();
                                     if (runPower <= simulateRemain) {
                                         simulateRemain = simulateRemain - runPower;
                                     } else {
-                                        int costPower = runPower - simulateRemain;
-                                        simulateRemain = 0;
+                                        Long costPower = runPower - simulateRemain;
+                                        simulateRemain = Long.valueOf(0);
                                         cost = cost + costPower * getCharge(simulateTime);
                                     }
 
@@ -98,25 +111,25 @@ public class Schedule {
                                 {
 
                                 } else {
-                                    int runTime;
+                                    Long runTime;
                                     if (endTime < endSimulateTime)
                                     {
                                         runTime = endTime - simulateTime;
                                     } else {
                                         runTime = endSimulateTime - simulateTime;
                                     }
-                                    int runPower = runTime * sleepJob.get(i).getPerPower();
+                                    Long runPower = runTime * pendJob.get(i).getPerPower();
                                     if (runPower <= simulateRemain) {
                                         simulateRemain = simulateRemain - runPower;
                                     } else {
-                                        int costPower = runPower - simulateRemain;
-                                        simulateRemain = 0;
+                                        Long costPower = runPower - simulateRemain;
+                                        simulateRemain = Long.valueOf(0);
                                         cost = cost + costPower * getCharge(simulateTime);
                                     }
 
                                 }
                             }
-                            int solarPower = (endSimulateTime - simulateTime) * getSolarCharge(simulateTime);
+                            Long solarPower = (endSimulateTime - simulateTime) * getSolarCharge(simulateTime);
                             if ((simulateRemain + solarPower) > simulateCapacity)
                             {
                                 cost =cost - (simulateRemain + solarPower-simulateCapacity) * getSolarCharge(simulateTime);
@@ -127,7 +140,7 @@ public class Schedule {
                             simulateTime+= timeSlice;
                             System.out.println("simulateTime:"+simulateTime);
                         }//结束模拟阶段
-                        System.out.println("job:"+sleepJob.get(i).getJobId()+"doTime:"+doTime+"cost:"+cost);
+                        System.out.println("applianceId:"+pendJob.get(i).getAppliance().getAid()+"doTime:"+doTime+"cost:"+cost);
                         if (maxcost > cost )
                         {
                             maxcost = cost;
@@ -137,9 +150,9 @@ public class Schedule {
                     }
                     if (maxTime == nowTime)
                     {
-                        beginJob.add(sleepJob.get(i));
+                        beginJob.add(pendJob.get(i));
                     }
-                    System.out.println("Final jobID:"+sleepJob.get(i).getJobId()+"doTime:"+maxTime+"cost"+maxcost);
+                    System.out.println("Final applianceID:"+pendJob.get(i).getAppliance().getAid()+"doTime:"+maxTime+"cost"+maxcost);
                 }
             }
         }
