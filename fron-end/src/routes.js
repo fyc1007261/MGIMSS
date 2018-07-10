@@ -225,8 +225,8 @@ const routes = [
   { path: '/main/notifications/modals', name: 'Modals', component: Modals },
   { path: '/main/widgets', name: 'Widgets', component: Widgets },
   { path: '/main/charts', name: 'Charts', component: Charts },
-  { path: '/main/users', exact: true,  name: 'Users', component: Users },
-  { path: '/main/users/:id', exact: true, name: 'User Details', component: User },
+  { path: '/main/apps', exact: true,  name: 'Appliances', component: Appliances },
+  { path: '/main/apps/:id', exact: true, name: 'Appliance Details', component: Appliance },
 ];
 
 export default routes;
