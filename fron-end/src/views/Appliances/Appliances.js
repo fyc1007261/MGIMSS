@@ -6,7 +6,7 @@ import appsData from './UsersData'
 
 function ApplianceRow(props) {
   const appliance = props.appliance;
-  const appLink = '/apps/' + appliance.id;
+  const appLink = '/main/apps/' + appliance.id;
 
   const getBadge = (status) => {
     return status === 'Active' ? 'success' :

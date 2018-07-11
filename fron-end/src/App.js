@@ -25,10 +25,10 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" name="Welcome" render={() => window.location.href="http://localhost:8081/welcome.html"} />
+          <Route exact path="/" name="Welcome" render={() => window.location.href="/welcome.html"} />
           <Route path="/main" name="Home" component={DefaultLayout} />
-          <Route exact path="/login" name="Login Page" render={() => window.location.href="http://localhost:8081/login.html"} />
-          <Route exact path="/register" name="Register Page" render={() => window.location.href="http://localhost:8081/login.html"} />
+          <Route exact path="/login" name="Login Page" render={() => window.location.href="/login.html"} />
+          <Route exact path="/register" name="Register Page" render={() => window.location.href="/login.html"} />
           <Route exact path="/404" name="Page 404" component={Page404} />
           <Route exact path="/500" name="Page 500" component={Page500} />
           {/*<Route path="/" name="Home" component={DefaultLayout} />*/}

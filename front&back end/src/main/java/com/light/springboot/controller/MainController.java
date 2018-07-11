@@ -27,12 +27,12 @@ public class MainController {
     public String jump1(@PathVariable(value = "any") String any) {
         return any;
     }
-    @RequestMapping(value = "/mgimss", method = RequestMethod.GET)
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String jump2() {
         return "index.html";
     }
-    @RequestMapping(value = "/mgimss/dashboard", method = RequestMethod.GET)
-    public String jump3() {
+    @RequestMapping(value = "/main/{any}", method = RequestMethod.GET)
+    public String jump3(@PathVariable(value = "any") String any) {
         return "index.html";
     }
 }
