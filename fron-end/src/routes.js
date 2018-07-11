@@ -174,12 +174,12 @@ const Widgets = Loadable({
 });
 
 const Appliances = Loadable({
-  loader: () => import('./views/Users/Appliances'),
+  loader: () => import('./views/Appliances/Appliances'),
   loading: Loading,
 });
 
 const Appliance = Loadable({
-  loader: () => import('./views/Users/Appliance'),
+  loader: () => import('./views/Appliances/Appliance'),
   loading: Loading,
 });
 
