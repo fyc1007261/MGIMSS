@@ -20,10 +20,7 @@ public class Job
     private Long perPower;
 
     @ManyToOne
-    @JoinColumns(value={
-            @JoinColumn(name="aid"),
-            @JoinColumn(name="uid")}
-    )
+    @JoinColumn(name="appId")
     private Appliance appliance;
 
     public Job(){

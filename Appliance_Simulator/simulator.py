@@ -13,7 +13,7 @@ import random
 # whether to print log when succeeded
 print_log = 1
 # frequency in seconds
-frequency = 10
+frequency = 1000000
 # solar generation
 frequency_solar_generation = 1800
 area_of_solar_generator = 60
@@ -66,14 +66,15 @@ def all_to_server(url, apps, battery):
             battery.discharge(app.get_current() * app.get_voltage() * frequency)
             single_to_server(url, app, now)
     # finally send the status of battery
-    payload = {"time": now, "remaining": battery.get_power()}
+    payload = {"time": now, "remaining": battery.get_power(),"uid":1}
     try:
         r = requests.post(url=server_battery, data=payload)
-        if r.text != now:
-            print("Error during sending battery status to server")
-            print(r.text)
+        if r.text.find("success") < 0:
+            print("err: during sending battery status to server")
+            print("lalala")
+            print(r.text )
         else:
-            print_debug("Success when sending battery status to server at" + now)
+            print_debug("success when sending battery status to server at" + now)
     except requests.exceptions.ConnectionError:
         print("Cannot connect to the server")
 
@@ -81,27 +82,27 @@ def all_to_server(url, apps, battery):
 def single_to_server(url, appliance, now):
     app_id, name, voltage, current, status = appliance.get_all()
     payload = {'time': now, 'id': app_id, 'name': name,
-               'voltage': voltage, 'current': current}
+               'voltage': voltage, 'current': current,"uid":1}
     try:
         r = requests.post(url=url, data=payload)
-        if r.text != now:
-            print("Error during sending status to server")
+        if r.text != "success":
+            print("err: during sending status to server")
             print(r.text)
         else:
-            print_debug("Success when sending app status to server at" + now)
+            print_debug("success when sending app status to server at" + now)
     except requests.exceptions.ConnectionError:
         print("Cannot connect to the server")
 
 
 def send_status_change(url, app_id, status):
-    payload = {'id': app_id, 'mode': status}
+    payload = {'id': app_id, 'mode': status,"uid":1}
     try:
         r = requests.post(url=url, data=payload)
         if r.text != "success":
-            print("Error during sending status to server")
+            print("err: during sending status to server")
             print(r.text)
         else:
-            print_debug("Success when sending status change.")
+            print_debug("success when sending status change.")
     except requests.exceptions.ConnectionError:
         print("Cannot connect to the server")
 
@@ -238,11 +239,11 @@ def do_server(conn, addr, apps):
             conn.close()
             return
         if switch_status(apps, app_id, 1) == 0:
-            conn.send(b"Success")
-            print_debug("Success when turning on an app")
+            conn.send(b"success")
+            print_debug("success when turning on an app")
             send_status_change(server_change, app_id, 1)
         else:
-            conn.send(b"Error")
+            conn.send(b"err: can't turn on appliance")
     elif option == "off":
         try:
             app_id = eval(data["id"])
@@ -251,11 +252,11 @@ def do_server(conn, addr, apps):
             conn.close()
             return
         if switch_status(apps, app_id, 0) == 0:
-            conn.send(b"Success")
-            print_debug("Success when turning off an app")
+            conn.send(b"success")
+            print_debug("success when turning off an app")
             send_status_change(server_change, app_id, 0)
         else:
-            conn.send(b"Error")
+            conn.send(b"err: can't turn off appliance")
     elif option == "add":
         try:
             app_id = eval(data["id"])
@@ -270,10 +271,10 @@ def do_server(conn, addr, apps):
         info["voltage"] = 220
         info["current"] = random.randrange(1, 20)/10
         if create_app(apps, info) == 0:
-            conn.send(b"Success")
-            print_debug("Success when adding an app")
+            conn.send(b"success")
+            print_debug("success when adding an app")
         else:
-            conn.send(b"Error")
+            conn.send(b"err: can't add appliance")
     elif option == "delete":
         try:
             app_id = eval(data["id"])
@@ -282,10 +283,10 @@ def do_server(conn, addr, apps):
             conn.close()
             return
         if delete_app(apps, app_id) == 0:
-            conn.send(b"Success")
-            print_debug("Success when deleting on an app")
+            conn.send(b"success")
+            print_debug("success when deleting on an app")
         else:
-            conn.send(b"Error")
+            conn.send(b"err: can't delete appliance")
 
     conn.close()
 
@@ -297,11 +298,12 @@ def send_solar_generation(battery):
         try:
             r = requests.post(server_solar_generation,
                               {"time": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                                    "generation": value})
+                                    "generation": value, "uid": 1})
             if r.text != "success":
-                print("Error when sending solar generation to server.")
+                print("err: when sending solar generation to server.")
                 print(r.text)
             else:
+
                 print_debug(r.text)
         except requests.exceptions.ConnectionError:
             print("Cannot connect to the server")
@@ -312,6 +314,17 @@ def send_solar_generation(battery):
 
 
 def main():
+    send_headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36",
+        "Connection": "keep-alive",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Language": "zh-CN,zh;q=0.8"}
+    r=requests.post("http://localhost:12333/login", {"username": 1, "password": 1})
+    print_debug(r.text)
+
+
+
+
     global temp_id
     temp_id = 0
     # including all the appliances added
@@ -352,9 +365,9 @@ def main():
             info["voltage"] = voltage
             info["current"] = current
             if create_app(apps, info) == 0:
-                print("Success")
+                print("success")
             else:
-                print("Error")
+                print("err:")
         elif selection == "3":
             try:
                 app_id = int(input("ID?"))
@@ -368,9 +381,9 @@ def main():
             info["voltage"] = voltage
             info["current"] = current
             if change_properties(apps, app_id, info) == 0:
-                print("Success")
+                print("success")
             else:
-                print("Error")
+                print("err:")
         elif selection == "4":
             try:
                 app_id = int(input("ID?"))
@@ -378,9 +391,9 @@ def main():
                 print("Invalid input")
                 continue
             if switch_status(apps, app_id) == 0:
-                print("Success")
+                print("success")
             else:
-                print("Error")
+                print("err:")
         elif selection == "5":
             try:
                 app_id = int(input("ID?"))
@@ -388,9 +401,9 @@ def main():
                 print("Invalid input")
                 continue
             if delete_app(apps, app_id) == 0:
-                print("Success")
+                print("success")
             else:
-                print("Error")
+                print("err:")
 
 
 if __name__ == "__main__":

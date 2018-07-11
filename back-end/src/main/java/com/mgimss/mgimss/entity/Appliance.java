@@ -8,15 +8,16 @@ import java.util.Set;
 
 
 @Entity
-@IdClass(Appliance.ApplianceId.class)
 public class Appliance {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long appId;
+
     @ManyToOne
     @JoinColumn(name="uid")
     private User user;
 
-    @Id
     private Long aid;
 
     private String name;
@@ -31,27 +32,6 @@ public class Appliance {
 
     private int runningState;
 
-
-    public static class ApplianceId implements Serializable {
-        private User user;
-        private Long aid;
-
-        public Long getAid() {
-            return aid;
-        }
-
-        public void setAid(Long aid) {
-            this.aid = aid;
-        }
-
-        public User getUser() {
-            return user;
-        }
-
-        public void setUser(User user) {
-            this.user = user;
-        }
-    }
 
     public Appliance(){
 
@@ -68,6 +48,14 @@ public class Appliance {
         this.ratedParameters = ratedParameters;
         this.lastSendDataTime = lastSendDataTime;
         this.runningState = runningState;
+    }
+
+    public Long getAppId() {
+        return appId;
+    }
+
+    public void setAppId(Long appId) {
+        this.appId = appId;
     }
 
     public User getUser() {

@@ -10,15 +10,15 @@ import org.springframework.security.core.parameters.P;
 import java.util.Date;
 import java.util.List;
 
-public interface BatteryStatusRepository extends JpaRepository<BatteryStatus, BatteryStatus.BatteryStatusId>{
+public interface BatteryStatusRepository extends JpaRepository<BatteryStatus, Long>{
 
-    @Query("select b from BatteryStatus b where b.recordTime = time and b.battery.user = user")
-    BatteryStatus findByUserAndRecordTime(@Param("time") Date time, @Param("user") User user);
+    @Query(nativeQuery = true, value="select * from battery_status  where record_time =:time and uid =:uid")
+    BatteryStatus findByUserAndRecordTime(@Param("time") Date time, @Param("uid") Long uid);
 
-    @Query("select b from BatteryStatus b where b.battery.user = user")
-    List<BatteryStatus> findByUser(@Param("user") User user);
+    @Query(nativeQuery = true, value="select * from battery_status  where uid =:uid")
+    List<BatteryStatus> findByUser(@Param("uid") Long uid);
 
-    @Query("select b from BatteryStatus b where b.battery.user = user and b.recordTime >= time1 and b.recordTime <= time2")
-    List<BatteryStatus> findByUserAndInterval(@Param("user") User user, @Param("time1") Date time1,
+    @Query(nativeQuery = true, value="select * from battery_status  where uid =:uid and record_time >=:time1 and record_time <=:time2")
+    List<BatteryStatus> findByUserAndInterval(@Param("uid") Long uid, @Param("time1") Date time1,
                                               @Param("time2") Date time2);
 }

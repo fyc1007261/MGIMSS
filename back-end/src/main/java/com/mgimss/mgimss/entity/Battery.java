@@ -8,6 +8,8 @@ public class Battery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long batteryId;
+
     private Long bid;
 
     @OneToOne
@@ -25,6 +27,14 @@ public class Battery {
         this.capacity = capacity;
         this.remain = remain;
         this.maxOutputPower = maxOutputPower;
+    }
+
+    public Long getBatteryId() {
+        return batteryId;
+    }
+
+    public void setBatteryId(Long batteryId) {
+        this.batteryId = batteryId;
     }
 
     public User getUser() {

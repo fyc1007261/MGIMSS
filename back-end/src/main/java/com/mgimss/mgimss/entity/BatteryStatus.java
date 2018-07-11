@@ -5,37 +5,18 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@IdClass(BatteryStatus.BatteryStatusId.class)
 public class BatteryStatus {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long bsId;
 
     private Long remainingCharge;
-    @Id
+
     private Date recordTime;
-    @Id
+
     @OneToOne
     @JoinColumn(name="bid")
     private Battery battery;
-
-    public static class BatteryStatusId implements Serializable {
-        private Battery battery;
-        private Date recordTime;
-
-        public Battery getBattery() {
-            return battery;
-        }
-
-        public void setBattery(Battery battery) {
-            this.battery = battery;
-        }
-
-        public void setRecordTime(Date recordTime) {
-            this.recordTime = recordTime;
-        }
-
-        public Date getRecordTime() {
-            return recordTime;
-        }
-    }
 
     public BatteryStatus(){
     }
@@ -43,6 +24,22 @@ public class BatteryStatus {
         this.remainingCharge = remainingCharge;
         this.recordTime = recordTime;
         this.battery = battery;
+    }
+
+    public Long getBsId() {
+        return bsId;
+    }
+
+    public void setBsId(Long bsId) {
+        this.bsId = bsId;
+    }
+
+    public Long getRemainingCharge() {
+        return remainingCharge;
+    }
+
+    public void setRemainingCharge(Long remainingCharge) {
+        this.remainingCharge = remainingCharge;
     }
 
     public Long getRemaining() {
