@@ -256,6 +256,26 @@ export default {
       ],
     },
     {
+      title: true,
+      name: 'Functions',
+      wrapper: {
+        element: '',
+        attributes: {},
+      },
+    },
+    {
+      name: 'Functions',
+      url: '/main/fun',
+      icon: 'icon-cursor',
+      children: [
+        {
+          name: 'Power Usage',
+          url: '/main/fun/powerusage',
+          icon: 'cui-bar-chart',
+        },
+      ],
+    },
+    {
       name: 'Download CoreUI',
       url: 'http://coreui.io/react/',
       icon: 'icon-cloud-download',

@@ -294,14 +294,18 @@ def send_solar_generation(battery):
     while 1:
         hour = int(datetime.datetime.now().strftime('%H'))
         value = battery.get_generation_volume()[hour] * area_of_solar_generator
-        r = requests.post(server_solar_generation,
-                          args={"time": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                                "generation": value})
-        if r.text != "success":
-            print("Error when sending solar generation to server.")
-            print(r.text)
-        else:
-            print_debug(r.text)
+        try:
+            r = requests.post(server_solar_generation,
+                              {"time": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                                    "generation": value})
+            if r.text != "success":
+                print("Error when sending solar generation to server.")
+                print(r.text)
+            else:
+                print_debug(r.text)
+        except requests.exceptions.ConnectionError:
+            print("Cannot connect to the server")
+
         time.sleep(frequency_solar_generation)
 
 
