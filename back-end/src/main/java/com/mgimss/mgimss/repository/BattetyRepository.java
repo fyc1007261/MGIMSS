@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface BattetyRepository extends JpaRepository<Battery, Long>{
 
-    @Query("select b from Battery b where b.user = user")
-    Battery findByUser(@Param("user") User user);
+    @Query(nativeQuery = true, value="select * from battery where uid =:uid")
+    Battery findByUser(@Param("uid") Long uid);
 
 }

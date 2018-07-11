@@ -5,42 +5,19 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@IdClass(AppStatus.AppStatusId.class)
 public class AppStatus {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private  Long asId;
+
     @ManyToOne
-    @JoinColumns(value={
-            @JoinColumn(name="uid"),
-            @JoinColumn(name="aid")
-    })
+    @JoinColumn(name="appId")
     private Appliance appliance;
 
-    @Id
     private Date recordTime;
     private float presentVoltage;
     private float presentCurrent;
-
-    public static class AppStatusId implements Serializable {
-        private Appliance appliance;
-        private Date recordTime;
-
-        public Appliance getAppliance() {
-            return appliance;
-        }
-
-        public void setAppliance(Appliance appliance) {
-            this.appliance = appliance;
-        }
-
-        public void setRecordTime(Date recordTime) {
-            this.recordTime = recordTime;
-        }
-
-        public Date getRecordTime() {
-            return recordTime;
-        }
-    }
 
     public AppStatus(){
 
@@ -52,6 +29,14 @@ public class AppStatus {
         this.recordTime = recordTime;
         this.presentVoltage = presentVoltage;
         this.presentCurrent = presentCurrent;
+    }
+
+    public Long getAsId() {
+        return asId;
+    }
+
+    public void setAsId(Long asId) {
+        this.asId = asId;
     }
 
     public Appliance getAppliance() {

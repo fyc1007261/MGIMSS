@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -21,7 +22,7 @@ import java.util.*;
 import static com.mgimss.mgimss.utils.ConnectHardware.sendMessage;
 import static com.mgimss.mgimss.utils.ToJson.MapToJson;
 
-@Controller
+@RestController
 public class OperateApplianceImpl implements OperateAppliance {
 
     @Autowired
@@ -29,6 +30,9 @@ public class OperateApplianceImpl implements OperateAppliance {
 
     @Autowired
     ApplianceRepository applianceRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     PendingJobRepository pendingJobRepository;
@@ -40,7 +44,7 @@ public class OperateApplianceImpl implements OperateAppliance {
     FinishedJobRepository finishedJobRepository;
 
     //python calls
-    public String post_appliance_status(String time, String id, String voltage, String current)
+    public String post_appliance_status(String time, String id, String voltage, String current, String uid)
     {
         //appstatus只记录在运行的电器的信息，如果当前某电器没在运行，则python端不会发来它的信息
         //如果电器运行结束也不会发
@@ -54,13 +58,11 @@ public class OperateApplianceImpl implements OperateAppliance {
         //用电器的id
         aid = Long.valueOf(id);
 
+        System.out.println("got in");
         //当前用户
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        user = (User) auth.getPrincipal();
-
+        user = userRepository.findByUid(Long.valueOf(uid));
         //用电器
-        Appliance appliance = applianceRepository.findByUserAndAid(user, aid);
+        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
 
         if(appliance == null){
             return "err: no such appliance";
@@ -80,16 +82,18 @@ public class OperateApplianceImpl implements OperateAppliance {
         presentVoltage = Float.valueOf(voltage);
         presentCurrent = Float.valueOf(current);
 
+        System.out.println("HAHA");
         //记录入appStatus表
         AppStatus appStatus = new AppStatus(appliance, recordTime, presentVoltage, presentCurrent);
         appStatusRepository.save(appStatus);
+        System.out.println("HEIHEI");
 
         // return time for client to check for validity
         return "success";
     }
 
     //python calls
-    public String notify_status_change(String id, String mode)
+    public String notify_status_change(String id, String mode, String uid)
     {
         //当有用电器开始工作或结束工作时，python会发过来这个请求
 
@@ -106,12 +110,10 @@ public class OperateApplianceImpl implements OperateAppliance {
         aid = Long.valueOf(id);
 
         //当前用户
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        user = (User) auth.getPrincipal();
+        user = userRepository.findByUid(Long.valueOf(uid));
 
         //用电器
-        Appliance appliance = applianceRepository.findByUserAndAid(user, aid);
+        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
 
         if(appliance == null){
             return "err: no such appliance";
@@ -120,7 +122,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         //无差错时，用电器更改为新的状态
         newMode = Integer.valueOf(mode);
         if(newMode == 0){
-            job = runningJobRepository.findByAppliance(appliance);
+            job = runningJobRepository.findByAppliance(appliance.getAppId());
             runningJobRepository.delete(job);
             appliance.setRunningState(newMode);
             appliance.setLastSendDataTime(send_time);
@@ -131,7 +133,7 @@ public class OperateApplianceImpl implements OperateAppliance {
 
         }
         if(newMode == 1){
-            job = pendingJobRepository.findByAppliance(appliance);
+            job = pendingJobRepository.findByAppliance(appliance.getAppId());
             pendingJobRepository.delete(job);
             appliance.setRunningState(newMode);
             appliance.setLastSendDataTime(send_time);
@@ -205,8 +207,8 @@ public class OperateApplianceImpl implements OperateAppliance {
         Authentication auth = ctx.getAuthentication();
         user = (User) auth.getPrincipal();
 
-
-        Appliance appliance = applianceRepository.findByUserAndAid(user, aid);
+        System.out.println("APPLIANCE");
+        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
         if (appliance == null){
             return "err: no appliance";
         }
@@ -241,11 +243,12 @@ public class OperateApplianceImpl implements OperateAppliance {
         Authentication auth = ctx.getAuthentication();
         user = (User) auth.getPrincipal();
 
+        System.out.println("APPLIANCE");
         if(option.equals("on")) new_state = 1;
         else if (option.equals("off")) new_state = 0;
         else return "err: wrong option string";
 
-        Appliance appliance = applianceRepository.findByUserAndAid(user, aid);
+        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
         if (appliance == null){
             return "err: no appliance";
         }
@@ -269,18 +272,18 @@ public class OperateApplianceImpl implements OperateAppliance {
 
     }
 
+    //java calls
     public ModelAndView request_appliances_status()
     {
-        //向python端发送指令，获得当前在运行的所有用电器信息
         User user;
 
         //当前用户
         SecurityContext ctx = SecurityContextHolder.getContext();
         Authentication auth = ctx.getAuthentication();
         user = (User) auth.getPrincipal();
-
+        System.out.println("APPLIANCE");
         //当前用户所有的电器
-        List<Appliance> appliances = applianceRepository.findByUser(user);
+        List<Appliance> appliances = applianceRepository.findByUser(user.getUid());
 
         ModelAndView mav = new ModelAndView("appliances");
         mav.addObject("appliances", appliances);
@@ -298,8 +301,8 @@ public class OperateApplianceImpl implements OperateAppliance {
         SecurityContext ctx = SecurityContextHolder.getContext();
         Authentication auth = ctx.getAuthentication();
         user = (User) auth.getPrincipal();
-
-        appliances = applianceRepository.findByUser(user);
+        System.out.println("APPLIANCE");
+        appliances = applianceRepository.findByUser(user.getUid());
         return appliances;
     }
 }

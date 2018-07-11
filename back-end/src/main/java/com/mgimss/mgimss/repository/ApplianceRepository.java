@@ -11,15 +11,15 @@ import java.util.List;
 
 public interface ApplianceRepository extends JpaRepository<Appliance, Long> {
 
-    @Query("select a from Appliance a where a.user = user")
-    List<Appliance> findByUser(@Param("user") User user);
+    @Query(nativeQuery = true, value="select * from appliance  where uid =:uid")
+    List<Appliance> findByUser(@Param("uid") Long uid);
 
-    @Query("select a from Appliance a where a.user = user and a.aid = aid")
-    Appliance findByUserAndAid(@Param("user") User user, @Param("aid") Long aid);
+    @Query(nativeQuery = true, value="select * from appliance where uid =:uid and aid =:aid")
+    Appliance findByUserAndAid(@Param("uid") Long uid, @Param("aid") Long aid);
 
-    @Query("select a from Appliance a where a.user = user and a.runningState = 1")
-    List<Appliance> findByUserAndState(@Param("user") User user, @Param("runningState") Long runningState);
+    @Query(nativeQuery = true, value="select * from appliance where uid =:uid and runningState = 1")
+    List<Appliance> findByUserAndState(@Param("uid") Long uid);
 
-    @Query(nativeQuery = true, value="select max(aid) from Appliance A where A.uid = uid")
+    @Query(nativeQuery = true, value="select max(aid) from appliance where uid =:uid")
     Long findMaxAidByUid(@Param("uid") Long uid);
 }
