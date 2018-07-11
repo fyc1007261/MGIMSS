@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardBody, CardColumns, CardHeader } from 'reactstrap';
 import { Bar, Doughnut, Line, Pie, Polar, Radar } from 'react-chartjs-2';
 
-import {PowerUsageData} from './PowerUsageData';
+import PowerUsageData from './PowerUsageData';
 import {CustomTooltips} from "@coreui/coreui-plugin-chartjs-custom-tooltips/dist/cjs/custom-tooltips";
 
 const line = {
