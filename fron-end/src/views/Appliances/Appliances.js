@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Badge, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 import {Link} from 'react-router-dom';
+import $ from 'jquery';
 
 import appsData from './UsersData'
 
 function ApplianceRow(props) {
   const appliance = props.appliance;
-  const appLink = '/apps/' + appliance.id;
+  const appLink = '/main/apps/' + appliance.id;
 
   const getBadge = (status) => {
     return status === 'Active' ? 'success' :
@@ -30,6 +31,21 @@ function ApplianceRow(props) {
 class Appliances extends Component {
 
   render() {
+
+    // get data at present
+    $.ajax({
+      type: "GET",
+      url: "test.json",
+      data: {},
+      dataType: "json",
+      success: function(data){
+
+      }
+    });
+
+
+    // show data
+
 
     const appList = appsData.filter((appliance) => appliance.id < 10);
 
