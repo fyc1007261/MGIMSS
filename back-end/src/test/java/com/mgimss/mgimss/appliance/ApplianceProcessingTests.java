@@ -1,6 +1,8 @@
 package com.mgimss.mgimss.appliance;
 
+
 import com.mgimss.mgimss.entity.Appliance;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,10 +18,12 @@ import java.util.List;
 @SpringBootTest
 public class ApplianceProcessingTests {
 
+
     @Test
     public void contextLoads(){
 //        List<Appliance> list = applianceProcessing.get_latest_status("admin");
 //        Assert.assertEquals(6, list.size());
 //        Assert.assertEquals("jiangfanxu", list.get(0).getName());
     }
+
 }
