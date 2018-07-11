@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class MainController {
 
-//    @RequestMapping(value = "/{any}", method = RequestMethod.GET)
-//    public String jump1(@PathVariable(value = "any") String any) {
-//        return any;
-//    }
+
+    @RequestMapping(value = "/{any}", method = RequestMethod.GET)
+    public String jump1(@PathVariable(value = "any") String any) {
+        return any;
+    }
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String jump2() {
         return "index.html";
