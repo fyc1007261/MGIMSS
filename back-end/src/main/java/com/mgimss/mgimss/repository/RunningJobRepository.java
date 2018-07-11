@@ -13,13 +13,13 @@ import java.util.List;
 
 public interface RunningJobRepository extends JpaRepository<Job, Long> {
 
-    @Query("select j from Job j where j.user.uid = uid")
+    @Query("select j from Job j where j.appliance.user.uid = uid")
     ArrayList<Job> findByUid(@Param("uid") Long id);
 
     @Query("select j from Job j where j.jobId = jobId")
     Job findByJobId(@Param("jobId") Long jobId);
 
-    @Query("select j from Job j where j.user = user and j.appliance = appliance")
-    Job findByUserAndAppliance(@Param("user") User user, @Param("appliance") Appliance appliance);
+    @Query("select j from Job j where j.appliance = appliance")
+    Job findByAppliance(@Param("appliance") Appliance appliance);
 
 }

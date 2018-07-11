@@ -11,7 +11,6 @@ import java.util.*;
  * Created by sang on 2017/1/10.
  */
 @Entity
-
 public class User implements UserDetails {
 
     @Id

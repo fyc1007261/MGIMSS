@@ -33,8 +33,8 @@ public class SendAndReceive extends Thread{
         String send_message;
         String recv_message;
 
-        user = job.getUser();
         appliance = job.getAppliance();
+        user = appliance.getUser();
         host = user.getHardwareHost();
         port = user.getHardwarePort();
 

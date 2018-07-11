@@ -31,6 +31,12 @@
                     <input placeholder="Password" name="password" type="password">
                     <span class="icon-right-login"><i class="fa fa-unlock" aria-hidden="true"></i></span>
                 </div>
+                <div th:if="${param.error}">
+                    <p style="text-align: center" class="text-danger" value="${param.error}"></p>
+                </div>
+                <div th:if="${result}">
+                    <p style="text-align: center" class="text-success" th:text="${result}"></p>
+                </div>
                 <div class="loginbtnBox">
                     <button class="button loginbtn" type="submit">Login</button>
                 </div>

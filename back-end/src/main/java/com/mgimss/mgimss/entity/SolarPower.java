@@ -1,25 +1,47 @@
 package com.mgimss.mgimss.entity;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity
+@IdClass(SolarPower.SolarPowerId.class)
 public class SolarPower
 {
+    @Id
     @ManyToOne
     @JoinColumn(name="uid")
     private User user;
+    @Id
     private Long sid;
-    private Long interval;
+    private Long timeInterval;
     private Long forecastData;
 
+    public static class SolarPowerId implements Serializable{
+        private User user;
+        private Long sid;
+        public SolarPowerId(){}
+        public Long getSid() {
+            return sid;
+        }
+
+        public void setSid(Long sid) {
+            this.sid = sid;
+        }
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
+    }
+
     public SolarPower(){}
-    public SolarPower(User user, Long fid, Long interval, Long forecastData){
+    public SolarPower(User user, Long sid, Long timeInterval, Long forecastData){
         this.user = user;
         this.sid = sid;
-        this.interval = interval;
+        this.timeInterval = timeInterval;
         this.forecastData = forecastData;
     }
 
@@ -31,13 +53,13 @@ public class SolarPower
         this.sid = sid;
     }
 
-    public void setInterval(Long interval)
+    public void setInterval(Long timeInterval)
     {
-        this.interval = interval;
+        this.timeInterval = timeInterval;
     }
     public Long getInterval()
     {
-        return this.interval;
+        return this.timeInterval;
     }
     public void setForecastData(Long forecasData)
     {

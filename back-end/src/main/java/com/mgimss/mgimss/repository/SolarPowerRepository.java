@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.ArrayList;
 
-public interface SolarPowerRepository extends JpaRepository<SolarPower, Long>{
+public interface SolarPowerRepository extends JpaRepository<SolarPower, SolarPower.SolarPowerId>{
     @Query(nativeQuery = true, value="select max(fid) from SolarPower S where S.uid = uid ")
     Long findMaxFidByUid(@Param("uid") Long uid);
 
