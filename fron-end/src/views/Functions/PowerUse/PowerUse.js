@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { Button, Card, CardBody, CardColumns, Row, Col, CardTitle, ButtonToolbar, ButtonGroup } from 'reactstrap';
 import { Line } from 'react-chartjs-2';
 import $ from 'jquery';
@@ -16,10 +17,12 @@ const line1 = {
       lineTension: 0.1,
       backgroundColor: 'rgba(248,108,107,0.4)',
       borderColor: 'rgba(248,108,107,1)',
+
       borderCapStyle: 'butt',
       borderDash: [],
       borderDashOffset: 0.0,
       borderJoinStyle: 'miter',
+
       pointBorderColor: 'rgba(248,108,107,1)',
       pointBackgroundColor: '#fff',
       pointBorderWidth: 1,
@@ -30,9 +33,11 @@ const line1 = {
       pointRadius: 1,
       pointHitRadius: 10,
       data: DayData[1],
+
     },
   ],
 };
+
 
 const line2 = {
   labels: MonthData[0],
@@ -75,6 +80,7 @@ const options2 = {
   },
   maintainAspectRatio: false
 };
+
 
 class PowerUse extends Component {
 
@@ -179,4 +185,6 @@ class PowerUse extends Component {
   }
 }
 
+
 export default PowerUse;
+

@@ -4,10 +4,10 @@ import com.mgimss.mgimss.entity.Appliance;
 import com.mgimss.mgimss.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.RepositoryDefinition;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-
 
 public interface ApplianceRepository extends JpaRepository<Appliance, Long> {
 

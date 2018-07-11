@@ -7,21 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class MainController {
 
-//    @CrossOrigin
-//    @RequestMapping(path = {"/", "/index", "/home"}, method = RequestMethod.GET)
-//    public String root(){
-//        return "index";
-//    }
-//
-//    @GetMapping("/login")
-//    public String login(){
-//        return "login";
-//    }
-//
-//    @RequestMapping("/main")
-//    public String main(){
-//        return "/main/main";
-//    }
+
     @RequestMapping(value = "/{any}", method = RequestMethod.GET)
     public String jump1(@PathVariable(value = "any") String any) {
         return any;
@@ -34,6 +20,7 @@ public class MainController {
     public String jump3(@PathVariable(value = "any") String any) {
         return "index.html";
     }
+
 
 }
 

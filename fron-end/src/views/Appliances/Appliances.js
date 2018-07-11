@@ -3,7 +3,7 @@ import { Badge, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 import {Link} from 'react-router-dom';
 import $ from 'jquery';
 
-import appsData from './UsersData'
+let appsData = [];
 
 function ApplianceRow(props) {
   const appliance = props.appliance;
@@ -19,35 +19,35 @@ function ApplianceRow(props) {
 
   return (
     <tr key={appliance.id.toString()}>
-        <th scope="row"><Link to={appLink}>{appliance.id}</Link></th>
-        <td><Link to={appLink}>{appliance.name}</Link></td>
-        <td>{appliance.registered}</td>
-        <td>{appliance.role}</td>
-        <td><Badge href={appLink} color={getBadge(appliance.status)}>{appliance.status}</Badge></td>
+        <th scope="row"><Link to={appLink}>{appliance["id"]}</Link></th>
+        <td><Link to={appLink}>{appliance["name"]}</Link></td>
+        <td>{appliance["status"] === 1 ? "Active":"Inactive"}</td>
+        <td>{appliance["updated"]}</td>
+        {/*<td><Badge href={appLink} color={getBadge(appliance.status)}>{appliance.status}</Badge></td>*/}
     </tr>
   )
 }
 
 class Appliances extends Component {
 
-  render() {
-
+  constructor(){
+    super();
     // get data at present
     $.ajax({
       type: "GET",
-      url: "test.json",
-      data: {},
-      dataType: "json",
+      async: false,
+      url: "/appliance/get_all_status",
+      context: document.body,
       success: function(data){
-
+        appsData = $.parseJSON(data.toString())["data"];
       }
     });
+  }
 
 
+  render() {
     // show data
-
-
-    const appList = appsData.filter((appliance) => appliance.id < 10);
+    // const appList = appsData.filter((appliance) => appliance.id < 10);
 
     return (
       <div className="animated fadeIn">
@@ -63,13 +63,12 @@ class Appliances extends Component {
                     <tr>
                       <th scope="col">ID</th>
                       <th scope="col">Name</th>
-                      <th scope="col">Voltage</th>
-                      <th scope="col">Current</th>
                       <th scope="col">Status</th>
+                      <th scope="col">Last Updated</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {appList.map((appliance, index) =>
+                    {appsData.map((appliance, index) =>
                       <ApplianceRow key={index} appliance={appliance}/>
                     )}
                   </tbody>
