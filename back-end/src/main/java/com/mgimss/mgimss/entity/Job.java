@@ -5,6 +5,7 @@ import com.mgimss.mgimss.businessModel.Time;
 import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Job
 {
     @Id
@@ -19,10 +20,10 @@ public class Job
     private Long perPower;
 
     @ManyToOne
-    @JoinColumn(name="uid")
-    private User user;
-    @ManyToOne
-    @JoinColumn(name="aid")
+    @JoinColumns(value={
+            @JoinColumn(name="aid"),
+            @JoinColumn(name="uid")}
+    )
     private Appliance appliance;
 
     public Job(){
@@ -76,8 +77,7 @@ public class Job
     {
         return this.lastTime;
     }
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
+
     public Appliance getAppliance() { return appliance; }
     public void setAppliance(Appliance jobId) { this.appliance = appliance; }
 

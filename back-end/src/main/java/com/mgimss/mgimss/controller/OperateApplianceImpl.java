@@ -119,19 +119,23 @@ public class OperateApplianceImpl implements OperateAppliance {
 
         //无差错时，用电器更改为新的状态
         newMode = Integer.valueOf(mode);
-        appliance.setRunningState(newMode);
-        appliance.setLastSendDataTime(send_time);
         if(newMode == 0){
-            job = runningJobRepository.findByUserAndAppliance(user, appliance);
+            job = runningJobRepository.findByAppliance(appliance);
             runningJobRepository.delete(job);
+            appliance.setRunningState(newMode);
+            appliance.setLastSendDataTime(send_time);
+            job.setAppliance(appliance);
             Long curTime = new Date().getTime()/1000;
             job.setIntStopTime(curTime);
             finishedJobRepository.save(job);
 
         }
         if(newMode == 1){
-            job = pendingJobRepository.findByUserAndAppliance(user, appliance);
+            job = pendingJobRepository.findByAppliance(appliance);
             pendingJobRepository.delete(job);
+            appliance.setRunningState(newMode);
+            appliance.setLastSendDataTime(send_time);
+            job.setAppliance(appliance);
             Long curTime = new Date().getTime()/1000;
             job.setIntStartTime(curTime);
             runningJobRepository.save(job);

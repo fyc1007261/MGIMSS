@@ -10,7 +10,7 @@ import org.springframework.security.core.parameters.P;
 import java.util.Date;
 import java.util.List;
 
-public interface BatteryStatusRepository extends JpaRepository<BatteryStatus, Long>{
+public interface BatteryStatusRepository extends JpaRepository<BatteryStatus, BatteryStatus.BatteryStatusId>{
 
     @Query("select b from BatteryStatus b where b.recordTime = time and b.battery.user = user")
     BatteryStatus findByUserAndRecordTime(@Param("time") Date time, @Param("user") User user);
