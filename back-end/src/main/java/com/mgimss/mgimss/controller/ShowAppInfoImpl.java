@@ -22,7 +22,6 @@ public class ShowAppInfoImpl implements ShowAppInfo {
     UserRepository userRepository;
     public String get_all_status(){
         System.out.println("haha");
-        Gson gson = new Gson();
         User user = userRepository.findByUid(Long.valueOf(1));
         List<Appliance> applianceList = applianceRepository.findByUser(user);
         // json builder
@@ -40,5 +39,9 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         buf.deleteCharAt(buf.length()-1);
         buf.append("]}");
         return buf.toString();
+    }
+
+    public String get_info_by_id(Long id){
+        return "";
     }
 }
