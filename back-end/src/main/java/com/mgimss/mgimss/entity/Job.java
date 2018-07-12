@@ -18,12 +18,28 @@ public class Job
     private Long intTrueStartTime;
     private Long lastTime;
     private Long perPower;
+    private int  status;
+
 
     @ManyToOne
     @JoinColumn(name="appId")
     private Appliance appliance;
 
+
     public Job(){
+    }
+
+
+    public Job(Long intStartTime, Long intStopTime, Long intTrueStartTime, Long intTrueStopTime,
+                Long lastTime, Long perPower, int  status, Appliance appliance){
+        this.intStartTime = intStartTime;
+        this.intStopTime = intStopTime;
+        this.intTrueStartTime = intTrueStartTime;
+        this.intTrueStopTime = intTrueStopTime;
+        this.lastTime = lastTime;
+        this.perPower = perPower;
+        this.status = status;
+        this.appliance = appliance;
     }
 
     public void setPerPower(Long perPower)
@@ -86,14 +102,23 @@ public class Job
         this.jobId = jobId;
     }
 
-    public void myinit(Long intStopTime, Long intStartTime, Long intTrueStopTime, Long lastTime, Long perPower, Long jobId)
-    {
-//        setIntStartTime(intStartTime);
-//        setIntStopTime(intStopTime);
-//        setIntTrueStopTime(intTrueStopTime);
-//        setJobId(jobId);
-//        setLastTime(lastTime);
-//        setPerPower(perPower);
-//        System.out.println("jobId:"+jobId);
+    public int getStatus() {
+        return status;
     }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+
+//    public void myinit(Long intStopTime, Long intStartTime, Long intTrueStopTime, Long lastTime, Long perPower, Long jobId)
+//    {
+////        setIntStartTime(intStartTime);
+////        setIntStopTime(intStopTime);
+////        setIntTrueStopTime(intTrueStopTime);
+////        setJobId(jobId);
+////        setLastTime(lastTime);
+////        setPerPower(perPower);
+////        System.out.println("jobId:"+jobId);
+//    }
 }

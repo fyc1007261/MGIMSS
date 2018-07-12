@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface FinishedJobRepository extends JpaRepository<Job, Long> {
 
-    @Query(nativeQuery = true, value="select * from job where uid =:uid")
+    @Query(nativeQuery = true, value="select * from job where uid =:uid  and status = 2")
     ArrayList<Job> findByUid(@Param("uid") Long id);
 
 }
