@@ -1,21 +1,21 @@
 package com.mgimss.mgimss.controller;
 
-import com.mgimss.mgimss.entity.Battery;
-import com.mgimss.mgimss.entity.BatteryStatus;
-import com.mgimss.mgimss.entity.SolarPower;
-import com.mgimss.mgimss.entity.User;
+import com.mgimss.mgimss.entity.*;
 import com.mgimss.mgimss.repository.BatteryStatusRepository;
 import com.mgimss.mgimss.repository.BattetyRepository;
 import com.mgimss.mgimss.repository.SolarPowerRepository;
+import com.mgimss.mgimss.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@RestController
 public class BatteryControllerImpl implements BatteryController{
 
     @Autowired
@@ -27,19 +27,19 @@ public class BatteryControllerImpl implements BatteryController{
     @Autowired
     SolarPowerRepository solarPowerRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     //python calls
-    public String post_remaining(String time, String remaining){
+    public String post_remaining(String time, Long remain, String uid){
 
         User user;
         Battery battery;
         Date recordTime;
-        Long remainingCharge;
 
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        user = (User) auth.getPrincipal();
+        user = userRepository.findByUid(Long.valueOf(uid));
 
-        battery = battetyRepository.findByUser(user);
+        battery = battetyRepository.findByUser(user.getUid());
 
         if (battery == null){
             return "err: no such battery";
@@ -53,13 +53,11 @@ public class BatteryControllerImpl implements BatteryController{
             return "err: encounter error when formatting date";
         }
 
-        remainingCharge = Long.valueOf(remaining);
-
         //更新电池剩余电量
-        battery.setRemain(remainingCharge);
+        battery.setRemain(remain);
 
         //记录log
-        BatteryStatus batteryStatus = new BatteryStatus(remainingCharge, recordTime, battery);
+        BatteryStatus batteryStatus = new BatteryStatus(remain, recordTime, battery);
 
         battetyRepository.save(battery);
         batteryStatusRepository.save(batteryStatus);
@@ -78,7 +76,7 @@ public class BatteryControllerImpl implements BatteryController{
         Authentication auth = ctx.getAuthentication();
         user = (User) auth.getPrincipal();
 
-        battery = battetyRepository.findByUser(user);
+        battery = battetyRepository.findByUser(user.getUid());
         if (battery == null){
             return Long.valueOf(-1);
         }
@@ -87,24 +85,28 @@ public class BatteryControllerImpl implements BatteryController{
         return remainingCharge;
     }
 
-    public String post_generation(String time, Long generation){
+    public String post_generation(String time, Long generation, String uid){
         User user;
-        Long new_fid;
+        Long new_sid;
         Long count;
         SolarPower solarPower;
 
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        user = (User) auth.getPrincipal();
+        user = userRepository.findByUid(Long.valueOf(uid));
 
-        count = solarPowerRepository.findCount();
+
+        count = solarPowerRepository.findCount(user.getUid());
         if (count.equals(Long.valueOf(0))){
-            new_fid = Long.valueOf(0);
+            new_sid = Long.valueOf(0);
         }
         else
-            new_fid = solarPowerRepository.findMaxFidByUid(user.getUid()) + 1;
-        solarPower = new SolarPower(user, new_fid, Long.valueOf(1800), generation);
+            new_sid = solarPowerRepository.findMaxSidByUid(user.getUid()) + 1;
+
+        System.out.println("complete sid: "+ new_sid + user.getUid());
+
+        solarPower = new SolarPower(new_sid, user, Long.valueOf(1800), generation);
+
         solarPowerRepository.save(solarPower);
+        System.out.println("here got it~");
         return "success";
     }
 }

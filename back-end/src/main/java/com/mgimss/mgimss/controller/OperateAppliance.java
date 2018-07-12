@@ -13,11 +13,11 @@ public interface OperateAppliance {
 
     //python calls
     @RequestMapping("/appliance/post_appliance")
-    String post_appliance_status(String time, String id, String voltage, String current);
+    String post_appliance_status(String time, String id, String voltage, String current, String uid);
 
     //python calls
     @RequestMapping("/appliance/notify_status_change")
-    String notify_status_change(String id, String mode);
+    String notify_status_change(String id, String mode, String uid);
 
     //java calls
     @RequestMapping("/appliance/request_status")

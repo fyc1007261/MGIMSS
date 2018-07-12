@@ -46,11 +46,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-
-                .antMatchers( "/**").permitAll()
-//                .antMatchers("/appliance/**").permitAll()
-//                .antMatchers("/main/**").permitAll()
-
+                .antMatchers( "/", "/login", "/signup").permitAll()
+                .antMatchers("/appliance/**").permitAll()
+                .antMatchers("/battery/**").permitAll()
+                .antMatchers("/main/**").hasRole("USER")
                 .and()
                 .formLogin().loginPage("/login").defaultSuccessUrl("/main").permitAll()
                 .and()
@@ -61,6 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
         // 在 CsrfFilter 后添加 AfterCsrfFilter
         http.addFilterAfter(new AfterCsrfFilter(), CsrfFilter.class);
+
+        http.csrf().disable();
     }
 
 

@@ -7,13 +7,13 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.ArrayList;
 
-public interface SolarPowerRepository extends JpaRepository<SolarPower, SolarPower.SolarPowerId>{
-    @Query(nativeQuery = true, value="select max(fid) from SolarPower S where S.uid = uid ")
-    Long findMaxFidByUid(@Param("uid") Long uid);
+public interface SolarPowerRepository extends JpaRepository<SolarPower, Long>{
+    @Query(nativeQuery = true, value="select max(sid) from solar_power where uid =:uid ")
+    Long findMaxSidByUid(@Param("uid") Long uid);
 
-    @Query(nativeQuery = true, value = "select S.forecastData from SolarPower S where S.uid = uid order by sid")
+    @Query(nativeQuery = true, value = "select forecastData from solar_power where uid =:uid order by sid")
     ArrayList<Long> findAllDataByUid(@Param("uid") Long uid);
 
-    @Query("select count(s) from SolarPower s")
-    Long findCount();
+    @Query(nativeQuery = true, value="select count(*) from solar_power where uid =:uid")
+    Long findCount(@Param("uid") Long uid);
 }

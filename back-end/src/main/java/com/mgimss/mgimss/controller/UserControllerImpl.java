@@ -83,7 +83,7 @@ public class UserControllerImpl implements UserController {
         if (host == null) host = "localhost";
         if (port == null) port = "12334";
 
-        User new_user = new User(username, password, phone, email, host, port, roles);
+        User new_user = new User(username, password, email, phone, host, port, roles);
 
         userRepository.save(new_user);
 

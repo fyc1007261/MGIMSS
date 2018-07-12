@@ -66,7 +66,7 @@ public class CreateUserThread extends  Thread {
                 ArrayList<Job> pendJob = pendingJobRepository.findByUid(clientId);
 
                 User user = userRepository.findByUid(clientId);
-                Battery battery = battetyRepository.findByUser(user);
+                Battery battery = battetyRepository.findByUser(user.getUid());
                 ArrayList<Long> predictSourceData = solarPowerRepository.findAllDataByUid(clientId);
                 Long[] data = new Long[predictSourceData.size()];
                 for (int g = 0 ;g<predictSourceData.size();g++)

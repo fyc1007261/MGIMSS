@@ -1,48 +1,45 @@
 package com.mgimss.mgimss.entity;
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
 
 @Entity
-@IdClass(SolarPower.SolarPowerId.class)
 public class SolarPower
 {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long solarId;
+
+    private Long sid;
+
     @ManyToOne
     @JoinColumn(name="uid")
     private User user;
-    @Id
-    private Long sid;
+
     private Long timeInterval;
     private Long forecastData;
 
-    public static class SolarPowerId implements Serializable{
-        private User user;
-        private Long sid;
-        public SolarPowerId(){}
-        public Long getSid() {
-            return sid;
-        }
-
-        public void setSid(Long sid) {
-            this.sid = sid;
-        }
-
-        public User getUser() {
-            return user;
-        }
-
-        public void setUser(User user) {
-            this.user = user;
-        }
-    }
 
     public SolarPower(){}
-    public SolarPower(User user, Long sid, Long timeInterval, Long forecastData){
-        this.user = user;
+    public SolarPower(Long sid, User user, Long timeInterval, Long forecastData){
         this.sid = sid;
+        this.user = user;
         this.timeInterval = timeInterval;
         this.forecastData = forecastData;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Long getSolarId() {
+        return solarId;
+    }
+
+    public void setSolarId(Long solarId) {
+        this.solarId = solarId;
     }
 
     public Long getSid() {
@@ -68,11 +65,5 @@ public class SolarPower
     public Long getForecastData()
     {
         return this.forecastData;
-    }
-    public User getUser() {
-        return user;
-    }
-    public void setUser(User user) {
-        this.user = user;
     }
 }

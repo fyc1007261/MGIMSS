@@ -1,7 +1,7 @@
 package com.mgimss.mgimss.businessModel;
 import com.mgimss.mgimss.entity.Battery;
-import com.mgimss.mgimss.entity.SolarPower;
 import com.mgimss.mgimss.entity.Job;
+import com.mgimss.mgimss.entity.SolarPower;
 
 import java.util.ArrayList;
 import java.util.Date;

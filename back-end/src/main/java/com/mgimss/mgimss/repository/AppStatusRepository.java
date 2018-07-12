@@ -11,7 +11,7 @@ import java.util.LinkedHashSet;
 
 public interface AppStatusRepository extends JpaRepository<AppStatus, Long>{
 
-    @Query("select a from AppStatus a where a.recordTime >= time1 and a.recordTime <= time2 and a.appliance.user = user")
+    @Query(nativeQuery = true, value="select * from app_status  where recordTime >=:time1 and recordTime <=:time2 and uid =:uid")
     LinkedHashSet<AppStatus> findByTimeAndUser(@Param("time1") Date time1, @Param("time2") Date time2,
-                                                   @Param("user") User user);
+                                                   @Param("uid") Long uid);
 }
