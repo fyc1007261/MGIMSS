@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Badge, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import { Button, Badge, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 import {Link} from 'react-router-dom';
 import $ from 'jquery';
+import { AppSwitch } from '@coreui/react'
 
-let appsData = [];
+let appsData = [{"id":1}];
 
 function ApplianceRow(props) {
   const appliance = props.appliance;
@@ -18,13 +19,18 @@ function ApplianceRow(props) {
   };
 
   return (
-    <tr key={appliance.id.toString()}>
-        <th scope="row"><Link to={appLink}>{appliance["id"]}</Link></th>
-        <td><Link to={appLink}>{appliance["name"]}</Link></td>
-        <td>{appliance["status"] === 1 ? "Active":"Inactive"}</td>
-        <td>{appliance["updated"]}</td>
-        {/*<td><Badge href={appLink} color={getBadge(appliance.status)}>{appliance.status}</Badge></td>*/}
-    </tr>
+      // appliance["status"] === "Active"?
+      <tr key={appliance.id.toString()}>
+          <th scope="row"><Link to={appLink}>{appliance["id"]}</Link></th>
+          <td><Link to={appLink}>{appliance["name"]}</Link></td>
+          <td>{appliance["status"]}</td>
+          <td>{appliance["updated"]}</td>
+          <td>
+            <AppSwitch aid={"haha"} onClick={()=>console.log($(this).checked)}
+              className={'mx-1'} variant={'3d'} outline={'alt'} color={'primary'} defaultChecked label />
+          </td>
+          {/*<td><Badge href={appLink} color={getBadge(appliance.status)}>{appliance.status}</Badge></td>*/}
+      </tr>
   )
 }
 
@@ -33,15 +39,15 @@ class Appliances extends Component {
   constructor(){
     super();
     // get data at present
-    $.ajax({
-      type: "GET",
-      async: false,
-      url: "/appliance/get_all_status",
-      context: document.body,
-      success: function(data){
-        appsData = $.parseJSON(data.toString())["data"];
-      }
-    });
+    // $.ajax({
+    //   type: "GET",
+    //   async: false,
+    //   url: "/appliance/get_all_status",
+    //   context: document.body,
+    //   success: function(data){
+    //     appsData = $.parseJSON(data.toString())["data"];
+    //   }
+    // });
   }
 
 

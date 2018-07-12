@@ -2,9 +2,9 @@ package com.mgimss.mgimss.controller;
 
 import com.google.gson.Gson;
 import com.mgimss.mgimss.entity.Appliance;
+import com.mgimss.mgimss.entity.Job;
 import com.mgimss.mgimss.entity.User;
-import com.mgimss.mgimss.repository.ApplianceRepository;
-import com.mgimss.mgimss.repository.UserRepository;
+import com.mgimss.mgimss.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,10 +20,18 @@ public class ShowAppInfoImpl implements ShowAppInfo {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    PendingJobRepository pendingJobRepository;
+
+    @Autowired
+    RunningJobRepository runningJobRepository;
+
+    @Autowired
+    FinishedJobRepository finishedJobRepository;
+
     public String get_all_status(){
-        System.out.println("haha");
-        User user = userRepository.findByUid(Long.valueOf(1));
-        List<Appliance> applianceList = applianceRepository.findByUser(user);
+        List<Appliance> applianceList = applianceRepository.findByUser(Long.valueOf(1));
         // json builder
         StringBuffer buf = new StringBuffer();
         buf.append("{\"data\":[");
@@ -31,7 +39,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
             buf.append(
                     "{\"id\" : \"" + appliance.getAid() +
                             "\", \"name\" : \"" + appliance.getName() +
-                            "\", \"status\" : \"" +appliance.getRunningState() +
+                            "\", \"status\" : \"" + ((appliance.getRunningState() == 1) ? "Active" : "Inactive") +
                             "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
             );
             buf.append(',');
@@ -42,6 +50,37 @@ public class ShowAppInfoImpl implements ShowAppInfo {
     }
 
     public String get_info_by_id(Long id){
-        return "";
+        Appliance appliance = applianceRepository.findByUserAndAid(1L, id);
+        String start_time = "Not scheduled", finish_time = "Not scheduled";
+        Job job = runningJobRepository.findByApplianceAndUser(id, 1L);
+        if (job != null){
+            start_time = job.getIntStartTime().toString();
+            finish_time = job.getIntStopTime().toString();
+        }
+        job = finishedJobRepository.findByApplianceAndUser(id, 1L);
+        if (job != null){
+            start_time = job.getIntStartTime().toString();
+            finish_time = job.getIntStopTime().toString();
+        }
+        job = pendingJobRepository.findByApplianceAndUser(id, 1L);
+        if (job != null){
+            start_time = job.getIntStartTime().toString();
+            finish_time = job.getIntStopTime().toString();
+        }
+
+
+        // json builder
+        StringBuilder buf = new StringBuilder();
+        buf.append(
+                "{\"id\" : \"" + appliance.getAid() +
+                        "\", \"name\" : \"" + appliance.getName() +
+                        "\", \"status\" : \"" + ((appliance.getRunningState()==1) ? "Active":"Inactive") +
+                        "\", \"manufacturer\" : \"" +appliance.getMfrs() +
+                        "\", \"parameters\" : \"" +appliance.getRatedParameters() +
+                        "\", \"start_time\" : \"" +start_time +
+                        "\", \"finish_time\" : \"" +finish_time +
+                        "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
+        );
+        return buf.toString();
     }
 }

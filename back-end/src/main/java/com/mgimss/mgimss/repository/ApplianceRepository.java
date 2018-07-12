@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ApplianceRepository extends JpaRepository<Appliance, Long> {
 
-    @Query(nativeQuery = true, value="select * from appliance  where uid =:uid")
+    @Query(nativeQuery = true, value="select * from appliance where uid =:uid")
     List<Appliance> findByUser(@Param("uid") Long uid);
 
     @Query(nativeQuery = true, value="select * from appliance where uid =:uid and aid =:aid")

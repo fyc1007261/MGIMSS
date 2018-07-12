@@ -8,16 +8,17 @@ let appsData = [];
 
 class Appliance extends Component {
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
+    let aid = this.props.match.params.id;
     $.ajax({
       type: "GET",
       async: false,
-      url: "/appliance/get_all_status",
-      data:{"id": this.props.match.params.id},
+      url: "/appliance/get_info_by_id",
+      data:{"id": aid},
       context: document.body,
       success: function(data){
-        appsData = $.parseJSON(data.toString());
+        appsData.push($.parseJSON(data.toString()));
       }
     });
   }
