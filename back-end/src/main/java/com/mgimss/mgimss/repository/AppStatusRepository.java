@@ -14,4 +14,6 @@ public interface AppStatusRepository extends JpaRepository<AppStatus, Long>{
     @Query(nativeQuery = true, value="select * from app_status  where recordTime >=:time1 and recordTime <=:time2 and uid =:uid")
     LinkedHashSet<AppStatus> findByTimeAndUser(@Param("time1") Date time1, @Param("time2") Date time2,
                                                    @Param("uid") Long uid);
+    @Query(nativeQuery = true, value="select avg(present_current * present_voltage) from app_status where  app_id=:app_id")
+    Long findAvgPowerByAppliance(@Param("app_id") Long app_id);
 }

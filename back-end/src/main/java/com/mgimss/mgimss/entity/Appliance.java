@@ -26,7 +26,7 @@ public class Appliance {
 
     private String mfrs;
 
-    private String ratedParameters;
+    private Long power;
 
     private Date lastSendDataTime;
 
@@ -38,14 +38,14 @@ public class Appliance {
     }
 
     public Appliance(User user, Long aid, String name, Date addDate,
-                     String mfrs, String ratedParameters, Date lastSendDataTime,
+                     String mfrs, Long power, Date lastSendDataTime,
                      int runningState){
         this.user = user;
         this.aid = aid;
         this.name = name;
         this.addDate = addDate;
         this.mfrs = mfrs;
-        this.ratedParameters = ratedParameters;
+        this.power = power;
         this.lastSendDataTime = lastSendDataTime;
         this.runningState = runningState;
     }
@@ -98,12 +98,12 @@ public class Appliance {
         this.mfrs = mfrs;
     }
 
-    public String getRatedParameters() {
-        return ratedParameters;
+    public Long getPower() {
+        return power;
     }
 
-    public void setRatedParameters(String ratedParameters) {
-        this.ratedParameters = ratedParameters;
+    public void setPower(Long power) {
+        this.power = power;
     }
 
     public Date getLastSendDataTime() {

@@ -7,6 +7,7 @@ import threading
 import datetime
 import socket
 import random
+import pytz
 
 
 # define
@@ -23,6 +24,7 @@ server = "http://localhost:12333/appliance/post_appliance"
 server_change = "http://localhost:12333/appliance/notify_status_change"
 server_battery = "http://localhost:12333/battery/post_remaining"  # (String time, int remaining)
 file_name = "appliances.mgimss"
+tz = pytz.timezone('Asia/Shanghai')
 
 
 # as a socket server
@@ -60,7 +62,7 @@ def save_apps(apps):
 
 
 def all_to_server(url, apps, battery):
-    now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    now = datetime.datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S')
     for app in apps:
         if app.get_status() == 1:
             battery.discharge(app.get_current() * app.get_voltage() * frequency)
@@ -189,7 +191,7 @@ def switch_status(apps, app_id, option=-1):
     for appliance in apps:
         if appliance.get_id() == app_id:
             status = appliance.get_status()
-            if status == option:
+            if option == status:
                 lock.release()
                 return -1
             if status == 1:
@@ -224,7 +226,7 @@ def wait_server(apps):
 
 
 def do_server(conn, addr, apps):
-    print("Connected by" + addr)
+    print("Connected by" + str(addr))
     data = conn.recv(1024)
     data = eval(data)
     option = data["option"]
@@ -293,11 +295,11 @@ def do_server(conn, addr, apps):
 
 def send_solar_generation(battery):
     while 1:
-        hour = int(datetime.datetime.now().strftime('%H'))
+        hour = int(datetime.datetime.now(tz).strftime('%H'))
         value = battery.get_generation_volume()[hour] * area_of_solar_generator
         try:
             r = requests.post(server_solar_generation,
-                              {"time": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                              {"time": datetime.datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S'),
                                     "generation": value, "uid": 1})
             if r.text != "success":
                 print("err: when sending solar generation to server.")

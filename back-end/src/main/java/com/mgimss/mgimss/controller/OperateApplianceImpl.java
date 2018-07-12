@@ -78,6 +78,8 @@ public class OperateApplianceImpl implements OperateAppliance {
             return "err: no such appliance";
         }
 
+        System.out.println(recordTime);
+
         //当前电压/电流
         presentVoltage = Float.valueOf(voltage);
         presentCurrent = Float.valueOf(current);
@@ -123,25 +125,40 @@ public class OperateApplianceImpl implements OperateAppliance {
         newMode = Integer.valueOf(mode);
         if(newMode == 0){
             job = runningJobRepository.findByAppliance(appliance.getAppId());
-            runningJobRepository.delete(job);
+            if (job == null) {
+                return "err: this running appliance "+aid + " is not in a running job yet";
+            }
             appliance.setRunningState(newMode);
             appliance.setLastSendDataTime(send_time);
             job.setAppliance(appliance);
+            job.setStatus(2);
             Long curTime = new Date().getTime()/1000;
-            job.setIntStopTime(curTime);
+            job.setIntTrueStopTime(curTime);
+            job.setLastTime(job.getIntTrueStopTime() - job.getIntTrueStartTime());
             finishedJobRepository.save(job);
 
         }
         if(newMode == 1){
             job = pendingJobRepository.findByAppliance(appliance.getAppId());
-            pendingJobRepository.delete(job);
             appliance.setRunningState(newMode);
             appliance.setLastSendDataTime(send_time);
-            job.setAppliance(appliance);
-            Long curTime = new Date().getTime()/1000;
-            job.setIntStartTime(curTime);
-            runningJobRepository.save(job);
+            if (job == null) {
+                Long starttime = new Date().getTime()/1000;
+                Long perPower = appStatusRepository.findAvgPowerByAppliance(appliance.getAppId());
+                if (perPower == null || perPower == 0){
+                    perPower = appliance.getPower();
+                }
+                job = new Job(starttime, Long.MAX_VALUE, starttime, Long.MAX_VALUE, Long.MAX_VALUE,
+                        perPower, 1, appliance);
+            }
+            else{
 
+                job.setAppliance(appliance);
+                job.setStatus(1);
+                Long curTime = new Date().getTime()/1000;
+                job.setIntStartTime(curTime);
+            }
+            runningJobRepository.save(job);
         }
         applianceRepository.save(appliance);
 
@@ -149,7 +166,7 @@ public class OperateApplianceImpl implements OperateAppliance {
     }
 
     //java calls
-    public String add_appliance(String name, String mfrs, String ratedParameters)
+    public String add_appliance(String name, String mfrs, Long perPower)
     {
         User user;
         Long aid;
@@ -173,7 +190,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         addDate = new Date();
 
         Appliance appliance = new Appliance(user, aid, name, addDate, mfrs,
-                ratedParameters, null, 0);
+                perPower, null, 0);
 
         host = user.getHardwareHost();
         port = user.getHardwarePort();
@@ -239,9 +256,11 @@ public class OperateApplianceImpl implements OperateAppliance {
         String send_message;
         String recv_message;
 
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        user = (User) auth.getPrincipal();
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        user = (User) auth.getPrincipal();
+
+        user = userRepository.findByUid(Long.valueOf(1));
 
         System.out.println("APPLIANCE");
         if(option.equals("on")) new_state = 1;
@@ -263,11 +282,6 @@ public class OperateApplianceImpl implements OperateAppliance {
         send_message = MapToJson(map);
         recv_message = sendMessage(host, port, send_message);
         System.out.println("get message from server: " + recv_message);
-        if (recv_message.contains("err")) return recv_message;
-
-        //当python做完了相应操作没出错时，同步数据库
-        appliance.setRunningState(new_state);
-        applianceRepository.save(appliance);
         return recv_message;
 
     }

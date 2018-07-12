@@ -49,7 +49,7 @@ public class Schedule {
         Long timeSlice = forecastPower.getInterval();
         ntimeSlice = timeSlice;
         ArrayList<Job> beginJob = new ArrayList();
-        for (int i = 0; i < pendJob.size(); i++) //对每一个 sleepJob做预测
+        for (int i = 0; i < pendJob.size(); i++) //对每一个 pendJob做预测
         {
             System.out.println("appliance Id:"+pendJob.get(i).getAppliance().getAid());
             Long startTime = pendJob.get(i).getIntStartTime();
