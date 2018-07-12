@@ -10,4 +10,10 @@ public interface PowerUseController {
 
     @RequestMapping("/fun/getMonthlyPowerUse")
     String getMonthlyPowerUse();
+
+    @RequestMapping("/fun/getDailyAppsPowerUse")
+    String getDailyAppsPowerUse(String date);
+
+    @RequestMapping("/fun/getMonthlyAppsPowerUse")
+    String getMonthlyAppsPowerUse(String month);
 }
