@@ -76,7 +76,6 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"name\" : \"" + appliance.getName() +
                         "\", \"status\" : \"" + ((appliance.getRunningState()==1) ? "Active":"Inactive") +
                         "\", \"manufacturer\" : \"" +appliance.getMfrs() +
-                        "\", \"parameters\" : \"" +appliance.getRatedParameters() +
                         "\", \"start_time\" : \"" +start_time +
                         "\", \"finish_time\" : \"" +finish_time +
                         "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
