@@ -51,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/battery/**").permitAll()
 //                .antMatchers("/main/**").hasRole("USER")
                 .antMatchers("/main/**").permitAll()
+
                 .and()
                 .formLogin().loginPage("/login").defaultSuccessUrl("/main").permitAll()
                 .and()

@@ -11,6 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -84,17 +86,17 @@ public class OperateApplianceImpl implements OperateAppliance {
         presentVoltage = Float.valueOf(voltage);
         presentCurrent = Float.valueOf(current);
 
-        System.out.println("HAHA");
         //记录入appStatus表
         AppStatus appStatus = new AppStatus(appliance, recordTime, presentVoltage, presentCurrent);
         appStatusRepository.save(appStatus);
-        System.out.println("HEIHEI");
+
 
         // return time for client to check for validity
         return "success";
     }
 
     //python calls
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public String notify_status_change(String id, String mode, String uid)
     {
         //当有用电器开始工作或结束工作时，python会发过来这个请求
@@ -126,7 +128,10 @@ public class OperateApplianceImpl implements OperateAppliance {
         if(newMode == 0){
             job = runningJobRepository.findByAppliance(appliance.getAppId());
             if (job == null) {
-                return "err: this running appliance "+aid + " is not in a running job yet";
+                appliance.setRunningState(newMode);
+                appliance.setLastSendDataTime(send_time);
+                applianceRepository.saveAndFlush(appliance);
+                return "success";
             }
             appliance.setRunningState(newMode);
             appliance.setLastSendDataTime(send_time);
@@ -149,7 +154,7 @@ public class OperateApplianceImpl implements OperateAppliance {
                     perPower = appliance.getPower();
                 }
                 job = new Job(starttime, Long.MAX_VALUE, starttime, Long.MAX_VALUE, Long.MAX_VALUE,
-                        perPower, 1, appliance);
+                        perPower, 1, appliance, user);
             }
             else{
 
@@ -161,6 +166,7 @@ public class OperateApplianceImpl implements OperateAppliance {
             runningJobRepository.save(job);
         }
         applianceRepository.save(appliance);
+        applianceRepository.flush();
 
         return "success";
     }
@@ -248,6 +254,7 @@ public class OperateApplianceImpl implements OperateAppliance {
     }
 
     //java calls
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     public String open_close_appliance(Long aid, String option){
         User user;
         String port;
@@ -269,7 +276,7 @@ public class OperateApplianceImpl implements OperateAppliance {
 
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
         if (appliance == null){
-            return "err: no appliance";
+            return "err: no appliance with Id "+aid;
         }
 
         host = user.getHardwareHost();
@@ -282,6 +289,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         send_message = MapToJson(map);
         recv_message = sendMessage(host, port, send_message);
         System.out.println("get message from server: " + recv_message);
+        if (recv_message.contains("err")) return recv_message;
         return recv_message;
 
     }

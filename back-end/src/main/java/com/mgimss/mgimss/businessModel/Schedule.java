@@ -5,6 +5,7 @@ import com.mgimss.mgimss.entity.SolarPower;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Schedule {
     private Long[] solarPredictData;
@@ -21,7 +22,7 @@ public class Schedule {
     }
     public Long getSolarCharge(Long time)
     {
-        Long divTime = time - nTime;
+        Long divTime = time - nTime/ntimeSlice*ntimeSlice;
         long i = (divTime / ntimeSlice);
         int j = (int) i;
         if (j>=20)
@@ -36,18 +37,18 @@ public class Schedule {
         return Long.valueOf(5);
     }
 
-    public ArrayList<Job> doschedule(ArrayList<Job> runJob, ArrayList<Job> pendJob,Battery battery,Long[] predictData) {
+    public ArrayList<Job> doschedule(List<Job> runJob, List<Job> pendJob, Battery battery, Long[] predictData) {
         System.out.println("schedule begin");
         solarPredictData = predictData;
         Long doit = Long.valueOf(0);
         Long nowTime = getTime();
         //---------------------//////////////////////////////////////
 
-        SolarPower forecastPower = new SolarPower();
+
         Long capacity = battery.getCapacity();
         Long remain = battery.getRemain();
-        Long timeSlice = forecastPower.getInterval();
-        ntimeSlice = timeSlice;
+        Long timeSlice = 10L;
+        ntimeSlice = 30L;
         ArrayList<Job> beginJob = new ArrayList();
         for (int i = 0; i < pendJob.size(); i++) //对每一个 pendJob做预测
         {
@@ -64,7 +65,7 @@ public class Schedule {
                 if (doit == Long.valueOf(0))//该job还可以延后执行
                 {
                     Long doTime = nowTime;//为该job在何时开始
-                    Long maxcost = Long.valueOf(1000000000);
+                    Long maxcost = Long.MAX_VALUE;
                     Long maxTime = doTime;//对于给定的一个job它的最有开始时间
                     while ((doTime + pendJob.get(i).getLastTime()) <= stopTime) //对每一个合理的时间开始JOB
                     {
@@ -85,6 +86,23 @@ public class Schedule {
                             } else {
                                 endSimulateTime = stopTime;
                             }
+                            Long solarPower;
+                            if ((endSimulateTime/ntimeSlice) == (simulateTime/ntimeSlice)) {
+                                solarPower = (endSimulateTime - simulateTime) * getSolarCharge(simulateTime);
+                            }
+                            else
+                            {
+                                solarPower = (endSimulateTime - endSimulateTime/ntimeSlice*ntimeSlice)*getSolarCharge(endSimulateTime) +
+                                        (endSimulateTime/ntimeSlice*ntimeSlice - simulateTime)*getSolarCharge(simulateTime);
+                            }
+                            if ((simulateRemain + solarPower) > simulateCapacity)
+                            {
+                                cost =cost - (simulateRemain + solarPower-simulateCapacity) * getSolarBackCharge(simulateTime);
+                                simulateRemain = simulateCapacity;
+                            }else{
+                                simulateRemain = simulateRemain + solarPower;
+                            }
+
                             for (int j = 0; j < runJob.size(); j++) //便利每个用job
                             {
                                 if (runJob.get(j).getIntTrueStopTime() <= simulateTime) {
@@ -131,14 +149,7 @@ public class Schedule {
 
                                 }
                             }
-                            Long solarPower = (endSimulateTime - simulateTime) * getSolarCharge(simulateTime);
-                            if ((simulateRemain + solarPower) > simulateCapacity)
-                            {
-                                cost =cost - (simulateRemain + solarPower-simulateCapacity) * getSolarBackCharge(simulateTime);
-                                simulateRemain = simulateCapacity;
-                            }else{
-                                simulateRemain = simulateRemain + solarPower;
-                            }
+
                             simulateTime+= timeSlice;
                             System.out.println("simulateTime:"+simulateTime);
                         }//结束模拟阶段

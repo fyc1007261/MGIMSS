@@ -14,7 +14,7 @@ import pytz
 # whether to print log when succeeded
 print_log = 1
 # frequency in seconds
-frequency = 1000000
+frequency = 10
 # solar generation
 frequency_solar_generation = 1800
 area_of_solar_generator = 60
@@ -73,7 +73,6 @@ def all_to_server(url, apps, battery):
         r = requests.post(url=server_battery, data=payload)
         if r.text.find("success") < 0:
             print("err: during sending battery status to server")
-            print("lalala")
             print(r.text )
         else:
             print_debug("success when sending battery status to server at" + now)
@@ -322,7 +321,7 @@ def main():
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
         "Accept-Language": "zh-CN,zh;q=0.8"}
     r=requests.post("http://localhost:12333/login", {"username": 1, "password": 1})
-    print_debug(r.text)
+    print_debug("login:" + r.text)
 
 
 

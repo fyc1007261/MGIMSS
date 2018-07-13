@@ -105,7 +105,7 @@ public class BatteryControllerImpl implements BatteryController{
 
         solarPower = new SolarPower(new_sid, user, Long.valueOf(1800), generation);
 
-        solarPowerRepository.save(solarPower);
+//        solarPowerRepository.save(solarPower);
         System.out.println("here got it~");
         return "success";
     }
