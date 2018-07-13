@@ -52,17 +52,13 @@ public class ShowAppInfoImpl implements ShowAppInfo {
     public String get_info_by_id(Long id){
         Appliance appliance = applianceRepository.findByUserAndAid(1L, id);
         String start_time = "Not scheduled", finish_time = "Not scheduled";
-        Job job = runningJobRepository.findByApplianceAndUser(id, 1L);
+        Long app_id = appliance.getAppId();
+        Job job = runningJobRepository.findByAppliance(app_id);
         if (job != null){
             start_time = job.getIntStartTime().toString();
             finish_time = job.getIntStopTime().toString();
         }
-        job = finishedJobRepository.findByApplianceAndUser(id, 1L);
-        if (job != null){
-            start_time = job.getIntStartTime().toString();
-            finish_time = job.getIntStopTime().toString();
-        }
-        job = pendingJobRepository.findByApplianceAndUser(id, 1L);
+        job = pendingJobRepository.findByAppliance(app_id);
         if (job != null){
             start_time = job.getIntStartTime().toString();
             finish_time = job.getIntStopTime().toString();
@@ -76,7 +72,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"name\" : \"" + appliance.getName() +
                         "\", \"status\" : \"" + ((appliance.getRunningState()==1) ? "Active":"Inactive") +
                         "\", \"manufacturer\" : \"" +appliance.getMfrs() +
-                        "\", \"parameters\" : \"" +appliance.getRatedParameters() +
+                        "\", \"power\" : \"" +appliance.getPower() +
                         "\", \"start_time\" : \"" +start_time +
                         "\", \"finish_time\" : \"" +finish_time +
                         "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
