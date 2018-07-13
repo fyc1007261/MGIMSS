@@ -14,7 +14,7 @@ import java.util.List;
 public interface RunningJobRepository extends JpaRepository<Job, Long> {
 
     @Query(nativeQuery = true, value = "select * from job where uid =:uid  and status = 1")
-    ArrayList<Job> findByUid(@Param("uid") Long uid);
+    List<Job> findByUid(@Param("uid") Long uid);
 
     @Query(nativeQuery = true, value = "select * from job where job_id =:jobId  and status = 1")
     Job findByJobId(@Param("jobId") Long jobId);

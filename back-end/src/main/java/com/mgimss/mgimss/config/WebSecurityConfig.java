@@ -49,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers( "/", "/login", "/signup").permitAll()
                 .antMatchers("/appliance/**").permitAll()
                 .antMatchers("/battery/**").permitAll()
+                .antMatchers("/schedule/**").permitAll()
                 .antMatchers("/main/**").hasRole("USER")
                 .and()
                 .formLogin().loginPage("/login").defaultSuccessUrl("/main").permitAll()

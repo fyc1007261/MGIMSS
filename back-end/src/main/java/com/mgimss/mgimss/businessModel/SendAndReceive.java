@@ -47,7 +47,7 @@ public class SendAndReceive extends Thread{
         System.out.println("get message from server: " + recv_message);
         //发送开启指令
         try {
-            sleep(this.job.getLastTime());
+            sleep(this.job.getLastTime()*1000);
         }
         catch (InterruptedException e)
         {
