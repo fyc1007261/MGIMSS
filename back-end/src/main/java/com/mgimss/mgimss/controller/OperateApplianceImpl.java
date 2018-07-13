@@ -154,7 +154,7 @@ public class OperateApplianceImpl implements OperateAppliance {
                     perPower = appliance.getPower();
                 }
                 job = new Job(starttime, Long.MAX_VALUE, starttime, Long.MAX_VALUE, Long.MAX_VALUE,
-                        perPower, 1, appliance);
+                        perPower, 1, appliance, user);
             }
             else{
 
