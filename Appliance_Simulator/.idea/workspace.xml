@@ -10,6 +10,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="appliances.mgimss" pinned="false" current-in-tab="true">
@@ -22,21 +23,25 @@
           </provider>
         </entry>
       </file>
+
       <file leaf-file-name="appliance.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/appliance.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="203">
               <caret line="7" column="30" lean-forward="true" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
               <folding />
+
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="simulator.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="simulator.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/simulator.py">
           <provider selected="true" editor-type-id="text-editor">
+
             <state relative-caret-position="166">
               <caret line="256" column="16" lean-forward="false" selection-start-line="256" selection-start-column="16" selection-end-line="256" selection-end-column="16" />
+
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -48,10 +53,12 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+
       <find>success</find>
       <find>swith</find>
       <find>can't turn off appliance</find>
       <find>lalala</find>
+
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -151,7 +158,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973261" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -220,5 +229,6 @@
         </state>
       </provider>
     </entry>
+
   </component>
 </project>

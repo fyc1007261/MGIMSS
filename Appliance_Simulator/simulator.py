@@ -14,7 +14,7 @@ import pytz
 # whether to print log when succeeded
 print_log = 1
 # frequency in seconds
-frequency = 10
+frequency = 5
 # solar generation
 frequency_solar_generation = 1800
 area_of_solar_generator = 60
@@ -130,7 +130,9 @@ def create_app(apps, info):
             print("duplicate name of appliances.")
             lock.release()
             return -1
-    app = Appliance(temp_id, info["name"], info["voltage"], info["current"])
+    if "id" not in info.keys():
+        info["id"] = temp_id
+    app = Appliance(info["id"], info["name"], info["voltage"], info["current"])
     temp_id += 1
     apps.append(app)
     save_apps(apps)
@@ -315,16 +317,6 @@ def send_solar_generation(battery):
 
 
 def main():
-    send_headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36",
-        "Connection": "keep-alive",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-        "Accept-Language": "zh-CN,zh;q=0.8"}
-    r=requests.post("http://localhost:12333/login", {"username": 1, "password": 1})
-    print_debug("login:" + r.text)
-
-
-
 
     global temp_id
     temp_id = 0
