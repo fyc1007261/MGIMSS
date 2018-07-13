@@ -183,8 +183,8 @@ const Appliance = Loadable({
   loading: Loading,
 });
 
-const PowerUsage = Loadable({
-  loader: () => import('./views/Functions/PowerUsage/PowerUsage'),
+const PowerUse = Loadable({
+  loader: () => import('./views/Functions/PowerUse/PowerUse'),
   loading: Loading,
 });
 
@@ -232,8 +232,8 @@ const routes = [
   { path: '/main/charts', name: 'Charts', component: Charts },
   { path: '/main/apps', exact: true,  name: 'Appliances', component: Appliances },
   { path: '/main/apps/:id', exact: true, name: 'Appliance Details', component: Appliance },
-  { path: '/main/fun', exact: true, name: 'Functions', component: PowerUsage },
-  { path: '/main/fun/powerusage', name: 'Power Usage', component: PowerUsage },
+  { path: '/main/fun', exact: true, name: 'Functions', component: PowerUse },
+  { path: '/main/fun/poweruse', name: 'Power Use', component: PowerUse },
 ];
 
 export default routes;

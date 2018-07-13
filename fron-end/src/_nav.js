@@ -269,8 +269,8 @@ export default {
       icon: 'icon-cursor',
       children: [
         {
-          name: 'Power Usage',
-          url: '/main/fun/powerusage',
+          name: 'Power Use',
+          url: '/main/fun/poweruse',
           icon: 'cui-bar-chart',
         },
       ],

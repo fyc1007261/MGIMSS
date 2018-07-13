@@ -1,16 +1,32 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 
-import appsData from './UsersData'
+// import appsData from './UsersData'
+import $ from "jquery";
+
+let appsData = [];
 
 class Appliance extends Component {
 
+  constructor(props){
+    super(props);
+    let aid = this.props.match.params.id;
+    $.ajax({
+      type: "GET",
+      async: false,
+      url: "/appliance/get_info_by_id",
+      data:{"id": aid},
+      context: document.body,
+      success: function(data){
+        appsData.push($.parseJSON(data.toString()));
+      }
+    });
+  }
+
+
   render() {
-
     const appliance = appsData.find(appliance => appliance.id.toString() === this.props.match.params.id)
-
-    const userDetails = appliance ? Object.entries(appliance) : [['id', (<span><i className="text-muted icon-ban"></i> Not found</span>)]]
-
+    const appDetails = appliance ? Object.entries(appliance) : [['id', (<span><i className="text-muted icon-ban"></i> Not found</span>)]]
     return (
       <div className="animated fadeIn">
         <Row>
@@ -23,7 +39,7 @@ class Appliance extends Component {
                   <Table responsive striped hover>
                     <tbody>
                       {
-                        userDetails.map(([key, value]) => {
+                        appDetails.map(([key, value]) => {
                           return (
                             <tr>
                               <td>{`${key}:`}</td>
