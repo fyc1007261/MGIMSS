@@ -25,13 +25,17 @@ public class Job
     @JoinColumn(name="appId")
     private Appliance appliance;
 
+    @ManyToOne
+    @JoinColumn(name="uid")
+    private User user;
+
 
     public Job(){
     }
 
 
     public Job(Long intStartTime, Long intStopTime, Long intTrueStartTime, Long intTrueStopTime,
-                Long lastTime, Long perPower, int  status, Appliance appliance){
+                Long lastTime, Long perPower, int  status, Appliance appliance, User user){
         this.intStartTime = intStartTime;
         this.intStopTime = intStopTime;
         this.intTrueStartTime = intTrueStartTime;
@@ -40,6 +44,7 @@ public class Job
         this.perPower = perPower;
         this.status = status;
         this.appliance = appliance;
+        this.user = user;
     }
 
     public void setPerPower(Long perPower)
@@ -110,8 +115,15 @@ public class Job
         this.status = status;
     }
 
+    public User getUser() {
+        return user;
+    }
 
-//    public void myinit(Long intStopTime, Long intStartTime, Long intTrueStopTime, Long lastTime, Long perPower, Long jobId)
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    //    public void myinit(Long intStopTime, Long intStartTime, Long intTrueStopTime, Long lastTime, Long perPower, Long jobId)
 //    {
 ////        setIntStartTime(intStartTime);
 ////        setIntStopTime(intStopTime);
