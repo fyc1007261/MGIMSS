@@ -15,5 +15,6 @@ public interface FinishedJobRepository extends JpaRepository<Job, Long> {
 
     @Query(nativeQuery = true, value="select * from job where uid =:uid  and status = 2")
     ArrayList<Job> findByUid(@Param("uid") Long id);
-
+    @Query(nativeQuery = true, value = "select * from job where app_id=:app_id")
+    Job findByAppliance(@Param("app_id") Long app_id);
 }

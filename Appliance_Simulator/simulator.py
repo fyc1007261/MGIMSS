@@ -73,7 +73,6 @@ def all_to_server(url, apps, battery):
         r = requests.post(url=server_battery, data=payload)
         if r.text.find("success") < 0:
             print("err: during sending battery status to server")
-            print("lalala")
             print(r.text )
         else:
             print_debug("success when sending battery status to server at" + now)
@@ -318,6 +317,7 @@ def send_solar_generation(battery):
 
 
 def main():
+
     global temp_id
     temp_id = 0
     # including all the appliances added
