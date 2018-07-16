@@ -154,7 +154,11 @@ class ModalModify extends Component {
   }
 
   submitJob(){
-    // do nothing
+    let mfrs = document.getElementById("mfrs_m").value === "" ?
+      document.getElementById("mfrs_m").placeholder : document.getElementById("mfrs_m").value;
+    let power = document.getElementById("power_m").value === "" ?
+      document.getElementById("power_m").placeholder : document.getElementById("power_m").value;
+    let ret = "Fail to send information";
   }
 
   deleteJob(){
@@ -188,7 +192,7 @@ class ModalModify extends Component {
                   <ModalBody>
                       ID: <Input  disabled id={"id_m"} placeholder={this.props.aid}/>
                       <br/>
-                      Name: <Input id={"appname_m"} placeholder={this.props.name}/>
+                      Name: <Input disabled id={"appname_m"} placeholder={this.props.name}/>
                       <br/>
                       Manufacturer: <Input id={"mfrs_m"} placeholder={this.props.mfrs}/>
                       <br/>
@@ -227,11 +231,11 @@ class ModalAdd extends Component {
 
   submitJob(){
     let name = document.getElementById("appname").value === ""?
-      document.getElementById("appname").target.placeholder : document.getElementById("appname").value;
+      document.getElementById("appname").placeholder : document.getElementById("appname").value;
     let mfrs = document.getElementById("mfrs").value === "" ?
-      document.getElementById("mfrs").target.placeholder : document.getElementById("mfrs").value;
+      document.getElementById("mfrs").placeholder : document.getElementById("mfrs").value;
     let power = document.getElementById("power").value === "" ?
-      document.getElementById("power").target.placeholder : document.getElementById("power").value;
+      document.getElementById("power").placeholder : document.getElementById("power").value;
     let ret = "Fail to send information";
     $.ajax({
       type: "POST",
