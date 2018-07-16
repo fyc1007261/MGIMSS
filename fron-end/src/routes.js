@@ -188,6 +188,11 @@ const PowerUse = Loadable({
   loading: Loading,
 });
 
+const Profile = Loadable({
+  loader: () => import('./views/User/Profile/Profile'),
+  loading: Loading,
+});
+
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -234,6 +239,8 @@ const routes = [
   { path: '/main/apps/:id', exact: true, name: 'Appliance Details', component: Appliance },
   { path: '/main/fun', exact: true, name: 'Functions', component: PowerUse },
   { path: '/main/fun/poweruse', name: 'Power Use', component: PowerUse },
+  { path: '/main/user', exact: true, name: 'User', component: Profile },
+  { path: '/main/user/profile', name: 'Profile', component: Profile },
 ];
 
 export default routes;

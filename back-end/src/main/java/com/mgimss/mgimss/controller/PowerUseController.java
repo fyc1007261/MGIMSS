@@ -16,4 +16,7 @@ public interface PowerUseController {
 
     @RequestMapping("/fun/getMonthlyAppsPowerUse")
     String getMonthlyAppsPowerUse(String month);
+
+    @RequestMapping("/fun/getHighestPowerUse")
+    String getHighestPowerUse();
 }

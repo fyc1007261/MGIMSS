@@ -74,15 +74,15 @@ class Appliances extends Component {
   constructor(){
     super();
     console.log("getting data");
-    $.ajax({
-      type: "GET",
-      async: false,
-      url: "/appliance/get_all_status",
-      context: document.body,
-      success: function(data){
-        appsData = $.parseJSON(data.toString())["data"];
-      }
-    });
+    // $.ajax({
+    //   type: "GET",
+    //   async: false,
+    //   url: "/appliance/get_all_status",
+    //   context: document.body,
+    //   success: function(data){
+    //     appsData = $.parseJSON(data.toString())["data"];
+    //   }
+    // });
 
   }
 
