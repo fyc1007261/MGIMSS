@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Appliances from './Appliances';
+import Appliances from './Schedules';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
