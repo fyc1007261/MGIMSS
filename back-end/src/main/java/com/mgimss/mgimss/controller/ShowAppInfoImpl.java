@@ -31,7 +31,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
     FinishedJobRepository finishedJobRepository;
 
     public String get_all_status(){
-        List<Appliance> applianceList = applianceRepository.findByUser(Long.valueOf(1));
+        List<Appliance> applianceList = applianceRepository.findByUser(1L);
         // json builder
         StringBuffer buf = new StringBuffer();
         buf.append("{\"data\":[");
@@ -39,6 +39,8 @@ public class ShowAppInfoImpl implements ShowAppInfo {
             buf.append(
                     "{\"id\" : \"" + appliance.getAid() +
                             "\", \"name\" : \"" + appliance.getName() +
+                            "\", \"power\" : \"" + appliance.getPower() +
+                            "\", \"mfrs\" : \"" + appliance.getMfrs() +
                             "\", \"status\" : \"" + ((appliance.getRunningState() == 1) ? "Active" : "Inactive") +
                             "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
             );
