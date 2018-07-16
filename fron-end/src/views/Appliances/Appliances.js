@@ -91,6 +91,7 @@ class Appliances extends Component {
         }
       });
 
+
   }
 
   render() {
