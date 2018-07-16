@@ -14,7 +14,7 @@ import pytz
 # whether to print log when succeeded
 print_log = 1
 # frequency in seconds
-frequency = 5
+frequency = 30
 # solar generation
 frequency_solar_generation = 1800
 area_of_solar_generator = 60
