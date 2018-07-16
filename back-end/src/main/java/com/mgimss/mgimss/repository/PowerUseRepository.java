@@ -22,4 +22,7 @@ public interface PowerUseRepository extends JpaRepository<DailyPowerConsume, Lon
 
     @Query(nativeQuery = true, value = "select * from daily_power_consume where date_format(date,'%Y-%m')=:month1")
     List<DailyPowerConsume> findByMonth(@Param("month1") String month1);
+
+    @Query(nativeQuery = true, value = "select * from daily_power_consume where date_format(date,'%Y')=:year1")
+    List<DailyPowerConsume> findByYear(@Param("year1") String year1);
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {CardColumns} from 'reactstrap';
 import TotalPowerUse from './TotalPowerUse';
 import AppsPowerUse from './AppsPowerUse';
+import HighestPowerUse from './HighestPowerUse';
 
 class PowerUse extends Component {
   render() {
@@ -11,6 +12,7 @@ class PowerUse extends Component {
           <TotalPowerUse/>
           <AppsPowerUse/>
         </CardColumns>
+        <HighestPowerUse/>
       </div>
     );
   }

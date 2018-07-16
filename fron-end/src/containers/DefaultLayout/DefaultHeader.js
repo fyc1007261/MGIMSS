@@ -35,6 +35,9 @@ class DefaultHeader extends Component {
           <NavItem className="px-3">
             <NavLink href="/main/apps">Appliances</NavLink>
           </NavItem>
+          <NavItem className="px-3">
+            <NavLink href="/main/schedule">Schedule</NavLink>
+          </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar>
           <AppHeaderDropdown direction="down">
