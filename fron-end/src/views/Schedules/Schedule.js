@@ -9,17 +9,17 @@ class Schedule extends Component {
 
   constructor(props){
     super(props);
-    let aid = this.props.match.params.id;
-    // $.ajax({
-    //   type: "GET",
-    //   async: false,
-    //   url: "/appliance/get_info_by_id",
-    //   data:{"id": aid},
-    //   context: document.body,
-    //   success: function(data){
-    //     appsData.push($.parseJSON(data.toString()));
-    //   }
-    // });
+    let jid = this.props.match.params.id;
+    $.ajax({
+      type: "GET",
+      async: false,
+      url: "/schedule/get_job_by_id",
+      data:{"id": jid},
+      context: document.body,
+      success: function(data){
+        jobsData.push($.parseJSON(data.toString()));
+      }
+    });
   }
 
 

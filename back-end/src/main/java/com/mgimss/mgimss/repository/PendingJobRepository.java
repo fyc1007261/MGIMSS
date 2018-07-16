@@ -17,5 +17,6 @@ public interface PendingJobRepository extends JpaRepository<Job, Long> {
     ArrayList<Job> findByUid(@Param("uid") Long id);
     @Query(nativeQuery = true, value = "select * from job where app_id =:appId  and status = 0")
     Job findByAppliance(@Param("appId") Long appId);
-
+    @Query(nativeQuery = true, value = "select * from job where job_id =:jobId  and status = 0")
+    Job findByJobId(@Param("jobId") Long jobId);
 }
