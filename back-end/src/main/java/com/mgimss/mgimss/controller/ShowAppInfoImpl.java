@@ -1,6 +1,6 @@
 package com.mgimss.mgimss.controller;
 
-import com.google.gson.Gson;
+
 import com.mgimss.mgimss.entity.Appliance;
 import com.mgimss.mgimss.entity.Job;
 import com.mgimss.mgimss.entity.User;
@@ -76,7 +76,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"name\" : \"" + appliance.getName() +
                         "\", \"status\" : \"" + ((appliance.getRunningState()==1) ? "Active":"Inactive") +
                         "\", \"manufacturer\" : \"" +appliance.getMfrs() +
-                        "\", \"parameters\" : \"" +appliance.getRatedParameters() +
+                        "\", \"power\" : \"" +appliance.getPower() +
                         "\", \"start_time\" : \"" +start_time +
                         "\", \"finish_time\" : \"" +finish_time +
                         "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"

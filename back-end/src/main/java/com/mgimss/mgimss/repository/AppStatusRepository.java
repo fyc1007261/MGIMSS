@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.Optional;
 
 public interface AppStatusRepository extends JpaRepository<AppStatus, Long>{
 
@@ -15,5 +16,5 @@ public interface AppStatusRepository extends JpaRepository<AppStatus, Long>{
     LinkedHashSet<AppStatus> findByTimeAndUser(@Param("time1") Date time1, @Param("time2") Date time2,
                                                    @Param("uid") Long uid);
     @Query(nativeQuery = true, value="select avg(present_current * present_voltage) from app_status where  app_id=:app_id")
-    Long findAvgPowerByAppliance(@Param("app_id") Long app_id);
+    Optional<Long> findAvgPowerByAppliance(@Param("app_id") Long app_id);
 }

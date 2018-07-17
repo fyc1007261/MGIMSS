@@ -144,10 +144,12 @@ public class OperateApplianceImpl implements OperateAppliance {
             appliance.setLastSendDataTime(send_time);
             if (job == null) {
                 Long starttime = new Date().getTime()/1000;
-                Long perPower = appStatusRepository.findAvgPowerByAppliance(appliance.getAppId());
-                if (perPower == null || perPower == 0){
+                Optional<Long> pPower = appStatusRepository.findAvgPowerByAppliance(appliance.getAppId());
+                Long perPower;
+                if (!pPower.isPresent()){
                     perPower = appliance.getPower();
                 }
+                else perPower = pPower.get();
                 job = new Job(starttime, Long.MAX_VALUE, starttime, Long.MAX_VALUE, Long.MAX_VALUE,
                         perPower, 1, appliance, user);
             }
