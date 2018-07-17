@@ -9,6 +9,8 @@ import $ from 'jquery';
 
 let jobsData = [{"id":1, "status":"Pending",  "app_name":"app1", "duration":"100min"},
                 {"id":3, "status": "Running", "app_name":"app3", "duration":"1h"}];
+let appsData = [{"id":1, "status":"Active", "power": "400", "name":"app1", "mfrs":"mfrs1"},
+  {"id":3, "status": "Inactive","power": "400", "name":"app3", "mfrs":"mfrs3"}];
 
 
 
@@ -47,15 +49,24 @@ class Schedules extends Component {
 
   constructor(){
     super();
-      $.ajax({
-        type: "GET",
-        async: false,
-        url: "/schedule/get_jobs",
-        context: document.body,
-        success: function(data){
-          jobsData = $.parseJSON(data.toString())["data"];
-        }
-      });
+      // $.ajax({
+      //   type: "GET",
+      //   async: false,
+      //   url: "/schedule/get_jobs",
+      //   context: document.body,
+      //   success: function(data){
+      //     jobsData = $.parseJSON(data.toString())["data"];
+      //   }
+      // });
+    // $.ajax({
+    //   type: "GET",
+    //   async: false,
+    //   url: "/appliance/get_all_status",
+    //   context: document.body,
+    //   success: function(data){
+    //     appsData = $.parseJSON(data.toString())["data"];
+    //   }
+    // });
 
   }
 
@@ -71,6 +82,7 @@ class Schedules extends Component {
               </CardHeader>
               <CardBody>
                 <Col col="6" xs="4" sm="2" md="2" lg="2" xl="2" className="mb-3 mb-xl-3">
+                  <ModalAddJob appdata={appsData}/>
                 </Col>
                 <Table responsive striped >
                   <thead>
@@ -93,6 +105,113 @@ class Schedules extends Component {
         </Row>
       </div>
     )
+  }
+}
+
+
+
+class ModalAddJob extends Component {
+
+  constructor(props) {
+    super(props);
+    let now = new Date();
+    let date = now.getFullYear() + "-" + (now.getMonth() < 9 ? "0" : "") + (now.getMonth() + 1) + "-" + (now.getDate() < 10 ? "0" : "") + (now.getDate()) + "T" + now.getHours() + ":" + now.getMinutes();
+    let data = this.props.appdata;
+    let opt = [];
+    for(let i=0; i< data.length; i++){
+      opt.push(<option>{data[i]["id"]}-{data[i]["name"]}</option>)
+    }
+    this.state = {
+      primary: false,
+      option: opt,
+      time: date
+    };
+    this.togglePrimary = this.togglePrimary.bind(this);
+    this.submitJob = this.submitJob.bind(this);
+
+  }
+
+  togglePrimary() {
+    this.setState({
+      primary: !this.state.primary,
+    });
+  }
+
+  submitJob(){
+    let index = document.getElementById("appname").selectedIndex;
+    let aid = appsData[index]["id"];
+    let start_time = document.getElementById("start_after").value;
+    let finish_time = document.getElementById("finish_by").value;
+    let duration = document.getElementById("duration").value;
+    // check whether the inputs are valid
+    if (finish_time <= start_time){
+      alert("\"Finish by\" should be later than \"Start after\"");
+      return;
+    }
+    if (duration === ""){
+      alert("Duration is required");
+      return;
+    }
+    let fin = new Date(finish_time);
+    let sta = new Date(start_time);
+    let min = (fin-sta)/1000/60;
+    if(min < duration){
+      alert("Duration should be no longer than the time in between!")
+      return;
+    }
+
+
+    let ret = "Fail to send information";
+    // $.ajax({
+    //   type: "POST",
+    //   async: false,
+    //   url: "/appliance/add_appliance",
+    //   data: {name: name, mfrs: mfrs, power: power},
+    //   context: document.body,
+    //   success: function(data){
+    //     ret = data;
+    //   }
+    // });
+    alert(ret);
+    if (ret==="success")
+      window.location.reload();
+  }
+
+  render() {
+    return (
+      <div className="animated fadeIn" style={{"float":"left"}}>
+        <Row>
+          <Col>
+            <Button color="primary" onClick={this.togglePrimary} className="mr-1 mb-3">
+              New schedule
+            </Button>
+            <Modal isOpen={this.state.primary} toggle={this.togglePrimary}
+                   className={'modal-primary ' + this.props.className}>
+              <ModalHeader toggle={this.togglePrimary}>Add a new job</ModalHeader>
+              <ModalBody>
+                Appliance (ID-Name) :
+                <Input id={"appname"} type={"select"}>
+                  {this.state.option}
+                </Input>
+                <br/>
+                Start after: <Input id={"start_after"} type={"datetime-local"}
+                                    defaultValue={this.state.time}/>
+                <br/>
+                Finish by: <Input id={"finish_by"} type={"datetime-local"}
+                                  defaultValue={this.state.time}/>
+                <br/>
+                Duration in between (in minutes) : <Input id={"duration"} type={"number"} placeholder={"required"}/>
+
+              </ModalBody>
+              <ModalFooter>
+                <Button color="primary" onClick={this.submitJob}>Confirm</Button>{' '}
+                <Button color="secondary" onClick={this.togglePrimary}>Cancel</Button>
+              </ModalFooter>
+            </Modal>
+          </Col>
+        </Row>
+      </div>
+    );
   }
 }
 
