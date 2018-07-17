@@ -23,6 +23,6 @@ public interface UserController {
                                 String new_host, String new_port);
 
     @RequestMapping("/signup")
-    ModelAndView signUp(HttpServletRequest request, String username, String password,
+    String signUp(HttpServletRequest request, String username, String password,
                         String phone, String email, String host, String port);
 }

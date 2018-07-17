@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -70,7 +71,7 @@ public class UserControllerImpl implements UserController {
 
     }
 
-    public ModelAndView signUp(HttpServletRequest request, String username, String password,
+    public String signUp(HttpServletRequest request, String username, String password,
                                String phone, String email, String host, String port)
     {
         //create 'user' role for this user
@@ -93,8 +94,7 @@ public class UserControllerImpl implements UserController {
         SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
 
         request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
-        ModelAndView mav = new ModelAndView("main/main");
-        return mav;
+        return "redirect:/main";
     }
 
 }

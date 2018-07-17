@@ -1,37 +1,253 @@
 package com.mgimss.mgimss.controller;
 
+import com.mgimss.mgimss.entity.Appliance;
+import com.mgimss.mgimss.entity.DailyPowerConsume;
+import com.mgimss.mgimss.repository.ApplianceRepository;
+import com.mgimss.mgimss.repository.PowerUseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-////////////////////////////////////////////////////////////////////test data
+
+import java.text.SimpleDateFormat;
+import java.util.*;
+
 @RestController
 public class PowerUseControllerImpl implements PowerUseController {
+    @Autowired
+    PowerUseRepository powerUseRepository;
+    @Autowired
+    ApplianceRepository applianceRepository;
+
     public String getDailyPowerUse() {
-        String Power = "{\"power\":[{\"date\":\"2018-07-05\",\"use\":68},{\"date\":\"2018-07-06\",\"use\":83},{\"date\":\"2018-07-07\",\"use\":78},{\"date\":\"2018-07-08\",\"use\":71},{\"date\":\"2018-07-09\",\"use\":79},{\"date\":\"2018-07-10\",\"use\":63},{\"date\":\"2018-07-11\",\"use\":80}]}";
-        return Power;
+        Long UserID = 1L;/////////////////////////////////////////////////////////////////////////////userID
+        List<Appliance> UserApps = applianceRepository.findByUser(UserID);
+
+        List<DailyPowerConsume> AllUse = powerUseRepository.find7daysUse();
+        Map<Date, Long> DailyUse = new HashMap<>();
+        List<Date> DateList = new ArrayList<>();
+
+        for(DailyPowerConsume OneUse : AllUse) {
+            if(UserApps.contains(OneUse.getAppliance())) {
+                Date date = OneUse.getDate();
+
+                if (DailyUse.containsKey(date)) {
+                    DailyUse.put(date, OneUse.getConsumption() + DailyUse.get(date));
+                } else {
+                    DailyUse.put(date, OneUse.getConsumption());
+                    DateList.add(date);
+                }
+            }
+        }
+
+        Collections.sort(DateList);
+        StringBuffer buf = new StringBuffer();
+        buf.append("{\"power\":[");
+
+        for(Integer i = 0; i < DateList.size(); i++) {
+            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            String date = dateformat.format(DateList.get(i));
+            buf.append(
+                    "{\"date\":\"" + date +
+                            "\",\"use\":" + DailyUse.get(DateList.get(i)) +
+                            "},"
+            );
+        }
+
+        buf.deleteCharAt(buf.length() - 1);
+        buf.append("]}");
+        return buf.toString();
     }
+
     public String getMonthlyPowerUse() {
-        String Power = "{\"power\":[{\"date\":\"2018-01\",\"use\":2100},{\"date\":\"2018-02\",\"use\":2344},{\"date\":\"2018-03\",\"use\":2175},{\"date\":\"2018-04\",\"use\":2258},{\"date\":\"2018-05\",\"use\":2361},{\"date\":\"2018-06\",\"use\":2010},{\"date\":\"2018-07\",\"use\":2653}]}";
-        return Power;
+        Long UserID = 1L;/////////////////////////////////////////////////////////////////////////////userID
+        List<Appliance> UserApps = applianceRepository.findByUser(UserID);
+
+        List<DailyPowerConsume> AllUse = powerUseRepository.find7monthsUse();
+        Map<String, Long> MonthlyUse = new HashMap<>();
+        List<String> DateList = new ArrayList<>();
+
+        for(DailyPowerConsume OneUse : AllUse) {
+            if(UserApps.contains(OneUse.getAppliance())) {
+                Date date = OneUse.getDate();
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM");
+                String dateString = dateformat.format(date);
+
+                if (MonthlyUse.containsKey(dateString)) {
+                    MonthlyUse.put(dateString, OneUse.getConsumption() + MonthlyUse.get(dateString));
+                } else {
+                    MonthlyUse.put(dateString, OneUse.getConsumption());
+                    DateList.add(dateString);
+                }
+            }
+        }
+
+        Collections.sort(DateList);
+        StringBuffer buf = new StringBuffer();
+        buf.append("{\"power\":[");
+
+        for(Integer i = 0; i < DateList.size(); i++) {
+            buf.append(
+                    "{\"date\":\"" + DateList.get(i) +
+                            "\",\"use\":" + MonthlyUse.get(DateList.get(i)) +
+                            "},"
+            );
+        }
+
+        buf.deleteCharAt(buf.length() - 1);
+        buf.append("]}");
+        return buf.toString();
     }
 
     public String getDailyAppsPowerUse(String date) {
-        String Power;
-        if(date.equals("2018-07-11")) {
-            Power = "{\"power\":[{\"appname\":\"light1\",\"use\":8},{\"appname\":\"light2\",\"use\":12},{\"appname\":\"light3\",\"use\":4},{\"appname\":\"light4\",\"use\":7}]}";
+        Long UserID = 1L;/////////////////////////////////////////////////////////////////////////////userID
+        List<Appliance> UserApps = applianceRepository.findByUser(UserID);
+
+        List<DailyPowerConsume> AllUse = powerUseRepository.findByDate(date);
+        Map<String, Long> DailyUse = new HashMap<>();
+
+        for(DailyPowerConsume OneUse : AllUse) {
+            if(UserApps.contains(OneUse.getAppliance())) {
+                DailyUse.put(OneUse.getAppliance().getName(), OneUse.getConsumption());
+            }
         }
-        else {
-            Power = "{\"power\":[{\"appname\":\"light1\",\"use\":6},{\"appname\":\"light2\",\"use\":3},{\"appname\":\"light3\",\"use\":9},{\"appname\":\"light4\",\"use\":10}]}";
+
+        StringBuffer buf = new StringBuffer();
+        buf.append("{\"power\":[");
+
+        for(Map.Entry<String, Long> entry : DailyUse.entrySet()) {
+            buf.append(
+                    "{\"appname\":\"" + entry.getKey() +
+                            "\",\"use\":" + entry.getValue() +
+                            "},"
+            );
         }
-        return Power;
+
+        buf.deleteCharAt(buf.length() - 1);
+        buf.append("]}");
+        return buf.toString();
     }
 
     public String getMonthlyAppsPowerUse(String month) {
-        String Power;
-        if(month.equals("2018-07")) {
-            Power = "{\"power\":[{\"appname\":\"light1\",\"use\":198},{\"appname\":\"light2\",\"use\":224},{\"appname\":\"light3\",\"use\":137},{\"appname\":\"light4\",\"use\":127}]}";
+        Long UserID = 1L;/////////////////////////////////////////////////////////////////////////////userID
+        List<Appliance> UserApps = applianceRepository.findByUser(UserID);
+
+        List<DailyPowerConsume> AllUse = powerUseRepository.findByMonth(month);
+        Map<String, Long> MonthlyUse = new HashMap<>();
+
+        for(DailyPowerConsume OneUse : AllUse) {
+            if(UserApps.contains(OneUse.getAppliance())) {
+                String name = OneUse.getAppliance().getName();
+                if(MonthlyUse.containsKey(name)) {
+                    MonthlyUse.put(name, OneUse.getConsumption() + MonthlyUse.get(name));
+                }
+                else {
+                    MonthlyUse.put(name, OneUse.getConsumption());
+                }
+            }
         }
-        else {
-            Power = "{\"power\":[{\"appname\":\"light1\",\"use\":151},{\"appname\":\"light2\",\"use\":170},{\"appname\":\"light3\",\"use\":199},{\"appname\":\"light4\",\"use\":135}]}";
+
+        StringBuffer buf = new StringBuffer();
+        buf.append("{\"power\":[");
+
+        for(Map.Entry<String, Long> entry : MonthlyUse.entrySet()) {
+            buf.append(
+                    "{\"appname\":\"" + entry.getKey() +
+                            "\",\"use\":" + entry.getValue() +
+                            "},"
+            );
         }
-        return Power;
+
+        buf.deleteCharAt(buf.length() - 1);
+        buf.append("]}");
+        return buf.toString();
+    }
+
+    private String getMax(Map<String, Long> map) {
+        List<Map.Entry<String, Long>> list = new ArrayList(map.entrySet());
+        Collections.sort(list, (o1, o2) -> (o1.getValue().intValue() - o2.getValue().intValue()));
+        return list.get(list.size()-1).getKey();
+    }
+
+    public String getHighestPowerUse() {
+        Long UserID = 1L;/////////////////////////////////////////////////////////////////////////////userID
+        List<Appliance> UserApps = applianceRepository.findByUser(UserID);
+
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM");
+        Date Today = new Date();
+
+        Map<String, Long> H_day = new HashMap<>();
+        Map<String, Long> H_month = new HashMap<>();
+        Map<String, Long> H_app_month = new HashMap<>();
+        Map<String, Long> H_app_year = new HashMap<>();
+        List<DailyPowerConsume> AllUse = powerUseRepository.findByYear(sdf1.format(Today));
+        List<DailyPowerConsume> MonthUse = powerUseRepository.findByMonth(sdf2.format(Today));
+
+        for(DailyPowerConsume OneUse : AllUse) {
+            if(UserApps.contains(OneUse.getAppliance())) {
+                Date date = OneUse.getDate();
+                SimpleDateFormat dateformat1 = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat dateformat2 = new SimpleDateFormat("yyyy-MM");
+                String dateString = dateformat1.format(date);
+                String monthString = dateformat2.format(date);
+                String name = OneUse.getAppliance().getName();
+                Long consumption = OneUse.getConsumption();
+
+                H_day.put(dateString, consumption);
+                if(H_month.containsKey(monthString)) {
+                    H_month.put(monthString, consumption + H_month.get(monthString));
+                }
+                else {
+                    H_month.put(monthString, consumption);
+                }
+                if(H_app_year.containsKey(name)) {
+                    H_app_year.put(name, consumption + H_app_year.get(name));
+                }
+                else {
+                    H_app_year.put(name, consumption);
+                }
+            }
+        }
+
+        for(DailyPowerConsume OneUse : MonthUse) {
+            if(UserApps.contains(OneUse.getAppliance())) {
+                String name = OneUse.getAppliance().getName();
+                Long consumption = OneUse.getConsumption();
+
+                if(H_app_month.containsKey(name)) {
+                    H_app_month.put(name, consumption + H_app_month.get(name));
+                }
+                else {
+                    H_app_month.put(name, consumption);
+                }
+            }
+        }
+
+        String MaxDay = getMax(H_day);
+        String MaxMonth = getMax(H_month);
+        String MaxApp = getMax(H_app_month);
+        String MaxAppYear = getMax(H_app_year);
+        Long MaxDayUse = H_day.get(MaxDay);
+        Long MaxMonthUse = H_month.get(MaxMonth);
+        Long MaxAppUse = H_app_month.get(MaxApp);
+        Long MaxAppYearUse = H_app_year.get(MaxAppYear);
+
+        StringBuffer buf = new StringBuffer();
+        buf.append("{\"power\":[");
+        buf.append(
+                "{\"label\":\"" + MaxDay +
+                        "\",\"use\":" + MaxDayUse +
+                        "}," +
+                        "{\"label\":\"" + MaxMonth +
+                        "\",\"use\":" + MaxMonthUse +
+                        "}," +
+                        "{\"label\":\"" + MaxApp +
+                        "\",\"use\":" + MaxAppUse +
+                        "}," +
+                        "{\"label\":\"" + MaxAppYear +
+                        "\",\"use\":" + MaxAppYearUse +
+                        "}"
+        );
+        buf.append("]}");
+        return buf.toString();
     }
 }
