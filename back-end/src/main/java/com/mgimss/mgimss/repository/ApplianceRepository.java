@@ -26,6 +26,10 @@ public interface ApplianceRepository extends JpaRepository<Appliance, Long> {
     @Query(nativeQuery = true, value="select max(aid) from appliance where uid =:uid")
     Long findMaxAidByUid(@Param("uid") Long uid);
 
+
+    @Query(nativeQuery = true, value = "select * from appliance where name =:name and uid=:uid")
+    Appliance findByNameAndUid(@Param("name") String name, @Param("uid") Long uid);
+
     @Modifying
     @Transactional
     @Query(nativeQuery = true, value="delete from appliance where app_id =:app_id")

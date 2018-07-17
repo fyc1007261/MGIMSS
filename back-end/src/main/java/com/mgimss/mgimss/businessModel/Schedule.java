@@ -2,12 +2,15 @@ package com.mgimss.mgimss.businessModel;
 import com.mgimss.mgimss.entity.Battery;
 import com.mgimss.mgimss.entity.Job;
 import com.mgimss.mgimss.entity.SolarPower;
+import com.mgimss.mgimss.repository.PendingJobRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Schedule {
+
     private Long[] solarPredictData;
     private Long nTime;
     private Long ntimeSlice;
@@ -18,7 +21,15 @@ public class Schedule {
     }
     public Long getCharge(Long time)
     {
-        return Long.valueOf(10);
+        Date date = new Date(time*1000);
+        int minute = date.getMinutes();
+        System.out.println("minute:"+minute);
+        if (minute<20)
+            return Long.valueOf(10);
+        else if(minute <40)
+            return Long.valueOf(20);
+        else
+            return Long.valueOf(10);
     }
     public Long getSolarCharge(Long time)
     {
@@ -37,7 +48,7 @@ public class Schedule {
         return Long.valueOf(5);
     }
 
-    public ArrayList<Job> doschedule(List<Job> runJob, List<Job> pendJob, Battery battery, Long[] predictData) {
+    public ArrayList<Job> doschedule(List<Job> runJob, List<Job> pendJob, Battery battery, Long[] predictData,PendingJobRepository pendingJobRepository) {
         System.out.println("schedule begin");
         solarPredictData = predictData;
         Long doit = Long.valueOf(0);
@@ -61,6 +72,10 @@ public class Schedule {
                 {
                     doit = Long.valueOf(1);
                     beginJob.add(pendJob.get(i));
+                    Job job = pendingJobRepository.findByAppliance(pendJob.get(i).getAppliance().getAppId());
+                    job.setIntTrueStartTime(nowTime);
+                    job.setIntTrueStopTime(nowTime+pendJob.get(i).getLastTime());
+                    pendingJobRepository.save(job);
                 }
                 if (doit == Long.valueOf(0))//该job还可以延后执行
                 {
@@ -161,6 +176,10 @@ public class Schedule {
                         }
                         doTime += timeSlice;
                     }
+                    Job job = pendingJobRepository.findByAppliance(pendJob.get(i).getAppliance().getAppId());
+                    job.setIntTrueStartTime(maxTime);
+                    job.setIntTrueStopTime(maxTime+pendJob.get(i).getLastTime());
+                    pendingJobRepository.save(job);
                     if (maxTime == nowTime)
                     {
                         beginJob.add(pendJob.get(i));
