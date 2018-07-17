@@ -23,13 +23,13 @@ const getBadge = (status) => {
 };
 
 class ScheduleRow extends  Component{
-
   constructor(props){
     super(props);
     this.state = {
       job: this.props.job,
       jobLink : '/main/schedule/' + this.props.job.id
     };
+
   }
 
   render(){
@@ -49,6 +49,7 @@ class Schedules extends Component {
 
   constructor(){
     super();
+
       // $.ajax({
       //   type: "GET",
       //   async: false,
@@ -154,9 +155,17 @@ class ModalAddJob extends Component {
     }
     let fin = new Date(finish_time);
     let sta = new Date(start_time);
+    if (fin < new Date()){
+      alert("Start time must be later than present!");
+      return;
+    }
     let min = (fin-sta)/1000/60;
     if(min < duration){
-      alert("Duration should be no longer than the time in between!")
+      alert("Duration should be no longer than the time in between!");
+      return;
+    }
+    if ( duration <=0 ){
+      alert("Duration must not be less than zero!");
       return;
     }
 
