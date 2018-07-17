@@ -219,6 +219,21 @@ public class OperateApplianceImpl implements OperateAppliance {
         return recv_message;
     }
 
+
+    public String modify_appliance(Long aid, String mfrs, Long power){
+        User user;
+           //当前用户
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        Authentication auth = ctx.getAuthentication();
+        user = (User) auth.getPrincipal();
+        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
+        appliance.setMfrs(mfrs);
+        appliance.setPower(power);
+        applianceRepository.saveAndFlush(appliance);
+        return "success";
+    }
+
+
     //java calls
     public String delete_appliance(Long aid)
     {
