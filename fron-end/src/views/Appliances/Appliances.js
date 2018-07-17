@@ -159,6 +159,20 @@ class ModalModify extends Component {
     let power = document.getElementById("power_m").value === "" ?
       document.getElementById("power_m").placeholder : document.getElementById("power_m").value;
     let ret = "Fail to send information";
+    let aid = this.props.aid;
+    $.ajax({
+      type: "POST",
+      async: false,
+      url: "/appliance/modify_appliance",
+      data: {aid: aid, mfrs: mfrs, power: power},
+      context: document.body,
+      success: function(data){
+        ret = data;
+      }
+    });
+    alert(ret);
+    if (ret==="success")
+      window.location.reload();
   }
 
   deleteJob(){
@@ -175,7 +189,8 @@ class ModalModify extends Component {
       }
     });
     alert(ret);
-    window.location.reload();
+    if (ret==="success")
+      window.location.reload();
   }
 
   render() {
@@ -190,13 +205,13 @@ class ModalModify extends Component {
                        className={'modal-success ' + this.props.className}>
                   <ModalHeader toggle={this.togglePrimary}>Modify the appliance</ModalHeader>
                   <ModalBody>
-                      ID: <Input  disabled id={"id_m"} placeholder={this.props.aid}/>
+                      ID: <Input  disabled id={"id_m"} defaultValue={this.props.aid}/>
                       <br/>
-                      Name: <Input disabled id={"appname_m"} placeholder={this.props.name}/>
+                      Name: <Input disabled id={"appname_m"} defaultValue={this.props.name}/>
                       <br/>
-                      Manufacturer: <Input id={"mfrs_m"} placeholder={this.props.mfrs}/>
+                      Manufacturer: <Input id={"mfrs_m"} defaultValue={this.props.mfrs}/>
                       <br/>
-                      Power: <Input id={"power_m"} placeholder={this.props.power}/>
+                      Power: <Input id={"power_m"} defaultValue={this.props.power} type={"number"}/>
 
                   </ModalBody>
                   <ModalFooter>
@@ -248,7 +263,8 @@ class ModalAdd extends Component {
       }
     });
     alert(ret);
-    window.location.reload();
+    if (ret==="success")
+      window.location.reload();
   }
 
   render() {
