@@ -114,7 +114,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"Status\" : \"" + (job.getStatus()==0?"Pending":"Running") +
                         "\", \"Start after\" : \"" + timeToString.LongToString(job.getIntStartTime()) +
                         "\", \"Finish by\" : \"" + timeToString.LongToString(job.getIntStopTime()) +
-                        "\", \"Duration\" : \"" +(job.getIntStopTime() - job.getIntStartTime()/60) + "min" +
+                        "\", \"Duration\" : \"" +(job.getLastTime()/60) + "min" +
                         "\", \"Scheduled at\" : \"" +timeToString.LongToString(job.getIntTrueStopTime()) +
                         "\", \"Power\" : \""+ job.getPerPower() +"\"}"
         );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import { Button, Badge, Card, CardBody, CardHeader, Col, Row, Table,
+  Modal, ModalBody, ModalFooter, ModalHeader, Input} from 'reactstrap';
 import $ from "jquery";
 
 let jobsData = [{"id":1, "status":"Pending",  "app_name":"app1", "duration":"100min"},
@@ -57,5 +58,7 @@ class Schedule extends Component {
     )
   }
 }
+
+
 
 export default Schedule;
