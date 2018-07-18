@@ -21,9 +21,11 @@ public interface PendingJobRepository extends JpaRepository<Job, Long> {
     Job findByAppliance(@Param("appId") Long appId);
     @Query(nativeQuery = true, value = "select * from job where aid=:aid and uid=:uid")
     Job findByApplianceAndUser(@Param("aid") Long aid, @Param("uid") Long uid);
+    @Query(nativeQuery = true, value = "select * from job where job_id =:jobId  and status = 0")
+    Job findByJobId(@Param("jobId") Long jobId);
 
     @Modifying
     @Transactional
-    @Query(nativeQuery = true, value="delete from job where app_id =:app_id and status = 0" )
-    int deleteByAppliance(@Param("app_id") Long app_id);
+    @Query(nativeQuery = true, value="delete from job where job_id =:jid and status = 0" )
+    int deleteByJid(@Param("jid") Long jid);
 }

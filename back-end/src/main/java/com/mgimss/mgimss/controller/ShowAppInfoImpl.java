@@ -8,6 +8,8 @@ import com.mgimss.mgimss.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import com.mgimss.mgimss.utils.TimeToString;
+
 
 import java.io.*;
 
@@ -94,7 +96,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
             buf.append(
                     "{\"id\" : \"" + job.getJobId() +
                     "\", \"status\" : \"" + (job.getStatus()==0?"Pending":"Running") +
-                    "\", \"duration\" : \"" + ((job.getIntStopTime() - job.getIntStartTime())/60) + "min" +
+                    "\", \"duration\" : \"" + (job.getLastTime()/60) + "min" +
                     "\", \"app_name\" : \""+ job.getAppliance().getName() +"\"}"
             );
             buf.append(',');
@@ -116,7 +118,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"Status\" : \"" + (job.getStatus()==0?"Pending":"Running") +
                         "\", \"Start after\" : \"" + timeToString.LongToString(job.getIntStartTime()) +
                         "\", \"Finish by\" : \"" + timeToString.LongToString(job.getIntStopTime()) +
-                        "\", \"Duration\" : \"" +(job.getLastTime()/60) + "min" +
+                        "\", \"Duration\" : \"" +(job.getLastTime()/60) +
                         "\", \"Scheduled at\" : \"" +timeToString.LongToString(job.getIntTrueStopTime()) +
                         "\", \"Power\" : \""+ job.getPerPower() +"\"}"
         );
