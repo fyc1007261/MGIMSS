@@ -50,24 +50,24 @@ class Schedules extends Component {
   constructor(){
     super();
 
-      // $.ajax({
-      //   type: "GET",
-      //   async: false,
-      //   url: "/schedule/get_jobs",
-      //   context: document.body,
-      //   success: function(data){
-      //     jobsData = $.parseJSON(data.toString())["data"];
-      //   }
-      // });
-    // $.ajax({
-    //   type: "GET",
-    //   async: false,
-    //   url: "/appliance/get_all_status",
-    //   context: document.body,
-    //   success: function(data){
-    //     appsData = $.parseJSON(data.toString())["data"];
-    //   }
-    // });
+      $.ajax({
+        type: "GET",
+        async: false,
+        url: "/schedule/get_jobs",
+        context: document.body,
+        success: function(data){
+          jobsData = $.parseJSON(data.toString())["data"];
+        }
+      });
+    $.ajax({
+      type: "GET",
+      async: false,
+      url: "/appliance/get_all_status",
+      context: document.body,
+      success: function(data){
+        appsData = $.parseJSON(data.toString())["data"];
+      }
+    });
 
   }
 
@@ -144,6 +144,7 @@ class ModalAddJob extends Component {
     let start_time = document.getElementById("start_after").value;
     let finish_time = document.getElementById("finish_by").value;
     let duration = document.getElementById("duration").value;
+
     // check whether the inputs are valid
     if (finish_time <= start_time){
       alert("\"Finish by\" should be later than \"Start after\"");
