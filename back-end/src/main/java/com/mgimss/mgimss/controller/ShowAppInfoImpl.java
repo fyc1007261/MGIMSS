@@ -34,6 +34,9 @@ public class ShowAppInfoImpl implements ShowAppInfo {
 
     public String get_all_status(){
         List<Appliance> applianceList = applianceRepository.findByUser(Long.valueOf(1));
+        if (applianceList.size() == 0){
+            return "{\"data\":[]}";
+        }
         // json builder
         StringBuffer buf = new StringBuffer();
         buf.append("{\"data\":[");
@@ -53,21 +56,29 @@ public class ShowAppInfoImpl implements ShowAppInfo {
 
     public String get_info_by_id(Long id){
         Appliance appliance = applianceRepository.findByUserAndAid(1L, id);
+        Long app_id = appliance.getAppId();
         String start_time = "Not scheduled", finish_time = "Not scheduled";
-        Job job = runningJobRepository.findByApplianceAndUser(id, 1L);
+        Long sta=0L, fin=0L;
+        Job job = runningJobRepository.findByAppliance(app_id);
         if (job != null){
-            start_time = job.getIntStartTime().toString();
-            finish_time = job.getIntStopTime().toString();
+            sta = job.getIntStartTime();
+            fin = job.getIntStopTime();
         }
-        job = finishedJobRepository.findByApplianceAndUser(id, 1L);
+        job = finishedJobRepository.findByAppliance(app_id);
         if (job != null){
-            start_time = job.getIntStartTime().toString();
-            finish_time = job.getIntStopTime().toString();
+            sta = job.getIntStartTime();
+            fin = job.getIntStopTime();
         }
-        job = pendingJobRepository.findByApplianceAndUser(id, 1L);
+        job = pendingJobRepository.findByAppliance(app_id);
         if (job != null){
-            start_time = job.getIntStartTime().toString();
-            finish_time = job.getIntStopTime().toString();
+            sta = job.getIntStartTime();
+            fin = job.getIntStopTime();
+        }
+        if (sta != 0L){
+            // there is a job
+            TimeToString timeToString = new TimeToString();
+            start_time = timeToString.LongToString(sta, ' ');
+            finish_time = timeToString.LongToString(fin, ' ');
         }
 
 
@@ -91,12 +102,16 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         jobList.addAll(pendingJobRepository.findByUid(1L));
         // json builder
         StringBuffer buf = new StringBuffer();
+        if (jobList.size() == 0 ){
+            return "{\"data\":[]}";
+        }
         buf.append("{\"data\":[");
         for (Job job: jobList){
             buf.append(
                     "{\"id\" : \"" + job.getJobId() +
                     "\", \"status\" : \"" + (job.getStatus()==0?"Pending":"Running") +
-                    "\", \"duration\" : \"" + (job.getLastTime()/60) + "min" +
+                    "\", \"duration\" : \"" +(job.getLastTime()<9223372036854775L? job.getLastTime()/60 : "Not available")+
+                    "\", \"app_id\" : \"" + job.getAppliance().getAid()+
                     "\", \"app_name\" : \""+ job.getAppliance().getName() +"\"}"
             );
             buf.append(',');
@@ -116,10 +131,10 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                 "{\"id\" : \"" + job.getJobId() +
                         "\", \"Appliance\" : \"" + job.getAppliance().getName() +
                         "\", \"Status\" : \"" + (job.getStatus()==0?"Pending":"Running") +
-                        "\", \"Start after\" : \"" + timeToString.LongToString(job.getIntStartTime()) +
-                        "\", \"Finish by\" : \"" + timeToString.LongToString(job.getIntStopTime()) +
-                        "\", \"Duration\" : \"" +(job.getLastTime()/60) +
-                        "\", \"Scheduled at\" : \"" +timeToString.LongToString(job.getIntTrueStopTime()) +
+                        "\", \"Start after\" : \"" + timeToString.LongToString(job.getIntStartTime(), 'T') +
+                        "\", \"Finish by\" : \"" + timeToString.LongToString(job.getIntStopTime(), 'T') +
+                        "\", \"Duration\" : \"" +(job.getLastTime()<9223372036854775L? job.getLastTime()/60 : 0)+
+                        "\", \"Scheduled at\" : \"" +timeToString.LongToString(job.getIntTrueStopTime(), ' ') +
                         "\", \"Power\" : \""+ job.getPerPower() +"\"}"
         );
         return buf.toString();

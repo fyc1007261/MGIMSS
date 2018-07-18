@@ -265,7 +265,7 @@ public class OperateApplianceImpl implements OperateAppliance {
     }
 
     //java calls
-    public String open_close_appliance(Long aid, String option){
+    public String switch_appliance(Long aid, String option){
         User user;
         String port;
         String host;

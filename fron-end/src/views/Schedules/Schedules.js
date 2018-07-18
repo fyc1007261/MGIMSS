@@ -49,16 +49,15 @@ class Schedules extends Component {
 
   constructor(){
     super();
-
-      $.ajax({
-        type: "GET",
-        async: false,
-        url: "/schedule/get_jobs",
-        context: document.body,
-        success: function(data){
-          jobsData = $.parseJSON(data.toString())["data"];
-        }
-      });
+    $.ajax({
+      type: "GET",
+      async: false,
+      url: "/schedule/get_jobs",
+      context: document.body,
+      success: function(data){
+        jobsData = $.parseJSON(data.toString())["data"];
+      }
+    });
     $.ajax({
       type: "GET",
       async: false,
@@ -118,8 +117,7 @@ class ModalAddJob extends Component {
     let now = new Date();
     let date = now.getFullYear() + "-" + (now.getMonth() < 9 ? "0" : "") +
       (now.getMonth() + 1) + "-" + (now.getDate() < 10 ? "0" : "") +
-      (now.getDate()) + "T" + (now.getHours()<10?"0":"") + now.getHours() + ":" +
-      + (now.getMinutes()<10?"0":"") + now.getMinutes();
+      (now.getDate()) + "T" + (now.getHours() < 9 ? "0" : "" ) + (now.getHours()+1) + ":00";
     let data = this.props.appdata;
     let opt = [];
     for(let i=0; i< data.length; i++){

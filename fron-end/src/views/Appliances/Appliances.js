@@ -10,6 +10,8 @@ import Modals from "../Notifications/Modals";
 
 let appsData = [{"id":1, "status":"Active", "power": "400", "name":"app1", "mfrs":"mfrs1"},
                 {"id":3, "status": "Inactive","power": "400", "name":"app3", "mfrs":"mfrs3"}];
+let jobsData = [{"id":1, "Status":"Pending",  "Appliance":"app1", "Duration":"100", "Start after":"2018-12-03T15:33", "Finish by":456},
+  {"id":3, "status": "Running", "app_name":"app3", "duration":"1h"}];
 
 
 
@@ -37,11 +39,31 @@ class ApplianceRow extends  Component{
     let a_id = this.props.appliance.id;
     e.target.disabled = 1;
     let opt = e.target.checked ? "on" : "off";
+    if (opt === "on"){
+      // check whether this app is in the pending list
+      let exist = false;
+      for (let i=0; i<jobsData.length; i++){
+        let job = jobsData[i];
+        if (job.status ==="Pending" && job["app_id"] === a_id)
+        {
+          exist = true;
+          break;
+        }
+      }
+      if (exist){
+          {
+            alert("This appliance is in the pending list. You may need to delete the schedule first.");
+            e.target.disabled = 0;
+            e.target.checked = !e.target.checked;
+            return;
+          }
+      }
+    }
     let ret_val = "Error with connection";
     $.ajax({
       type: "GET",
       async: false,
-      url: "/appliance/open_close_appliance",
+      url: "/appliance/switch_appliance",
       data: {aid: a_id, option: opt},
       context: document.body,
       success: function(data){
@@ -81,15 +103,24 @@ class Appliances extends Component {
 
   constructor(){
     super();
-      $.ajax({
-        type: "GET",
-        async: false,
-        url: "/appliance/get_all_status",
-        context: document.body,
-        success: function(data){
-          appsData = $.parseJSON(data.toString())["data"];
-        }
-      });
+    $.ajax({
+      type: "GET",
+      async: false,
+      url: "/schedule/get_jobs",
+      context: document.body,
+      success: function(data){
+        jobsData = $.parseJSON(data.toString())["data"];
+      }
+    });
+    $.ajax({
+      type: "GET",
+      async: false,
+      url: "/appliance/get_all_status",
+      context: document.body,
+      success: function(data){
+        appsData = $.parseJSON(data.toString())["data"];
+      }
+    });
 
 
   }
