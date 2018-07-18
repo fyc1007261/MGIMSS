@@ -11,19 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 public class GestureController {
     @RequestMapping("gesture/upload")
     @ResponseBody
-    public String upload(String imgcode, String src, HttpServletRequest request){
-        imgcode = request.getParameter("imgcode");
-        src = request.getParameter("src");
-        src =  "E:/课程相关文件/Grade 2-2/软件工程导论/homework/MGIMSS/EMMM/src/main/resources/static/image/person/"+src;
-        System.out.println("src: "+ src);
-        System.out.println(imgcode);
+    public String upload(String imageStr){
         String res = "";
 
         try {
-            res = upload.inspect_person(src);
+            res = upload.inspect_gesture(imageStr);
+            return "";
         } catch (Exception e) {
             e.printStackTrace();
+            return "err: illegal gesture";
         }
-        return res;
+
     }
 }

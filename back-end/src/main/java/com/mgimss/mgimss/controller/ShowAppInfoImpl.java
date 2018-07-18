@@ -1,10 +1,6 @@
 package com.mgimss.mgimss.controller;
 
 
-
-
-import com.mgimss.mgimss.utils.TimeToString;
-
 import com.mgimss.mgimss.entity.Appliance;
 import com.mgimss.mgimss.entity.Job;
 import com.mgimss.mgimss.entity.User;
@@ -35,7 +31,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
     FinishedJobRepository finishedJobRepository;
 
     public String get_all_status(){
-        List<Appliance> applianceList = applianceRepository.findByUser(1L);
+        List<Appliance> applianceList = applianceRepository.findByUser(Long.valueOf(1));
         // json builder
         StringBuffer buf = new StringBuffer();
         buf.append("{\"data\":[");
@@ -43,8 +39,6 @@ public class ShowAppInfoImpl implements ShowAppInfo {
             buf.append(
                     "{\"id\" : \"" + appliance.getAid() +
                             "\", \"name\" : \"" + appliance.getName() +
-                            "\", \"power\" : \"" + appliance.getPower() +
-                            "\", \"mfrs\" : \"" + appliance.getMfrs() +
                             "\", \"status\" : \"" + ((appliance.getRunningState() == 1) ? "Active" : "Inactive") +
                             "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
             );
@@ -58,13 +52,17 @@ public class ShowAppInfoImpl implements ShowAppInfo {
     public String get_info_by_id(Long id){
         Appliance appliance = applianceRepository.findByUserAndAid(1L, id);
         String start_time = "Not scheduled", finish_time = "Not scheduled";
-        Long app_id = appliance.getAppId();
-        Job job = runningJobRepository.findByAppliance(app_id);
+        Job job = runningJobRepository.findByApplianceAndUser(id, 1L);
         if (job != null){
             start_time = job.getIntStartTime().toString();
             finish_time = job.getIntStopTime().toString();
         }
-        job = pendingJobRepository.findByAppliance(app_id);
+        job = finishedJobRepository.findByApplianceAndUser(id, 1L);
+        if (job != null){
+            start_time = job.getIntStartTime().toString();
+            finish_time = job.getIntStopTime().toString();
+        }
+        job = pendingJobRepository.findByApplianceAndUser(id, 1L);
         if (job != null){
             start_time = job.getIntStartTime().toString();
             finish_time = job.getIntStopTime().toString();

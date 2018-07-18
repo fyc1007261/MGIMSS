@@ -11,8 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,7 +21,6 @@ import java.util.*;
 
 import static com.mgimss.mgimss.utils.ConnectHardware.sendMessage;
 import static com.mgimss.mgimss.utils.ToJson.MapToJson;
-import static java.lang.Thread.sleep;
 
 @RestController
 public class OperateApplianceImpl implements OperateAppliance {
@@ -87,17 +84,17 @@ public class OperateApplianceImpl implements OperateAppliance {
         presentVoltage = Float.valueOf(voltage);
         presentCurrent = Float.valueOf(current);
 
+        System.out.println("HAHA");
         //记录入appStatus表
         AppStatus appStatus = new AppStatus(appliance, recordTime, presentVoltage, presentCurrent);
         appStatusRepository.save(appStatus);
-
+        System.out.println("HEIHEI");
 
         // return time for client to check for validity
         return "success";
     }
 
     //python calls
-    @Transactional(isolation = Isolation.READ_COMMITTED)
     public String notify_status_change(String id, String mode, String uid)
     {
         //当有用电器开始工作或结束工作时，python会发过来这个请求
@@ -129,10 +126,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         if(newMode == 0){
             job = runningJobRepository.findByAppliance(appliance.getAppId());
             if (job == null) {
-                appliance.setRunningState(newMode);
-                appliance.setLastSendDataTime(send_time);
-                applianceRepository.saveAndFlush(appliance);
-                return "success";
+                return "err: this running appliance "+aid + " is not in a running job yet";
             }
             appliance.setRunningState(newMode);
             appliance.setLastSendDataTime(send_time);
@@ -169,13 +163,12 @@ public class OperateApplianceImpl implements OperateAppliance {
             runningJobRepository.save(job);
         }
         applianceRepository.save(appliance);
-        applianceRepository.flush();
 
         return "success";
     }
 
     //java calls
-    public String add_appliance(String name, String mfrs, Long power)
+    public String add_appliance(String name, String mfrs, Long perPower)
     {
         User user;
         Long aid;
@@ -190,7 +183,6 @@ public class OperateApplianceImpl implements OperateAppliance {
         Authentication auth = ctx.getAuthentication();
         user = (User) auth.getPrincipal();
 
-
         //获得新电器应分配的aid
         Set<Appliance> present_apps = user.getAppliances();
         if (present_apps.size() == 0) aid = Long.valueOf(1);
@@ -200,7 +192,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         addDate = new Date();
 
         Appliance appliance = new Appliance(user, aid, name, addDate, mfrs,
-                power, null, 0);
+                perPower, null, 0);
 
         host = user.getHardwareHost();
         port = user.getHardwarePort();
@@ -249,7 +241,6 @@ public class OperateApplianceImpl implements OperateAppliance {
         Authentication auth = ctx.getAuthentication();
         user = (User) auth.getPrincipal();
 
-
         System.out.println("APPLIANCE");
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
         if (appliance == null){
@@ -269,13 +260,11 @@ public class OperateApplianceImpl implements OperateAppliance {
         if (recv_message.contains("err")) return recv_message;
 
         //当python做完了相应操作没出错时，同步数据库
-        applianceRepository.deleteByAppId(appliance.getAppId());
-        applianceRepository.flush();
+        applianceRepository.delete(appliance);
         return recv_message;
     }
 
     //java calls
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     public String open_close_appliance(Long aid, String option){
         User user;
         String port;
@@ -297,7 +286,7 @@ public class OperateApplianceImpl implements OperateAppliance {
 
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
         if (appliance == null){
-            return "err: no appliance with Id "+aid;
+            return "err: no appliance";
         }
 
         host = user.getHardwareHost();
@@ -310,8 +299,8 @@ public class OperateApplianceImpl implements OperateAppliance {
         send_message = MapToJson(map);
         recv_message = sendMessage(host, port, send_message);
         System.out.println("get message from server: " + recv_message);
-        if (recv_message.contains("err")) return recv_message;
         return recv_message;
+
     }
 
     //java calls
