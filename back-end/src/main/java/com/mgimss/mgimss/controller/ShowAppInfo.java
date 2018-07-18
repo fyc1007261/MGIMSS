@@ -10,10 +10,4 @@ public interface ShowAppInfo {
 
     @RequestMapping("/appliance/get_info_by_id")
     String get_info_by_id(Long id);
-
-    @RequestMapping("/schedule/get_jobs")
-    String get_jobs();
-
-    @RequestMapping("/schedule/get_job_by_id")
-    String get_job_by_id(Long id);
 }
