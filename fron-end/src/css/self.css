@@ -1,0 +1,10 @@
+.dChart{
+  width: 10px;
+  height:  10px;
+  position: relative;
+}
+
+.Chart{
+  position: absolute;
+}
+

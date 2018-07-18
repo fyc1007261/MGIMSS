@@ -127,7 +127,7 @@ public class PowerUseControllerImpl implements PowerUseController {
     }
 
     public String getMonthlyAppsPowerUse(String month) {
-        Long UserID = 1L;/////////////////////////////////////////////////////////////////////////////userID
+        Long UserID = 1L;
         List<Appliance> UserApps = applianceRepository.findByUser(UserID);
 
         List<DailyPowerConsume> AllUse = powerUseRepository.findByMonth(month);

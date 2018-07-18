@@ -13,10 +13,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -298,21 +301,54 @@ public class OperateApplianceImpl implements OperateAppliance {
     }
 
     //java calls
-    public ModelAndView request_appliances_status()
+
+    public String request_appliances_status(String aid, String count, Date end_time, HttpServletRequest request, HttpServletResponse response)
     {
         User user;
+        Appliance appliance;
+        List<AppStatus> appStatus;
+        StringBuffer buf;
+        Date start_time;
+        String sTime;
+        String eTime;
 
         //当前用户
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        user = (User) auth.getPrincipal();
-        System.out.println("APPLIANCE");
-        //当前用户所有的电器
-        List<Appliance> appliances = applianceRepository.findByUser(user.getUid());
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        user = (User) auth.getPrincipal();
 
-        ModelAndView mav = new ModelAndView("appliances");
-        mav.addObject("appliances", appliances);
-        return mav;
+        user = userRepository.findByUid(1L);
+
+        System.out.println("APPLIANCE");
+
+        //查询电器
+        appliance = applianceRepository.findByUserAndAid(user.getUid(), Long.valueOf(aid));
+
+        //查询区间(5s)的开始时间
+        start_time = new Date(end_time.getTime() - (long)(5 * 1000 * Long.valueOf(count)));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        sTime = sdf.format(start_time);
+        eTime = sdf.format(end_time);
+
+        //count条该电器的最近数据
+        appStatus = appStatusRepository.findByApplianceAndCountBetweenTime(appliance.getAppId(), Long.valueOf(count), sTime, eTime);
+        buf = new StringBuffer();
+        buf.append("{\"status\":[");
+        for(AppStatus a : appStatus) {
+            buf.append("{\"time\":\"" + a.getRecordTime() +
+                        "\",\"current\":" + a.getPresentCurrent() +
+                        ",\"voltage\":" + a.getPresentVoltage() +
+                        "},"
+            );
+        }
+        if(appStatus.size() > 0)
+            buf.deleteCharAt(buf.length() - 1);
+        buf.append("]}");
+        System.out.println(buf.toString());
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        return buf.toString();
+
     }
 
 

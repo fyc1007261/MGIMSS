@@ -188,6 +188,10 @@ const PowerUse = Loadable({
   loading: Loading,
 });
 
+const DynamicChart = Loadable({
+  loader: () => import('./views/Functions/DynamicChart/DynamicChart'),
+  loading: Loading,
+});
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -234,6 +238,7 @@ const routes = [
   { path: '/main/apps/:id', exact: true, name: 'Appliance Details', component: Appliance },
   { path: '/main/fun', exact: true, name: 'Functions', component: PowerUse },
   { path: '/main/fun/poweruse', name: 'Power Use', component: PowerUse },
+  { path: '/main/fun/dynamicChart', name: 'Dynamic Chart', component: DynamicChart },
 ];
 
 export default routes;
