@@ -111,7 +111,7 @@ public class Speech {
         }
         if (dataresult.indexOf("添加任务")>=0)
         {
-            Speechgenrate.voice("好的，小龙为您添加新任务，请说出用电器名字");
+            Speechgenrate.voice("好的，小微为您添加新任务，请说出用电器名字");
             DataTest.stepA=1;
             DataTest.stepB=1;
         }
@@ -122,10 +122,10 @@ public class Speech {
 
             if (DataTest.appliance == null)
             {
-                Speechgenrate.voice("小龙并没有找到该用电器");
+                Speechgenrate.voice("小微并没有找到该用电器");
             }
             else {
-                Speechgenrate.voice("好的，小龙正在为您开启用电器，");
+                Speechgenrate.voice("好的，小微正在为您开启用电器，");
                 DataTest.stepA = 0;
                 DataTest.stepB = 0;
             }
@@ -137,17 +137,17 @@ public class Speech {
 
             if (DataTest.appliance == null)
             {
-                Speechgenrate.voice("小龙并没有找到该用电器");
+                Speechgenrate.voice("小微并没有找到该用电器");
             }
             else {
-                Speechgenrate.voice("好的，小龙正在为您关闭用电器，");
+                Speechgenrate.voice("好的，小微正在为您关闭用电器，");
                 DataTest.stepA = 0;
                 DataTest.stepB = 0;
             }
         }
-        else if (dataresult.indexOf("小龙你好")>=0)
+        else if (dataresult.indexOf("小微你好")>=0)
         {
-            Speechgenrate.voice("主人您好，小龙很荣幸为您服务");
+            Speechgenrate.voice("主人您好，小微很荣幸为您服务");
         }
         else if ((DataTest.stepA ==1) && (DataTest.stepB ==1))
         {
@@ -156,7 +156,7 @@ public class Speech {
 
             if (DataTest.appliance == null)
             {
-                Speechgenrate.voice("小龙并没有找到该用电器");
+                Speechgenrate.voice("小微并没有找到该用电器");
             }
             else {
                 Speechgenrate.voice("请设置允许开启时间");
@@ -169,7 +169,7 @@ public class Speech {
             DataTest.beginTime = DataTest.change2date(dataresult);
             if (DataTest.beginTime == null)
             {
-                Speechgenrate.voice("小龙走神了，请再给小龙念一遍好吗");
+                Speechgenrate.voice("小微走神了，请再给小微念一遍好吗");
             }
             else {
                 Speechgenrate.voice("请设置必须完成时间");
@@ -182,7 +182,7 @@ public class Speech {
             DataTest.endTime = DataTest.change2date(dataresult);
             if (DataTest.endTime == null)
             {
-                Speechgenrate.voice("小龙走神了，请再给小龙念一遍好吗");
+                Speechgenrate.voice("小微走神了，请再给小微念一遍好吗");
             }
             else {
                 Speechgenrate.voice("请设置持续时间");
@@ -195,7 +195,7 @@ public class Speech {
             DataTest.lastTime = DataTest.change2int(dataresult);
             if (DataTest.lastTime == null)
             {
-                Speechgenrate.voice("小龙走神了，请再给小龙念一遍好吗");
+                Speechgenrate.voice("小微走神了，请再给小微念一遍好吗");
             }
             else {
                 System.out.println("appId:"+DataTest.appliance.getAppId());
@@ -210,13 +210,13 @@ public class Speech {
                 job = new Job(DataTest.beginTime.getTime()/1000, DataTest.endTime.getTime()/1000, Long.valueOf(0), Long.valueOf(0), DataTest.lastTime,
                         perPower, 0, DataTest.appliance, user);
                 pendingJobRepository.save(job);
-                Speechgenrate.voice("设置成功，小龙随时听候主人的吩咐");
+                Speechgenrate.voice("设置成功，小微随时听候主人的吩咐");
                 DataTest.stepA = 0;
                 DataTest.stepB = 0;
             }
         }
         else{
-            Speechgenrate.voice("小龙没有听明白您在说什么");
+            Speechgenrate.voice("小微没有听明白您在说什么");
             DataTest.stepA = 0;
             DataTest.stepB = 0;
         }

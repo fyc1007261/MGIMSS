@@ -83,43 +83,4 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         );
         return buf.toString();
     }
-
-    public String get_jobs(){
-        List<Job> jobList = runningJobRepository.findByUid(1L);
-        jobList.addAll(pendingJobRepository.findByUid(1L));
-        // json builder
-        StringBuffer buf = new StringBuffer();
-        buf.append("{\"data\":[");
-        for (Job job: jobList){
-            buf.append(
-                    "{\"id\" : \"" + job.getJobId() +
-                    "\", \"status\" : \"" + (job.getStatus()==0?"Pending":"Running") +
-                    "\", \"duration\" : \"" + ((job.getIntStopTime() - job.getIntStartTime())/60) + "min" +
-                    "\", \"app_name\" : \""+ job.getAppliance().getName() +"\"}"
-            );
-            buf.append(',');
-        }
-        buf.deleteCharAt(buf.length()-1);
-        buf.append("]}");
-        return buf.toString();
-    }
-
-    public String get_job_by_id(Long id) {
-        TimeToString timeToString = new TimeToString();
-        Job job = runningJobRepository.findByJobId(id);
-        if (job==null)
-            job = pendingJobRepository.findByJobId(id);
-        StringBuilder buf = new StringBuilder();
-        buf.append(
-                "{\"id\" : \"" + job.getJobId() +
-                        "\", \"Appliance\" : \"" + job.getAppliance().getName() +
-                        "\", \"Status\" : \"" + (job.getStatus()==0?"Pending":"Running") +
-                        "\", \"Start after\" : \"" + timeToString.LongToString(job.getIntStartTime()) +
-                        "\", \"Finish by\" : \"" + timeToString.LongToString(job.getIntStopTime()) +
-                        "\", \"Duration\" : \"" +(job.getLastTime()/60) + "min" +
-                        "\", \"Scheduled at\" : \"" +timeToString.LongToString(job.getIntTrueStopTime()) +
-                        "\", \"Power\" : \""+ job.getPerPower() +"\"}"
-        );
-        return buf.toString();
-    }
 }
