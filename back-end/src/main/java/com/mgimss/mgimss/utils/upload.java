@@ -35,6 +35,7 @@ public class upload {
         map.put("api_key", "Wtiu2i2x46N1Bw16nzpW8pGF-EgV3O7b");
         map.put("api_secret", "mIa9WP9jv3_89xAPtI9Z85qBwjTvjzxf");
         map.put("image_base64", imageStr);
+        System.out.println("Imagestr"+imageStr);
         byte[] bacd = post(url, map);
         String str = new String(bacd);
         System.out.println(str);
@@ -61,7 +62,10 @@ public class upload {
             Map.Entry<String, String> entry = (Map.Entry) iter.next();
             String key = entry.getKey();
             String value = entry.getValue();
-            requestbody = requestbody + key + "=" + encode(value) + "&";
+            if (key.equals( "image_base64"))
+                requestbody = requestbody + key + "=" + encode(value) + "&";
+            else
+                requestbody = requestbody + key + "=" + encode(value) + "&";
         }
         System.out.println("requestbody:" + requestbody);
         obos.writeBytes(requestbody);
