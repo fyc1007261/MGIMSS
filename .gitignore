@@ -1,6 +1,7 @@
 .idea
 
-
+venv/
+workspace.xml
 target/
 pom.xml.tag
 pom.xml.releaseBackup

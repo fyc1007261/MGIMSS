@@ -1,7 +1,7 @@
 package com.mgimss.mgimss.controller;
 
 import org.springframework.web.bind.annotation.RestController;
-////////////////////////////////////////////////////////////////////test data
+
 @RestController
 public class PowerUseControllerImpl implements PowerUseController {
 
@@ -9,7 +9,7 @@ public class PowerUseControllerImpl implements PowerUseController {
     PowerUseRepository powerUseRepository;
 
     public String getDailyPowerUse() {
-        Long UserID = 1L;/////////////////////////////////////////////////////////////////////////////userID
+        Long UserID = 1L;
 
         List<DailyPowerConsume> AllUse = powerUseRepository.find7daysUse(UserID);
         Map<Date, Long> DailyUse = new HashMap<>();
@@ -48,7 +48,7 @@ public class PowerUseControllerImpl implements PowerUseController {
     }
     public String getMonthlyPowerUse() {
 
-        Long UserID = 1L;/////////////////////////////////////////////////////////////////////////////userID
+        Long UserID = 1L;
 
         List<DailyPowerConsume> AllUse = powerUseRepository.find7monthsUse(UserID);
         Map<String, Long> MonthlyUse = new HashMap<>();
@@ -85,7 +85,7 @@ public class PowerUseControllerImpl implements PowerUseController {
     }
 
     public String getDailyAppsPowerUse(String date) {
-        Long UserID = 1L;/////////////////////////////////////////////////////////////////////////////userID
+        Long UserID = 1L;
 
         List<DailyPowerConsume> AllUse = powerUseRepository.findByDate(date, UserID);
         Map<String, Long> DailyUse = new HashMap<>();
@@ -101,7 +101,9 @@ public class PowerUseControllerImpl implements PowerUseController {
 
     public String getMonthlyAppsPowerUse(String month) {
 
-        Long UserID = 1L;/////////////////////////////////////////////////////////////////////////////userID
+        Long UserID = 1L;
+        List<Appliance> UserApps = applianceRepository.findByUser(UserID);
+
 
         List<DailyPowerConsume> AllUse = powerUseRepository.findByMonth(month, UserID);
         Map<String, Long> MonthlyUse = new HashMap<>();
@@ -138,7 +140,7 @@ public class PowerUseControllerImpl implements PowerUseController {
     }
 
     public String getHighestPowerUse() {
-        Long UserID = 1L;/////////////////////////////////////////////////////////////////////////////userID
+        Long UserID = 1L;
 
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy");
         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM");

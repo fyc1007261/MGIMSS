@@ -6,39 +6,39 @@ import $ from 'jquery';
 import {CustomTooltips} from "@coreui/coreui-plugin-chartjs-custom-tooltips/dist/cjs/custom-tooltips";
 
 
-// let DayData = [["2018-07-05","2018-07-06","2018-07-07","2018-07-08","2018-07-09","2018-07-10","2018-07-11"],[85,65,67,78,73,81,70]];
-// let MonthData = [["2018-01","2018-02","2018-03","2018-04","2018-05","2018-06","2018-07"],[2133,2400,2327,2219,2356,2193,2081]];
-
-let DayData = [[],[]];
-let MonthData = [[],[]];
-
-$.ajax({
-  url:"/fun/getDailyPowerUse",
-  context:document.body,
-  async:false,
-  type:"get",
-  success:function (data) {
-    let tmpDayData = $.parseJSON(data);
-    tmpDayData["power"].forEach((dayData) => {
-      DayData[0].push(dayData["date"]);
-      DayData[1].push(dayData["use"]);
-    });
-  }
-});
-
-$.ajax({
-  url:"/fun/getMonthlyPowerUse",
-  context:document.body,
-  async:false,
-  type:"get",
-  success:function (data) {
-    let tmpMonthData = $.parseJSON(data);
-    tmpMonthData["power"].forEach((monthData) => {
-      MonthData[0].push(monthData["date"]);
-      MonthData[1].push(monthData["use"]);
-    });
-  }
-});
+let DayData = [["2018-07-05","2018-07-06","2018-07-07","2018-07-08","2018-07-09","2018-07-10","2018-07-11"],[85,65,67,78,73,81,70]];
+let MonthData = [["2018-01","2018-02","2018-03","2018-04","2018-05","2018-06","2018-07"],[2133,2400,2327,2219,2356,2193,2081]];
+//
+// let DayData = [[],[]];
+// let MonthData = [[],[]];
+//
+// $.ajax({
+//   url:"/fun/getDailyPowerUse",
+//   context:document.body,
+//   async:false,
+//   type:"get",
+//   success:function (data) {
+//     let tmpDayData = $.parseJSON(data);
+//     tmpDayData["power"].forEach((dayData) => {
+//       DayData[0].push(dayData["date"]);
+//       DayData[1].push(dayData["use"]);
+//     });
+//   }
+// });
+//
+// $.ajax({
+//   url:"/fun/getMonthlyPowerUse",
+//   context:document.body,
+//   async:false,
+//   type:"get",
+//   success:function (data) {
+//     let tmpMonthData = $.parseJSON(data);
+//     tmpMonthData["power"].forEach((monthData) => {
+//       MonthData[0].push(monthData["date"]);
+//       MonthData[1].push(monthData["use"]);
+//     });
+//   }
+// });
 
 let DayUse = DayData[1].slice();
 let MonthUse = MonthData[1].slice();

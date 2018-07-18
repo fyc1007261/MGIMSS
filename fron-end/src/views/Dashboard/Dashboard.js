@@ -385,6 +385,19 @@ const mainChart = {
       borderColor: brandInfo,
       pointHoverBackgroundColor: '#fff',
       borderWidth: 2,
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: 'rgba(251,227,48,1)',
+      pointBackgroundColor: '#fff',
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBorderColor: 'rgba(220,220,220,1)',
+      pointHoverBorderWidth: 3,
+      pointRadius: 2,
+      pointHitRadius: 10,
+      scaleShowGridLines : true,
       data: data1,
     },
     {
@@ -393,6 +406,19 @@ const mainChart = {
       borderColor: brandSuccess,
       pointHoverBackgroundColor: '#fff',
       borderWidth: 2,
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: 'rgba(251,227,48,1)',
+      pointBackgroundColor: '#fff',
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBorderColor: 'rgba(220,220,220,1)',
+      pointHoverBorderWidth: 3,
+      pointRadius: 2,
+      pointHitRadius: 10,
+      scaleShowGridLines : true,
       data: data2,
     },
     {
@@ -402,6 +428,18 @@ const mainChart = {
       pointHoverBackgroundColor: '#fff',
       borderWidth: 1,
       borderDash: [8, 5],
+      borderCapStyle: 'butt',
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: 'rgba(251,227,48,1)',
+      pointBackgroundColor: '#fff',
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBorderColor: 'rgba(220,220,220,1)',
+      pointHoverBorderWidth: 3,
+      pointRadius: 2,
+      pointHitRadius: 10,
+      scaleShowGridLines : true,
       data: data3,
     },
   ],
@@ -448,7 +486,7 @@ const mainChartOpts = {
       hoverRadius: 4,
       hoverBorderWidth: 3,
     },
-  },
+  }
 };
 
 class Dashboard extends Component {
@@ -599,7 +637,7 @@ class Dashboard extends Component {
                   </Col>
                 </Row>
                 <div className="chart-wrapper" style={{ height: 300 + 'px', marginTop: 40 + 'px' }}>
-                  <Line data={mainChart} options={mainChartOpts} height={300} />
+                  <Line data={mainChart}  options={mainChartOpts} height={300} />
                 </div>
               </CardBody>
               <CardFooter>

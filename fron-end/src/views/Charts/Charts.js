@@ -149,7 +149,7 @@ const options = {
     custom: CustomTooltips
   },
   maintainAspectRatio: false
-}
+};
 
 class Charts extends Component {
   render() {

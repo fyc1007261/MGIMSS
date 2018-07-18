@@ -104,6 +104,7 @@ class Appliances extends Component {
   constructor(){
     super();
 
+
     $.ajax({
       type: "GET",
       async: false,
@@ -122,6 +123,7 @@ class Appliances extends Component {
         appsData = $.parseJSON(data.toString())["data"];
       }
     });
+
 
 
   }
