@@ -17,38 +17,25 @@ public class upload {
 
     private final static int READ_OUT_TIME = 50000;
 
-    private static HashMap<String, String> getReqMap(String filename) throws IOException {
-        File file = new File(filename);
-        long l = file.length();
-        byte[] bytes = new byte[(int) l];
-        FileInputStream fis = null;
-        fis = new FileInputStream(file);
-        int r;
-        while ((r = fis.read(bytes)) != -1) {
-        }
-        fis.close();
-        Base64.Encoder encoder = Base64.getEncoder();
-        String imagestr = encoder.encodeToString(bytes);
-        HashMap<String, String> map;
-        map = new HashMap<String, String>();
+    public static String inspect_person(String imageStr) throws Exception {
+        String url = "https://api-cn.faceplusplus.com/humanbodypp/v1/detect";
+        HashMap<String, String> map = new HashMap<>();
         map.put("api_key", "Wtiu2i2x46N1Bw16nzpW8pGF-EgV3O7b");
         map.put("api_secret", "mIa9WP9jv3_89xAPtI9Z85qBwjTvjzxf");
-        map.put("image_base64", imagestr);
-        return map;
-    }
-
-    public static String inspect_person(String filename) throws Exception {
-        String url = "https://api-cn.faceplusplus.com/humanbodypp/v1/detect";
-        HashMap<String, String> map = getReqMap(filename);
+        map.put("image_base64", imageStr);
         byte[] bacd = post(url, map);
         String str = new String(bacd);
         System.out.println(str);
         return str;
     }
 
-    public static String inspect_gesture(String filename) throws Exception {
+    public static String inspect_gesture(String imageStr) throws Exception {
         String url = "https://api-cn.faceplusplus.com/humanbodypp/beta/gesture";
-        HashMap<String, String> map = getReqMap(filename);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("api_key", "Wtiu2i2x46N1Bw16nzpW8pGF-EgV3O7b");
+        map.put("api_secret", "mIa9WP9jv3_89xAPtI9Z85qBwjTvjzxf");
+        map.put("image_base64", imageStr);
+        System.out.println("Imagestr"+imageStr);
         byte[] bacd = post(url, map);
         String str = new String(bacd);
         System.out.println(str);
@@ -75,7 +62,10 @@ public class upload {
             Map.Entry<String, String> entry = (Map.Entry) iter.next();
             String key = entry.getKey();
             String value = entry.getValue();
-            requestbody = requestbody + key + "=" + encode(value) + "&";
+            if (key.equals( "image_base64"))
+                requestbody = requestbody + key + "=" + encode(value) + "&";
+            else
+                requestbody = requestbody + key + "=" + encode(value) + "&";
         }
         System.out.println("requestbody:" + requestbody);
         obos.writeBytes(requestbody);

@@ -1,17 +1,10 @@
 package com.mgimss.mgimss.controller;
 
-import com.mgimss.mgimss.entity.Appliance;
-import com.mgimss.mgimss.entity.DailyPowerConsume;
-import com.mgimss.mgimss.repository.ApplianceRepository;
-import com.mgimss.mgimss.repository.PowerUseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.text.SimpleDateFormat;
-import java.util.*;
-
+////////////////////////////////////////////////////////////////////test data
 @RestController
 public class PowerUseControllerImpl implements PowerUseController {
+
     @Autowired
     PowerUseRepository powerUseRepository;
 
@@ -51,9 +44,10 @@ public class PowerUseControllerImpl implements PowerUseController {
         buf.append("]}");
 
         return buf.toString();
-    }
 
+    }
     public String getMonthlyPowerUse() {
+
         Long UserID = 1L;/////////////////////////////////////////////////////////////////////////////userID
 
         List<DailyPowerConsume> AllUse = powerUseRepository.find7monthsUse(UserID);
@@ -99,24 +93,14 @@ public class PowerUseControllerImpl implements PowerUseController {
         for(DailyPowerConsume OneUse : AllUse) {
             DailyUse.put(OneUse.getAppliance().getName(), OneUse.getConsumption());
         }
-
-        StringBuffer buf = new StringBuffer();
-        buf.append("{\"power\":[");
-
-        for(Map.Entry<String, Long> entry : DailyUse.entrySet()) {
-            buf.append(
-                    "{\"appname\":\"" + entry.getKey() +
-                            "\",\"use\":" + entry.getValue() +
-                            "},"
-            );
+        else {
+            Power = "{\"power\":[{\"appname\":\"light1\",\"use\":6},{\"appname\":\"light2\",\"use\":3},{\"appname\":\"light3\",\"use\":9},{\"appname\":\"light4\",\"use\":10}]}";
         }
-
-        buf.deleteCharAt(buf.length() - 1);
-        buf.append("]}");
-        return buf.toString();
+        return Power;
     }
 
     public String getMonthlyAppsPowerUse(String month) {
+
         Long UserID = 1L;/////////////////////////////////////////////////////////////////////////////userID
 
         List<DailyPowerConsume> AllUse = powerUseRepository.findByMonth(month, UserID);
@@ -199,33 +183,6 @@ public class PowerUseControllerImpl implements PowerUseController {
                 H_app_month.put(name, consumption);
             }
         }
-
-        String MaxDay = getMax(H_day);
-        String MaxMonth = getMax(H_month);
-        String MaxApp = getMax(H_app_month);
-        String MaxAppYear = getMax(H_app_year);
-        Long MaxDayUse = H_day.get(MaxDay);
-        Long MaxMonthUse = H_month.get(MaxMonth);
-        Long MaxAppUse = H_app_month.get(MaxApp);
-        Long MaxAppYearUse = H_app_year.get(MaxAppYear);
-
-        StringBuffer buf = new StringBuffer();
-        buf.append("{\"power\":[");
-        buf.append(
-                "{\"label\":\"" + MaxDay +
-                        "\",\"use\":" + MaxDayUse +
-                        "}," +
-                        "{\"label\":\"" + MaxMonth +
-                        "\",\"use\":" + MaxMonthUse +
-                        "}," +
-                        "{\"label\":\"" + MaxApp +
-                        "\",\"use\":" + MaxAppUse +
-                        "}," +
-                        "{\"label\":\"" + MaxAppYear +
-                        "\",\"use\":" + MaxAppYearUse +
-                        "}"
-        );
-        buf.append("]}");
-        return buf.toString();
+        return Power;
     }
 }
