@@ -206,6 +206,11 @@ const Profile = Loadable({
 });
 
 
+const Notification = Loadable({
+  loader: () => import('./views/User/Notification/Notification'),
+  loading: Loading,
+});
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/main/', exact: true, name: 'Home', component: DefaultLayout },
@@ -255,6 +260,7 @@ const routes = [
   { path: '/main/fun/poweruse', name: 'Power Use', component: PowerUse },
   { path: '/main/user', exact: true, name: 'User', component: Profile },
   { path: '/main/user/profile', name: 'Profile', component: Profile },
+  { path: '/main/user/notification', name: 'Notification', component: Notification },
 ];
 
 export default routes;

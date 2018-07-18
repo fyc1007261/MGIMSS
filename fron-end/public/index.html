@@ -23,6 +23,17 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <script type="text/javascript" src="https://cdn-hangzhou.goeasy.io/goeasy.js"></script>
+    <script type="text/javascript">
+      var goEasy = new GoEasy({
+        appkey: 'BS-a877d9d456a5459f982c7dfef47f42d0'
+      });
+      goEasy.subscribe({
+        channel: 'MGIMSS',
+        onMessage: function(message){
+          alert('receive message:'+message.content);
+        }});
+    </script>
   </head>
 
   <!-- BODY options, add following classes to body to change options
