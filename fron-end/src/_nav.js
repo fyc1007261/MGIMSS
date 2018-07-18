@@ -293,6 +293,11 @@ export default {
           url: '/main/user/profile',
           icon: 'cui-clipboard',
         },
+        {
+          name: 'Notification',
+          url: '/main/user/notification',
+          icon: 'cui-bullhorn',
+        },
       ],
     },
     {

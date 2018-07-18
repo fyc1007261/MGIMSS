@@ -47,15 +47,15 @@ class Schedules extends Component {
 
   constructor(){
     super();
-      $.ajax({
-        type: "GET",
-        async: false,
-        url: "/schedule/get_jobs",
-        context: document.body,
-        success: function(data){
-          jobsData = $.parseJSON(data.toString())["data"];
-        }
-      });
+      // $.ajax({
+      //   type: "GET",
+      //   async: false,
+      //   url: "/schedule/get_jobs",
+      //   context: document.body,
+      //   success: function(data){
+      //     jobsData = $.parseJSON(data.toString())["data"];
+      //   }
+      // });
 
   }
 
