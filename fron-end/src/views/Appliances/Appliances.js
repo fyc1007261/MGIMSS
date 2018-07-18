@@ -103,6 +103,7 @@ class Appliances extends Component {
 
   constructor(){
     super();
+
     $.ajax({
       type: "GET",
       async: false,

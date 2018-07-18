@@ -139,4 +139,5 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         );
         return buf.toString();
     }
+
 }

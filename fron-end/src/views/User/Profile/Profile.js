@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import ChangeProfile from './ChangeProfile';
 
 class Profile extends Component {
   render() {
     return(
-      <div>haha</div>
+      <ChangeProfile/>
     );
   }
 }

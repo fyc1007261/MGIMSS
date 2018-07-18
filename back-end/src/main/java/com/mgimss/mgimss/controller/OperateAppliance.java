@@ -31,9 +31,6 @@ public interface OperateAppliance {
     @RequestMapping("/appliance/delete_appliance")
     String delete_appliance(Long aid);
 
-    @RequestMapping("/appliance/modify_appliance")
-    String modify_appliance(Long aid, String mfrs, Long power);
-
     //java calls
     @RequestMapping("/appliance/switch_appliance")
     String switch_appliance(Long aid, String option);
