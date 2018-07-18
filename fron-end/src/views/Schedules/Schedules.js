@@ -49,16 +49,15 @@ class Schedules extends Component {
 
   constructor(){
     super();
-
-      $.ajax({
-        type: "GET",
-        async: false,
-        url: "/schedule/get_jobs",
-        context: document.body,
-        success: function(data){
-          jobsData = $.parseJSON(data.toString())["data"];
-        }
-      });
+    $.ajax({
+      type: "GET",
+      async: false,
+      url: "/schedule/get_jobs",
+      context: document.body,
+      success: function(data){
+        jobsData = $.parseJSON(data.toString())["data"];
+      }
+    });
     $.ajax({
       type: "GET",
       async: false,
@@ -117,7 +116,9 @@ class ModalAddJob extends Component {
   constructor(props) {
     super(props);
     let now = new Date();
-    let date = now.getFullYear() + "-" + (now.getMonth() < 9 ? "0" : "") + (now.getMonth() + 1) + "-" + (now.getDate() < 10 ? "0" : "") + (now.getDate()) + "T" + now.getHours() + ":" + now.getMinutes();
+    let date = now.getFullYear() + "-" + (now.getMonth() < 9 ? "0" : "") +
+      (now.getMonth() + 1) + "-" + (now.getDate() < 10 ? "0" : "") +
+      (now.getDate()) + "T" + (now.getHours() < 9 ? "0" : "" ) + (now.getHours()+1) + ":00";
     let data = this.props.appdata;
     let opt = [];
     for(let i=0; i< data.length; i++){
@@ -173,16 +174,17 @@ class ModalAddJob extends Component {
 
 
     let ret = "Fail to send information";
-    // $.ajax({
-    //   type: "POST",
-    //   async: false,
-    //   url: "/appliance/add_appliance",
-    //   data: {name: name, mfrs: mfrs, power: power},
-    //   context: document.body,
-    //   success: function(data){
-    //     ret = data;
-    //   }
-    // });
+    $.ajax({
+      type: "POST",
+      async: false,
+      url: "/schedule/create_job",
+      data: {startTime: (sta.getTime()/1000).toFixed(0), lastTime: duration*60,
+        stopTime: (fin.getTime()/1000).toFixed(0), aid:aid},
+      context: document.body,
+      success: function(data){
+        ret = data;
+      }
+    });
     alert(ret);
     if (ret==="success")
       window.location.reload();

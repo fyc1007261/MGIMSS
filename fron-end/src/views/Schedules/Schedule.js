@@ -66,8 +66,23 @@ class Schedule extends Component {
     }
     if (!window.confirm("Sure to delete this job?"))
       return;
+
     //send message to server
-    window.location.href = "/main/schedule";
+    let jid = document.getElementById("id").value;
+    let ret = "Fail to delete the job";
+    $.ajax({
+      type: "POST",
+      async: false,
+      url: "/schedule/delete_job",
+      data: {jid: jid},
+      context: document.body,
+      success: function(data){
+        ret = data;
+      }
+    });
+    alert(ret);
+    if (ret==="success")
+      window.location.href = "/main/schedule";
   }
 
   cancelClick(ele){
@@ -117,8 +132,20 @@ class Schedule extends Component {
       alert("Duration must not be less than zero!");
       return;
     }
-
-
+  // send data to server
+    let ret = "Fail to delete the job";
+    let jid = document.getElementById("id").value;
+    $.ajax({
+      type: "POST",
+      async: false,
+      url: "/schedule/modify_job",
+      data: {jid: jid, startTime: sta.getTime(), stopTime: fin.getTime(), lastTime: duration*60},
+      context: document.body,
+      success: function(data){
+        ret = data;
+      }
+    });
+    alert(ret);
     document.getElementById("Start after").disabled = 1;
     document.getElementById("Finish by").disabled = 1;
     document.getElementById("Duration").disabled = 1;

@@ -144,12 +144,12 @@ public class OperateApplianceImpl implements OperateAppliance {
             appliance.setLastSendDataTime(send_time);
             if (job == null) {
                 Long starttime = new Date().getTime()/1000;
-                Optional<Long> pPower = appStatusRepository.findAvgPowerByAppliance(appliance.getAppId());
+                Optional<Double> pPower = appStatusRepository.findAvgPowerByAppliance(appliance.getAppId());
                 Long perPower;
                 if (!pPower.isPresent()){
                     perPower = appliance.getPower();
                 }
-                else perPower = pPower.get();
+                else perPower = Math.round(pPower.get());
                 job = new Job(starttime, Long.MAX_VALUE, starttime, Long.MAX_VALUE, Long.MAX_VALUE,
                         perPower, 1, appliance, user);
             }
@@ -250,7 +250,7 @@ public class OperateApplianceImpl implements OperateAppliance {
     }
 
     //java calls
-    public String open_close_appliance(Long aid, String option){
+    public String switch_appliance(Long aid, String option){
         User user;
         String port;
         String host;
@@ -258,11 +258,9 @@ public class OperateApplianceImpl implements OperateAppliance {
         String send_message;
         String recv_message;
 
-//        SecurityContext ctx = SecurityContextHolder.getContext();
-//        Authentication auth = ctx.getAuthentication();
-//        user = (User) auth.getPrincipal();
-
-        user = userRepository.findByUid(Long.valueOf(1));
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        Authentication auth = ctx.getAuthentication();
+        user = (User) auth.getPrincipal();
 
         System.out.println("APPLIANCE");
         if(option.equals("on")) new_state = 1;
