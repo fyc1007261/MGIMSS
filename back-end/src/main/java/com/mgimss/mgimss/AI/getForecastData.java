@@ -4,14 +4,20 @@ import com.mathworks.toolbox.javabuilder.MWClassID;
 import com.mathworks.toolbox.javabuilder.MWComplexity;
 import com.mathworks.toolbox.javabuilder.MWNumericArray;
 import com.mathworks.toolbox.javabuilder.MWCellArray;
-import java.util.ArrayList;
 import train.train;
+//需要加入javabuild包 在V91的builertool中的javabuild中
 
 public class getForecastData {
-//    public static void main(String[] args) throws Exception{
-//        Long[] x={};
-//        predicted(x);
-//    }
+    public static void main(String[] args) throws Exception{
+//        Long[] x={Long.valueOf(0),Long.valueOf(100),Long.valueOf(400),Long.valueOf(900),Long.valueOf(1600),Long.valueOf(900),Long.valueOf(400),Long.valueOf(100),Long.valueOf(0),Long.valueOf(100),Long.valueOf(400),Long.valueOf(900),Long.valueOf(1600),Long.valueOf(900),Long.valueOf(400),Long.valueOf(100),Long.valueOf(0),
+//                Long.valueOf(100),Long.valueOf(400),Long.valueOf(900),Long.valueOf(1600),Long.valueOf(900),Long.valueOf(400),Long.valueOf(100),Long.valueOf(0),Long.valueOf(100),Long.valueOf(400),Long.valueOf(900),Long.valueOf(1600),Long.valueOf(900),Long.valueOf(400),Long.valueOf(100),Long.valueOf(0),
+//                Long.valueOf(100),Long.valueOf(400),Long.valueOf(900),Long.valueOf(1600),Long.valueOf(900),Long.valueOf(400),Long.valueOf(100),Long.valueOf(0),Long.valueOf(100),Long.valueOf(400),Long.valueOf(900),Long.valueOf(1600),Long.valueOf(900),Long.valueOf(400),Long.valueOf(100),Long.valueOf(0),
+//                Long.valueOf(100),Long.valueOf(400),Long.valueOf(900),Long.valueOf(1600),Long.valueOf(900),Long.valueOf(400),Long.valueOf(100),Long.valueOf(0),Long.valueOf(100),Long.valueOf(400),Long.valueOf(900),Long.valueOf(1600),Long.valueOf(900),Long.valueOf(400),Long.valueOf(100),Long.valueOf(0)};
+//
+        Long[] x={Long.valueOf(0),Long.valueOf(1),Long.valueOf(4),Long.valueOf(9),Long.valueOf(16),Long.valueOf(36),Long.valueOf(16),Long.valueOf(9),Long.valueOf(4),Long.valueOf(1),Long.valueOf(0),Long.valueOf(1),Long.valueOf(4),Long.valueOf(9),Long.valueOf(16),Long.valueOf(36),Long.valueOf(16),Long.valueOf(9),Long.valueOf(4),Long.valueOf(1),Long.valueOf(0),Long.valueOf(1),Long.valueOf(4),Long.valueOf(9),Long.valueOf(16),Long.valueOf(36),Long.valueOf(16),Long.valueOf(9),Long.valueOf(4),Long.valueOf(1),Long.valueOf(0),Long.valueOf(1),Long.valueOf(4),Long.valueOf(9),Long.valueOf(16),Long.valueOf(36),Long.valueOf(16),Long.valueOf(9),Long.valueOf(4),Long.valueOf(1),Long.valueOf(0),Long.valueOf(1),Long.valueOf(4),Long.valueOf(9),Long.valueOf(16),Long.valueOf(36),Long.valueOf(16),Long.valueOf(9),Long.valueOf(4),Long.valueOf(1),Long.valueOf(0),Long.valueOf(1),Long.valueOf(4),Long.valueOf(9),Long.valueOf(16),Long.valueOf(36),Long.valueOf(16),Long.valueOf(9),Long.valueOf(4),Long.valueOf(1)};
+
+        predicted(x);
+    }
     public static Long[] predicted(Long[] x) throws Exception{
         //System.load("D://大二暑假项目 - 副本//matlab//mclmcrrt9_1.dll");
         Object[] result = null; // 用于保存计算结果
@@ -32,7 +38,7 @@ public class getForecastData {
         Long[] forecastResult;
         forecastResult = new Long[rowNum];
         for (int i = 1; i <= rowNum; i++) {
-            Long ans = ((Long[][]) output.get(i))[0][0];
+            Long ans = Math.round(((double[][]) output.get(i))[0][0]);
             forecastResult[i-1] = ans;
             System.out.println(ans);
         }

@@ -14,7 +14,7 @@ import pytz
 # whether to print log when succeeded
 print_log = 1
 # frequency in seconds
-frequency = 5
+frequency = 30
 # solar generation
 frequency_solar_generation = 1800
 area_of_solar_generator = 60
@@ -23,6 +23,8 @@ server_solar_generation = "http://localhost:12333/battery/post_generation"  #(St
 server = "http://localhost:12333/appliance/post_appliance"
 server_change = "http://localhost:12333/appliance/notify_status_change"
 server_battery = "http://localhost:12333/battery/post_remaining"  # (String time, int remaining)
+server_battery_overflow = "http://localhost:12333/battery/overflow"
+
 file_name = "appliances.mgimss"
 tz = pytz.timezone('Asia/Shanghai')
 
@@ -62,22 +64,35 @@ def save_apps(apps):
 
 
 def all_to_server(url, apps, battery):
+    overflow = 0
     now = datetime.datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S')
+    overflow += battery.auto_charge(frequency)
     for app in apps:
         if app.get_status() == 1:
-            battery.discharge(app.get_current() * app.get_voltage() * frequency)
+            overflow += battery.discharge(app.get_current() * app.get_voltage() * frequency)
             single_to_server(url, app, now)
     # finally send the status of battery
-    payload = {"time": now, "remaining": battery.get_power(),"uid":1}
+    payload = {"time": now, "remaining": battery.get_power(), "uid": 1}
     try:
         r = requests.post(url=server_battery, data=payload)
         if r.text.find("success") < 0:
             print("err: during sending battery status to server")
-            print(r.text )
+            print(r.text)
         else:
             print_debug("success when sending battery status to server at" + now)
     except requests.exceptions.ConnectionError:
         print("Cannot connect to the server")
+    if overflow != 0:
+        try:
+            payload = {"time": now, "charge": round(abs(overflow)), "uid": 1, "option": round(overflow/abs(overflow))}
+            r = requests.post(url=server_battery_overflow, data=payload)
+            if r.text.find("success") < 0:
+                print("err: during sending battery overflow status to server")
+                print(r.text)
+            else:
+                print_debug("success when sending battery overflow status to server at" + now)
+        except requests.exceptions.ConnectionError:
+            print("Cannot connect to the server")
 
 
 def single_to_server(url, appliance, now):
@@ -111,7 +126,6 @@ def send_status_change(url, app_id, status):
 def continuous_sending(url, apps, battery):
     while 1:
         lock.acquire()
-        battery.auto_charge(frequency)
         all_to_server(url, apps, battery)
         lock.release()
         time.sleep(frequency)

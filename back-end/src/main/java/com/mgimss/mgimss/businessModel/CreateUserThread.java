@@ -66,20 +66,27 @@ public class CreateUserThread extends  Thread {
                     data[g] = (predictSourceData.get(g)).longValue();
                 }
 
-//                Long[] predictData =  getForecastData.predicted(data);
-                Long[] predictData ={Long.valueOf(0),Long.valueOf(100),Long.valueOf(400),Long.valueOf(900),Long.valueOf(1600),Long.valueOf(900),Long.valueOf(400),Long.valueOf(100),Long.valueOf(0),Long.valueOf(100), Long.valueOf(400),Long.valueOf(900),Long.valueOf(1600),Long.valueOf(900),Long.valueOf(400), Long.valueOf(100),Long.valueOf(0),Long.valueOf(100),Long.valueOf(400),Long.valueOf(900)};
-                beginJob = newschedule.doschedule(runJob, pendJob,battery,predictData);
+                Long[] predictData =  getForecastData.predicted(data);
+                //Long[] predictData ={Long.valueOf(0),Long.valueOf(100),Long.valueOf(400),Long.valueOf(900),Long.valueOf(1600),Long.valueOf(900),Long.valueOf(400),Long.valueOf(100),Long.valueOf(0),Long.valueOf(100), Long.valueOf(400),Long.valueOf(900),Long.valueOf(1600),Long.valueOf(900),Long.valueOf(400), Long.valueOf(100),Long.valueOf(0),Long.valueOf(100),Long.valueOf(400),Long.valueOf(900)};
+                beginJob = newschedule.doschedule(runJob, pendJob,battery,predictData,pendingJobRepository);
                 System.out.println("beginJob");
-                System.out.println(beginJob.get(0));
-                int threadSize = beginJob.size();
-                Thread[] threadId;
-                threadId = new Thread[threadSize];
-                for(int k = 0 ;k<beginJob.size();k++)
+                if (beginJob.size()>0)
                 {
-                    threadId[k] = new SendAndReceive(beginJob.get(k));
-                    threadId[k].start();
-
+                    System.out.println(beginJob.get(0).getAppliance().getName());
                 }
+                else
+                {
+                    System.out.println("no job to running");
+                }
+//                int threadSize = beginJob.size();
+//                Thread[] threadId;
+//                threadId = new Thread[threadSize];
+//                for(int k = 0 ;k<beginJob.size();k++)
+//                {
+//                    threadId[k] = new SendAndReceive(beginJob.get(k));
+//                    threadId[k].start();
+//
+//                }
 
                 sleep(60 * 1000);
             }

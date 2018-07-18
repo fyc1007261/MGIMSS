@@ -29,15 +29,15 @@ public interface OperateAppliance {
 
     //java calls
     @RequestMapping("/appliance/add_appliance")
-    String add_appliance(String name, String mfrs, Long power);
+    String add_appliance(String name, String mfrs, Long ratedParameters);
 
     //java calls
     @RequestMapping("/appliance/delete_appliance")
     String delete_appliance(Long aid);
 
     //java calls
-    @RequestMapping("/appliance/open_close_appliance")
-    String open_close_appliance(Long aid, String option);
+    @RequestMapping("/appliance/switch_appliance")
+    String switch_appliance(Long aid, String option);
 
     //java calls
     @RequestMapping("/appliance/get_appliances")

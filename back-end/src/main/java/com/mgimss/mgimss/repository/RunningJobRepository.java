@@ -21,5 +21,4 @@ public interface RunningJobRepository extends JpaRepository<Job, Long> {
 
     @Query(nativeQuery = true, value = "select * from job where app_id =:appId  and status = 1")
     Job findByAppliance(@Param("appId") Long appId);
-
 }

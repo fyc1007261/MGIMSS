@@ -49,7 +49,7 @@ const line = {
     {
       label: 'Total',
       fill: false,
-      lineTension: 0.1,
+      lineTension: 0,
       backgroundColor: 'rgba(248,108,107,0.4)',
       borderColor: 'rgba(248,108,107,1)',
       borderCapStyle: 'butt',
@@ -62,8 +62,8 @@ const line = {
       pointHoverRadius: 5,
       pointHoverBackgroundColor: 'rgba(248,108,107,1)',
       pointHoverBorderColor: 'rgba(255,193,7,1)',
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
+      pointHoverBorderWidth: 4,
+      pointRadius: 3,
       pointHitRadius: 10,
       data: DayData[1],
     },
@@ -124,7 +124,7 @@ class TotalPowerUse extends Component {
 
   render() {
     return (
-      <Card>
+      <Card id="tpu">
         <CardBody>
           <Row>
             <Col sm="5">
