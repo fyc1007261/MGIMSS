@@ -273,6 +273,11 @@ export default {
           url: '/main/fun/poweruse',
           icon: 'cui-bar-chart',
         },
+        {
+          name: 'Dynamic Chart',
+          url: '/main/fun/dynamicChart',
+          icon: 'cui-bar-chart',
+        },
       ],
     },
     {
@@ -292,6 +297,11 @@ export default {
           name: 'Profile',
           url: '/main/user/profile',
           icon: 'cui-clipboard',
+        },
+        {
+          name: 'Notification',
+          url: '/main/user/notification',
+          icon: 'cui-bullhorn',
         },
       ],
     },

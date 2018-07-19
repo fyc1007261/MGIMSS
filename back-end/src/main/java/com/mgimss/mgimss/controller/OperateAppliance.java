@@ -3,9 +3,13 @@ package com.mgimss.mgimss.controller;
 import com.mgimss.mgimss.entity.Appliance;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -21,7 +25,7 @@ public interface OperateAppliance {
 
     //java calls
     @RequestMapping("/appliance/request_status")
-    ModelAndView request_appliances_status();
+    String request_appliances_status(String aid, String count, Date end_time, HttpServletRequest request, HttpServletResponse response);
 
     //java calls
     @RequestMapping("/appliance/add_appliance")
@@ -32,8 +36,8 @@ public interface OperateAppliance {
     String delete_appliance(Long aid);
 
     //java calls
-    @RequestMapping("/appliance/open_close_appliance")
-    String open_close_appliance(Long aid, String option);
+    @RequestMapping("/appliance/switch_appliance")
+    String switch_appliance(Long aid, String option);
 
     //java calls
     @RequestMapping("/appliance/get_appliances")

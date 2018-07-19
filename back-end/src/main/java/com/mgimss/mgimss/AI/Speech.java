@@ -268,12 +268,12 @@ public class Speech {
             }
             else {
                 System.out.println("appId:"+DataTest.appliance.getAppId());
-                Optional<Long> pPower = appStatusRepository.findAvgPowerByAppliance(DataTest.appliance.getAppId());
+                Optional<Double> pPower = appStatusRepository.findAvgPowerByAppliance(DataTest.appliance.getAppId());
                 Long perPower;
                 if (!pPower.isPresent()){
                     perPower = DataTest.appliance.getPower();
                 }
-                else perPower = pPower.get();
+                else perPower = Math.round(pPower.get());
                 Job job;
                 System.out.println("startTime:"+DataTest.beginTime.getTime()/1000+"stopTime:"+DataTest.endTime.getTime()/1000+"LastTime:"+DataTest.lastTime+"PerPower:"+perPower);
                 job = new Job(DataTest.beginTime.getTime()/1000, DataTest.endTime.getTime()/1000, Long.valueOf(0), Long.valueOf(0), DataTest.lastTime,

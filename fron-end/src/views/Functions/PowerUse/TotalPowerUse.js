@@ -8,7 +8,7 @@ import {CustomTooltips} from "@coreui/coreui-plugin-chartjs-custom-tooltips/dist
 
 let DayData = [["2018-07-05","2018-07-06","2018-07-07","2018-07-08","2018-07-09","2018-07-10","2018-07-11"],[85,65,67,78,73,81,70]];
 let MonthData = [["2018-01","2018-02","2018-03","2018-04","2018-05","2018-06","2018-07"],[2133,2400,2327,2219,2356,2193,2081]];
-//
+
 // let DayData = [[],[]];
 // let MonthData = [[],[]];
 //
@@ -49,7 +49,7 @@ const line = {
     {
       label: 'Total',
       fill: false,
-      lineTension: 0.1,
+      lineTension: 0,
       backgroundColor: 'rgba(248,108,107,0.4)',
       borderColor: 'rgba(248,108,107,1)',
       borderCapStyle: 'butt',
@@ -62,8 +62,8 @@ const line = {
       pointHoverRadius: 5,
       pointHoverBackgroundColor: 'rgba(248,108,107,1)',
       pointHoverBorderColor: 'rgba(255,193,7,1)',
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
+      pointHoverBorderWidth: 4,
+      pointRadius: 3,
       pointHitRadius: 10,
       data: DayData[1],
     },
@@ -124,7 +124,8 @@ class TotalPowerUse extends Component {
 
   render() {
     return (
-      <Card>
+      <div style={{height: '160px'}}>
+      <Card id="tpu">
         <CardBody>
           <Row>
             <Col sm="5">
@@ -146,6 +147,7 @@ class TotalPowerUse extends Component {
           </div>
         </CardBody>
       </Card>
+      </div>
     );
   }
 }

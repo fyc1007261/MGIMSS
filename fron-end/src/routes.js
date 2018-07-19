@@ -200,11 +200,22 @@ const PowerUse = Loadable({
   loading: Loading,
 });
 
+
+const DynamicChart = Loadable({
+  loader: () => import('./views/Functions/DynamicChart/DynamicChart'),
+  loading: Loading,
+});
+
 const Profile = Loadable({
   loader: () => import('./views/User/Profile/Profile'),
   loading: Loading,
 });
 
+
+const Notification = Loadable({
+  loader: () => import('./views/User/Notification/Notification'),
+  loading: Loading,
+});
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -253,8 +264,10 @@ const routes = [
   { path: '/main/schedule/:id', exact: true, name: 'Schedule Details', component: Schedule },
   { path: '/main/fun', exact: true, name: 'Functions', component: PowerUse },
   { path: '/main/fun/poweruse', name: 'Power Use', component: PowerUse },
+  { path: '/main/fun/dynamicChart', name: 'Dynamic Chart', component: DynamicChart },
   { path: '/main/user', exact: true, name: 'User', component: Profile },
   { path: '/main/user/profile', name: 'Profile', component: Profile },
+  { path: '/main/user/notification', name: 'Notification', component: Notification },
 ];
 
 export default routes;
