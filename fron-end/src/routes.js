@@ -203,6 +203,8 @@ const PowerUse = Loadable({
 
 const DynamicChart = Loadable({
   loader: () => import('./views/Functions/DynamicChart/DynamicChart'),
+  loading: Loading,
+});
 
 const Profile = Loadable({
   loader: () => import('./views/User/Profile/Profile'),
@@ -212,7 +214,6 @@ const Profile = Loadable({
 
 const Notification = Loadable({
   loader: () => import('./views/User/Notification/Notification'),
-
   loading: Loading,
 });
 
