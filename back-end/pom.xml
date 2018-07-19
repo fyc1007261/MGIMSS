@@ -31,6 +31,14 @@
 
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>goeasy</id>
+			<name>goeasy</name>
+			<url>http://maven.goeasy.io/content/repositories/releases/</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -71,12 +79,6 @@
 			<artifactId>json-lib</artifactId>
 			<version>1.1</version>
 			<classifier>jdk15</classifier>
-		</dependency>
-
-		<dependency>
-		<groupId>c3p0</groupId>
-		<artifactId>c3p0</artifactId>
-		<version>0.9.1.2</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-io -->
@@ -188,6 +190,11 @@
 			<version>2.8.5</version>
 		</dependency>
 
+		<dependency>
+			<groupId>io.goeasy</groupId>
+			<artifactId>goeasy-sdk</artifactId>
+			<version>0.3.8</version>
+		</dependency>
 
 	</dependencies>
 	<build>

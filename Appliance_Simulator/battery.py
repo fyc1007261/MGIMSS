@@ -35,13 +35,23 @@ class Battery:
 
     def charge(self, value):
         self.__power += value
+        if self.__power > self.__max_power:
+            overflow = self.__power - self.__max_power
+            self.__power = self.__max_power
+            return overflow
+        return 0
 
     def discharge(self, value):
         self.__power -= value
+        if self.__power < 0:
+            overflow = self.__power
+            self.__power = 0
+            return overflow
+        return 0
 
     def auto_charge(self, sec):
         hour = int(datetime.datetime.now().strftime('%H'))
-        self.charge(generation[hour] * sec)
+        return self.charge(generation[hour] * sec)
 
     def get_power(self):
         return self.__power
@@ -53,4 +63,3 @@ class Battery:
 if __name__ == "__main__":
     battery = Battery(200)
     battery.auto_charge(200)
-

@@ -281,6 +281,31 @@ export default {
       ],
     },
     {
+      title: true,
+      name: 'User',
+      wrapper: {
+        element: '',
+        attributes: {},
+      },
+    },
+    {
+      name: 'User',
+      url: '/main/user',
+      icon: 'icon-user',
+      children: [
+        {
+          name: 'Profile',
+          url: '/main/user/profile',
+          icon: 'cui-clipboard',
+        },
+        {
+          name: 'Notification',
+          url: '/main/user/notification',
+          icon: 'cui-bullhorn',
+        },
+      ],
+    },
+    {
       name: 'Download CoreUI',
       url: 'http://coreui.io/react/',
       icon: 'icon-cloud-download',
