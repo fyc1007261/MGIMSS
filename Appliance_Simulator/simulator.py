@@ -14,7 +14,7 @@ import pytz
 # whether to print log when succeeded
 print_log = 1
 # frequency in seconds
-frequency = 30
+frequency = 5
 # solar generation
 frequency_solar_generation = 1800
 area_of_solar_generator = 60
@@ -98,7 +98,7 @@ def all_to_server(url, apps, battery):
 def single_to_server(url, appliance, now):
     app_id, name, voltage, current, status = appliance.get_all()
     payload = {'time': now, 'id': app_id, 'name': name,
-               'voltage': (voltage + random.randrange(-10, 10)), 'current':(current + random.randrange(-round(current * 10), round(current * 10)) * 0.1),"uid":1}
+               'voltage': (voltage + random.randrange(-10, 10)), 'current': (current + random.randrange(-round(0.5 * current * 10), round(0.5 * current * 10)) * 0.1), "uid": 1}
     try:
         r = requests.post(url=url, data=payload)
         if r.text != "success":

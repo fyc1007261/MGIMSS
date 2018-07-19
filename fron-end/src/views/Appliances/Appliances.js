@@ -61,7 +61,7 @@ class ApplianceRow extends  Component{
     }
     let ret_val = "Error with connection";
     $.ajax({
-      type: "GET",
+      type: "POST",
       async: false,
       url: "/appliance/switch_appliance",
       data: {aid: a_id, option: opt},
