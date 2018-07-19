@@ -83,7 +83,7 @@ def all_to_server(url, apps, battery):
 def single_to_server(url, appliance, now):
     app_id, name, voltage, current, status = appliance.get_all()
     payload = {'time': now, 'id': app_id, 'name': name,
-               'voltage': (voltage + random.randrange(-10, 10)), 'current':(current + random.randrange(-round(current * 10), round(current * 10)) * 0.1),"uid":1}
+               'voltage': (voltage + random.randrange(-10, 10)), 'current':(current + random.randrange(-round(0.5*current * 10), round(0.5*current * 10)) * 0.1),"uid":1}
     try:
         r = requests.post(url=url, data=payload)
         if r.text != "success":
