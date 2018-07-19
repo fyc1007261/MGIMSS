@@ -23,6 +23,7 @@ import {
 import Widget03 from '../../views/Widgets/Widget03'
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
+import $ from "jquery";
 
 const brandPrimary = getStyle('--primary')
 const brandSuccess = getStyle('--success')
@@ -488,6 +489,173 @@ const mainChartOpts = {
     },
   }
 };
+
+
+
+
+
+
+
+
+
+
+let moneyBefore = [41,44,43,38,49,47,45,45,47,46,49,43,41,49,42,48,47,46,43,41,42,47,48,45,44,43,46,50,53,48,43,44,43,46,41,48,47,45,49,53];
+let moneyAfter = [38,40,41,37,44,46,42,41,43,43,42,38,37,45,37,46,42,44,35,38,41,44,43,43,41,39,45,44,49,41,41,41,38,42,34,46,45,42,47,51];
+
+// let moneyBefore = [];
+// let moneyAfter = [];
+// $.ajax({
+//   url:"/dashboard/getMoneySave",
+//   context:document.body,
+//   async:false,
+//   type:"get",
+//   success:function (data) {
+//     let tmpDayData = $.parseJSON(data);
+//     tmpDayData["money"].forEach((MoneyInfo) => {
+//       moneyBefore.push(MoneyInfo["before"]);
+//       moneyAfter.push(MoneyInfo["after"]);
+//     });
+//   }
+// });
+
+class MyDashboard extends Component {
+  render() {
+    const mainChart1 = {
+      labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      datasets: [
+        {
+          label: 'Money Use Before Schedule',
+          backgroundColor: hexToRgba(brandInfo, 10),
+          borderColor: brandInfo,
+          pointHoverBackgroundColor: '#fff',
+          borderWidth: 2,
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: 'rgba(251,227,48,1)',
+          pointBackgroundColor: '#fff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBorderColor: 'rgba(220,220,220,1)',
+          pointHoverBorderWidth: 3,
+          pointRadius: 2,
+          pointHitRadius: 10,
+          scaleShowGridLines : true,
+          data: moneyBefore,
+        },
+        {
+          label: 'Money Use After Schedule',
+          backgroundColor: 'transparent',
+          borderColor: brandSuccess,
+          pointHoverBackgroundColor: '#fff',
+          borderWidth: 2,
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: 'rgba(251,227,48,1)',
+          pointBackgroundColor: '#fff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBorderColor: 'rgba(220,220,220,1)',
+          pointHoverBorderWidth: 3,
+          pointRadius: 2,
+          pointHitRadius: 10,
+          scaleShowGridLines : true,
+          data: moneyAfter,
+        },
+      ],
+    };
+
+    const mainChartOpts1 = {
+      tooltips: {
+        enabled: false,
+        custom: CustomTooltips,
+        intersect: true,
+        mode: 'index',
+        position: 'nearest',
+        callbacks: {
+          labelColor: function(tooltipItem, chart) {
+            return { backgroundColor: chart.data.datasets[tooltipItem.datasetIndex].borderColor }
+          }
+        }
+      },
+      maintainAspectRatio: false,
+      elements: {
+        point: {
+          radius: 0,
+          hitRadius: 10,
+          hoverRadius: 4,
+          hoverBorderWidth: 3,
+        },
+      }
+    };
+
+    let total_before = 0;
+    let total_after = 0;
+    for(let i = 0; i < moneyBefore.length; i++) {
+      total_before += moneyBefore[i];
+      total_after += moneyAfter[i];
+    }
+    let rate = ((total_before - total_after) / total_before).toFixed(2) * 100;
+
+    return(
+      <Row>
+        <Col>
+          <Card>
+            <CardBody>
+              <Row>
+                <Col sm="5">
+                  <CardTitle className="mb-0">Money Save</CardTitle>
+                  <div className="small text-muted">Recent 30 days</div>
+                </Col>
+              </Row>
+              <div className="chart-wrapper" style={{ height: 300 + 'px', marginTop: 40 + 'px' }}>
+                <Line data={mainChart1}  options={mainChartOpts1} height={300} />
+              </div>
+            </CardBody>
+            <CardFooter>
+              <Row className="text-center">
+                <Col sm={12} md className="mb-sm-2 mb-0">
+                  <div className="text-muted">Money Use Before Schedule</div>
+                  <strong>{total_before}</strong>
+                </Col>
+                <Col sm={12} md className="mb-sm-2 mb-0">
+                  <div className="text-muted">Money Use After Schedule</div>
+                  <strong>{total_after}</strong>
+                </Col>
+                <Col sm={12} md className="mb-sm-2 mb-0">
+                  <div className="text-muted">Money Save</div>
+                  <strong>{total_before - total_after} ({rate}%)</strong>
+                  <Progress className="progress-xs mt-2" color="success" value={rate} />
+                </Col>
+              </Row>
+            </CardFooter>
+          </Card>
+        </Col>
+      </Row>
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class Dashboard extends Component {
   constructor(props) {
@@ -1187,6 +1355,7 @@ class Dashboard extends Component {
             </Card>
           </Col>
         </Row>
+        <MyDashboard/>
       </div>
     );
   }
