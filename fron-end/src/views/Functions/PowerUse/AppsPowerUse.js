@@ -81,18 +81,8 @@ class AppsPowerUse extends Component {
       date : date,
       month : month,
       pie : pie,
-      // pieHeight: 100
     };
   }
-
-  // componentDidMount(){
-  //   let pie = document.getElementById("pie");
-  //   let apu = document.getElementById("apu");
-  //   alert(pie.offsetHeight+", "+ apu.offsetHeight);
-  //   this.setState({
-  //     pieHeight:apu.offsetHeight*0.07
-  //   });
-  // }
 
   onRadioBtnClick = (radioSelected) => {
     this.setState({
@@ -243,7 +233,7 @@ class AppsPowerUse extends Component {
               :(
                 (window.screen.availWidth < 2000) ?
               <Pie data={this.state.pie} options={options} height={150}/>
-              :<Pie data={this.state.pie} options={options} height={80}/>)
+              :<Pie data={this.state.pie} options={options} height={100}/>)
             }
           </div>
         </CardBody>
