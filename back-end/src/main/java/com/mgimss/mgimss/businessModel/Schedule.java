@@ -22,11 +22,11 @@ public class Schedule {
     public Long getCharge(Long time)
     {
         Date date = new Date(time*1000);
-        int minute = date.getMinutes();
-        System.out.println("minute:"+minute);
-        if (minute<20)
+        int hour = date.getHours();
+        System.out.println("hour:"+hour);
+        if (hour<8)
             return Long.valueOf(10);
-        else if(minute <40)
+        else if(hour <16)
             return Long.valueOf(20);
         else
             return Long.valueOf(10);
@@ -110,6 +110,7 @@ public class Schedule {
                                 solarPower = (endSimulateTime - endSimulateTime/ntimeSlice*ntimeSlice)*getSolarCharge(endSimulateTime) +
                                         (endSimulateTime/ntimeSlice*ntimeSlice - simulateTime)*getSolarCharge(simulateTime);
                             }
+                            //--------------------------------------------
                             if ((simulateRemain + solarPower) > simulateCapacity)
                             {
                                 cost =cost - (simulateRemain + solarPower-simulateCapacity) * getSolarBackCharge(simulateTime);
@@ -117,7 +118,7 @@ public class Schedule {
                             }else{
                                 simulateRemain = simulateRemain + solarPower;
                             }
-
+                            //==================================================
                             for (int j = 0; j < runJob.size(); j++) //便利每个用job
                             {
                                 if (runJob.get(j).getIntTrueStopTime() <= simulateTime) {

@@ -112,7 +112,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         aid = Long.valueOf(id);
 
         //当前用户
-        user = userRepository.findByUid(Long.valueOf(uid));
+        user = userRepository.findByUid(Long.valueOf(1));
 
         //用电器
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
@@ -179,10 +179,10 @@ public class OperateApplianceImpl implements OperateAppliance {
         String recv_message;
 
         //当前用户
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        user = (User) auth.getPrincipal();
-
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        user = (User) auth.getPrincipal();
+        user = userRepository.findByUid(Long.valueOf(1));
         //获得新电器应分配的aid
         Set<Appliance> present_apps = user.getAppliances();
         if (present_apps.size() == 0) aid = Long.valueOf(1);
