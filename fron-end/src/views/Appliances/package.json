@@ -1,6 +1,6 @@
 {
-  "name": "Users",
+  "name": "Appliances",
   "version": "0.0.0",
   "private": true,
-  "main": "./Users.js"
+  "main": "./Appliances.js"
 }
