@@ -81,7 +81,7 @@ class AppsPowerUse extends Component {
       date : date,
       month : month,
       pie : pie,
-      pieHeight: 100
+      // pieHeight: 100
     };
   }
 
@@ -156,18 +156,18 @@ class AppsPowerUse extends Component {
     //     DayUse = newDayData.slice();
     //   }
     // });
-    // let oldPie = this.state.pie.datasets[0];
-    // let newPie = {
-    //   ...oldPie
-    // };
-    // newPie.data = DayUse;
-    // let newLable = DayData[0];
-    // this.setState({
-    //   pie : {
-    //     labels : newLable,
-    //     datasets : [newPie]
-    //   }
-    // });
+    let oldPie = this.state.pie.datasets[0];
+    let newPie = {
+      ...oldPie
+    };
+    newPie.data = DayUse;
+    let newLable = DayData[0];
+    this.setState({
+      pie : {
+        labels : newLable,
+        datasets : [newPie]
+      }
+    });
   };
 
   getMonthUse = () => {
@@ -188,22 +188,23 @@ class AppsPowerUse extends Component {
     //     MonthUse = newMonthData.slice();
     //   }
     // });
-    // let oldPie = this.state.pie.datasets[0];
-    // let newPie = {
-    //   ...oldPie
-    // };
-    // newPie.data = MonthUse;
-    // let newLable = MonthData[0];
-    // this.setState({
-    //   pie : {
-    //     labels : newLable,
-    //     datasets : [newPie]
-    //   }
-    // });
+    let oldPie = this.state.pie.datasets[0];
+    let newPie = {
+      ...oldPie
+    };
+    newPie.data = MonthUse;
+    let newLable = MonthData[0];
+    this.setState({
+      pie : {
+        labels : newLable,
+        datasets : [newPie]
+      }
+    });
   };
 
   render() {
     return (
+      <div style={{height: '160px'}}>
       <Card id="apu">
         <CardBody>
           <Row>
@@ -249,6 +250,7 @@ class AppsPowerUse extends Component {
           </div>
         </CardBody>
       </Card>
+      </div>
     );
   }
 }

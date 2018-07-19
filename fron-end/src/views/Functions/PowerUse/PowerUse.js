@@ -7,9 +7,9 @@ import HighestPowerUse from './HighestPowerUse';
 class PowerUse extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      height: 0
-    }
+    // this.state = {
+    //   height: 0
+    // }
   }
 
   // componentDidMount(){
@@ -28,7 +28,9 @@ class PowerUse extends Component {
           <TotalPowerUse/>
           <AppsPowerUse/>
         </CardColumns>
-        <HighestPowerUse/>
+        <div>
+          <HighestPowerUse/>
+        </div>
       </div>
     );
   }
