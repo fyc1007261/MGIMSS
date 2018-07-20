@@ -18,4 +18,7 @@ public interface SolarPowerRepository extends JpaRepository<SolarPower, Long>{
 
     @Query(nativeQuery = true, value="select count(*) from solar_power where uid =:uid")
     Long findCount(@Param("uid") Long uid);
+
+    @Query(nativeQuery = true, value="select time from solar_power where uid =:uid and sid = :sid")
+    Long findLastTime(@Param("uid") Long uid,@Param("sid") Long sid);
 }

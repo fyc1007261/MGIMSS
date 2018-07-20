@@ -15,6 +15,10 @@ public interface BatteryController {
     Long  get_remaining();
 
     //python calls
-    @RequestMapping("/battery/post_generation")
-    String post_generation(String time, Long generation, String uid);
+    @RequestMapping("/battery/nothing")
+    String post_generation(Long time, Long generation, String uid);
+
+    //python calls
+    @RequestMapping("/battery/obtainSolar")
+    public String obtainSolar(Long aid, String option);
 }
