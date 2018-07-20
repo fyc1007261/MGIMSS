@@ -134,7 +134,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"Start after\" : \"" + timeToString.LongToString(job.getIntStartTime(), 'T') +
                         "\", \"Finish by\" : \"" + timeToString.LongToString(job.getIntStopTime(), 'T') +
                         "\", \"Duration\" : \"" +(job.getLastTime()<9223372036854775L? job.getLastTime()/60 : 0)+
-                        "\", \"Scheduled at\" : \"" +timeToString.LongToString(job.getIntTrueStopTime(), ' ') +
+                        "\", \"Scheduled at\" : \"" +timeToString.LongToString(job.getIntTrueStartTime(), ' ') +
                         "\", \"Power\" : \""+ job.getPerPower() +"\"}"
         );
         return buf.toString();

@@ -72,7 +72,7 @@ def all_to_server(url, apps, battery):
             overflow += battery.discharge(app.get_current() * app.get_voltage() * frequency)
             single_to_server(url, app, now)
     # finally send the status of battery
-    payload = {"time": now, "remaining": battery.get_power(), "uid": 1}
+    payload = {"time": now, "remaining": round(battery.get_power()), "uid": 1}
     try:
         r = requests.post(url=server_battery, data=payload)
         if r.text.find("success") < 0:

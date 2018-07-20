@@ -264,3 +264,20 @@ document.getElementById("sc").addEventListener("click", function () {
   var imgData=document.getElementById("canvas").toDataURL("image/png");
   console.log(imgData);
 });
+
+
+
+<div className="animated fadeIn">
+  <span style = {cp2}>		</span><audio controls autoplay></audio>
+  <input type="button" value="开始录音" onClick={ ()=>{this.startRecording()}}/>
+  <input type="button" value="获取录音" onClick={()=>{this.obtainRecord()}}/>
+  <input type="button" value="停止录音" onClick={()=>{this.stopRecord()}}/>
+  <input type="button" value="播放录音" onClick={()=>{this.playRecord()}}/>
+
+
+  <canvas id="canvas1" ></canvas>
+  <video id="video"  autoplay></video>
+  <button id="picture" style={cp1} onClick={()=>{this.photo()}}>拍照</button>
+  <canvas id="canvas" style={{display:"block"}} width={320} height={320}></canvas>
+  <button id="sc" style={cp1} onClick={()=>{this.uploading()}}>上传</button>
+</div>
