@@ -56,6 +56,7 @@ def get_apps(apps):
             apps.append(app)
 
 
+
 def save_apps(apps):
     with open(file_name, 'w') as file:
         for app in apps:
@@ -230,17 +231,17 @@ def switch_status(apps, app_id, option=-1):
     return 0
 
 
-def wait_server(apps):
+def wait_server(apps, battery):
     sk = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sk.bind((host, port))
     sk.listen()
     while 1:
         conn, addr = sk.accept()
-        thread_doit = threading.Thread(target=do_server, args=(conn, addr,apps,))
+        thread_doit = threading.Thread(target=do_server, args=(conn, addr,apps, battery))
         thread_doit.start()
 
 
-def do_server(conn, addr, apps):
+def do_server(conn, addr, apps, battery):
     print("Connected by" + str(addr))
     data = conn.recv(1024)
     data = eval(data)
@@ -304,7 +305,15 @@ def do_server(conn, addr, apps):
             print_debug("success when deleting on an app")
         else:
             conn.send(b"err: can't delete appliance")
-
+    elif option == "require_generation":
+        try:
+            hour = int(data["time"])
+            value = battery.get_generation_volume()[hour] * area_of_solar_generator
+        except ValueError:
+            conn.send(b"Invalid input")
+            conn.close()
+            return
+        conn.send(bytes(str(value), 'utf-8'))
     conn.close()
 
 
@@ -320,7 +329,6 @@ def send_solar_generation(battery):
                 print("err: when sending solar generation to server.")
                 print(r.text)
             else:
-
                 print_debug(r.text)
         except requests.exceptions.ConnectionError:
             print("Cannot connect to the server")
@@ -339,7 +347,7 @@ def main():
     thread_cont_send = threading.Thread(target=continuous_sending, args=(server, apps, battery))
     thread_cont_send.start()
     # create a thread to process requests from back-end2
-    thread_process_request = threading.Thread(target=wait_server, args=(apps,))
+    thread_process_request = threading.Thread(target=wait_server, args=(apps, battery))
     thread_process_request.start()
     # create a thread to send solar generation
     thread_solar_generation = threading.Thread(target=send_solar_generation, args=(battery,))
