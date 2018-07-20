@@ -125,7 +125,7 @@ class TotalPowerUse extends Component {
   render() {
     return (
       <div style={{height: 540 + 'px'}}>
-      <Card id="tpu">
+      <Card>
         <CardBody>
           <Row>
             <Col sm="5">
