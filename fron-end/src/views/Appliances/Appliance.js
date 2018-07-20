@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
-
-// import appsData from './UsersData'
 import $ from "jquery";
+import DynamicChart from "../Functions/DynamicChart/DynamicChart"
+import AppDynamicChart from "../Functions/DynamicChart/AppDynamicChart";
+
 
 let appsData = [];
 
@@ -11,6 +12,11 @@ class Appliance extends Component {
   constructor(props){
     super(props);
     let aid = this.props.match.params.id;
+    this.state = {
+      aid: aid,
+      count: 20
+    };
+
     $.ajax({
       type: "GET",
       async: false,
@@ -52,6 +58,9 @@ class Appliance extends Component {
                   </Table>
               </CardBody>
             </Card>
+          </Col>
+          <Col className="col-6">
+            <AppDynamicChart aid={this.state.aid} count={this.state.count}/>
           </Col>
         </Row>
       </div>

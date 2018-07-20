@@ -4,10 +4,7 @@ import com.mgimss.mgimss.AI.DataTest;
 import com.mgimss.mgimss.entity.Appliance;
 import com.mgimss.mgimss.entity.Job;
 import com.mgimss.mgimss.entity.User;
-import com.mgimss.mgimss.repository.AppStatusRepository;
-import com.mgimss.mgimss.repository.ApplianceRepository;
-import com.mgimss.mgimss.repository.PendingJobRepository;
-import com.mgimss.mgimss.repository.UserRepository;
+import com.mgimss.mgimss.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -27,6 +24,9 @@ public class ManageJob {
     ApplianceRepository applianceRepository;
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RunningJobRepository runningJobRepository;
     @RequestMapping("schedule/create_job")
     public String createJob(Long startTime ,Long stopTime, Long lastTime, Long aid) {
         User user;
@@ -35,6 +35,13 @@ public class ManageJob {
 //        user = (User) auth.getPrincipal();
         user = userRepository.findByUid(1L);
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
+
+        // judge whether the job already exists
+        if (pendingJobRepository.findByAppliance(appliance.getAppId()) != null || runningJobRepository.findByAppliance(appliance.getAppId())!=null){
+            return "This appliance is already in the schedule list. Please switch off the appliance" +
+                    "first or modify the schedule instead.";
+        }
+
         Optional<Double> pPower = appStatusRepository.findAvgPowerByAppliance(appliance.getAppId());
         Long perPower;
         if (!pPower.isPresent()){
@@ -63,6 +70,8 @@ public class ManageJob {
 //        deleteJob(aid);
 //        createJob(startTime, stopTime, lastTime, aid);
         Job job = pendingJobRepository.findByJobId(jid);
+        if(job==null)
+            return "Job not exist.";
         job.setIntStartTime(startTime);
         job.setIntStopTime(stopTime);
         job.setIntTrueStartTime(0L);

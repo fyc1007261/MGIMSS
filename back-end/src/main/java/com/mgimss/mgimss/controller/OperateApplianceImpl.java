@@ -119,7 +119,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         aid = Long.valueOf(id);
 
         //当前用户
-        user = userRepository.findByUid(Long.valueOf(uid));
+        user = userRepository.findByUid(Long.valueOf(1));
 
         //用电器
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
@@ -186,10 +186,10 @@ public class OperateApplianceImpl implements OperateAppliance {
         String recv_message;
 
         //当前用户
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        user = (User) auth.getPrincipal();
-
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        user = (User) auth.getPrincipal();
+        user = userRepository.findByUid(Long.valueOf(1));
         //获得新电器应分配的aid
         Set<Appliance> present_apps = user.getAppliances();
         if (present_apps.size() == 0) aid = Long.valueOf(1);
@@ -256,6 +256,21 @@ public class OperateApplianceImpl implements OperateAppliance {
         return recv_message;
     }
 
+
+    public String modify_appliance(Long aid, String mfrs, Long power){
+        User user;
+        //当前用户
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        Authentication auth = ctx.getAuthentication();
+        user = (User) auth.getPrincipal();
+        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
+        appliance.setMfrs(mfrs);
+        appliance.setPower(power);
+        applianceRepository.saveAndFlush(appliance);
+        return "success";
+    }
+
+
     //java calls
     public String switch_appliance(Long aid, String option){
         User user;
@@ -269,7 +284,6 @@ public class OperateApplianceImpl implements OperateAppliance {
         Authentication auth = ctx.getAuthentication();
         user = (User) auth.getPrincipal();
 
-        System.out.println("APPLIANCE");
         if(option.equals("on")) new_state = 1;
         else if (option.equals("off")) new_state = 0;
         else return "err: wrong option string";
@@ -279,6 +293,9 @@ public class OperateApplianceImpl implements OperateAppliance {
             return "err: no appliance";
         }
 
+        // judge whether the appliance is in the pending job list
+        if (option.equals("on") && pendingJobRepository.findByAppliance(appliance.getAppId())!=null)
+            return "Invalid operation";
         host = user.getHardwareHost();
         port = user.getHardwarePort();
 

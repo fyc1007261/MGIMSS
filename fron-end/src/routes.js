@@ -216,6 +216,10 @@ const Notification = Loadable({
   loader: () => import('./views/User/Notification/Notification'),
   loading: Loading,
 });
+const getMedia = Loadable({
+  loader: () => import('./views/getMedia/getMedia'),
+  loading: Loading,
+});
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -268,6 +272,7 @@ const routes = [
   { path: '/main/user', exact: true, name: 'User', component: Profile },
   { path: '/main/user/profile', name: 'Profile', component: Profile },
   { path: '/main/user/notification', name: 'Notification', component: Notification },
+  { path: '/main/getMedia', name: 'AI小微', component: getMedia },
 ];
 
 export default routes;

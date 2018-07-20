@@ -10,6 +10,8 @@ public class SolarPower
 
     private Long sid;
 
+    private Long time;
+
     @ManyToOne
     @JoinColumn(name="uid")
     private User user;
@@ -19,11 +21,12 @@ public class SolarPower
 
 
     public SolarPower(){}
-    public SolarPower(Long sid, User user, Long timeInterval, Long forecastData){
+    public SolarPower(Long sid, User user, Long timeInterval, Long forecastData,Long time){
         this.sid = sid;
         this.user = user;
         this.timeInterval = timeInterval;
         this.forecastData = forecastData;
+        this.time = time % 24;
     }
 
     public User getUser() {
@@ -65,5 +68,13 @@ public class SolarPower
     public Long getForecastData()
     {
         return this.forecastData;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
     }
 }

@@ -282,6 +282,15 @@ export default {
     },
     {
       title: true,
+      name: 'AI',
+    },
+    {
+      name: 'AI小微',
+      url: '/main/getMedia',
+      icon: 'icon-cursor',
+    },
+    {
+      title: true,
       name: 'User',
       wrapper: {
         element: '',

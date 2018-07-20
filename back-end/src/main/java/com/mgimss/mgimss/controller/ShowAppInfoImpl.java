@@ -3,15 +3,10 @@ package com.mgimss.mgimss.controller;
 
 import com.mgimss.mgimss.entity.Appliance;
 import com.mgimss.mgimss.entity.Job;
-import com.mgimss.mgimss.entity.User;
 import com.mgimss.mgimss.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import com.mgimss.mgimss.utils.TimeToString;
-
-
-import java.io.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -33,7 +28,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
     FinishedJobRepository finishedJobRepository;
 
     public String get_all_status(){
-        List<Appliance> applianceList = applianceRepository.findByUser(Long.valueOf(1));
+        List<Appliance> applianceList = applianceRepository.findByUser(1L);
         if (applianceList.size() == 0){
             return "{\"data\":[]}";
         }
@@ -134,7 +129,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"Start after\" : \"" + timeToString.LongToString(job.getIntStartTime(), 'T') +
                         "\", \"Finish by\" : \"" + timeToString.LongToString(job.getIntStopTime(), 'T') +
                         "\", \"Duration\" : \"" +(job.getLastTime()<9223372036854775L? job.getLastTime()/60 : 0)+
-                        "\", \"Scheduled at\" : \"" +timeToString.LongToString(job.getIntTrueStopTime(), ' ') +
+                        "\", \"Scheduled at\" : \"" +timeToString.LongToString(job.getIntTrueStartTime(), ' ') +
                         "\", \"Power\" : \""+ job.getPerPower() +"\"}"
         );
         return buf.toString();

@@ -17,7 +17,11 @@ password = "4MXFSbf"
 
 args = {"userID": username, "pwd": password, "dataFormat": "json", "staIDs": 58361,
         "interfaceId": "getRadiEleByTimeRangeAndStaID", "dataCode": "RADI_CHN_MUL_HOR2400",
-        "timeRange": "[20180707000000,20180708000000]", "elements": "V14311"
+        "timeRange": "[20180718000000,20180719000000]", "elements": "V14311"
         }
 r = requests.get("http://api.data.cma.cn:8090/api", args)
-print(r.text)
+data_dict = eval(r.text)
+data_list = data_dict["DS"]
+for i in range(len(data_list)):
+        data_list[i] = data_list[i]["V14311"]
+print(data_list)

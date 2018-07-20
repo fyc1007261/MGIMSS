@@ -40,7 +40,7 @@ public class SendAndReceive extends Thread{
 
         Map<String, String> map = new HashMap<>();
         map.put("id", String.valueOf(appliance.getAid()));
-        map.put("option", "1");
+        map.put("option", "on");
 
         send_message = MapToJson(map);
         recv_message = sendMessage(host, port, send_message);
@@ -54,7 +54,7 @@ public class SendAndReceive extends Thread{
             e.printStackTrace();
         }
         map.put("id", String.valueOf(appliance.getAid()));
-        map.put("option", "0");
+        map.put("option", "off");
 
         send_message = MapToJson(map);
         recv_message = sendMessage(host, port, send_message);
