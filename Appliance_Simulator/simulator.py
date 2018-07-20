@@ -328,10 +328,7 @@ def send_solar_generation(battery):
         time.sleep(frequency_solar_generation)
 
 
-
-
 def main():
-
     global temp_id
     temp_id = 0
     # including all the appliances added
