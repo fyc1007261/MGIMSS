@@ -209,6 +209,11 @@ const getMedia = Loadable({
   loading: Loading,
 });
 
+const forecast = Loadable({
+  loader: () => import('./views/getMedia/forecast'),
+  loading: Loading,
+});
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/main/', exact: true, name: 'Home', component: DefaultLayout },
@@ -259,6 +264,7 @@ const routes = [
   { path: '/main/user/profile', name: 'Profile', component: Profile },
   { path: '/main/user/notification', name: 'Notification', component: Notification },
   { path: '/main/getMedia', name: 'AI小微', component: getMedia },
+  { path: '/main/forecast', name: '小微预测', component: forecast },
 ];
 
 export default routes;

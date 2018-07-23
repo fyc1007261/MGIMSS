@@ -268,9 +268,10 @@ public class OperateApplianceImpl implements OperateAppliance {
     public String modify_appliance(Long aid, String mfrs, Long power,String gesture){
         User user;
         //当前用户
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        user = (User) auth.getPrincipal();
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        user = (User) auth.getPrincipal();
+        user = userRepository.findByUid(Long.valueOf(1));
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
         appliance.setMfrs(mfrs);
         appliance.setPower(power);

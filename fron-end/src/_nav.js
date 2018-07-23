@@ -316,6 +316,11 @@ export default {
       icon: 'icon-cursor',
     },
     {
+      name: '小微预测',
+      url: '/main/forecast',
+      icon: 'icon-cursor',
+    },
+    {
       title: true,
       name: 'User',
       wrapper: {

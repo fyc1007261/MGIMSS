@@ -10,24 +10,30 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+
     <SUITE FILE_PATH="coverage/Appliance_Simulator$simulator.coverage" NAME="simulator Coverage Results" MODIFIED="1532336605644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="battery.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="battery.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/battery.py">
           <provider selected="true" editor-type-id="text-editor">
+
             <state relative-caret-position="682">
               <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="simulator.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="simulator.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulator.py">
           <provider selected="true" editor-type-id="text-editor">
+
             <state relative-caret-position="352">
               <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -102,7 +108,7 @@
     <option name="height" value="765" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -115,7 +121,9 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
+
     <panes />
+
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -147,7 +155,9 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/battery.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -166,7 +176,9 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/haha.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -185,7 +197,9 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulator.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -218,6 +232,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
@@ -243,6 +258,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
+
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -282,7 +298,9 @@
     <entry file="file://$PROJECT_DIR$/appliances.mgimss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="58">
+
           <caret line="2" selection-start-line="2" selection-end-line="2" />
+
         </state>
       </provider>
     </entry>
@@ -634,8 +652,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/simulator.py">
       <provider selected="true" editor-type-id="text-editor">
+
         <state relative-caret-position="352">
           <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -649,6 +669,7 @@
         </state>
       </provider>
     </entry>
+
     <entry file="file://$PROJECT_DIR$/battery.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="682">
@@ -660,13 +681,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="145">
           <caret line="5" selection-start-line="5" selection-end-line="5" />
+
         </state>
       </provider>
     </entry>
     <entry file="file://E:/Python/Python37/Lib/random.py">
       <provider selected="true" editor-type-id="text-editor">
+
         <state relative-caret-position="4180">
           <caret line="199" selection-start-line="199" selection-end-line="199" />
+
         </state>
       </provider>
     </entry>
