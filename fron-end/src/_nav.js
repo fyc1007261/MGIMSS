@@ -302,6 +302,11 @@ export default {
       ],
     },
     {
+      name: 'Appliances',
+      url: '/main/apps',
+      icon: 'icon-cursor',
+    },
+    {
       title: true,
       name: 'AI',
     },

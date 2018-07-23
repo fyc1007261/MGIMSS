@@ -1,10 +1,753 @@
-.dChart{
+::-webkit-scrollbar {
+  display: none
+}
+
+@font-face {
+  font-family: neoteric;
+  src: url('../fonts/NEOTERIC_- Regular DEMO VERSION.ttf');
+}
+
+@font-face {
+  font-family: CodyStar;
+  src: url('../fonts/Codystar-Regular.ttf');
+}
+
+@font-face {
+  font-family: Bauhaus;
+  src: url('../fonts/Bauhaus Light BT.ttf');
+}
+
+@font-face {
+  font-family: Adec2;
+  src: url('../fonts/SS_Adec2.0_text.otf');
+}
+
+@font-face {
+  font-family: gotham-rounded-light;
+  src: url('../fonts/gotham-rounded-light.otf');
+}
+
+.dChart {
   width: 10px;
-  height:  10px;
+  height: 10px;
   position: relative;
 }
 
-.Chart{
+.Chart {
   position: absolute;
 }
 
+.canvas {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  margin-top: auto;
+  /*background-color: #00aced;*/
+}
+
+.detail-canvas {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+  float: left;
+  background-color: #026466;
+}
+
+.capsule-canvas {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+  float: left;
+  width: 250px;
+  height: 300px;
+  position: relative;
+  transition: width 0s ease-in-out 0.5s, opacity 0.5s ease-in-out 0.5s;
+  -webkit-transition: width 0s ease-in-out 0.5s, opacity 0.5s ease-in-out 0.5s;
+  -moz-transition: width 0s ease-in-out 0.5s, opacity 0.5s ease-in-out 0.5s;
+  -o-transition: width 0s ease-in-out 0.5s, opacity 0.5s ease-in-out 0.5s;
+  background-color: #533f03;
+
+}
+
+.capsule-core {
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height: 300px;
+
+}
+
+.fade {
+  opacity: 0;
+  width: 0;
+  transition: width 0s ease-in-out 0.5s, opacity 0.5s ease-in-out;
+  -webkit-transition: width 0s ease-in-out 0.5s, opacity 0.5s ease-in-out;
+  -moz-transition: width 0s ease-in-out 0.5s, opacity 0.5s ease-in-out;
+  -o-transition: width 0s ease-in-out 0.5s, opacity 0.5s ease-in-out;
+
+}
+
+.fade-back {
+
+  animation-name: capsuleFadeOut-back, capsuleShowUp-back;
+  animation-duration: 0.5s, 0.5s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-delay: 0s, 0.5s;
+  animation-iteration-count: 1, 1;
+  animation-fill-mode: forwards, forwards;
+  animation-direction: normal, normal;
+
+  -webkit-animation-name: capsuleFadeOut-back, capsuleShowUp-back;
+  -webkit-animation-duration: 0.5s, 0.5s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out;
+  -webkit-animation-delay: 0s, 0.5s;
+  -webkit-animation-iteration-count: 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards;
+  -webkit-animation-direction: normal, normal;
+
+  -moz-animation-name: capsuleFadeOut-back, capsuleShowUp-back;
+  -moz-animation-duration: 0.5s, 0.5s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out;
+  -moz-animation-delay: 0s, 0.5s;
+  -moz-animation-iteration-count: 1, 1;
+  -moz-animation-fill-mode: forwards, forwards;
+  -moz-animation-direction: normal, normal;
+}
+
+.fade-h {
+
+  animation-name: capsuleFadeOut-full, capsuleShowUp-full;
+  animation-duration: 0.5s, 0.5s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-delay: 0s, 0.5s;
+  animation-iteration-count: 1, 1;
+  animation-fill-mode: forwards, forwards;
+  animation-direction: normal, normal;
+
+  -webkit-animation-name: capsuleFadeOut-full, capsuleShowUp-full;
+  -webkit-animation-duration: 0.5s, 0.5s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out;
+  -webkit-animation-delay: 0s, 0.5s;
+  -webkit-animation-iteration-count: 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards;
+  -webkit-animation-direction: normal, normal;
+
+  -moz-animation-name: capsuleFadeOut-full, capsuleShowUp-full;
+  -moz-animation-duration: 0.5s, 0.5s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out;
+  -moz-animation-delay: 0s, 0.5s;
+  -moz-animation-iteration-count: 1, 1;
+  -moz-animation-fill-mode: forwards, forwards;
+  -moz-animation-direction: normal, normal;
+}
+
+.capsule-canvas-mask {
+  margin-left: auto;
+  margin-right: auto;
+  float: left;
+  width: 200px;
+  height: 300px;
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border-radius: 100px;
+  /*background-color: #533f03;*/
+  transform: translate(0, -100%);
+  animation: bodyShowUp 2s ease;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+  -moz-animation: bodyShowUp 2s ease;
+  -moz-animation-delay: 2s;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation: bodyShowUp 2s ease;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-delay: 2s; /* Safari 和 Chrome */
+  opacity: 0;
+}
+
+.v-capsule {
+  position: relative;
+  top: 50%;
+  transform: translate(0, -50%);
+  border: 0 solid transparent;
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border-radius: 100px;
+  width: 200px;
+  height: 300px;
+  background-color: #d6e973; /*#3c5e79*/
+  overflow: hidden;
+  animation: capsuleUp 2s ease;
+  animation-fill-mode: forwards;
+  -moz-animation: capsuleUp 2s ease;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation: capsuleUp 2s ease;
+  -webkit-animation-fill-mode: forwards;
+
+}
+
+.capsule-head {
+  /*background-color: #41af67;*/
+  height: 80px;
+  transform: translate(0, -100%);
+  text-align: center;
+}
+
+.caphead {
+  top: 70%;
+  position: relative;
+  transform: translate(0, -50%);
+  animation: appNameShowUp 2s ease;
+  font-size: 17px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 50px;
+  word-wrap: break-word;
+  word-break: break-all;
+  text-align: center;
+  /*background-color: #41af67;*/
+}
+
+.caphead span {
+  color: #f0fed9; /*#fcf8e3*/
+  width: 100%;
+  font-family: 'Agency FB';
+  font-size: 17px;
+  position: absolute;
+  transform: translate(-50%, -103%);
+  animation: spanShowUp 2s ease;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+  -moz-animation: spanShowUp 2s ease;
+  -moz-animation-delay: 2s;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation: spanShowUp 2s ease;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-delay: 2s; /* Safari 和 Chrome */
+  background-color: peru; /*#187da0*/
+  opacity: 0;
+
+}
+
+.caphead p {
+  color: #f0fed9; /*#fcf8e3*/
+  font-family: Adec2;
+  font-weight: normal;
+  font-style: italic;
+  position: relative;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.capsule-body {
+  height: 150px;
+  top: 50%;
+  transform: translate(0, -50%);
+  position: relative;
+  background-color: #f9f7ec; /*#fcf8e3*/
+  animation: open-capsule 2s ease;
+}
+
+.capbody-item {
+  background-color: #f8d3b9; /*#a4cc41*/
+  text-align: center;
+  font-size: 12px;
+  font-family: CodyStar;
+  font-weight: bolder;
+  top: 50%;
+  transform: translate(10%, -50%);
+  position: relative;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  width: 40%;
+  float: left;
+}
+
+.capbody-statBtn {
+  position: relative;
+  top: 35%;
+  left: 58%;
+  transform: translate(6%, -50%);
+}
+
+.capbody-content {
+  transform: translate(15%, -50%);
+  position: relative;
+  top: 50%;
+  float: left;
+  width: 50%;
+  height: 90%;
+  /*background-color: #41af67;*/
+  text-align: center;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.capbody-content p {
+  font-family: gotham-rounded-light;
+  font-size: 13px;
+  position: relative;
+  top: 50%;
+  transform: translate(0%, -50%);
+
+}
+
+.capbody-line {
+  transform: translate(0%, 10%);
+  height: 100px;
+  /*background-color: #533f03;*/
+  overflow: hidden;
+}
+
+.capbody-line-mask {
+  height: 100px;
+  transform: translate(0%, -100%);
+  z-index: 1;
+}
+
+.capbody-row {
+  /*background-color: #2eadd3;*/
+  transform: translate(0, -150%);
+  height: 15%;
+  width: 100%;
+  animation: bodyShowUp 2s ease;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+  -moz-animation: bodyShowUp 2s ease;
+  -moz-animation-delay: 2s;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation: bodyShowUp 2s ease;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-delay: 2s; /* Safari 和 Chrome */
+  opacity: 0;
+}
+
+@keyframes capsuleUp {
+  from {
+    height: 210px;
+  }
+  30% {
+    height: 210px;
+  }
+  to {
+    height: 300px;
+  }
+}
+
+@-moz-keyframes capsuleUp /* Firefox */
+{
+  from {
+    height: 210px;
+  }
+  30% {
+    height: 210px;
+  }
+  to {
+    height: 300px;
+  }
+}
+
+@-webkit-keyframes capsuleUp /* Safari 和 Chrome */
+{
+  from {
+    height: 210px;
+  }
+  30% {
+    height: 210px;
+  }
+  to {
+    height: 300px;
+  }
+}
+
+@-o-keyframes capsuleUp /* Opera */
+{
+  from {
+    height: 210px;
+  }
+  30% {
+    height: 210px;
+  }
+  to {
+    height: 300px;
+  }
+}
+
+@keyframes open-capsule {
+  from {
+    height: 5px;
+  }
+  30% {
+    height: 5px;
+  }
+  to {
+    height: 150px;
+  }
+}
+
+@-moz-keyframes open-capsule /* Firefox */
+{
+  from {
+    height: 5px;
+  }
+  30% {
+    height: 5px;
+  }
+  to {
+    height: 150px;
+  }
+}
+
+@-webkit-keyframes open-capsule /* Safari 和 Chrome */
+{
+  from {
+    height: 5px;
+  }
+  30% {
+    height: 5px;
+  }
+  to {
+    height: 150px;
+  }
+}
+
+@-o-keyframes open-capsule /* Opera */
+{
+  from {
+    height: 5px;
+  }
+  30% {
+    height: 5px;
+  }
+  to {
+    height: 150px;
+  }
+}
+
+@keyframes appNameShowUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+
+@-moz-keyframes appNameShowUp /* Firefox */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+
+@-webkit-keyframes appNameShowUp /* Safari 和 Chrome */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+
+@-o-keyframes appNameShowUp /* Opera */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+
+@keyframes spanShowUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+
+@-moz-keyframes spanShowUp /* Firefox */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+
+@-webkit-keyframes spanShowUp /* Safari 和 Chrome */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+
+@-o-keyframes spanShowUp /* Opera */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+
+@keyframes bodyShowUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+
+@-moz-keyframes bodyShowUp /* Firefox */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+
+@-webkit-keyframes bodyShowUp /* Safari 和 Chrome */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+
+@-o-keyframes bodyShowUp /* Opera */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+
+@keyframes capsuleFadeOut-full {
+  from {
+    opacity: 1;
+  }
+  99.98%{
+    opacity: 0;
+
+  }
+  99.99%{
+    width: 250px;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@-moz-keyframes capsuleFadeOut-full /* Firefox */
+{
+  from {
+    opacity: 1;
+  }
+  99.98%{
+    opacity: 0;
+
+  }
+  99.99%{
+    width: 250px;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes capsuleFadeOut-full /* Safari 和 Chrome */
+{
+  from {
+    opacity: 1;
+  }
+  99.98%{
+    opacity: 0;
+
+  }
+  99.99%{
+    width: 250px;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@-o-keyframes capsuleFadeOut-full /* Opera */
+{
+  from {
+    opacity: 1;
+  }
+  99.98%{
+    opacity: 0;
+
+  }
+  99.99%{
+    width: 250px;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+
+
+@keyframes capsuleShowUp-full {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes capsuleShowUp-full /* Firefox */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes capsuleShowUp-full /* Safari 和 Chrome */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes capsuleShowUp-full /* Opera */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes capsuleFadeOut-back {
+  from {
+    opacity: 1;
+    width: 100%;
+  }
+  99% {
+    opacity: 0;
+    width: 100%;
+  }
+  100% {
+    opacity: 0;
+    width: 250px;
+  }
+}
+
+@-moz-keyframes capsuleFadeOut-back /* Firefox */
+{
+  from {
+    opacity: 1;
+    width: 100%;
+  }
+  99% {
+    opacity: 0;
+    width: 100%;
+  }
+  100% {
+    opacity: 0;
+    width: 250px;
+  }
+}
+
+@-webkit-keyframes capsuleFadeOut-back /* Safari 和 Chrome */
+{
+  from {
+    opacity: 1;
+    width: 100%;
+  }
+  99% {
+    opacity: 0;
+    width: 100%;
+  }
+  100% {
+    opacity: 0;
+    width: 250px;
+  }
+}
+
+@-o-keyframes capsuleFadeOut-back /* Opera */
+{
+  from {
+    opacity: 1;
+    width: 100%;
+  }
+  99% {
+    opacity: 0;
+    width: 100%;
+  }
+  100% {
+    opacity: 0;
+    width: 250px;
+  }
+}
+
+@keyframes capsuleShowUp-back {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes capsuleShowUp-back /* Firefox */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes capsuleShowUp-back /* Safari 和 Chrome */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes capsuleShowUp-back /* Opera */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
