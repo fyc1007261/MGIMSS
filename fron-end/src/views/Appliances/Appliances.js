@@ -14,6 +14,9 @@ let jobsData = [{"id":1, "Status":"Pending",  "Appliance":"app1", "Duration":"10
   {"id":3, "status": "Running", "app_name":"app3", "duration":"1h"}];
 
 
+const gesture_list = ['none', 'thumb_up', 'heart_d', 'victory'];
+const gesture_show = ['None', 'Thumb up', 'Heart with two fingers', 'Victory'];
+
 
 const getBadge = (status) => {
   return status === 'Active' ? 'success' :
@@ -124,12 +127,13 @@ class Appliances extends Component {
       }
     });
 
-
-
+    // force the page to be rendered by setting new state
+    this.state={
+      update: 1
+    }
   }
 
   render() {
-    this.constructor();
     return (
       <div className="animated fadeIn">
         <Row>
@@ -188,6 +192,7 @@ class ModalModify extends Component {
   }
 
   submitJob(){
+    let gesture = gesture_list[document.getElementById("gesture").selectedIndex];
     let mfrs = document.getElementById("mfrs_m").value === "" ?
       document.getElementById("mfrs_m").placeholder : document.getElementById("mfrs_m").value;
     let power = document.getElementById("power_m").value === "" ?
@@ -198,7 +203,7 @@ class ModalModify extends Component {
       type: "POST",
       async: false,
       url: "/appliance/modify_appliance",
-      data: {aid: aid, mfrs: mfrs, power: power},
+      data: {aid: aid, mfrs: mfrs, power: power, gesture: gesture},
       context: document.body,
       success: function(data){
         ret = data;
@@ -246,7 +251,14 @@ class ModalModify extends Component {
                       Manufacturer: <Input id={"mfrs_m"} defaultValue={this.props.mfrs}/>
                       <br/>
                       Power: <Input id={"power_m"} defaultValue={this.props.power} type={"number"}/>
-
+                      <br/>
+                      Gesture to switch on/off:
+                      <Input id={"gesture"} type={"select"}>
+                        <option>{gesture_show[0]}</option>
+                        <option>{gesture_show[1]}</option>
+                        <option>{gesture_show[2]}</option>
+                        <option>{gesture_show[3]}</option>
+                      </Input>
                   </ModalBody>
                   <ModalFooter>
                     <Button color="primary" onClick={this.submitJob}>Confirm</Button>{' '}
@@ -279,6 +291,7 @@ class ModalAdd extends Component {
   }
 
   submitJob(){
+    let gesture = gesture_list[document.getElementById("gesture").selectedIndex];
     let name = document.getElementById("appname").value === ""?
       document.getElementById("appname").placeholder : document.getElementById("appname").value;
     let mfrs = document.getElementById("mfrs").value === "" ?
@@ -290,7 +303,7 @@ class ModalAdd extends Component {
       type: "POST",
       async: false,
       url: "/appliance/add_appliance",
-      data: {name: name, mfrs: mfrs, power: power},
+      data: {name: name, mfrs: mfrs, power: power, gesture: gesture},
       context: document.body,
       success: function(data){
         ret = data;
@@ -318,6 +331,14 @@ class ModalAdd extends Component {
                 Manufacturer: <Input id={"mfrs"} placeholder={"Sony"}/>
                 <br/>
                 Power: <Input id={"power"} placeholder={"440"}/>
+                <br/>
+                Gesture to switch on/off:
+                <Input id={"gesture"} type={"select"}>
+                  <option>{gesture_show[0]}</option>
+                  <option>{gesture_show[1]}</option>
+                  <option>{gesture_show[2]}</option>
+                  <option>{gesture_show[3]}</option>
+                </Input>
 
               </ModalBody>
               <ModalFooter>

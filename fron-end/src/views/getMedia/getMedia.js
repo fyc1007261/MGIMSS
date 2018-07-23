@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import '../../css/getMedia.css';
-import '../../css/bootstrap/css/bootstrap.css';
+// import '../../css/bootstrap/css/bootstrap.css';
 import '../../css/willesPlay.css'
 import { Badge, Card, CardBody, CardFooter, CardHeader, Col, Row, Collapse, Fade } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
