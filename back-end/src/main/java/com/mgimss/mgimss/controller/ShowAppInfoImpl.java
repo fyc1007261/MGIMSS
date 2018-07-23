@@ -27,6 +27,9 @@ public class ShowAppInfoImpl implements ShowAppInfo {
     @Autowired
     FinishedJobRepository finishedJobRepository;
 
+    @Autowired
+    GestureRepository gestureRepository;
+
     public String get_all_status(){
         List<Appliance> applianceList = applianceRepository.findByUser(1L);
         if (applianceList.size() == 0){
@@ -76,7 +79,11 @@ public class ShowAppInfoImpl implements ShowAppInfo {
             finish_time = timeToString.LongToString(fin, ' ');
         }
 
-
+        String gname = gestureRepository.findByNameAndUid(appliance.getName(),appliance.getUser().getUid());
+        if (gname == null)
+        {
+            gname = "none";
+        }
         // json builder
         StringBuilder buf = new StringBuilder();
         buf.append(
@@ -87,6 +94,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"power\" : \"" +appliance.getPower() +
                         "\", \"start_time\" : \"" +start_time +
                         "\", \"finish_time\" : \"" +finish_time +
+                        "\", \"gesture\" : \"" +gname +
                         "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
         );
         return buf.toString();

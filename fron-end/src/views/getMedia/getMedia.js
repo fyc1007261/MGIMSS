@@ -352,8 +352,8 @@ class getMedia extends Component {
 
 
       //全屏
-      $('.fullScreen').on('click', function() {
-        if ($(this).hasClass('cancleScreen')) {
+      $('.icon-size-fullscreen').on('click', function() {
+        if ($(this).hasClass('icon-size-actual')) {
           if (document.exitFullscreen) {
             document.exitFullscreen();
           } else if (document.mozExitFullScreen) {
@@ -361,7 +361,7 @@ class getMedia extends Component {
           } else if (document.webkitExitFullscreen) {
             document.webkitExitFullscreen();
           }
-          $(this).removeClass('cancleScreen');
+          $(this).removeClass('icon-size-actual');
           $('#willesPlay .playControll').css({
             'bottom': -48
           }).removeClass('fullControll');
@@ -375,7 +375,7 @@ class getMedia extends Component {
           } else if (playVideo[0].msRequestFullscreen) {
             playVideo[0].msRequestFullscreen();
           }
-          $(this).addClass('cancleScreen');
+          $(this).addClass('icon-size-actual');
           $('#willesPlay .playControll').css({
             'left': 0,
             'bottom': 0
@@ -384,13 +384,14 @@ class getMedia extends Component {
         return false;
       });
       //音量
-      $('.volume').on('click', function(e) {
+      $('.icon-volume-1').on('click', function(e) {
         e = e || window.event;
         $('.volumeBar').toggle();
         e.stopPropagation();
       });
       $('.volumeBar').on('click mousewheel DOMMouseScroll', function(e) {
         e = e || window.event;
+        console.log("here")
         volumeControl(e);
         e.stopPropagation();
         return false;
@@ -420,6 +421,7 @@ class getMedia extends Component {
       };
       //音量控制
       function volumeControl(e) {
+        console.log("here2")
         e = e || window.event;
         var eventype = e.type;
         var delta = (e.originalEvent.wheelDelta && (e.originalEvent.wheelDelta > 0 ? 1 : -1)) || (e.originalEvent.detail && (e.originalEvent.detail > 0 ? -1 : 1));
@@ -433,13 +435,13 @@ class getMedia extends Component {
         }
         if (percentage < 0) {
           percentage = 0;
-          $('.otherControl .volume').attr('class', 'volume glyphicon glyphicon-volume-off');
+          $('.otherControl .volume').attr('class', 'volume icon-volume-off');
         }
         if (percentage > 50) {
-          $('.otherControl .volume').attr('class', 'volume glyphicon glyphicon-volume-up');
+          $('.otherControl .volume').attr('class', 'volume icon-volume-2');
         }
         if (percentage > 0 && percentage <= 50) {
-          $('.otherControl .volume').attr('class', 'volume glyphicon glyphicon-volume-down');
+          $('.otherControl .volume').attr('class', 'volume icon-volume-1');
         }
         if (percentage >= 100) {
           percentage = 100;
@@ -673,9 +675,9 @@ class getMedia extends Component {
                   <div className="playContent">
                     <div className="turnoff">
                       <ul>
-                        <li><a href="javascript:;" title="喜欢" className="glyphicon glyphicon-heart-empty"></a></li>
-                        <li><a href="javascript:;" title="关灯" className="btnLight on glyphicon glyphicon-sunglasses"></a></li>
-                        <li><a href="javascript:;" title="分享" className="glyphicon glyphicon-share"></a></li>
+                        <li><a href="javascript:;" title="喜欢" className="icon-heart icons font-2xl d-block mt-4"></a></li>
+                        <li><a href="javascript:;" title="关灯" className="btnLight on icon-eyeglass icons font-2xl d-block mt-4"></a></li>
+                        <li><a href="javascript:;" title="分享" className="icon-share-alt icons font-2xl d-block mt-4"></a></li>
                       </ul>
                     </div>
                     <video width="100%" height="100%" id="video">
@@ -691,8 +693,8 @@ class getMedia extends Component {
 
                     </div>
                     <div className="otherControl">
-                      <span className="volume glyphicon glyphicon-volume-down"></span>
-                      <span className="fullScreen glyphicon glyphicon-fullscreen"></span>
+                      <span className="volume icon-volume-1"></span>
+                      <span className="fullScreen icon-size-fullscreen"></span>
                       <div className="volumeBar">
                         <div className="volumewrap">
                           <div className="progress">
