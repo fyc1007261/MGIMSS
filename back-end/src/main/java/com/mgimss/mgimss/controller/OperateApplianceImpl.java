@@ -174,7 +174,7 @@ public class OperateApplianceImpl implements OperateAppliance {
     }
 
     //java calls
-    public String add_appliance(String name, String mfrs, Long power, HttpServletResponse response)
+    public String add_appliance(String name, String mfrs, Long power, String gesture, HttpServletResponse response)
     {
         User user;
         Long aid;

@@ -25,10 +25,15 @@ const brandWarning = getStyle('--warning');
 const brandDanger = getStyle('--danger');
 
 
-let appsData = [{"id":1, "status":"Active", "power": "400", "name":"app1", "mfrs":"mfrs1"},
-                {"id":3, "status": "Inactive","power": "400", "name":"app3", "mfrs":"mfrs3"}];
-let jobsData = [{"id":1, "Status":"Pending",  "Appliance":"app1", "Duration":"100", "Start after":"2018-12-03T15:33", "Finish by":456},
-  {"id":3, "status": "Running", "app_name":"app3", "duration":"1h"}];
+let jobsData = [{
+  "id": 1,
+  "Status": "Pending",
+  "Appliance": "app1",
+  "Duration": "100",
+  "Start after": "2018-12-03T15:33",
+  "Finish by": 456
+},
+  {"id": 3, "status": "Running", "app_name": "app3", "duration": "1h"}];
 
 const gesture_list = ['none', 'thumb_up', 'heart_d', 'victory'];
 const gesture_show = ['None', 'Thumb up', 'Heart with two fingers', 'Victory'];
@@ -313,13 +318,15 @@ class ApplianceCapsule extends Component {
       // other_capsules.removeClass("fade-back");
       this_capsule.removeClass("fade-h");
       this_capsule.addClass("fade-back");
-      function removeFadeBack(){
+
+      function removeFadeBack() {
         this_capsule.removeClass("fade-back");
       }
+
       setTimeout(removeFadeBack, 1000);
     }
 
-    else{
+    else {
       other_capsules.removeClass("fade-back");
       this_capsule.removeClass("fade-back");
       this_capsule.addClass("fade-h");
@@ -341,7 +348,7 @@ class ApplianceCapsule extends Component {
     return false;
   }
 
-  submitJob(){
+  submitJob() {
     let gesture = gesture_list[document.getElementById("gesture").selectedIndex];
     let mfrs = document.getElementById("mfrs_m").value === "" ?
       document.getElementById("mfrs_m").placeholder : document.getElementById("mfrs_m").value;
@@ -355,12 +362,12 @@ class ApplianceCapsule extends Component {
       url: "/appliance/modify_appliance",
       data: {aid: aid, mfrs: mfrs, power: power, gesture: gesture},
       context: document.body,
-      success: function(data){
+      success: function (data) {
         ret = data;
       }
     });
     alert(ret);
-    if (ret==="success")
+    if (ret === "success")
       window.location.reload();
   }
 
@@ -382,7 +389,6 @@ class ApplianceCapsule extends Component {
         },
       ],
     };
-
 
 
     return (
@@ -499,9 +505,10 @@ class Appliances extends Component {
       }
     });
   }
-  submitJob(){
+
+  submitJob() {
     let gesture = gesture_list[document.getElementById("gesture").selectedIndex];
-    let name = document.getElementById("appname").value === ""?
+    let name = document.getElementById("appname").value === "" ?
       document.getElementById("appname").placeholder : document.getElementById("appname").value;
     let mfrs = document.getElementById("mfrs").value === "" ?
       document.getElementById("mfrs").placeholder : document.getElementById("mfrs").value;
@@ -514,7 +521,7 @@ class Appliances extends Component {
       url: "/appliance/add_appliance",
       data: {name: name, mfrs: mfrs, power: power, gesture: gesture},
       context: document.body,
-      success: function(data){
+      success: function (data) {
         ret = data;
       }
     });
@@ -562,11 +569,11 @@ class Appliances extends Component {
             <ApplianceCapsule key={index} appliance={appliance} reload={this.render}/>
           )}
         </Row>
-        <Row className="canvas">
-        {appsData.map((appliance, index) =>
-        <Appliance id={appliance.id} reload={this.render}/>
-        )}
-        </Row>
+        {/*<Row className="canvas">*/}
+          {/*{appsData.map((appliance, index) =>*/}
+            {/*<Appliance id={appliance.id} count={10} reload={this.render}/>*/}
+          {/*)}*/}
+        {/*</Row>*/}
       </div>
     )
   }

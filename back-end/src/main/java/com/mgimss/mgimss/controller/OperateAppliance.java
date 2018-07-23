@@ -32,7 +32,7 @@ public interface OperateAppliance {
 
     //java calls
     @RequestMapping("/appliance/add_appliance")
-    String add_appliance(String name, String mfrs, Long ratedParameters, HttpServletResponse response);
+    String add_appliance(String name, String mfrs, Long ratedParameters, String gesture, HttpServletResponse response);
 
 
     //java calls

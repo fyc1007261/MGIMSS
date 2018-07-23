@@ -147,6 +147,7 @@ class TotalPowerUse extends Component {
           </div>
         </CardBody>
       </Card>
+      </div>
     );
   }
 }
