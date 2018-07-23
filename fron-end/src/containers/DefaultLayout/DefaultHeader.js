@@ -35,9 +35,6 @@ class DefaultHeader extends Component {
           <NavItem className="px-3">
             <NavLink href="/main/apps">Appliances</NavLink>
           </NavItem>
-          <NavItem className="px-3">
-            <NavLink href="/main/schedule">Schedule</NavLink>
-          </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar>
           <AppHeaderDropdown direction="down">
@@ -45,7 +42,7 @@ class DefaultHeader extends Component {
               <img src={'assets/img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
             </DropdownToggle>
             <DropdownMenu right style={{ right: 'auto' }}>
-              <DropdownItem onClick={() => window.location.href="/main/user/profile"}><i className="fa fa-user"></i> Profile</DropdownItem>
+              <DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem>
               <DropdownItem><i className="fa fa-lock"></i> Logout</DropdownItem>
             </DropdownMenu>
           </AppHeaderDropdown>
