@@ -10,22 +10,173 @@
   -->
 
   <link href="./style.css">
+  <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/willesPlay.css"/>
+  <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/willesPlay.js" type="text/javascript" charset="utf-8"></script>
+  <style>
+    * {
+      /* Basic CSS reset */
+      margin:0;
+      padding:0;
+    }
+
+    body {
+      /* These styles have nothing to do with the ribbon */
+
+      padding:35px 0 0;
+      margin:auto;
+      text-align:center;
+    }
+
+    .ribbon {
+      display:inline-block;
+    }
+
+    .ribbon:after, .ribbon:before {
+      margin-top:0.5em;
+      content: "";
+      float:left;
+      border:1.5em solid #fff;
+    }
+
+    .ribbon:after {
+      border-right-color:transparent;
+    }
+
+    .ribbon:before {
+      border-left-color:transparent;
+    }
+
+    .ribbon a:link, .ribbon a:visited {
+      color:#000;
+      text-decoration:none;
+      float:left;
+      height:3.5em;
+      overflow:hidden;
+    }
+
+    .ribbon span {
+      background:#fff;
+      display:inline-block;
+      line-height:3em;
+      padding:0 1em;
+      margin-top:0.5em;
+      position:relative;
+
+      -webkit-transition: background-color 0.2s, margin-top 0.2s;  /* Saf3.2+, Chrome */
+      -moz-transition: background-color 0.2s, margin-top 0.2s;  /* FF4+ */
+      -ms-transition: background-color 0.2s, margin-top 0.2s;  /* IE10 */
+      -o-transition: background-color 0.2s, margin-top 0.2s;  /* Opera 10.5+ */
+      transition: background-color 0.2s, margin-top 0.2s;
+    }
+
+    .ribbon a:hover span {
+      background:#FFD204;
+      margin-top:0;
+    }
+
+    .ribbon span:before {
+      content: "";
+      position:absolute;
+      top:3em;
+      left:0;
+      border-right:0.5em solid #9B8651;
+      border-bottom:0.5em solid #fff;
+    }
+
+    .ribbon span:after {
+      content: "";
+      position:absolute;
+      top:3em;
+      right:0;
+      border-left:0.5em solid #9B8651;
+      border-bottom:0.5em solid #fff;
+    }
+
+  </style>
 </head>
 <body>
-<span style="white-space:pre">		</span>
+<div class='ribbon'>
+  <a href='#' onClick="startRecording()"><span>录音</span></a>
+  <a href='#'onClick="stopRecord()"><span>识别语音</span></a>
+  <a href='#'onClick="startRecording2()"><span>录入手势</span><span id="numDiv">10</span></a>
+  <a href="javascript:;"id="picture"><span>拍照</span></a>
+  <a  href='#'id="sc"><span>上传</span></a>
+</div>
+
+
+
+<div style="width:700px;margin:10px auto 20px auto;padding:0 0 0 380px;overflow:hidden">
+  <!-- Baidu Button BEGIN -->
+
+  <script type="text/javascript" id="bdshare_js" data="type=tools" ></script>
+  <script type="text/javascript" id="bdshell_js"></script>
+  <script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours
+      ();
+  </script>
+</div>
 <!--<audio controls autoplay></audio>-->
-<input type="button" value="开始录音" onclick="startRecording()"/>
-<input type="button" value="获取录音" onclick="obtainRecord()"/>
-<input type="button" value="停止录音" onclick="stopRecord()"/>
-<input type="button" value="播放录音" onclick="playRecord()"/>
+<!--<input type="button" value="开始录音" onclick="startRecording()"/>-->
+<!--<input type="button" value="获取录音" onclick="obtainRecord()"/>-->
+<!--<input type="button" value="停止录音" onclick="stopRecord()"/>-->
+<!--<input type="button" value="播放录音" onclick="playRecord()"/>-->
 
 <!--<video id="video1" width="320px" height="240px" controls autoplay ></video>-->
 <!--<video id="video2" width="320px" height="240px" controls autoplay ></video>-->
 <!--<canvas id="canvas1" width="320" height="240"></canvas>-->
-<video id="video" width="320" height="320" autoplay></video>
-<button id="picture" style="display:block" >拍照</button>
-<canvas style="display:block" id="canvas" width="320" height="320"></canvas>
-<button id="sc" style="display:block" >上传</button>
+<!--<video id="video1" width="320" height="320" autoplay></video>-->
+<!--<button id="picture" style="display:block" >拍照</button>-->
+<canvas style="display:none" id="canvas" width="320" height="320"></canvas>
+<!--<button id="sc" style="display:block" >上传</button>-->
+
+<div style="width: 550px;height: 550px; margin:auto">
+  <div>
+    <div class="col-md-12" >
+      <div id="willesPlay">
+        <div class="playHeader">
+          <div class="videoName">手势获取框</div>
+        </div>
+        <div class="playContent">
+          <div class="turnoff">
+            <ul>
+              <li><a href="javascript:;" title="喜欢" class="glyphicon glyphicon-heart-empty"></a></li>
+              <li><a href="javascript:;" title="关灯" class="btnLight on glyphicon glyphicon-sunglasses"></a></li>
+              <li><a href="javascript:;" title="分享" class="glyphicon glyphicon-share"></a></li>
+            </ul>
+          </div>
+          <video width="100%" height="100%" id="video">
+          </video>
+        </div>
+        <div class="playControll">
+          <div id="pic" class="playPause playIcon"></div>
+          <div class="timebar">
+            <span class="currentTime">0:00:00</span>
+            <div class="progress">
+              <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+            </div>
+            <span class="duration">0:00:00</span>
+          </div>
+          <div class="otherControl">
+            <span class="volume glyphicon glyphicon-volume-down"></span>
+            <span class="fullScreen glyphicon glyphicon-fullscreen"></span>
+            <div class="volumeBar">
+              <div class="volumewrap">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 8px;height: 40%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 </body>
 <script>
@@ -229,7 +380,7 @@
             if (callback) {
                 if (navigator.getUserMedia) {
                     navigator.getUserMedia(
-                        { audio: true , video: { width: 320, height: 320 }} //只启用音频
+                        { audio: true } //只启用音频
                         , function (stream) {
                             var rec = new HZRecorder(stream, config);
                             callback(rec);
@@ -258,6 +409,39 @@
                 }
             }
         };
+      HZRecorder.get2 = function (callback, config) {
+        if (callback) {
+          if (navigator.getUserMedia) {
+            navigator.getUserMedia(
+              { audio: true , video: { width: 320, height: 320 }} //只启用音频
+              , function (stream) {
+                var rec = new HZRecorder(stream, config);
+                callback(rec);
+              }
+              , function (error) {
+                switch (error.code || error.name) {
+                  case 'PERMISSION_DENIED':
+                  case 'PermissionDeniedError':
+                    HZRecorder.throwError('用户拒绝提供信息。');
+                    break;
+                  case 'NOT_SUPPORTED_ERROR':
+                  case 'NotSupportedError':
+                    HZRecorder.throwError('<a href="http://www.it165.net/edu/ewl/" target="_blank" class="keylink">浏览器</a>不支持硬件设备。');
+                    break;
+                  case 'MANDATORY_UNSATISFIED_ERROR':
+                  case 'MandatoryUnsatisfiedError':
+                    HZRecorder.throwError('无法发现指定的硬件设备。');
+                    break;
+                  default:
+                    HZRecorder.throwError('无法打开麦克风。异常信息:' + (error.code || error.name));
+                    break;
+                }
+              });
+          } else {
+            HZRecorder.throwErr('当前<a href="http://www.it165.net/edu/ewl/" target="_blank" class="keylink">浏览器</a>不支持录音功能。'); return;
+          }
+        }
+      };
         window.HZRecorder = HZRecorder;
 
     })(window);
@@ -274,6 +458,22 @@
             recorder = rec;
             recorder.start();
         });
+    }
+    function startRecording2() {
+      HZRecorder.get2(function (rec) {
+        recorder = rec;
+        recorder.start();
+      });
+      var num=10;
+      var interval=setInterval(function(){
+        if(num==0){
+          document.getElementById("picture").click();
+          console.log("click");
+          clearInterval(interval);
+        }
+        numDiv.innerHTML=num--;
+      },1000);
+
     }
 
 
@@ -306,6 +506,30 @@
 
     function stopRecord(){
         recorder.stop();
+      var record = recorder.getBlob();
+      var reader = new FileReader();
+      reader.readAsDataURL(record);
+      reader.onload = function () {
+        console.log(reader.result);
+        ans = reader.result;
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {
+          //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+          xmlhttp=new XMLHttpRequest();
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+          if (xmlhttp.readyState==4 && xmlhttp.status==200)
+          {
+          }
+        }
+
+        xmlhttp.open("POST","/webSpeech",true);
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xmlhttp.send("sudio="+ans);
+      };
+      recorder.close();
     };
 
     function playRecord(){
@@ -314,10 +538,27 @@
     var context = document.getElementById("canvas").getContext("2d");
     document.getElementById("picture").addEventListener("click", function () {
         context.drawImage(video, 0, 0, 320, 320);
+       document.getElementById("pic").click();
     });
     document.getElementById("sc").addEventListener("click", function () {
         var imgData=document.getElementById("canvas").toDataURL("image/png");
-        console.log(imgData);
+      var xmlhttp;
+      if (window.XMLHttpRequest)
+      {
+        //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+        xmlhttp=new XMLHttpRequest();
+      }
+      xmlhttp.onreadystatechange=function()
+      {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+        }
+      }
+
+      xmlhttp.open("POST","/gesture/upload",true);
+      xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+      xmlhttp.send("imageStr="+imgData);
+    console.log(imgData);
     });
 
 </script>

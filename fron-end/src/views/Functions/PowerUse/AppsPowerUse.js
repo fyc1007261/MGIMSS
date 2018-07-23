@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Card, CardBody, Row, Col, CardTitle, ButtonToolbar, ButtonGroup, Input} from 'reactstrap';
+import {Button, Card, CardBody, Row, Col, CardTitle, ButtonToolbar, ButtonGroup, Input, InputGroup} from 'reactstrap';
 import {Pie} from 'react-chartjs-2';
 import $ from 'jquery';
 
@@ -190,13 +190,14 @@ class AppsPowerUse extends Component {
 
   render() {
     return (
+      <div style={{height: 540 + 'px'}}>
       <Card>
         <CardBody>
           <Row>
             <Col sm="4">
               <CardTitle className="mb-0">Appliances Power Use</CardTitle>
             </Col>
-            <Col sm="4" className="d-none d-sm-inline-block">
+            <Col sm="4" className="d-sm-inline-block" style={{marginTop: 5 + 'px'}}>
               <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
                 <ButtonGroup className="mr-2" aria-label="First group">
                   <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(1)}
@@ -207,31 +208,29 @@ class AppsPowerUse extends Component {
               </ButtonToolbar>
             </Col>
             {(this.state.radioSelected === 1) ?
-              <Col sm="4">
-                <Row>
-                  <Col sm="9">
+              <Col sm="4" style={{marginTop: 5 + 'px'}}>
+                  <InputGroup>
                     <Input type="date" name="date-input" value={this.state.date} onChange={this.changeDate} placeholder={date}/>
-                  </Col>
-                  <Col sm="3">
                     <Button color="outline-secondary" onClick={this.getDayUse}>OK</Button>
-                  </Col>
-                </Row>
+                  </InputGroup>
               </Col>
               :
-              <Col sm="4">
-                <Row>
-                  <Col sm="9">
+              <Col sm="4" style={{marginTop: 5 + 'px'}}>
+                <InputGroup>
                     <Input type="month" name="date-input" value={this.state.month} onChange={this.changeMonth} placeholder={month} />
-                  </Col>
-                  <Col sm="3">
                     <Button color="outline-secondary" onClick={this.getMonthUse}>OK</Button>
-                  </Col>
-                </Row>
+                </InputGroup>
               </Col>
             }
           </Row>
-          <div className="chart-wrapper">
-            <Pie data={this.state.pie} />
+          <div className="chart-wrapper"  style={{ height: 400 + 'px', marginTop: 30 + 'px' }}>
+            {(window.screen.availWidth < 640) ?
+              <Pie data={this.state.pie} options={options} height={300}/>
+              :(
+                (window.screen.availWidth < 2000) ?
+              <Pie data={this.state.pie} options={options} height={150}/>
+              :<Pie data={this.state.pie} options={options} height={100}/>)
+            }
           </div>
         </CardBody>
       </Card>

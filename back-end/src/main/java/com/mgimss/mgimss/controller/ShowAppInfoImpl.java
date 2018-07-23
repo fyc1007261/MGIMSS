@@ -3,17 +3,15 @@ package com.mgimss.mgimss.controller;
 
 import com.mgimss.mgimss.entity.Appliance;
 import com.mgimss.mgimss.entity.Job;
-import com.mgimss.mgimss.entity.User;
 import com.mgimss.mgimss.repository.*;
+import com.mgimss.mgimss.utils.TimeToString;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.mgimss.mgimss.utils.TimeToString;
-
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+
 
 import java.util.List;
 
@@ -34,8 +32,11 @@ public class ShowAppInfoImpl implements ShowAppInfo {
     @Autowired
     FinishedJobRepository finishedJobRepository;
 
+    @Autowired
+    GestureRepository gestureRepository;
+
     public String get_all_status(HttpServletResponse response){
-        List<Appliance> applianceList = applianceRepository.findByUser(Long.valueOf(1));
+        List<Appliance> applianceList = applianceRepository.findByUser(1L);
         if (applianceList.size() == 0){
             return "{\"data\":[]}";
         }
@@ -84,7 +85,11 @@ public class ShowAppInfoImpl implements ShowAppInfo {
             finish_time = timeToString.LongToString(fin, ' ');
         }
 
-
+        String gname = gestureRepository.findByNameAndUid(appliance.getName(),appliance.getUser().getUid());
+        if (gname == null)
+        {
+            gname = "none";
+        }
         // json builder
         StringBuilder buf = new StringBuilder();
         buf.append(
@@ -95,6 +100,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"power\" : \"" +appliance.getPower() +
                         "\", \"start_time\" : \"" +start_time +
                         "\", \"finish_time\" : \"" +finish_time +
+                        "\", \"gesture\" : \"" +gname +
                         "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
         );
         response.addHeader("Access-Control-Allow-Origin", "*");
@@ -139,7 +145,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"Start after\" : \"" + timeToString.LongToString(job.getIntStartTime(), 'T') +
                         "\", \"Finish by\" : \"" + timeToString.LongToString(job.getIntStopTime(), 'T') +
                         "\", \"Duration\" : \"" +(job.getLastTime()<9223372036854775L? job.getLastTime()/60 : 0)+
-                        "\", \"Scheduled at\" : \"" +timeToString.LongToString(job.getIntTrueStopTime(), ' ') +
+                        "\", \"Scheduled at\" : \"" +timeToString.LongToString(job.getIntTrueStartTime(), ' ') +
                         "\", \"Power\" : \""+ job.getPerPower() +"\"}"
         );
         response.addHeader("Access-Control-Allow-Origin", "*");

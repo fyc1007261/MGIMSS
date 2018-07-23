@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Badge, Card, CardBody, CardHeader, Col, Row, Table} from 'reactstrap';
 import {Link} from 'react-router-dom';
+
 import {Bar, Line} from 'react-chartjs-2';
 import $ from '../../../node_modules/jquery/dist/jquery.js'
 import {AppSwitch} from '@coreui/react';
@@ -22,6 +23,16 @@ const brandSuccess = getStyle('--success');
 const brandInfo = getStyle('--info');
 const brandWarning = getStyle('--warning');
 const brandDanger = getStyle('--danger');
+
+
+let appsData = [{"id":1, "status":"Active", "power": "400", "name":"app1", "mfrs":"mfrs1"},
+                {"id":3, "status": "Inactive","power": "400", "name":"app3", "mfrs":"mfrs3"}];
+let jobsData = [{"id":1, "Status":"Pending",  "Appliance":"app1", "Duration":"100", "Start after":"2018-12-03T15:33", "Finish by":456},
+  {"id":3, "status": "Running", "app_name":"app3", "duration":"1h"}];
+
+const gesture_list = ['none', 'thumb_up', 'heart_d', 'victory'];
+const gesture_show = ['None', 'Thumb up', 'Heart with two fingers', 'Victory'];
+
 const getBadge = (status) => {
   return status === 'Active' ? 'success' :
     status === 'Inactive' ? 'secondary' :
@@ -177,7 +188,7 @@ class ApplianceCapsule extends Component {
     let ret_val = "Error with connection";
     // alert("a_id: "+a_id + "opt: "+opt);
     $.ajax({
-      type: "GET",
+      type: "POST",
       async: false,
       url: "http://localhost:12333/appliance/switch_appliance",
       data: {aid: a_id, option: opt},
@@ -228,6 +239,7 @@ class ApplianceCapsule extends Component {
     }
 
   }
+
 
   capsuleClick(e) {
 
@@ -322,10 +334,34 @@ class ApplianceCapsule extends Component {
     return false;
   }
 
+
   cancelClick(e) {
     alert("cancel");
     e.stopPropagation();
     return false;
+  }
+
+  submitJob(){
+    let gesture = gesture_list[document.getElementById("gesture").selectedIndex];
+    let mfrs = document.getElementById("mfrs_m").value === "" ?
+      document.getElementById("mfrs_m").placeholder : document.getElementById("mfrs_m").value;
+    let power = document.getElementById("power_m").value === "" ?
+      document.getElementById("power_m").placeholder : document.getElementById("power_m").value;
+    let ret = "Fail to send information";
+    let aid = this.props.aid;
+    $.ajax({
+      type: "POST",
+      async: false,
+      url: "/appliance/modify_appliance",
+      data: {aid: aid, mfrs: mfrs, power: power, gesture: gesture},
+      context: document.body,
+      success: function(data){
+        ret = data;
+      }
+    });
+    alert(ret);
+    if (ret==="success")
+      window.location.reload();
   }
 
   modifyClick(e) {
@@ -422,6 +458,7 @@ class ApplianceCapsule extends Component {
             </div>
           </div>
         </div>
+
       </div>
 
 
@@ -442,6 +479,7 @@ class ApplianceCapsule extends Component {
 
 class Appliances extends Component {
 
+
   constructor() {
     super();
     console.log("getting data");
@@ -460,6 +498,26 @@ class Appliances extends Component {
         alert(errorThrown);
       }
     });
+  }
+  submitJob(){
+    let gesture = gesture_list[document.getElementById("gesture").selectedIndex];
+    let name = document.getElementById("appname").value === ""?
+      document.getElementById("appname").placeholder : document.getElementById("appname").value;
+    let mfrs = document.getElementById("mfrs").value === "" ?
+      document.getElementById("mfrs").placeholder : document.getElementById("mfrs").value;
+    let power = document.getElementById("power").value === "" ?
+      document.getElementById("power").placeholder : document.getElementById("power").value;
+    let ret = "Fail to send information";
+    $.ajax({
+      type: "GET",
+      async: false,
+      url: "/appliance/add_appliance",
+      data: {name: name, mfrs: mfrs, power: power, gesture: gesture},
+      context: document.body,
+      success: function(data){
+        ret = data;
+      }
+    });
     // index = Math.floor(Math.random()*(6));
   }
 
@@ -470,6 +528,7 @@ class Appliances extends Component {
     let other_capsules = $(".capsule-canvas");
 
     return (
+
       <div className="animated fadeIn">
         {/*<Row>*/}
         {/*<Col xl={6}>*/}

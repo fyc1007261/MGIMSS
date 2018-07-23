@@ -9,6 +9,8 @@ public class DataTest {
     public static int stepA = 0;
     public static int stepB = 0;
     public static String name = "";
+    public static String mfrs = "";
+    public static Long perPower = Long.valueOf(0);
     public static Date beginTime;
     public static Date endTime ;
     public static Long lastTime = Long.valueOf(0);

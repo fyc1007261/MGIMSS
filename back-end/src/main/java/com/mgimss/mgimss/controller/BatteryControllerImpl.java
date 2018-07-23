@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.mgimss.mgimss.utils.ConnectHardware.sendMessage;
+import static com.mgimss.mgimss.utils.ToJson.MapToJson;
 
 @RestController
 public class BatteryControllerImpl implements BatteryController{
@@ -31,7 +36,7 @@ public class BatteryControllerImpl implements BatteryController{
     UserRepository userRepository;
 
     //python calls
-    public String post_remaining(String time, Long remain, String uid){
+    public String post_remaining(String time, Long remaining, String uid){
 
         User user;
         Battery battery;
@@ -54,10 +59,10 @@ public class BatteryControllerImpl implements BatteryController{
         }
 
         //更新电池剩余电量
-        battery.setRemain(remain);
+        battery.setRemain(remaining);
 
         //记录log
-        BatteryStatus batteryStatus = new BatteryStatus(remain, recordTime, battery);
+        BatteryStatus batteryStatus = new BatteryStatus(remaining, recordTime, battery);
 
         battetyRepository.save(battery);
         batteryStatusRepository.save(batteryStatus);
@@ -85,7 +90,7 @@ public class BatteryControllerImpl implements BatteryController{
         return remainingCharge;
     }
 
-    public String post_generation(String time, Long generation, String uid){
+    public String post_generation(Long time, Long generation, String uid){
         User user;
         Long new_sid;
         Long count;
@@ -103,10 +108,43 @@ public class BatteryControllerImpl implements BatteryController{
 
         System.out.println("complete sid: "+ new_sid + user.getUid());
 
-        solarPower = new SolarPower(new_sid, user, Long.valueOf(1800), generation);
+        solarPower = new SolarPower(new_sid, user, Long.valueOf(3600), generation,time);
 
 //        solarPowerRepository.save(solarPower);
         System.out.println("here got it~");
         return "success";
+    }
+//java call
+    public String obtainSolar(Long time, String option){
+        User user;
+        String port;
+        String host;
+        int new_state;
+        String send_message;
+        String recv_message;
+
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        user = (User) auth.getPrincipal();
+
+        user = userRepository.findByUid(1L);
+
+        System.out.println("obtainSolar");
+
+
+
+
+        host = user.getHardwareHost();
+        port = user.getHardwarePort();
+
+        Map<String, String> map = new HashMap<>();
+        map.put("time", String.valueOf(time));
+        map.put("option", option);
+
+        send_message = MapToJson(map);
+        recv_message = sendMessage(host, port, send_message);
+        System.out.println("get message from server: " + recv_message);
+        return recv_message;
+
     }
 }

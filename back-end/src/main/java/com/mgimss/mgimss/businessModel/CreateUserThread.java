@@ -78,15 +78,15 @@ public class CreateUserThread extends  Thread {
                 {
                     System.out.println("no job to running");
                 }
-//                int threadSize = beginJob.size();
-//                Thread[] threadId;
-//                threadId = new Thread[threadSize];
-//                for(int k = 0 ;k<beginJob.size();k++)
-//                {
-//                    threadId[k] = new SendAndReceive(beginJob.get(k));
-//                    threadId[k].start();
-//
-//                }
+                int threadSize = beginJob.size();
+                Thread[] threadId;
+                threadId = new Thread[threadSize];
+                for(int k = 0 ;k<beginJob.size();k++)
+                {
+                    threadId[k] = new SendAndReceive(beginJob.get(k));
+                    threadId[k].start();
+
+                }
 
                 sleep(60 * 1000);
             }

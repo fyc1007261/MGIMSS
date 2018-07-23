@@ -124,13 +124,14 @@ class TotalPowerUse extends Component {
 
   render() {
     return (
+      <div style={{height: 540 + 'px'}}>
       <Card>
         <CardBody>
           <Row>
             <Col sm="5">
               <CardTitle className="mb-0">Total Power Use</CardTitle>
             </Col>
-            <Col sm="7" className="d-none d-sm-inline-block">
+            <Col sm="7" className="d-sm-inline-block" style={{marginTop: 5 + 'px'}}>
               <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
                 <ButtonGroup className="mr-2" aria-label="First group">
                   <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(1)}
@@ -141,7 +142,7 @@ class TotalPowerUse extends Component {
               </ButtonToolbar>
             </Col>
           </Row>
-          <div className="chart-wrapper">
+          <div className="chart-wrapper" style={{ height: 400 + 'px', marginTop: 30 + 'px' }}>
             <Line data={this.state.lineData} options={options}/>
           </div>
         </CardBody>

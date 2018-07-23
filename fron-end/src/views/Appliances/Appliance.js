@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
-
-// import appsData from './UsersData'
 import $ from "jquery";
+import DynamicChart from "../Functions/DynamicChart/DynamicChart"
+import AppDynamicChart from "../Functions/DynamicChart/AppDynamicChart";
+
 
 let appsData = [];
 
@@ -52,6 +53,10 @@ class Appliance extends Component {
               </CardBody>
             </Card>
           </Col>
+          <Col className="col-6">
+            <AppDynamicChart aid={this.state.aid} count={this.state.count}/>
+          </Col>
+        </Row>
       </div>
     )
   }

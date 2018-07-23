@@ -528,28 +528,10 @@ class AppDynamicChart extends Component {
 
   render() {
 
-    let style = {
-      width: '45%',
-      height: 'auto',
-      fontSize: '24px',
-      textAlign: 'center',
-      float: "left",
-      transform: "translate(5%)"
-    };
-    let style2 = {
-      width: '45%',
-      height: 'auto',
-      fontSize: '24px',
-      textAlign: 'center',
-      float: "left",
-      left: '5%',
-      position: 'relative',
-      transform: "translate(5%)"
-    };
 
     return (
       <div className="row">
-        <div className="col-xs-12 col-sm-6">
+        <div className="col-12">
         <Card >
           <CardBody>
             <div>
@@ -558,7 +540,7 @@ class AppDynamicChart extends Component {
           </CardBody>
         </Card>
         </div>
-        <div className="col-xs-12 col-sm-6">
+        <div className="col-12">
         <Card >
           <CardBody>
             <div>
