@@ -43,6 +43,8 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                     "{\"id\" : \"" + appliance.getAid() +
                             "\", \"name\" : \"" + appliance.getName() +
                             "\", \"status\" : \"" + ((appliance.getRunningState() == 1) ? "Active" : "Inactive") +
+                            "\", \"mfrs\" : \"" + appliance.getMfrs()+
+                            "\", \"power\" : \"" + appliance.getPower() +
                             "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
             );
             buf.append(',');
