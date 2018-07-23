@@ -72,7 +72,6 @@ class Schedules extends Component {
   }
 
   render() {
-    this.constructor();
     return (
       <div className="animated fadeIn">
         <Row>
