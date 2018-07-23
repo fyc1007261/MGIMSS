@@ -26,16 +26,18 @@ class DefaultHeader extends Component {
           minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
+        {/*<Nav className="d-md-down-none" navbar>*/}
+          {/*<NavItem className="px-3">*/}
 
-        <Nav className="d-md-down-none" navbar>
-          <NavItem className="px-3">
-
-            <NavLink href="/main">Home</NavLink>
-          </NavItem>
-          <NavItem className="px-3">
-            <NavLink href="/main/apps">Appliances</NavLink>
-          </NavItem>
-        </Nav>
+            {/*<NavLink href="/main">Home</NavLink>*/}
+          {/*</NavItem>*/}
+          {/*<NavItem className="px-3">*/}
+            {/*<NavLink href="/main/apps">Appliances</NavLink>*/}
+          {/*</NavItem>*/}
+          {/*<NavItem className="px-3">*/}
+            {/*<NavLink href="/main/schedule">Schedule</NavLink>*/}
+          {/*</NavItem>*/}
+        {/*</Nav>*/}
         <Nav className="ml-auto" navbar>
           <AppHeaderDropdown direction="down">
             <DropdownToggle nav>
@@ -48,7 +50,7 @@ class DefaultHeader extends Component {
           </AppHeaderDropdown>
         </Nav>
         <AppAsideToggler className="d-md-down-none" />
-        {/*<AppAsideToggler className="d-lg-none" mobile />*/}
+        <AppAsideToggler className="d-lg-none" mobile />
       </React.Fragment>
     );
   }

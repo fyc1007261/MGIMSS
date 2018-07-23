@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -44,10 +45,20 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         StringBuffer buf = new StringBuffer();
         buf.append("{\"data\":[");
         for (Appliance appliance:applianceList){
+            Job job = runningJobRepository.findByAppliance(appliance.getAppId());
+            Long runtime = 0L;
+            if (job!=null){
+                Long start = job.getIntStartTime();
+                Date now = new Date();
+                runtime = (now.getTime()/1000 - start)/60;
+            }
             buf.append(
                     "{\"id\" : \"" + appliance.getAid() +
                             "\", \"name\" : \"" + appliance.getName() +
                             "\", \"status\" : \"" + ((appliance.getRunningState() == 1) ? "Active" : "Inactive") +
+                            "\", \"mfrs\" : \"" + appliance.getMfrs()+
+                            "\", \"runtime\" : \"" + runtime + "min"+
+                            "\", \"power\" : \"" + appliance.getPower() +
                             "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
             );
             buf.append(',');
@@ -64,9 +75,12 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         String start_time = "Not scheduled", finish_time = "Not scheduled";
         Long sta=0L, fin=0L;
         Job job = runningJobRepository.findByAppliance(app_id);
+        Long runtime = 0L;
         if (job != null){
             sta = job.getIntStartTime();
             fin = job.getIntStopTime();
+            Date now = new Date();
+            runtime = (now.getTime()/1000 - sta)/60;
         }
         job = finishedJobRepository.findByAppliance(app_id);
         if (job != null){
@@ -98,6 +112,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"status\" : \"" + ((appliance.getRunningState()==1) ? "Active":"Inactive") +
                         "\", \"manufacturer\" : \"" +appliance.getMfrs() +
                         "\", \"power\" : \"" +appliance.getPower() +
+                        "\", \"runtime\" : \"" +runtime + "min"+
                         "\", \"start_time\" : \"" +start_time +
                         "\", \"finish_time\" : \"" +finish_time +
                         "\", \"gesture\" : \"" +gname +
