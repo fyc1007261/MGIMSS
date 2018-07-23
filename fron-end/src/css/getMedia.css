@@ -6,7 +6,7 @@
   margin-top:0.5em;
   content: "";
   float:left;
-  border:1.5em solid #f6f5ec;
+  border:1.5em solid #90d7ec;
 }
 
 .ribbon:after {
@@ -26,7 +26,7 @@
 }
 
 .ribbon span {
-  background:#f6f5ec;
+  background:#90d7ec;
   display:inline-block;
   line-height:3em;
   padding:0 1em;
@@ -41,7 +41,7 @@
 }
 
 .ribbon a:hover span {
-  background:#FFD204;
+  background:#7bbfea;
   margin-top:0;
 }
 

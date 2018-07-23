@@ -28,11 +28,11 @@ public interface OperateAppliance {
     String request_appliances_status(String aid, String count, Date end_time, HttpServletRequest request, HttpServletResponse response);
 
     @RequestMapping("/appliance/modify_appliance")
-    String modify_appliance(Long aid, String mfrs, Long power);
+    String modify_appliance(Long aid, String mfrs, Long power,String gesture);
 
     //java calls
     @RequestMapping("/appliance/add_appliance")
-    String add_appliance(String name, String mfrs, Long ratedParameters);
+    String add_appliance(String name, String mfrs, Long perPower,String gesture);
 
     //java calls
     @RequestMapping("/appliance/delete_appliance")

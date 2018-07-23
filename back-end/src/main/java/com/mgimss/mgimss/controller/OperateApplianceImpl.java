@@ -1,10 +1,7 @@
 package com.mgimss.mgimss.controller;
 
 
-import com.mgimss.mgimss.entity.AppStatus;
-import com.mgimss.mgimss.entity.Appliance;
-import com.mgimss.mgimss.entity.Job;
-import com.mgimss.mgimss.entity.User;
+import com.mgimss.mgimss.entity.*;
 import com.mgimss.mgimss.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -49,6 +46,8 @@ public class OperateApplianceImpl implements OperateAppliance {
 
     @Autowired
     FinishedJobRepository finishedJobRepository;
+    @Autowired
+    GestureRepository gestureRepository;
 
     //python calls
     public String post_appliance_status(String time, String id, String voltage, String current, String uid)
@@ -175,7 +174,7 @@ public class OperateApplianceImpl implements OperateAppliance {
     }
 
     //java calls
-    public String add_appliance(String name, String mfrs, Long perPower)
+    public String add_appliance(String name, String mfrs, Long perPower,String gesture)
     {
         User user;
         Long aid;
@@ -189,7 +188,14 @@ public class OperateApplianceImpl implements OperateAppliance {
 //        SecurityContext ctx = SecurityContextHolder.getContext();
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
+
+
         user = userRepository.findByUid(Long.valueOf(1));
+        if (!gesture.equals( "none"))
+        {
+            Gesture gest = new Gesture(gesture,name,user);
+            gestureRepository.save(gest);
+        }
         //获得新电器应分配的aid
         Set<Appliance> present_apps = user.getAppliances();
         if (present_apps.size() == 0) aid = Long.valueOf(1);
@@ -257,7 +263,7 @@ public class OperateApplianceImpl implements OperateAppliance {
     }
 
 
-    public String modify_appliance(Long aid, String mfrs, Long power){
+    public String modify_appliance(Long aid, String mfrs, Long power,String gesture){
         User user;
         //当前用户
         SecurityContext ctx = SecurityContextHolder.getContext();
@@ -267,6 +273,14 @@ public class OperateApplianceImpl implements OperateAppliance {
         appliance.setMfrs(mfrs);
         appliance.setPower(power);
         applianceRepository.saveAndFlush(appliance);
+        String gest = gestureRepository.findByNameAndUid(appliance.getName(),appliance.getUser().getUid());
+        gestureRepository.deleteByGname(gest);
+
+        if (!gesture.equals( "none"))
+        {
+            Gesture gest2 = new Gesture(gesture,appliance.getName(),user);
+            gestureRepository.save(gest2);
+        }
         return "success";
     }
 
