@@ -6,12 +6,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-@Controller
+@RestController
 public interface UserController {
 
     @RequestMapping("/user")
@@ -25,4 +26,10 @@ public interface UserController {
     @RequestMapping("/signup")
     ModelAndView signUp(HttpServletRequest request, String username, String password,
                         String phone, String email, String host, String port);
+
+    @RequestMapping("/user/get_user_info")
+    String get_user_info();
+
+    @RequestMapping("/user/update_user_info")
+    String update_user_info(String new_email, String new_phone);
 }
