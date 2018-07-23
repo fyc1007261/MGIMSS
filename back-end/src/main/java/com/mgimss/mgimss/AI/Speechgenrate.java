@@ -1,7 +1,5 @@
 package com.mgimss.mgimss.AI;
-import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -11,28 +9,13 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
+//import sun.audio.AudioPlayer;
+//import sun.audio.AudioStream;
 
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
-import java.applet.AudioClip;
-
-import java.io.*;
-
-import java.applet.Applet;
-
-import java.awt.Frame;
-
-import java.net.MalformedURLException;
-
-import java.net.URL;
-
-import static jdk.nashorn.internal.runtime.regexp.joni.Syntax.Java;
 public class Speechgenrate {
     public static void main(String[] arg) throws Exception{
         voice("开机");
@@ -85,8 +68,8 @@ public class Speechgenrate {
 //            in.close();
 //            out.close();
 //            FileInputStream fileau=new FileInputStream("genrate.wav");
-            AudioStream as=new AudioStream(responseEntity.getContent());
-            AudioPlayer.player.start(as);
+//            AudioStream as=new AudioStream(responseEntity.getContent());
+//            AudioPlayer.player.start(as);
         }
         System.out.println("调用成功");
     }

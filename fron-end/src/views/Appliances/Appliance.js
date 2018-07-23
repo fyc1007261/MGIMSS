@@ -9,37 +9,34 @@ let appsData = [];
 
 class Appliance extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
-    let aid = this.props.match.params.id;
-    this.state = {
-      aid: aid,
-      count: 20
-    };
-
     $.ajax({
       type: "GET",
       async: false,
-      url: "/appliance/get_info_by_id",
-      data:{"id": aid},
+      url: "http://localhost:12333/appliance/get_info_by_id",
+      data: {"id": this.props.id},
       context: document.body,
-      success: function(data){
+      success: function (data) {
         appsData.push($.parseJSON(data.toString()));
       }
     });
+    this.state ={
+      aid: this.props.id,
+      count: this.props.count
+    };
   }
 
 
   render() {
-    const appliance = appsData.find(appliance => appliance.id.toString() === this.props.match.params.id)
+    const appliance = appsData.find(appliance => appliance.id.toString() === this.props.id)
     const appDetails = appliance ? Object.entries(appliance) : [['id', (<span><i className="text-muted icon-ban"></i> Not found</span>)]]
     return (
-      <div className="animated fadeIn">
-        <Row>
-          <Col lg={6}>
+      <div className="detail-canvas animated fadeIn col-sm-12 col-md-4">
+          <Col>
             <Card>
               <CardHeader>
-                <strong><i className="icon-info pr-1"></i>Appliance id: {this.props.match.params.id}</strong>
+                <strong><i className="icon-info pr-1"></i>Appliance id: {this.props.id}</strong>
               </CardHeader>
               <CardBody>
                   <Table responsive striped hover>
@@ -62,7 +59,6 @@ class Appliance extends Component {
           <Col className="col-6">
             <AppDynamicChart aid={this.state.aid} count={this.state.count}/>
           </Col>
-        </Row>
       </div>
     )
   }

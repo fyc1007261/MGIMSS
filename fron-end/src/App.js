@@ -17,7 +17,8 @@ import './scss/style.css'
 import { DefaultLayout } from './containers';
 // Pages
 import { Login, Page404, Page500, Register } from './views/Pages';
-import getMedia from './views/getMedia/getMedia'
+
+import  getMedia  from './views/getMedia/getMedia';
 
 // import { renderRoutes } from 'react-router-config';
 

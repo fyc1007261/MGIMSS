@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import {Col, Row} from 'reactstrap';
 import TotalPowerUse from './TotalPowerUse';
 import AppsPowerUse from './AppsPowerUse';
-import HighestPowerUse from './HighestPowerUse';
+import HighestPowerUse from './HighestPowerUse'
 
 class PowerUse extends Component {
+
   constructor(props) {
     super(props);
   }

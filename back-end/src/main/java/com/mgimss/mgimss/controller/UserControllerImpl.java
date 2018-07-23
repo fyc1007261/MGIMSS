@@ -4,6 +4,7 @@ package com.mgimss.mgimss.controller;
 
 import com.mgimss.mgimss.entity.Role;
 import com.mgimss.mgimss.entity.User;
+import com.mgimss.mgimss.repository.ApplianceRepository;
 import com.mgimss.mgimss.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,7 +26,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 public class UserControllerImpl implements UserController {
 
     @Autowired
@@ -33,6 +34,9 @@ public class UserControllerImpl implements UserController {
 
     @Autowired
     protected AuthenticationManager authenticationManager;
+
+    @Autowired
+    private ApplianceRepository applianceRepository;
 
     public ModelAndView getUserInfo()
     {
@@ -95,6 +99,37 @@ public class UserControllerImpl implements UserController {
         request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
         ModelAndView mav = new ModelAndView("main/main");
         return mav;
+    }
+
+    public String get_user_info() {
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        Authentication auth = ctx.getAuthentication();
+        User user = (User) auth.getPrincipal();
+
+        Long app_num = applianceRepository.findNumByUser(user.getUid());
+
+        StringBuffer buf = new StringBuffer();
+        buf.append(
+                "{\"username\":\"" + user.getUsername() +
+                        "\",\"email\":\"" + user.getEmail() +
+                        "\",\"phone\":\"" + user.getPhone() +
+                        "\",\"num\":" + app_num +
+                        "}");
+
+        return buf.toString();
+    }
+
+    public String update_user_info(String new_email, String new_phone) {
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        Authentication auth = ctx.getAuthentication();
+        User user = (User) auth.getPrincipal();
+
+        user.setEmail(new_email);
+        user.setPhone(new_phone);
+        userRepository.save(user);
+
+        return "success";
+
     }
 
 }

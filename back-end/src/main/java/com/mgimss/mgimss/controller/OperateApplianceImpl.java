@@ -174,7 +174,7 @@ public class OperateApplianceImpl implements OperateAppliance {
     }
 
     //java calls
-    public String add_appliance(String name, String mfrs, Long perPower,String gesture)
+    public String add_appliance(String name, String mfrs, Long power, String gesture, HttpServletResponse response)
     {
         User user;
         Long aid;
@@ -205,7 +205,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         addDate = new Date();
 
         Appliance appliance = new Appliance(user, aid, name, addDate, mfrs,
-                perPower, null, 0);
+                power, null, 0);
 
         host = user.getHardwareHost();
         port = user.getHardwarePort();
@@ -223,11 +223,12 @@ public class OperateApplianceImpl implements OperateAppliance {
 
         //当python做完了相应操作没出错时，同步数据库
         applianceRepository.save(appliance);
+        response.addHeader("Access-Control-Allow-Origin", "*");
         return recv_message;
     }
 
     //java calls
-    public String delete_appliance(Long aid)
+    public String delete_appliance(Long aid, HttpServletResponse response)
     {
         User user;
         String port;
@@ -259,6 +260,7 @@ public class OperateApplianceImpl implements OperateAppliance {
 
         //当python做完了相应操作没出错时，同步数据库
         applianceRepository.delete(appliance);
+        response.addHeader("Access-Control-Allow-Origin", "*");
         return recv_message;
     }
 
@@ -287,7 +289,7 @@ public class OperateApplianceImpl implements OperateAppliance {
 
 
     //java calls
-    public String switch_appliance(Long aid, String option){
+    public String switch_appliance(Long aid, String option, HttpServletResponse response){
         User user;
         String port;
         String host;
@@ -295,9 +297,11 @@ public class OperateApplianceImpl implements OperateAppliance {
         String send_message;
         String recv_message;
 
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        user = (User) auth.getPrincipal();
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        user = (User) auth.getPrincipal();
+
+        user = userRepository.findByUid(1L);
 
         if(option.equals("on")) new_state = 1;
         else if (option.equals("off")) new_state = 0;
@@ -321,13 +325,14 @@ public class OperateApplianceImpl implements OperateAppliance {
         send_message = MapToJson(map);
         recv_message = sendMessage(host, port, send_message);
         System.out.println("get message from server: " + recv_message);
+        response.addHeader("Access-Control-Allow-Origin", "*");
         return recv_message;
 
     }
 
     //java calls
 
-    public String request_appliances_status(String aid, String count, Date end_time, HttpServletRequest request, HttpServletResponse response)
+    public String request_appliances_status(String aid, String count, Date end_time, HttpServletResponse response)
     {
         User user;
         Appliance appliance;

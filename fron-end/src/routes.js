@@ -183,28 +183,16 @@ const Appliance = Loadable({
   loading: Loading,
 });
 
-const Schedules = Loadable({
-  loader: () => import('./views/Schedules/Schedules'),
-  loading: Loading,
-});
-
-const Schedule = Loadable({
-  loader: () => import('./views/Schedules/Schedule'),
-  loading: Loading,
-});
-
-
-
 const PowerUse = Loadable({
   loader: () => import('./views/Functions/PowerUse/PowerUse'),
   loading: Loading,
 });
 
-
 const DynamicChart = Loadable({
   loader: () => import('./views/Functions/DynamicChart/DynamicChart'),
   loading: Loading,
 });
+
 
 const Profile = Loadable({
   loader: () => import('./views/User/Profile/Profile'),
@@ -269,8 +257,6 @@ const routes = [
   { path: '/main/charts', name: 'Charts', component: Charts },
   { path: '/main/apps', exact: true,  name: 'Appliances', component: Appliances },
   { path: '/main/apps/:id', exact: true, name: 'Appliance Details', component: Appliance },
-  { path: '/main/schedule', exact: true, name: 'Schedule', component: Schedules},
-  { path: '/main/schedule/:id', exact: true, name: 'Schedule Details', component: Schedule },
   { path: '/main/fun', exact: true, name: 'Functions', component: PowerUse },
   { path: '/main/fun/poweruse', name: 'Power Use', component: PowerUse },
   { path: '/main/fun/dynamicChart', name: 'Dynamic Chart', component: DynamicChart },
