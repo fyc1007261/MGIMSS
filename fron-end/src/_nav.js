@@ -257,6 +257,27 @@ export default {
     },
     {
       title: true,
+      name: 'Appliances',
+    },
+    {
+      name: 'Appliances',
+      url: '/main/apps',
+      icon: 'icon-cursor',
+      children: [
+        {
+          name: 'Appliances',
+          url: '/main/apps',
+          icon: 'cui-list',
+        },
+        {
+          name: 'Schedule',
+          url: '/main/schedule',
+          icon: 'cui-browser',
+        },
+      ],
+    },
+    {
+      title: true,
       name: 'Functions',
       wrapper: {
         element: '',
