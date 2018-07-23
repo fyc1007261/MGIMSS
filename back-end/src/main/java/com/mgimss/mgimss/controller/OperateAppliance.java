@@ -25,19 +25,19 @@ public interface OperateAppliance {
 
     //java calls
     @RequestMapping("/appliance/request_status")
-    String request_appliances_status(String aid, String count, Date end_time, HttpServletRequest request, HttpServletResponse response);
+    String request_appliances_status(String aid, String count, Date end_time, HttpServletResponse response);
 
     //java calls
     @RequestMapping("/appliance/add_appliance")
-    String add_appliance(String name, String mfrs, Long ratedParameters);
+    String add_appliance(String name, String mfrs, Long ratedParameters, HttpServletResponse response);
 
     //java calls
     @RequestMapping("/appliance/delete_appliance")
-    String delete_appliance(Long aid);
+    String delete_appliance(Long aid, HttpServletResponse response);
 
     //java calls
     @RequestMapping("/appliance/switch_appliance")
-    String switch_appliance(Long aid, String option);
+    String switch_appliance(Long aid, String option, HttpServletResponse response);
 
     //java calls
     @RequestMapping("/appliance/get_appliances")

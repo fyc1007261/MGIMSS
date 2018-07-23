@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mgimss.mgimss.utils.TimeToString;
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 import java.util.List;
@@ -32,7 +34,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
     @Autowired
     FinishedJobRepository finishedJobRepository;
 
-    public String get_all_status(){
+    public String get_all_status(HttpServletResponse response){
         List<Appliance> applianceList = applianceRepository.findByUser(Long.valueOf(1));
         if (applianceList.size() == 0){
             return "{\"data\":[]}";
@@ -51,10 +53,11 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         }
         buf.deleteCharAt(buf.length()-1);
         buf.append("]}");
+        response.addHeader("Access-Control-Allow-Origin", "*");
         return buf.toString();
     }
 
-    public String get_info_by_id(Long id){
+    public String get_info_by_id(Long id, HttpServletResponse response){
         Appliance appliance = applianceRepository.findByUserAndAid(1L, id);
         Long app_id = appliance.getAppId();
         String start_time = "Not scheduled", finish_time = "Not scheduled";
@@ -94,10 +97,11 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"finish_time\" : \"" +finish_time +
                         "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
         );
+        response.addHeader("Access-Control-Allow-Origin", "*");
         return buf.toString();
     }
 
-    public String get_jobs(){
+    public String get_jobs(HttpServletResponse response){
         List<Job> jobList = runningJobRepository.findByUid(1L);
         jobList.addAll(pendingJobRepository.findByUid(1L));
         // json builder
@@ -118,10 +122,11 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         }
         buf.deleteCharAt(buf.length()-1);
         buf.append("]}");
+        response.addHeader("Access-Control-Allow-Origin", "*");
         return buf.toString();
     }
 
-    public String get_job_by_id(Long id) {
+    public String get_job_by_id(Long id, HttpServletResponse response) {
         TimeToString timeToString = new TimeToString();
         Job job = runningJobRepository.findByJobId(id);
         if (job==null)
@@ -137,6 +142,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"Scheduled at\" : \"" +timeToString.LongToString(job.getIntTrueStopTime(), ' ') +
                         "\", \"Power\" : \""+ job.getPerPower() +"\"}"
         );
+        response.addHeader("Access-Control-Allow-Origin", "*");
         return buf.toString();
     }
 

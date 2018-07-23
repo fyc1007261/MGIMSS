@@ -10,11 +10,11 @@ class Appliance extends Component {
 
   constructor(props){
     super(props);
-    let aid = this.props.match.params.id;
+    let aid = this.props.id;
     $.ajax({
       type: "GET",
       async: false,
-      url: "/appliance/get_info_by_id",
+      url: "http://localhost:12333/appliance/get_info_by_id",
       data:{"id": aid},
       context: document.body,
       success: function(data){
@@ -25,15 +25,14 @@ class Appliance extends Component {
 
 
   render() {
-    const appliance = appsData.find(appliance => appliance.id.toString() === this.props.match.params.id)
+    const appliance = appsData.find(appliance => appliance.id.toString() === this.props.id)
     const appDetails = appliance ? Object.entries(appliance) : [['id', (<span><i className="text-muted icon-ban"></i> Not found</span>)]]
     return (
-      <div className="animated fadeIn">
-        <Row>
-          <Col lg={6}>
+      <div className="detail-canvas animated fadeIn col-sm-12 col-md-4">
+          <Col>
             <Card>
               <CardHeader>
-                <strong><i className="icon-info pr-1"></i>Appliance id: {this.props.match.params.id}</strong>
+                <strong><i className="icon-info pr-1"></i>Appliance id: {this.props.id}</strong>
               </CardHeader>
               <CardBody>
                   <Table responsive striped hover>
@@ -53,7 +52,6 @@ class Appliance extends Component {
               </CardBody>
             </Card>
           </Col>
-        </Row>
       </div>
     )
   }

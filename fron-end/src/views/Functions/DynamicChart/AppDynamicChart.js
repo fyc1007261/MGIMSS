@@ -22,21 +22,6 @@ let start_time;
 // let voltagePoints = [220.2, 220.5, 220.4, 220.3];
 // let labels = ["16:07:01 PM", "16:07:06 PM", "16:07:11 PM", "16:07:16 PM"];
 
-Date.prototype.Format = function (fmt) {
-  let o = {
-    "M+": this.getMonth() + 1, //月份
-    "d+": this.getDate(), //日
-    "h+": this.getHours(), //小时
-    "m+": this.getMinutes(), //分
-    "s+": this.getSeconds(), //秒
-    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-    "S": this.getMilliseconds() //毫秒
-  };
-  if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-  for (let k in o)
-    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-  return fmt;
-};
 
 let options = {
 
@@ -145,7 +130,7 @@ class AppDynamicChart extends Component {
             for (i; i >= 0; i--) {
               while(!(new Date(appsData[i]["time"].replace(/-/g,"/")).getTime() - time.getTime() <= 1000 * 8)){
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
-                labels.push(time.Format("hh:mm:ss"));
+                labels.push(time.getHours().toString()+":" + time.getMinutes().toString() + ":"+time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
                 voltagePoints.push(0);
                 time.setTime(time.getTime() + 1000 * 5);
@@ -162,7 +147,7 @@ class AppDynamicChart extends Component {
             for (i; i < props.count; i++) {
               time.setTime(time.getTime() + 1000 * 5);
               // //alert("time: "+time);
-              labels.push(time.Format("hh:mm:ss"));
+              labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               currentPoints.push(0);
               voltagePoints.push(0);
             }
@@ -173,7 +158,7 @@ class AppDynamicChart extends Component {
             let time = new Date();
             time.setTime(first_element_time.getTime() - k * 1000 * 5);
             for (k; k > 0; k--) {
-              labels.push(time.Format("hh:mm:ss"));
+              labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               // //alert("time: "+time);
               currentPoints.push(0);
               voltagePoints.push(0);
@@ -184,7 +169,7 @@ class AppDynamicChart extends Component {
             for (i; i >= 0; i--) {
               while(!(new Date(appsData[i]["time"].replace(/-/g,"/")).getTime() - time.getTime() <= 1000 * 8)){
                 //alert("next time point is 0! time: " + time + ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
-                labels.push(time.Format("hh:mm:ss") );
+                labels.push(time.getHours().toString()+":" + time.getMinutes().toString() + ":"+time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
                 voltagePoints.push(0);
                 time.setTime(time.getTime() + 1000 * 5);
@@ -201,7 +186,7 @@ class AppDynamicChart extends Component {
             for (i; i < props.count; i++) {
               time.setTime(time.getTime() + 1000 * 5);
               // //alert("time: "+time);
-              labels.push(time.Format("hh:mm:ss"));
+              labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               currentPoints.push(0);
               voltagePoints.push(0);
             }
@@ -215,7 +200,7 @@ class AppDynamicChart extends Component {
           let i = 0;
           for (i; i < props.count; i++) {
             // //alert("time: "+time);
-            labels.push(time.Format("hh:mm:ss"));
+            labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() );
             currentPoints.push(0);
             voltagePoints.push(0);
             time.setTime(time.getTime() + 1000 * 5);
@@ -387,7 +372,7 @@ class AppDynamicChart extends Component {
             for (i; i >= 0; i--) {
               while (!(new Date(appsData[i]["time"].replace(/-/g,"/")).getTime() - time.getTime() <= 1000 * 8)) {
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
-                labels.push(time.Format("hh:mm:ss"));
+                labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
                 voltagePoints.push(0);
                 time.setTime(time.getTime() + 1000 * 5);
@@ -404,7 +389,7 @@ class AppDynamicChart extends Component {
             for (i; i < this.state.count; i++) {
               time.setTime(time.getTime() + 1000 * 5);
               //alert("time: "+time);
-              labels.push(time.Format("hh:mm:ss"));
+              labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               currentPoints.push(0);
               voltagePoints.push(0);
             }
@@ -415,7 +400,7 @@ class AppDynamicChart extends Component {
             let time = new Date();
             time.setTime(first_element_time.getTime() - k * 1000 * 5);
             for (k; k > 0; k--) {
-              labels.push(time.Format("hh:mm:ss"));
+              labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               //alert("time: "+time);
               currentPoints.push(0);
               voltagePoints.push(0);
@@ -426,7 +411,7 @@ class AppDynamicChart extends Component {
             for (i; i >= 0; i--) {
               while(!(new Date(appsData[i]["time"].replace(/-/g,"/")).getTime() - time.getTime() <= 1000 * 8)){
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
-                labels.push(time.Format("hh:mm:ss"));
+                labels.push(time.getHours().toString()+":" + time.getMinutes().toString() + ":"+time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
                 voltagePoints.push(0);
                 time.setTime(time.getTime() + 1000 * 5);
@@ -443,7 +428,7 @@ class AppDynamicChart extends Component {
             for (i; i < this.state.count; i++) {
               time.setTime(time.getTime() + 1000 * 5);
               // //alert("time: "+time);
-              labels.push(time.Format("hh:mm:ss"));
+              labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               currentPoints.push(0);
               voltagePoints.push(0);
             }
@@ -457,7 +442,7 @@ class AppDynamicChart extends Component {
           let i = 0;
           for (i; i < this.state.count; i++) {
             ////alert("time: "+time);
-            labels.push(time.Format("hh:mm:ss"));
+            labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString());
             currentPoints.push(0);
             voltagePoints.push(0);
             time.setTime(time.getTime() + 1000 * 5);
