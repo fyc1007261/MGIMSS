@@ -46,6 +46,7 @@ public class OperateApplianceImpl implements OperateAppliance {
 
     @Autowired
     FinishedJobRepository finishedJobRepository;
+
     @Autowired
     GestureRepository gestureRepository;
 

@@ -1,0 +1,71 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: BatteryController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.mgimss.mgimss.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: BatteryController (com.mgimss.mgimss.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">BatteryController</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.mgimss.mgimss.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;import org.springframework.stereotype.Controller;
+<i>5</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;@Controller
+<i>8</i>&nbsp;public interface BatteryController {
+<i>9</i>&nbsp;    //python calls
+<i>10</i>&nbsp;    @RequestMapping(&quot;/battery/post_remaining&quot;)
+<i>11</i>&nbsp;    String post_remaining(String time, Long remain, String uid);
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;    //java calls
+<i>14</i>&nbsp;    @RequestMapping(&quot;/battery/get_remaining&quot;)
+<i>15</i>&nbsp;    Long  get_remaining();
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    //python calls
+<i>18</i>&nbsp;    @RequestMapping(&quot;/battery/nothing&quot;)
+<i>19</i>&nbsp;    String post_generation(Long time, Long generation, String uid);
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    //python calls
+<i>22</i>&nbsp;    @RequestMapping(&quot;/battery/obtainSolar&quot;)
+<i>23</i>&nbsp;    public String obtainSolar(Long aid, String option);
+<i>24</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-24 15:23</div>
+</div>
+</body>
+</html>
