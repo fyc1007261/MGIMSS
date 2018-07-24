@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 /** 
 * ShowAppInfoImpl Tester. 
 * 
-* @author Yifan Cai
+* @author Cai Yifan
 * @since July 24, 2018
 * @version 1.0 
 */
@@ -110,6 +110,7 @@ public void before() throws Exception {
     mockPDJobRepo = mock(PendingJobRepository.class);
     when(mockPDJobRepo.findByUid(1L)).thenReturn(jobList);
     when(mockPDJobRepo.findByJobId(1234L)).thenReturn(jobList.get(0));
+
 
     mockRJobRepo = mock(RunningJobRepository.class);
     when(mockRJobRepo.findByJobId(1234L)).thenReturn(null);

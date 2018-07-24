@@ -120,7 +120,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         aid = Long.valueOf(id);
 
         //当前用户
-        user = userRepository.findByUid(Long.valueOf(1));
+        user = getUserContext.getUser();
 
         //用电器
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
@@ -162,7 +162,6 @@ public class OperateApplianceImpl implements OperateAppliance {
                         perPower, 1, appliance, user);
             }
             else{
-
                 job.setAppliance(appliance);
                 job.setStatus(1);
                 Long curTime = new Date().getTime()/1000;
