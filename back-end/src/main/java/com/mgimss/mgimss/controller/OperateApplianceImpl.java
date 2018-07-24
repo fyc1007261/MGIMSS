@@ -3,6 +3,7 @@ package com.mgimss.mgimss.controller;
 
 import com.mgimss.mgimss.entity.*;
 import com.mgimss.mgimss.repository.*;
+import com.mgimss.mgimss.utils.GetUserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -30,25 +31,28 @@ import static com.mgimss.mgimss.utils.ToJson.MapToJson;
 public class OperateApplianceImpl implements OperateAppliance {
 
     @Autowired
-    AppStatusRepository appStatusRepository;
+    public AppStatusRepository appStatusRepository;
 
     @Autowired
-    ApplianceRepository applianceRepository;
+    public ApplianceRepository applianceRepository;
 
     @Autowired
-    UserRepository userRepository;
+    public  UserRepository userRepository;
 
     @Autowired
-    PendingJobRepository pendingJobRepository;
+    public PendingJobRepository pendingJobRepository;
 
     @Autowired
-    RunningJobRepository runningJobRepository;
+    public RunningJobRepository runningJobRepository;
 
     @Autowired
-    FinishedJobRepository finishedJobRepository;
+    public FinishedJobRepository finishedJobRepository;
 
     @Autowired
-    GestureRepository gestureRepository;
+    public GestureRepository gestureRepository;
+
+    @Autowired
+    public GetUserContext getUserContext;
 
     //python calls
     public String post_appliance_status(String time, String id, String voltage, String current, String uid)
@@ -75,7 +79,6 @@ public class OperateApplianceImpl implements OperateAppliance {
             return "err: no such appliance";
         }
 
-
         //信息发送时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
@@ -91,11 +94,9 @@ public class OperateApplianceImpl implements OperateAppliance {
         presentVoltage = Float.valueOf(voltage);
         presentCurrent = Float.valueOf(current);
 
-        System.out.println("HAHA");
         //记录入appStatus表
         AppStatus appStatus = new AppStatus(appliance, recordTime, presentVoltage, presentCurrent);
         appStatusRepository.save(appStatus);
-        System.out.println("HEIHEI");
 
         // return time for client to check for validity
         return "success";

@@ -94,11 +94,6 @@ public class ShowAppInfoImpl implements ShowAppInfo {
             Date now = new Date();
             runtime = (now.getTime()/1000 - sta)/60;
         }
-        job = finishedJobRepository.findByAppliance(app_id);
-        if (job != null){
-            sta = job.getIntStartTime();
-            fin = job.getIntStopTime();
-        }
         job = pendingJobRepository.findByAppliance(app_id);
         if (job != null){
             sta = job.getIntStartTime();
