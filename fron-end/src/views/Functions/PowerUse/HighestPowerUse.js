@@ -8,23 +8,23 @@ import $ from 'jquery';
 const brandPrimary = getStyle('--primary');
 const brandInfo = getStyle('--info');
 
-let highestUse = [["2018-07-05","2018-06","Light1","Light3"],[128,3577,344,2122]];
+// let highestUse = [["2018-07-05","2018-06","Light1","Light3"],[128,3577,344,2122]];
 
-// let highestUse = [[],[]];
-//
-// $.ajax({
-//   url:"/fun/getHighestPowerUse",
-//   context:document.body,
-//   async:false,
-//   type:"get",
-//   success:function (data) {
-//     let tmpDayData = $.parseJSON(data);
-//     tmpDayData["power"].forEach((dayData) => {
-//       highestUse[0].push(dayData["label"]);
-//       highestUse[1].push(dayData["use"]);
-//     });
-//   }
-// });
+let highestUse = [[],[]];
+
+$.ajax({
+  url:"/fun/getHighestPowerUse",
+  context:document.body,
+  async:false,
+  type:"get",
+  success:function (data) {
+    let tmpDayData = $.parseJSON(data);
+    tmpDayData["power"].forEach((dayData) => {
+      highestUse[0].push(dayData["label"]);
+      highestUse[1].push(dayData["use"]);
+    });
+  }
+});
 
 // Card Chart 1
 const cardChartData1 = {

@@ -10,19 +10,6 @@ let username = "";
 let cell_phone = "";
 let email = "";
 
-$.ajax({
-  url:"/user/get_user_info",
-  context:document.body,
-  async:false,
-  type:"get",
-  success:function (data) {
-    let tmpInfo = $.parseJSON(data);
-    username = tmpInfo["username"];
-    cell_phone = tmpInfo["phone"];
-    email = tmpInfo["email"];
-  }
-});
-
 class InputEmail extends Component {
   constructor() {
     super();
@@ -115,7 +102,7 @@ class InputPhonenumber extends Component {
   }
 }
 
-class ChangeProfile extends Component {
+class UpdateProfile extends Component {
   constructor() {
     super();
     this.state = {cell_phone:cell_phone, email:email, err1:0, err2:0};
@@ -198,6 +185,26 @@ class ChangeProfile extends Component {
           </Col>
         </Row>
       </div>
+    );
+  }
+}
+
+class ChangeProfile extends Component {
+  render() {
+    $.ajax({
+      url:"/user/get_user_info",
+      context:document.body,
+      async:false,
+      type:"get",
+      success:function (data) {
+        let tmpInfo = $.parseJSON(data);
+        username = tmpInfo["username"];
+        cell_phone = tmpInfo["phone"];
+        email = tmpInfo["email"];
+      }
+    });
+    return(
+      <UpdateProfile SetChangeState={this.props.SetChangeState}/>
     );
   }
 }

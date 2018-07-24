@@ -7,11 +7,7 @@ let Now = new Date();
 const date = Now.getFullYear() + "-" + (Now.getMonth() < 9 ? "0" : "") + (Now.getMonth() + 1) + "-" + (Now.getDate() < 10 ? "0" : "") + (Now.getDate() - 1);
 const month = Now.getFullYear() + "-" + (Now.getMonth() < 9 ? "0" : "") + (Now.getMonth() + 1);
 
-const options = {
-  responsive: true
-};
-
-  let DayData = [["light1","light2","light3","light4"],[8,12,4,7]];
+let DayData = [["light1","light2","light3","light4"],[8,12,4,7]];
 let MonthData = [["light1","light2","light3","light4"],[198,224,137,127]];
 
 // let DayData = [[],[]];
@@ -62,6 +58,10 @@ for(let i = 0; i < MonthUse.length; i++) {
   }
   colors.push(Colors[j]);
 }
+
+const options = {
+  responsive: true
+};
 
 const pie = {
   labels: DayData[0],
