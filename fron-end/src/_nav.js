@@ -339,6 +339,11 @@ export default {
           icon: 'cui-clipboard',
         },
         {
+          name: 'Avatar',
+          url: '/main/user/avatar',
+          icon: 'cui-camera',
+        },
+        {
           name: 'Notification',
           url: '/main/user/notification',
           icon: 'cui-bullhorn',
