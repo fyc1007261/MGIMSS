@@ -74,9 +74,9 @@ class CurrentChart extends Component {
             let time;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while(!(new Date(appsData[i]["time"].replace(/-/g,"/")).getTime() - time.getTime() <= 1000 * 8)){
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
-                labels.push(time.getHours().toString()+":" + time.getMinutes().toString() + ":"+time.getSeconds().toString() + "." + time.getMilliseconds());
+                labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
                 time.setTime(time.getTime() + 1000 * 5);
               }
@@ -109,9 +109,9 @@ class CurrentChart extends Component {
             let i = appsData.length - 1;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while(!(new Date(appsData[i]["time"].replace(/-/g,"/")).getTime() - time.getTime() <= 1000 * 8)){
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
                 //alert("next time point is 0! time: " + time + ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
-                labels.push(time.getHours().toString()+":" + time.getMinutes().toString() + ":"+time.getSeconds().toString() + "." + time.getMilliseconds());
+                labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
                 time.setTime(time.getTime() + 1000 * 5);
               }
@@ -139,7 +139,7 @@ class CurrentChart extends Component {
           let i = 0;
           for (i; i < props.count; i++) {
             // //alert("time: "+time);
-            labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() );
+            labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString());
             currentPoints.push(0);
             time.setTime(time.getTime() + 1000 * 5);
           }
@@ -224,7 +224,7 @@ class CurrentChart extends Component {
         scales: {
           yAxes: [{
             ticks: {
-              beginAtZero:true
+              beginAtZero: true
             }
           }]
         }
@@ -279,7 +279,7 @@ class CurrentChart extends Component {
             let time;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while (!(new Date(appsData[i]["time"].replace(/-/g,"/")).getTime() - time.getTime() <= 1000 * 8)) {
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
@@ -314,9 +314,9 @@ class CurrentChart extends Component {
             let i = appsData.length - 1;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while(!(new Date(appsData[i]["time"].replace(/-/g,"/")).getTime() - time.getTime() <= 1000 * 8)){
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
-                labels.push(time.getHours().toString()+":" + time.getMinutes().toString() + ":"+time.getSeconds().toString() + "." + time.getMilliseconds());
+                labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
                 time.setTime(time.getTime() + 1000 * 5);
               }
@@ -401,22 +401,20 @@ class CurrentChart extends Component {
 
 
   render() {
-
+    let style = {
+      width: "102%",
+      height: "100%",
+      backgroundColor: "white"
+    };
     return (
-      <div className="row">
-        <div className="col-12">
-        <Card>
-          <CardBody>
-            <div>
-              <Line data={this.state.cdata} options={this.state.options} height={300}/>
-            </div>
-          </CardBody>
-        </Card>
-        </div>
-      </div>);
+      <div style={style}>
+        <Line data={this.state.cdata} options={this.state.options} width={400} height={300}/>
+      </div>
+    )
   }
 
 }
+
 class VoltageChart extends Component {
 
   constructor(props) {
@@ -469,9 +467,9 @@ class VoltageChart extends Component {
             let time;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while(!(new Date(appsData[i]["time"].replace(/-/g,"/")).getTime() - time.getTime() <= 1000 * 8)){
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
-                labels.push(time.getHours().toString()+":" + time.getMinutes().toString() + ":"+time.getSeconds().toString() + "." + time.getMilliseconds());
+                labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 voltagePoints.push(0);
                 time.setTime(time.getTime() + 1000 * 5);
               }
@@ -504,9 +502,9 @@ class VoltageChart extends Component {
             let i = appsData.length - 1;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while(!(new Date(appsData[i]["time"].replace(/-/g,"/")).getTime() - time.getTime() <= 1000 * 8)){
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
                 //alert("next time point is 0! time: " + time + ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
-                labels.push(time.getHours().toString()+":" + time.getMinutes().toString() + ":"+time.getSeconds().toString() + "." + time.getMilliseconds());
+                labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 voltagePoints.push(0);
                 time.setTime(time.getTime() + 1000 * 5);
               }
@@ -534,7 +532,7 @@ class VoltageChart extends Component {
           let i = 0;
           for (i; i < props.count; i++) {
             // //alert("time: "+time);
-            labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() );
+            labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString());
             voltagePoints.push(0);
             time.setTime(time.getTime() + 1000 * 5);
           }
@@ -589,7 +587,7 @@ class VoltageChart extends Component {
         scales: {
           yAxes: [{
             ticks: {
-              beginAtZero:true
+              beginAtZero: true
             }
           }]
         }
@@ -644,7 +642,7 @@ class VoltageChart extends Component {
             let time;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while (!(new Date(appsData[i]["time"].replace(/-/g,"/")).getTime() - time.getTime() <= 1000 * 8)) {
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 voltagePoints.push(0);
@@ -679,9 +677,9 @@ class VoltageChart extends Component {
             let i = appsData.length - 1;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while(!(new Date(appsData[i]["time"].replace(/-/g,"/")).getTime() - time.getTime() <= 1000 * 8)){
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
-                labels.push(time.getHours().toString()+":" + time.getMinutes().toString() + ":"+time.getSeconds().toString() + "." + time.getMilliseconds());
+                labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 voltagePoints.push(0);
                 time.setTime(time.getTime() + 1000 * 5);
               }
@@ -766,19 +764,16 @@ class VoltageChart extends Component {
 
 
   render() {
-
+    let style = {
+      width: "102%",
+      height: "100%",
+      backgroundColor: "white"
+    };
     return (
-      <div className="row">
-        <div className="col-12">
-          <Card >
-            <CardBody>
-              <div>
-                <Line data={this.state.vdata} options={this.state.options} height={300}/>
-              </div>
-            </CardBody>
-          </Card>
-        </div>
-      </div>);
+      <div style={style}>
+        <Line data={this.state.vdata} options={this.state.options} width={400} height={300}/>
+      </div>
+    );
   }
 
 }

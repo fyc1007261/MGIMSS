@@ -173,6 +173,18 @@ class ApplianceCapsule extends Component {
     $(".capbody-content").textfill({maxFontPixels: 13, innerTag: 'p'});
   }
 
+  componentDidUpdate(){
+    let card_id = "card" + this.state.appliance["id"];
+    let this_card =$("#" + card_id);
+    if (this.state.card === 1)
+    {
+      if( !this_card.hasClass("card-fade"))
+        this_card.addClass("card-fade");
+    }
+    else{
+      this_card.removeClass("card-fade");
+    }
+  }
   rotate(li, d) {
     $({d: angleStart}).animate({d: d}, {
       step: function (now) {
@@ -256,25 +268,18 @@ class ApplianceCapsule extends Component {
   }
 
   displayCard() {
-
     if (this.state.card === 1) {
-      Tools.syncReloadScriptInHead('http://localhost:12333/js/card/modernizr-custom.js', function () {
-      });
-      Tools.syncReloadScripts(['http://localhost:12333/js/card/classie.js',
-        'http://localhost:12333/js/card/card.js', 'http://localhost:12333/js/card/dynamics.min.js',
-        'http://localhost:12333/js/card/main.js', 'http://localhost:12333/js/card/card2.js'], function () {
-      });
       return (
-        <div className="cardContainer">
+        <div className="cardContainer" id={"card" + this.state.appliance["id"]}>
           <ul id="stack_iman" className="stack stack--iman">
             <li className="stack__item">
               <div className="card">
-                <CurrentChart aid={this.state.appliance["id"]} alt={"Tree 1"} count={10}/>
+                <VoltageChart aid={this.state.appliance["id"]} alt={"Tree 2"} count={10}/>
               </div>
             </li>
             <li className="stack__item">
               <div className="card">
-                <VoltageChart aid={this.state.appliance["id"]} alt={"Tree 2"} count={10}/>
+                <CurrentChart aid={this.state.appliance["id"]} alt={"Tree 1"} count={10}/>
               </div>
             </li>
           </ul>
@@ -302,11 +307,13 @@ class ApplianceCapsule extends Component {
   infoClick(e) {
     // alert("info");
     e.stopPropagation();
-
-    let id = "capsule-canvas" + $(e.target).parent().find("input")[0].name;
+    let input = $(e.target).parent().find("input")[0];
+    let id = "capsule-canvas" + input.name;
     let this_capsule = $("#" + id);
-    let this_capsule_core = $(this_capsule.find("capsule-core")[0]);
-    alert(this_capsule_core.css("left"));
+    let core_id = "capsule-core" + input.name;
+    let this_capsule_core =$("#" + core_id);
+    let card_id = "card" + this.state.appliance["id"];
+    let this_card =$("#" + card_id);
     let other_capsules = $(".capsule-canvas").not("#" + id);
 
 
@@ -314,28 +321,41 @@ class ApplianceCapsule extends Component {
       // other_capsules.removeClass("fade-back");
       this_capsule.removeClass("fade-h");
       this_capsule.addClass("fade-back");
+      this_capsule_core.removeClass("fade-core-h");
+      this_capsule_core.addClass("fade-core-back");
+      this_card.removeClass("card-fade");
+
+      let that = this;
 
       function removeFadeBack() {
         this_capsule.removeClass("fade-back");
+        that.setState({
+          card: 0
+        });
       }
 
-      this.setState({
-        card: 0
-      });
-
-      setTimeout(removeFadeBack, 1000);
+      setTimeout(removeFadeBack, 2000);
     }
 
     else {
-      other_capsules.removeClass("fade-back");
       this_capsule.removeClass("fade-back");
       this_capsule.addClass("fade-h");
-      alert("haha");
+      this_capsule_core.removeClass("fade-core-back");
       this_capsule_core.addClass("fade-core-h");
+
       this.setState({
         card: 1
       });
+      Tools.syncReloadScriptInHead('http://localhost:12333/js/card/modernizr-custom.js', function () {
+      });
+      Tools.syncReloadScripts(['http://localhost:12333/js/card/classie.js',
+        'http://localhost:12333/js/card/card.js', 'http://localhost:12333/js/card/dynamics.min.js',
+        'http://localhost:12333/js/card/main.js', 'http://localhost:12333/js/card/card2.js'], function () {
+      });
+
+
     }
+
     other_capsules.toggleClass("fade");
   }
 
@@ -397,7 +417,7 @@ class ApplianceCapsule extends Component {
 
     return (
       <div className="capsule-canvas" id={"capsule-canvas" + this.state.appliance["id"]}>
-        <div className="capsule-core">
+        <div className="capsule-core" id={"capsule-core" + this.state.appliance["id"]}>
           <div className="v-capsule" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][0]}}>
             <div className="capsule-body" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][1]}}>
               <div className="capsule-head">
