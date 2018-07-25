@@ -22,6 +22,7 @@ $.ajax({
   async:false,
   type:"get",
   success:function (data) {
+
     let tmpDayData = $.parseJSON(data);
     tmpDayData["power"].forEach((dayData) => {
       DayData[0].push(dayData["appname"]);
@@ -38,6 +39,7 @@ $.ajax({
   async:false,
   type:"get",
   success:function (data) {
+
     let tmpMonthData = $.parseJSON(data);
     tmpMonthData["power"].forEach((monthData) => {
       MonthData[0].push(monthData["appname"]);
@@ -138,11 +140,15 @@ class AppsPowerUse extends Component {
       async:false,
       type:"get",
       success:function (data) {
+        console.log(data);
         let tmpDayData = $.parseJSON(data);
         let newDayData = [];
+        let newDaydate2 = [];
         tmpDayData["power"].forEach((dayData) => {
           newDayData.push(dayData["use"]);
+          newDaydate2.push(dayData["appname"])
         });
+        DayData[0] = newDaydate2.slice();
         DayUse = newDayData.slice();
       }
     });
@@ -172,10 +178,13 @@ class AppsPowerUse extends Component {
       success:function (data) {
         let tmpMonthData = $.parseJSON(data);
         let newMonthData = [];
+        let newMonthData2 = [];
         tmpMonthData["power"].forEach((monthData) => {
           newMonthData.push(monthData["use"]);
+          newMonthData2.push(monthData["appname"]);
         });
         MonthUse = newMonthData.slice();
+        MonthData[0] = newMonthData2.slice();
       }
     });
     let oldPie = this.state.pie.datasets[0];

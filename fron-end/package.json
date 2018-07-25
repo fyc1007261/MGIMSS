@@ -60,5 +60,6 @@
   },
   "bugs": {
     "url": "https://github.com/coreui/coreui-free-react-admin-template/issues"
-  }
+  },
+  "proxy": "http://localhost:12333"
 }

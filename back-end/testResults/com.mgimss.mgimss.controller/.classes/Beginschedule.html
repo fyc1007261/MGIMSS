@@ -1,0 +1,159 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Beginschedule</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.mgimss.mgimss.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Beginschedule (com.mgimss.mgimss.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Beginschedule</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (1/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    8.3%
+  </span>
+  <span class="absValue">
+    (1/ 12)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.mgimss.mgimss.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.mgimss.mgimss.businessModel.CreateUserThread;
+<i>4</i>&nbsp;import com.mgimss.mgimss.businessModel.CreateSolarThread;
+<i>5</i>&nbsp;import com.mgimss.mgimss.AI.UserMapping;
+<i>6</i>&nbsp;import com.mgimss.mgimss.entity.Job;
+<i>7</i>&nbsp;import com.mgimss.mgimss.entity.User;
+<i>8</i>&nbsp;import com.mgimss.mgimss.repository.*;
+<i>9</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>10</i>&nbsp;import org.springframework.context.ApplicationContext;
+<i>11</i>&nbsp;import org.springframework.security.core.Authentication;
+<i>12</i>&nbsp;import org.springframework.security.core.context.SecurityContext;
+<i>13</i>&nbsp;import org.springframework.security.core.context.SecurityContextHolder;
+<i>14</i>&nbsp;import org.springframework.stereotype.Controller;
+<i>15</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>16</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;import java.util.ArrayList;
+<i>20</i>&nbsp;import java.util.List;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;@RestController
+<b class="fc"><i>23</i>&nbsp;public class Beginschedule</b>
+<i>24</i>&nbsp;{
+<i>25</i>&nbsp;    @Autowired
+<i>26</i>&nbsp;    PendingJobRepository pendingJobRepository;
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    @Autowired
+<i>29</i>&nbsp;    RunningJobRepository runningJobRepository;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    @Autowired
+<i>32</i>&nbsp;    FinishedJobRepository finishedJobRepository;
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    @Autowired
+<i>35</i>&nbsp;    UserRepository userRepository;
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    @Autowired
+<i>38</i>&nbsp;    BattetyRepository battetyRepository;
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    @Autowired
+<i>41</i>&nbsp;    SolarPowerRepository solarPowerRepository;
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    @RequestMapping(&quot;/schedule/begin&quot;)
+<i>44</i>&nbsp;    public void begin() {
+<i>45</i>&nbsp;//        User user;
+<i>46</i>&nbsp;//        //当前用户
+<i>47</i>&nbsp;//        SecurityContext ctx = SecurityContextHolder.getContext();
+<i>48</i>&nbsp;//        Authentication auth = ctx.getAuthentication();
+<i>49</i>&nbsp;//        user = (User) auth.getPrincipal();
+<b class="nc"><i>50</i>&nbsp;        System.out.println(&quot;create thread&quot;);</b>
+<b class="nc"><i>51</i>&nbsp;        Long uid = 1L;</b>
+<b class="nc"><i>52</i>&nbsp;        Thread myThread1 = new CreateUserThread(uid,pendingJobRepository,runningJobRepository,finishedJobRepository,userRepository,battetyRepository,solarPowerRepository);     // 创建一个新的线程  myThread1  此线程进入新建状态// 创建一个新的线程 myThread2 此线程进入新建状态</b>
+<b class="nc"><i>53</i>&nbsp;        UserMapping.usermapping.put(uid,myThread1);</b>
+<b class="nc"><i>54</i>&nbsp;        UserMapping.usermapping.get(uid).start();                     // 调用start()方法使得线程进入就绪状态         // 调用start()方法使得线程进入就绪</b>
+<i>55</i>&nbsp;//		new Timer().schedule(new test(clientId1),4000);
+<i>56</i>&nbsp;//		new Timer().schedule(new test(clientId2),24000);
+<i>57</i>&nbsp;
+<b class="nc"><i>58</i>&nbsp;    }</b>
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    @RequestMapping(&quot;/schedule/solar&quot;)
+<i>61</i>&nbsp;    public void beginSolar() {
+<i>62</i>&nbsp;//        User user;
+<i>63</i>&nbsp;//        //当前用户
+<i>64</i>&nbsp;//        SecurityContext ctx = SecurityContextHolder.getContext();
+<i>65</i>&nbsp;//        Authentication auth = ctx.getAuthentication();
+<i>66</i>&nbsp;//        user = (User) auth.getPrincipal();
+<b class="nc"><i>67</i>&nbsp;        System.out.println(&quot;create solar&quot;);</b>
+<b class="nc"><i>68</i>&nbsp;        Long uid = 1L;</b>
+<i>69</i>&nbsp;                            // 调用start()方法使得线程进入就绪状态         // 调用start()方法使得线程进入就绪
+<i>70</i>&nbsp;//		new Timer().schedule(new test(clientId1),4000);
+<i>71</i>&nbsp;//		new Timer().schedule(new test(clientId2),24000);
+<b class="nc"><i>72</i>&nbsp;        Thread myThread2 = new CreateSolarThread(uid,pendingJobRepository,runningJobRepository,finishedJobRepository,userRepository,battetyRepository,solarPowerRepository);     // 创建一个新的线程  myThread1  此线程进入新建状态// 创建一个新的线程 myThread2 此线程进入新建状态</b>
+<i>73</i>&nbsp;        ;
+<b class="nc"><i>74</i>&nbsp;        myThread2.start();</b>
+<b class="nc"><i>75</i>&nbsp;    }</b>
+<i>76</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-24 15:23</div>
+</div>
+</body>
+</html>

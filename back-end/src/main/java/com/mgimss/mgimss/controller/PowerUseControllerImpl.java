@@ -2,7 +2,9 @@ package com.mgimss.mgimss.controller;
 
 import com.mgimss.mgimss.entity.DailyPowerConsume;
 import com.mgimss.mgimss.entity.User;
+import com.mgimss.mgimss.repository.DailyRepository;
 import com.mgimss.mgimss.repository.PowerUseRepository;
+import com.mgimss.mgimss.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -15,14 +17,17 @@ import java.util.*;
 @RestController
 public class PowerUseControllerImpl implements PowerUseController {
     @Autowired
-    PowerUseRepository powerUseRepository;
+    DailyRepository dailyRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     public String getDailyPowerUse() {
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        User user = (User) auth.getPrincipal();
-
-        List<DailyPowerConsume> AllUse = powerUseRepository.find7daysUse(user.getUid());
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        User user = (User) auth.getPrincipal();
+        User user = userRepository.findByUid(1L);
+        List<DailyPowerConsume> AllUse = dailyRepository.find7daysUse(user.getUid());
         Map<Date, Long> DailyUse = new HashMap<>();
         List<Date> DateList = new ArrayList<>();
 
@@ -51,8 +56,8 @@ public class PowerUseControllerImpl implements PowerUseController {
             );
         }
 
-        if(buf.charAt(buf.length()-1) == ',') {
-            buf.deleteCharAt(buf.length() - 1);
+        if (buf.charAt(buf.length()-1) == ','){
+            buf.deleteCharAt(buf.length()-1);
         }
         buf.append("]}");
 
@@ -60,11 +65,11 @@ public class PowerUseControllerImpl implements PowerUseController {
     }
 
     public String getMonthlyPowerUse() {
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        User user = (User) auth.getPrincipal();
-
-        List<DailyPowerConsume> AllUse = powerUseRepository.find7monthsUse(user.getUid());
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        User user = (User) auth.getPrincipal();
+        User user = userRepository.findByUid(1L);
+        List<DailyPowerConsume> AllUse = dailyRepository.find7monthsUse(user.getUid());
         Map<String, Long> MonthlyUse = new HashMap<>();
         List<String> DateList = new ArrayList<>();
 
@@ -92,20 +97,19 @@ public class PowerUseControllerImpl implements PowerUseController {
                             "},"
             );
         }
-
-        if(buf.charAt(buf.length()-1) == ',') {
-            buf.deleteCharAt(buf.length() - 1);
+        if (buf.charAt(buf.length()-1) == ','){
+            buf.deleteCharAt(buf.length()-1);
         }
         buf.append("]}");
         return buf.toString();
     }
 
     public String getDailyAppsPowerUse(String date) {
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        User user = (User) auth.getPrincipal();
-
-        List<DailyPowerConsume> AllUse = powerUseRepository.findByDate(date, user.getUid());
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        User user = (User) auth.getPrincipal();
+        User user = userRepository.findByUid(1L);
+        List<DailyPowerConsume> AllUse = dailyRepository.findByDate(date, user.getUid());
         Map<String, Long> DailyUse = new HashMap<>();
 
         for(DailyPowerConsume OneUse : AllUse) {
@@ -122,20 +126,20 @@ public class PowerUseControllerImpl implements PowerUseController {
                             "},"
             );
         }
-
-        if(buf.charAt(buf.length()-1) == ',') {
-            buf.deleteCharAt(buf.length() - 1);
+        if (buf.charAt(buf.length()-1) == ','){
+            buf.deleteCharAt(buf.length()-1);
         }
+
         buf.append("]}");
         return buf.toString();
     }
 
     public String getMonthlyAppsPowerUse(String month) {
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        User user = (User) auth.getPrincipal();
-
-        List<DailyPowerConsume> AllUse = powerUseRepository.findByMonth(month, user.getUid());
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        User user = (User) auth.getPrincipal();
+        User user = userRepository.findByUid(1L);
+        List<DailyPowerConsume> AllUse = dailyRepository.findByMonth(month, user.getUid());
         Map<String, Long> MonthlyUse = new HashMap<>();
 
         for(DailyPowerConsume OneUse : AllUse) {
@@ -157,9 +161,8 @@ public class PowerUseControllerImpl implements PowerUseController {
                             "},"
             );
         }
-
-        if(buf.charAt(buf.length()-1) == ',') {
-            buf.deleteCharAt(buf.length() - 1);
+        if (buf.charAt(buf.length()-1) == ','){
+            buf.deleteCharAt(buf.length()-1);
         }
         buf.append("]}");
         return buf.toString();
@@ -172,10 +175,10 @@ public class PowerUseControllerImpl implements PowerUseController {
     }
 
     public String getHighestPowerUse() {
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        User user = (User) auth.getPrincipal();
-
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        User user = (User) auth.getPrincipal();
+        User user = userRepository.findByUid(1L);
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy");
         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM");
         Date Today = new Date();
@@ -184,8 +187,8 @@ public class PowerUseControllerImpl implements PowerUseController {
         Map<String, Long> H_month = new HashMap<>();
         Map<String, Long> H_app_month = new HashMap<>();
         Map<String, Long> H_app_year = new HashMap<>();
-        List<DailyPowerConsume> AllUse = powerUseRepository.findByYear(sdf1.format(Today), user.getUid());
-        List<DailyPowerConsume> MonthUse = powerUseRepository.findByMonth(sdf2.format(Today), user.getUid());
+        List<DailyPowerConsume> AllUse = dailyRepository.findByYear(sdf1.format(Today), user.getUid());
+        List<DailyPowerConsume> MonthUse = dailyRepository.findByMonth(sdf2.format(Today), user.getUid());
 
         for(DailyPowerConsume OneUse : AllUse) {
             Date date = OneUse.getDate();

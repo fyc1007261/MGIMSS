@@ -1,0 +1,165 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ManageJob</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.mgimss.mgimss.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ManageJob (com.mgimss.mgimss.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ManageJob</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    4.3%
+  </span>
+  <span class="absValue">
+    (1/ 23)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.mgimss.mgimss.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.mgimss.mgimss.AI.DataTest;
+<i>4</i>&nbsp;import com.mgimss.mgimss.entity.Appliance;
+<i>5</i>&nbsp;import com.mgimss.mgimss.entity.Job;
+<i>6</i>&nbsp;import com.mgimss.mgimss.entity.User;
+<i>7</i>&nbsp;import com.mgimss.mgimss.repository.*;
+<i>8</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>9</i>&nbsp;import org.springframework.security.core.Authentication;
+<i>10</i>&nbsp;import org.springframework.security.core.context.SecurityContext;
+<i>11</i>&nbsp;import org.springframework.security.core.context.SecurityContextHolder;
+<i>12</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>13</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;import java.util.Optional;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;@RestController
+<b class="fc"><i>18</i>&nbsp;public class ManageJob {</b>
+<i>19</i>&nbsp;    @Autowired
+<i>20</i>&nbsp;    PendingJobRepository pendingJobRepository;
+<i>21</i>&nbsp;    @Autowired
+<i>22</i>&nbsp;    AppStatusRepository appStatusRepository;
+<i>23</i>&nbsp;    @Autowired
+<i>24</i>&nbsp;    ApplianceRepository applianceRepository;
+<i>25</i>&nbsp;    @Autowired
+<i>26</i>&nbsp;    UserRepository userRepository;
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    @Autowired
+<i>29</i>&nbsp;    RunningJobRepository runningJobRepository;
+<i>30</i>&nbsp;    @RequestMapping(&quot;schedule/create_job&quot;)
+<i>31</i>&nbsp;    public String createJob(Long startTime ,Long stopTime, Long lastTime, Long aid) {
+<i>32</i>&nbsp;        User user;
+<i>33</i>&nbsp;//        SecurityContext ctx = SecurityContextHolder.getContext();
+<i>34</i>&nbsp;//        Authentication auth = ctx.getAuthentication();
+<i>35</i>&nbsp;//        user = (User) auth.getPrincipal();
+<b class="nc"><i>36</i>&nbsp;        user = userRepository.findByUid(1L);</b>
+<b class="nc"><i>37</i>&nbsp;        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;        // judge whether the job already exists
+<b class="nc"><i>40</i>&nbsp;        if (pendingJobRepository.findByAppliance(appliance.getAppId()) != null || runningJobRepository.findByAppliance(appliance.getAppId())!=null){</b>
+<b class="nc"><i>41</i>&nbsp;            return &quot;This appliance is already in the schedule list. Please switch off the appliance&quot; +</b>
+<i>42</i>&nbsp;                    &quot;first or modify the schedule instead.&quot;;
+<i>43</i>&nbsp;        }
+<i>44</i>&nbsp;
+<b class="nc"><i>45</i>&nbsp;        Optional&lt;Double&gt; pPower = appStatusRepository.findAvgPowerByAppliance(appliance.getAppId());</b>
+<i>46</i>&nbsp;        Long perPower;
+<b class="nc"><i>47</i>&nbsp;        if (!pPower.isPresent()){</b>
+<b class="nc"><i>48</i>&nbsp;            perPower = appliance.getPower();</b>
+<i>49</i>&nbsp;        }
+<b class="nc"><i>50</i>&nbsp;        else perPower = Math.round(pPower.get());</b>
+<i>51</i>&nbsp;        Job job;
+<b class="nc"><i>52</i>&nbsp;        job = new Job(startTime, stopTime, Long.valueOf(0), Long.valueOf(0), lastTime,</b>
+<i>53</i>&nbsp;                perPower, 0, appliance, user);
+<b class="nc"><i>54</i>&nbsp;        pendingJobRepository.save(job);</b>
+<b class="nc"><i>55</i>&nbsp;        return &quot;success&quot;;</b>
+<i>56</i>&nbsp;    }
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    @RequestMapping(&quot;schedule/delete_job&quot;)
+<i>59</i>&nbsp;    public String deleteJob( Long jid ) {
+<i>60</i>&nbsp;//        User user;
+<i>61</i>&nbsp;//        SecurityContext ctx = SecurityContextHolder.getContext();
+<i>62</i>&nbsp;//        Authentication auth = ctx.getAuthentication();
+<i>63</i>&nbsp;//        user = (User) auth.getPrincipal();
+<b class="nc"><i>64</i>&nbsp;        pendingJobRepository.deleteByJid(jid);</b>
+<b class="nc"><i>65</i>&nbsp;        return &quot;success&quot;;</b>
+<i>66</i>&nbsp;    }
+<i>67</i>&nbsp;
+<i>68</i>&nbsp;    @RequestMapping(&quot;schedule/modify_job&quot;)
+<i>69</i>&nbsp;    public String modifyJob(Long startTime, Long stopTime, Long lastTime, Long jid ) {
+<i>70</i>&nbsp;//        deleteJob(aid);
+<i>71</i>&nbsp;//        createJob(startTime, stopTime, lastTime, aid);
+<b class="nc"><i>72</i>&nbsp;        Job job = pendingJobRepository.findByJobId(jid);</b>
+<b class="nc"><i>73</i>&nbsp;        if(job==null)</b>
+<b class="nc"><i>74</i>&nbsp;            return &quot;Job not exist.&quot;;</b>
+<b class="nc"><i>75</i>&nbsp;        job.setIntStartTime(startTime);</b>
+<b class="nc"><i>76</i>&nbsp;        job.setIntStopTime(stopTime);</b>
+<b class="nc"><i>77</i>&nbsp;        job.setIntTrueStartTime(0L);</b>
+<b class="nc"><i>78</i>&nbsp;        job.setIntTrueStopTime(0L);</b>
+<b class="nc"><i>79</i>&nbsp;        pendingJobRepository.saveAndFlush(job);</b>
+<b class="nc"><i>80</i>&nbsp;        return &quot;success&quot;;</b>
+<i>81</i>&nbsp;    }
+<i>82</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-24 15:23</div>
+</div>
+</body>
+</html>
