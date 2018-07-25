@@ -34,7 +34,7 @@ host = "localhost"
 port = 12334
 
 # battery
-max_power = 200000000
+max_power = 20000
 
 lock = threading.Lock()
 global temp_id

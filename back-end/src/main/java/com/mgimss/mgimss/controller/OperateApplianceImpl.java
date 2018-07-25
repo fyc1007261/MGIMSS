@@ -49,6 +49,9 @@ public class OperateApplianceImpl implements OperateAppliance {
     @Autowired
     GestureRepository gestureRepository;
 
+    @Autowired
+    DailyRepository dailyRepository;
+
     //python calls
     public String post_appliance_status(String time, String id, String voltage, String current, String uid)
     {
@@ -96,6 +99,20 @@ public class OperateApplianceImpl implements OperateAppliance {
         appStatusRepository.save(appStatus);
         System.out.println("HEIHEI");
 
+        Long date1 = recordTime.getTime() / (1000*60*60*24)*(1000*60*60*24)-(1000*60*60*8);
+        Long consumption = Math.round(Double.valueOf(voltage) *Double.valueOf(current)*30);
+        Date date2 = new Date(date1);
+        DailyPowerConsume dailyPowerConsume = dailyRepository.findByDateAndApp(date2,appliance.getAppId());
+        if (dailyPowerConsume ==null)
+        {
+            DailyPowerConsume dailyPowerConsume2 = new DailyPowerConsume(date2,consumption,appliance);
+            dailyRepository.save(dailyPowerConsume2);
+        }
+        else
+        {
+            dailyPowerConsume.setConsumption(dailyPowerConsume.getConsumption()+consumption);
+            dailyRepository.save(dailyPowerConsume);
+        }
         // return time for client to check for validity
         return "success";
     }
