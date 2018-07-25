@@ -61,12 +61,11 @@
   width: 250px;
   height: 300px;
   position: relative;
-  transition: width 0s ease-in-out 0.5s, opacity 0.5s ease-in-out 0.5s;
-  -webkit-transition: width 0s ease-in-out 0.5s, opacity 0.5s ease-in-out 0.5s;
-  -moz-transition: width 0s ease-in-out 0.5s, opacity 0.5s ease-in-out 0.5s;
-  -o-transition: width 0s ease-in-out 0.5s, opacity 0.5s ease-in-out 0.5s;
+  transition: width 0s ease-in-out 1.5s, opacity 0.5s ease-in-out 1.5s;
+  -webkit-transition: width 0s ease-in-out 1.5s, opacity 0.5s ease-in-out 1.5s;
+  -moz-transition: width 0s ease-in-out 1.5s, opacity 0.5s ease-in-out 1.5s;
+  -o-transition: width 0s ease-in-out 1.5s, opacity 0.5s ease-in-out 1.5s;
   background-color: #533f03;
-
 }
 
 .capsule-core {
@@ -74,7 +73,11 @@
   margin-right: auto;
   width: 200px;
   height: 300px;
-
+  position: relative;
+  float: left;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: #81d47d;
 }
 
 .fade {
@@ -87,12 +90,15 @@
 
 }
 
+
 .fade-back {
+
+  width: 100%;
 
   animation-name: capsuleFadeOut-back, capsuleShowUp-back;
   animation-duration: 0.5s, 0.5s;
   animation-timing-function: ease-in-out, ease-in-out;
-  animation-delay: 0s, 0.5s;
+  animation-delay: 1s, 1.5s;
   animation-iteration-count: 1, 1;
   animation-fill-mode: forwards, forwards;
   animation-direction: normal, normal;
@@ -100,7 +106,7 @@
   -webkit-animation-name: capsuleFadeOut-back, capsuleShowUp-back;
   -webkit-animation-duration: 0.5s, 0.5s;
   -webkit-animation-timing-function: ease-in-out, ease-in-out;
-  -webkit-animation-delay: 0s, 0.5s;
+  -webkit-animation-delay: 1s, 1.5s;
   -webkit-animation-iteration-count: 1, 1;
   -webkit-animation-fill-mode: forwards, forwards;
   -webkit-animation-direction: normal, normal;
@@ -108,7 +114,7 @@
   -moz-animation-name: capsuleFadeOut-back, capsuleShowUp-back;
   -moz-animation-duration: 0.5s, 0.5s;
   -moz-animation-timing-function: ease-in-out, ease-in-out;
-  -moz-animation-delay: 0s, 0.5s;
+  -moz-animation-delay: 1s, 1.5s;
   -moz-animation-iteration-count: 1, 1;
   -moz-animation-fill-mode: forwards, forwards;
   -moz-animation-direction: normal, normal;
@@ -141,6 +147,78 @@
   -moz-animation-direction: normal, normal;
 }
 
+.fade-core-h {
+  animation-name: capsuleMove-full;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
+
+  -webkit-animation-name: capsuleMove-full;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-delay: 1s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-direction: normal;
+
+  -moz-animation-name: capsuleMove-full;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-delay: 1s;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-fill-mode: forwards;
+  -moz-animation-direction: normal;
+}
+
+.fade-core-back {
+  animation-name: capsuleMove-back;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
+
+  -webkit-animation-name: capsuleMove-back;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-delay: 0s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-direction: normal;
+
+  -moz-animation-name: capsuleMove-back;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-delay: 0s;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-fill-mode: forwards;
+  -moz-animation-direction: normal;
+}
+
+@media(max-width: 830px){
+  .fade-core-h {
+    left: 50%;
+    animation-direction: reverse;
+    -webkit-animation-direction: reverse;
+    -moz-animation-direction: reverse;
+  }
+  .fade-core-back{
+    animation-name: null;
+    -webkit-animation-name: null;
+    -moz-animation-name: null;
+  }
+  /*.fade-back {*/
+    /*animation-delay: 0s, 0.5s;*/
+    /*-webkit-animation-delay: 0s, 0.5s;*/
+    /*-moz-animation-delay: 0s, 0.5s;*/
+  /*}*/
+
+}
+
 .capsule-canvas-mask {
   margin-left: auto;
   margin-right: auto;
@@ -152,16 +230,7 @@
   border-radius: 100px;
   /*background-color: #533f03;*/
   transform: translate(0, -100%);
-  animation: bodyShowUp 2s ease;
-  animation-delay: 2s;
-  animation-fill-mode: forwards;
-  -moz-animation: bodyShowUp 2s ease;
-  -moz-animation-delay: 2s;
-  -moz-animation-fill-mode: forwards;
-  -webkit-animation: bodyShowUp 2s ease;
-  -webkit-animation-fill-mode: forwards;
-  -webkit-animation-delay: 2s; /* Safari 和 Chrome */
-  opacity: 0;
+
 }
 
 .v-capsule {
@@ -269,6 +338,16 @@
   top: 35%;
   left: 58%;
   transform: translate(6%, -50%);
+  animation: bodyShowUp 2s ease;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+  -moz-animation: bodyShowUp 2s ease;
+  -moz-animation-delay: 2s;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation: bodyShowUp 2s ease;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-delay: 2s; /* Safari 和 Chrome */
+  opacity: 0;
 }
 
 .capbody-content {
@@ -546,11 +625,11 @@
   from {
     opacity: 1;
   }
-  99.98%{
+  99.98% {
     opacity: 0;
 
   }
-  99.99%{
+  99.99% {
     width: 250px;
   }
   100% {
@@ -563,11 +642,11 @@
   from {
     opacity: 1;
   }
-  99.98%{
+  99.98% {
     opacity: 0;
 
   }
-  99.99%{
+  99.99% {
     width: 250px;
   }
   100% {
@@ -580,11 +659,11 @@
   from {
     opacity: 1;
   }
-  99.98%{
+  99.98% {
     opacity: 0;
 
   }
-  99.99%{
+  99.99% {
     width: 250px;
   }
   100% {
@@ -597,19 +676,17 @@
   from {
     opacity: 1;
   }
-  99.98%{
+  99.98% {
     opacity: 0;
 
   }
-  99.99%{
+  99.99% {
     width: 250px;
   }
   100% {
     width: 100%;
   }
 }
-
-
 
 @keyframes capsuleShowUp-full {
   from {
@@ -725,7 +802,7 @@
 @-moz-keyframes capsuleShowUp-back /* Firefox */
 {
   from {
-    opacity: 0;
+
   }
   to {
     opacity: 1;
@@ -751,3 +828,87 @@
     opacity: 1;
   }
 }
+
+@keyframes capsuleMove-full {
+  from {
+    left: 50%;;
+  }
+  to {
+    left: 20%;
+  }
+}
+
+@-moz-keyframes capsuleMove-full /* Firefox */
+{
+  from {
+    left: 50%;;
+  }
+  to {
+    left: 20%;
+  }
+}
+
+@-webkit-keyframes capsuleMove-full /* Safari 和 Chrome */
+{
+  from {
+    left: 50%;;
+  }
+  to {
+    left: 20%;
+  }
+}
+
+@-o-keyframes capsuleMove-full /* Opera */
+{
+  from {
+    left: 50%;;
+  }
+  to {
+    left: 20%;
+  }
+}
+
+
+@keyframes capsuleMove-back {
+  from {
+    left: 20%;
+  }
+  to {
+    left: 50%;
+  }
+}
+
+@-moz-keyframes capsuleMove-back /* Firefox */
+{
+  from {
+    left: 20%;
+  }
+  to {
+    left: 50%;
+  }
+}
+
+@-webkit-keyframes capsuleMove-back /* Safari 和 Chrome */
+{
+  from {
+    left: 20%;
+  }
+  to {
+    left: 50%;
+  }
+}
+
+@-o-keyframes capsuleMove-back /* Opera */
+{
+  from {
+    left: 20%;
+  }
+  to {
+    left: 50%;
+  }
+}
+
+
+
+
+

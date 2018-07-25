@@ -8,10 +8,20 @@ import {AppSwitch} from '@coreui/react';
 import {CustomTooltips} from "@coreui/coreui-plugin-chartjs-custom-tooltips/dist/cjs/custom-tooltips";
 import {getStyle} from '@coreui/coreui/dist/js/coreui-utilities';
 import Appliance from "./Appliance.js"
+import {CurrentChart, VoltageChart} from "../Functions/DynamicChart/AppDynamicChart";
+import Tools from './Tools/Tools'
 
 require('../../css/self.css');
 require('../../css/style.css');
+require('../../css/card.css');
 require('./jquery.textfill.js');
+// require('./card/modernizr-custom');
+// require('./card/classie');
+// require('./card/card');
+// require('./card/dynamics.min');
+// require('./card/main');
+// require('./card/card2');
+
 //
 
 // let appsData = [{"id":1, "status":"Active"},{"id":3, "status": "Inactive"}];
@@ -109,74 +119,14 @@ let cardChartOpts = {
   },
 };
 
-// class ApplianceRow extends Component {
-//
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       appliance: this.props.appliance,
-//       appLink: '/main/apps/' + this.props.appliance.id
-//     };
-//     this.switch_status = this.switch_status.bind(this)
-//
-//   }
-//
-//   switch_status(e) {
-//     let a_id = this.props.appliance.id;
-//     e.target.disabled = 1;
-//     let opt = e.target.checked ? "on" : "off";
-//     let ret_val = "Error with connection";
-//     // alert("a_id: "+a_id + "opt: "+opt);
-//     $.ajax({
-//       type: "GET",
-//       async: false,
-//       url: "http://localhost:12333/appliance/switch_appliance",
-//       data: {aid: a_id, option: opt},
-//       success: function (data) {
-//         ret_val = data;
-//       },
-//       error: function (jqXHR, textStatus, errorThrown) {
-//         alert("！！！!");
-//         alert(jqXHR);
-//         alert(textStatus);
-//         alert(errorThrown);
-//       }
-//     });
-//     if (ret_val === "success") {
-//       this.props.reload();
-//     }
-//     else {
-//       alert(ret_val);
-//       e.target.checked = 1 - e.target.checked;
-//     }
-//     e.target.disabled = 0;
-//   };
-//
-//   render() {
-//
-//     return (
-//       <tr key={this.state.appliance.id.toString()}>
-//         <th scope="row"><Link to={this.state.appLink}>{this.state.appliance["id"]}</Link></th>
-//         <td><Link to={this.state.appLink}>{this.state.appliance["name"]}</Link></td>
-//         <td>{this.state.appliance["status"]}</td>
-//         <td>{this.state.appliance["updated"]}</td>
-//         <td>
-//           <AppSwitch checked={this.state.appliance["status"] === "Active"} onClick={this.switch_status}
-//                      className={'mx-1'} variant={'3d'} outline={'alt'} color={'primary'} label/>
-//         </td>
-//         {/*<td><Badge href={appLink} color={getBadge(appliance.status)}>{appliance.status}</Badge></td>*/}
-//       </tr>
-//     )
-//   }
-// }
-
 class ApplianceCapsule extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       appliance: this.props.appliance,
-      appLink: '/main/apps/' + this.props.appliance.id
+      appLink: '/main/apps/' + this.props.appliance.id,
+      card: 0
     };
     this.switch_status = this.switch_status.bind(this);
     this.capsuleClick = this.capsuleClick.bind(this);
@@ -184,6 +134,7 @@ class ApplianceCapsule extends Component {
     this.deleteClick = this.deleteClick.bind(this);
     this.cancelClick = this.cancelClick.bind(this);
     this.modifyClick = this.modifyClick.bind(this);
+    this.displayCard = this.displayCard.bind(this);
   }
 
   switch_status(e) {
@@ -222,6 +173,18 @@ class ApplianceCapsule extends Component {
     $(".capbody-content").textfill({maxFontPixels: 13, innerTag: 'p'});
   }
 
+  componentDidUpdate(){
+    let card_id = "card" + this.state.appliance["id"];
+    let this_card =$("#" + card_id);
+    if (this.state.card === 1)
+    {
+      if( !this_card.hasClass("card-fade"))
+        this_card.addClass("card-fade");
+    }
+    else{
+      this_card.removeClass("card-fade");
+    }
+  }
   rotate(li, d) {
     $({d: angleStart}).animate({d: d}, {
       step: function (now) {
@@ -304,13 +267,57 @@ class ApplianceCapsule extends Component {
     }
   }
 
+  displayCard() {
+    if (this.state.card === 1) {
+      return (
+        <div className="cardContainer" id={"card" + this.state.appliance["id"]}>
+          <div className="col-12">
+          <ul id="stack_iman" className="stack stack--iman">
+            <li className="stack__item">
+              <div className="card">
+                <VoltageChart aid={this.state.appliance["id"]} alt={"Tree 2"} count={10}/>
+              </div>
+            </li>
+            <li className="stack__item">
+              <div className="card">
+                <CurrentChart aid={this.state.appliance["id"]} alt={"Tree 1"} count={10}/>
+              </div>
+            </li>
+          </ul>
+          </div>
+          <div className="col-12">
+            <div className="controls">
+              <button className="button button--sonar button--reject" data-stack={"stack_iman"}>
+                <i className="fa fa-times"></i>
+                <span className="text-hidden">Reject</span></button>
+              <button className="button button--sonar button--accept" data-stack={"stack_iman"}>
+                <i className="fa fa-check"></i>
+                <span className="text-hidden">Accept</span></button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    else{
+      // Tools.syncDeleteScriptInHead('http://localhost:12333/js/card/modernizr-custom.js', function () {
+      // });
+      // Tools.syncDeleteScripts(['http://localhost:12333/js/card/classie.js',
+      //   'http://localhost:12333/js/card/card.js', 'http://localhost:12333/js/card/dynamics.min.js',
+      //   'http://localhost:12333/js/card/main.js', 'http://localhost:12333/js/card/card2.js'], function () {
+      // });
+    }
+  }
+
   infoClick(e) {
     // alert("info");
     e.stopPropagation();
-
-    let id = "capsule-canvas" + $(e.target).parent().find("input")[0].name;
+    let input = $(e.target).parent().find("input")[0];
+    let id = "capsule-canvas" + input.name;
     let this_capsule = $("#" + id);
-
+    let core_id = "capsule-core" + input.name;
+    let this_capsule_core =$("#" + core_id);
+    let card_id = "card" + this.state.appliance["id"];
+    let this_card =$("#" + card_id);
     let other_capsules = $(".capsule-canvas").not("#" + id);
 
 
@@ -318,21 +325,42 @@ class ApplianceCapsule extends Component {
       // other_capsules.removeClass("fade-back");
       this_capsule.removeClass("fade-h");
       this_capsule.addClass("fade-back");
+      this_capsule_core.removeClass("fade-core-h");
+      this_capsule_core.addClass("fade-core-back");
+      this_card.removeClass("card-fade");
+
+      let that = this;
 
       function removeFadeBack() {
         this_capsule.removeClass("fade-back");
+        that.setState({
+          card: 0
+        });
       }
 
-      setTimeout(removeFadeBack, 1000);
+      setTimeout(removeFadeBack, 2000);
     }
 
     else {
-      other_capsules.removeClass("fade-back");
       this_capsule.removeClass("fade-back");
       this_capsule.addClass("fade-h");
-    }
-    other_capsules.toggleClass("fade");
+      this_capsule_core.removeClass("fade-core-back");
+      this_capsule_core.addClass("fade-core-h");
 
+      this.setState({
+        card: 1
+      });
+      Tools.syncReloadScriptInHead('http://localhost:12333/js/card/modernizr-custom.js', function () {
+      });
+      Tools.syncReloadScripts(['http://localhost:12333/js/card/classie.js',
+        'http://localhost:12333/js/card/card.js', 'http://localhost:12333/js/card/dynamics.min.js',
+        'http://localhost:12333/js/card/main.js', 'http://localhost:12333/js/card/card2.js'], function () {
+      });
+
+
+    }
+
+    other_capsules.toggleClass("fade");
   }
 
   deleteClick(e) {
@@ -393,7 +421,7 @@ class ApplianceCapsule extends Component {
 
     return (
       <div className="capsule-canvas" id={"capsule-canvas" + this.state.appliance["id"]}>
-        <div className="capsule-core">
+        <div className="capsule-core" id={"capsule-core" + this.state.appliance["id"]}>
           <div className="v-capsule" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][0]}}>
             <div className="capsule-body" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][1]}}>
               <div className="capsule-head">
@@ -445,28 +473,27 @@ class ApplianceCapsule extends Component {
                 <li>
                   {/*<Link to={this.state.appLink}>*/}
                   <input id='1' type='checkbox' name={this.state.appliance["id"]}/>
-                  <label for='1' onClick={this.infoClick}>Info</label>
+                  <label htmlFor='1' onClick={this.infoClick}>Info</label>
                   {/*</Link>*/}
                 </li>
                 <li>
                   <input id='2' type='checkbox' name={this.state.appliance["id"]}/>
-                  <label for='2' onClick={this.deleteClick}>Delete</label>
+                  <label htmlFor='2' onClick={this.deleteClick}>Delete</label>
                 </li>
                 <li>
                   <input id='3' type='checkbox' name={this.state.appliance["id"]}/>
-                  <label for='3' onClick={this.cancelClick}>Cancel</label>
+                  <label htmlFor='3' onClick={this.cancelClick}>Cancel</label>
                 </li>
                 <li>
                   <input id='4' type='checkbox' name={this.state.appliance["id"]}/>
-                  <label for='4' onClick={this.modifyClick}>Modify</label>
+                  <label htmlFor='4' onClick={this.modifyClick}>Modify</label>
                 </li>
               </ul>
             </div>
           </div>
         </div>
-
+        {this.displayCard()}
       </div>
-
 
       // <tr key={this.state.appliance.id.toString()}>
       //   <th scope="row"><Link to={this.state.appLink}>{this.state.appliance["id"]}</Link></th>
@@ -528,6 +555,15 @@ class Appliances extends Component {
     // index = Math.floor(Math.random()*(6));
   }
 
+  // componentDidMount() {
+  //   Tools.syncLoadScriptInHead('http://localhost:12333/js/card/modernizr-custom.js', function () {
+  //   });
+  //   Tools.syncLoadScripts(['http://localhost:12333/js/card/classie.js',
+  //     'http://localhost:12333/js/card/card.js', 'http://localhost:12333/js/card/dynamics.min.js',
+  //     'http://localhost:12333/js/card/main.js', 'http://localhost:12333/js/card/card2.js'], function () {
+  //   });
+  // }
+
   render() {
     // show data
     // const appList = appsData.filter((appliance) => appliance.id < 10);
@@ -537,44 +573,14 @@ class Appliances extends Component {
     return (
 
       <div className="animated fadeIn">
-        {/*<Row>*/}
-        {/*<Col xl={6}>*/}
-        {/*<Card>*/}
-        {/*<CardHeader>*/}
-        {/*<i className="fa fa-align-justify"></i> Appliances*/}
-        {/*</CardHeader>*/}
-        {/*<CardBody>*/}
-        {/*<Table responsive hover>*/}
-        {/*<thead>*/}
-        {/*<tr>*/}
-        {/*<th scope="col">ID</th>*/}
-        {/*<th scope="col">Name</th>*/}
-        {/*<th scope="col">Status</th>*/}
-        {/*<th scope="col">Last Updated</th>*/}
-        {/*</tr>*/}
-        {/*</thead>*/}
-        {/*<tbody>*/}
-        {/*{appsData.map((appliance, index) =>*/}
-        {/*<ApplianceRow key={index} appliance={appliance} reload={this.render}/>*/}
-        {/*)}*/}
-        {/*</tbody>*/}
-        {/*</Table>*/}
-        {/*</CardBody>*/}
-        {/*</Card>*/}
-        {/*</Col>*/}
-
-        {/*</Row>*/}
         <Row className="canvas" id="capsuleCanvas">
           {appsData.map((appliance, index) =>
             <ApplianceCapsule key={index} appliance={appliance} reload={this.render}/>
           )}
         </Row>
-        {/*<Row className="canvas">*/}
-          {/*{appsData.map((appliance, index) =>*/}
-            {/*<Appliance id={appliance.id} count={10} reload={this.render}/>*/}
-          {/*)}*/}
-        {/*</Row>*/}
+
       </div>
+
     )
   }
 }
