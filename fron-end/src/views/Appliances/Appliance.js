@@ -7,15 +7,16 @@ let appsData = [];
 
 class Appliance extends Component {
 
-  constructor(props) {
+  constructor(props){
     super(props);
+    let aid = this.props.id;
     $.ajax({
       type: "GET",
       async: false,
       url: "http://localhost:12333/appliance/get_info_by_id",
-      data: {"id": this.props.id},
+      data:{"id": aid},
       context: document.body,
-      success: function (data) {
+      success: function(data){
         appsData.push($.parseJSON(data.toString()));
       }
     });
@@ -55,7 +56,6 @@ class Appliance extends Component {
             </CardBody>
           </Card>
         </Col>
-
 
       </div>
     )

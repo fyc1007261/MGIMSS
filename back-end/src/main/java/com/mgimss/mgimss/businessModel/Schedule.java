@@ -41,6 +41,8 @@ public class Schedule {
             j = 19;
         }
         Long charge = solarPredictData[j];
+        if (charge < 0L)
+            charge = 0L;
         return charge;
     }
     public Long getSolarBackCharge(Long time)
@@ -169,7 +171,7 @@ public class Schedule {
                             }
 
                             simulateTime+= timeSlice;
-                            System.out.println("simulateTime:"+simulateTime);
+                            //System.out.println("simulateTime:"+simulateTime);
                         }//结束模拟阶段
                         System.out.println("applianceId:"+pendJob.get(i).getAppliance().getAid()+"doTime:"+doTime+"cost:"+cost);
                         if (maxcost > cost )
@@ -282,7 +284,7 @@ public class Schedule {
                             }
 
                             simulateTime+= timeSlice;
-                            System.out.println("simulateTime:"+simulateTime);
+                            //System.out.println("simulateTime:"+simulateTime);
                         }//结束模拟阶段
                         System.out.println("applianceId:"+pendJob.get(i).getAppliance().getAid()+"doTime:"+doTime+"cost:"+cost);
                         if (maxcost > cost )

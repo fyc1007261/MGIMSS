@@ -1,34 +1,34 @@
 import React, { Component } from 'react';
 import { Row, Col, Button } from 'reactstrap';
-import './profile_card.css';
+import '../../../css/profile_card.css';
 import avatar from './m.jpg';
 import $ from "jquery";
 
 class UserInfo extends Component {
   render() {
-    // let username = "Ming";
-    // let num_of_apps = 11;
-    // let cell_phone = "12345678950";
-    // let email = "aaaaaaaaMing@gmail.com";
+    let username = "Ming";
+    let num_of_apps = 11;
+    let cell_phone = "12345678950";
+    let email = "aaaaaaaaMing@gmail.com";
 
-    let username = "";
-    let num_of_apps = 0;
-    let cell_phone = "";
-    let email = "";
-
-    $.ajax({
-      url:"/user/get_user_info",
-      context:document.body,
-      async:false,
-      type:"get",
-      success:function (data) {
-        let tmpInfo = $.parseJSON(data);
-        username = tmpInfo["username"];
-        cell_phone = tmpInfo["phone"];
-        email = tmpInfo["email"];
-        num_of_apps = tmpInfo["num"];
-      }
-    });
+    // let username = "";
+    // let num_of_apps = 0;
+    // let cell_phone = "";
+    // let email = "";
+    //
+    // $.ajax({
+    //   url:"/user/get_user_info",
+    //   context:document.body,
+    //   async:false,
+    //   type:"get",
+    //   success:function (data) {
+    //     let tmpInfo = $.parseJSON(data);
+    //     username = tmpInfo["username"];
+    //     cell_phone = tmpInfo["phone"];
+    //     email = tmpInfo["email"];
+    //     num_of_apps = tmpInfo["num"];
+    //   }
+    // });
     return (
       <div className="profile-card">
         <p>

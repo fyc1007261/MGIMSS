@@ -7,48 +7,46 @@ let Now = new Date();
 const date = Now.getFullYear() + "-" + (Now.getMonth() < 9 ? "0" : "") + (Now.getMonth() + 1) + "-" + (Now.getDate() < 10 ? "0" : "") + (Now.getDate() - 1);
 const month = Now.getFullYear() + "-" + (Now.getMonth() < 9 ? "0" : "") + (Now.getMonth() + 1);
 
-const options = {
-  responsive: true
-};
+// let DayData = [["light1","light2","light3","light4"],[8,12,4,7]];
+// let MonthData = [["light1","light2","light3","light4"],[198,224,137,127]];
 
-  let DayData = [["light1","light2","light3","light4"],[8,12,4,7]];
-let MonthData = [["light1","light2","light3","light4"],[198,224,137,127]];
+let DayData = [[],[]];
+let MonthData = [[],[]];
 
-// let DayData = [[],[]];
-// let MonthData = [[],[]];
-//
-// $.ajax({
-//   url:"/fun/getDailyAppsPowerUse",
-//   data:{
-//     date : date
-//   },
-//   context:document.body,
-//   async:false,
-//   type:"get",
-//   success:function (data) {
-//     let tmpDayData = $.parseJSON(data);
-//     tmpDayData["power"].forEach((dayData) => {
-//       DayData[0].push(dayData["appname"]);
-//       DayData[1].push(dayData["use"]);
-//     });
-//   }
-// });
-// $.ajax({
-//   url:"/fun/getMonthlyAppsPowerUse",
-//   data:{
-//     month : month
-//   },
-//   context:document.body,
-//   async:false,
-//   type:"get",
-//   success:function (data) {
-//     let tmpMonthData = $.parseJSON(data);
-//     tmpMonthData["power"].forEach((monthData) => {
-//       MonthData[0].push(monthData["appname"]);
-//       MonthData[1].push(monthData["use"]);
-//     });
-//   }
-// });
+$.ajax({
+  url:"/fun/getDailyAppsPowerUse",
+  data:{
+    date : date
+  },
+  context:document.body,
+  async:false,
+  type:"get",
+  success:function (data) {
+
+    let tmpDayData = $.parseJSON(data);
+    tmpDayData["power"].forEach((dayData) => {
+      DayData[0].push(dayData["appname"]);
+      DayData[1].push(dayData["use"]);
+    });
+  }
+});
+$.ajax({
+  url:"/fun/getMonthlyAppsPowerUse",
+  data:{
+    month : month
+  },
+  context:document.body,
+  async:false,
+  type:"get",
+  success:function (data) {
+
+    let tmpMonthData = $.parseJSON(data);
+    tmpMonthData["power"].forEach((monthData) => {
+      MonthData[0].push(monthData["appname"]);
+      MonthData[1].push(monthData["use"]);
+    });
+  }
+});
 
 let DayUse = DayData[1].slice();
 let MonthUse = MonthData[1].slice();
@@ -62,6 +60,10 @@ for(let i = 0; i < MonthUse.length; i++) {
   }
   colors.push(Colors[j]);
 }
+
+const options = {
+  responsive: true
+};
 
 const pie = {
   labels: DayData[0],
@@ -129,67 +131,74 @@ class AppsPowerUse extends Component {
   };
 
   getDayUse = () => {
-    // $.ajax({
-    //   url:"/fun/getDailyAppsPowerUse",
-    //   data:{
-    //     date : this.state.date
-    //   },
-    //   context:document.body,
-    //   async:false,
-    //   type:"get",
-    //   success:function (data) {
-    //     let tmpDayData = $.parseJSON(data);
-    //     let newDayData = [];
-    //     tmpDayData["power"].forEach((dayData) => {
-    //       newDayData.push(dayData["use"]);
-    //     });
-    //     DayUse = newDayData.slice();
-    //   }
-    // });
-    // let oldPie = this.state.pie.datasets[0];
-    // let newPie = {
-    //   ...oldPie
-    // };
-    // newPie.data = DayUse;
-    // let newLable = DayData[0];
-    // this.setState({
-    //   pie : {
-    //     labels : newLable,
-    //     datasets : [newPie]
-    //   }
-    // });
+    $.ajax({
+      url:"/fun/getDailyAppsPowerUse",
+      data:{
+        date : this.state.date
+      },
+      context:document.body,
+      async:false,
+      type:"get",
+      success:function (data) {
+        console.log(data);
+        let tmpDayData = $.parseJSON(data);
+        let newDayData = [];
+        let newDaydate2 = [];
+        tmpDayData["power"].forEach((dayData) => {
+          newDayData.push(dayData["use"]);
+          newDaydate2.push(dayData["appname"])
+        });
+        DayData[0] = newDaydate2.slice();
+        DayUse = newDayData.slice();
+      }
+    });
+    let oldPie = this.state.pie.datasets[0];
+    let newPie = {
+      ...oldPie
+    };
+    newPie.data = DayUse;
+    let newLable = DayData[0];
+    this.setState({
+      pie : {
+        labels : newLable,
+        datasets : [newPie]
+      }
+    });
   };
 
   getMonthUse = () => {
-    // $.ajax({
-    //   url:"/fun/getMonthlyAppsPowerUse",
-    //   data:{
-    //     month : this.state.month
-    //   },
-    //   context:document.body,
-    //   async:false,
-    //   type:"get",
-    //   success:function (data) {
-    //     let tmpMonthData = $.parseJSON(data);
-    //     let newMonthData = [];
-    //     tmpMonthData["power"].forEach((monthData) => {
-    //       newMonthData.push(monthData["use"]);
-    //     });
-    //     MonthUse = newMonthData.slice();
-    //   }
-    // });
-    // let oldPie = this.state.pie.datasets[0];
-    // let newPie = {
-    //   ...oldPie
-    // };
-    // newPie.data = MonthUse;
-    // let newLable = MonthData[0];
-    // this.setState({
-    //   pie : {
-    //     labels : newLable,
-    //     datasets : [newPie]
-    //   }
-    // });
+    $.ajax({
+      url:"/fun/getMonthlyAppsPowerUse",
+      data:{
+        month : this.state.month
+      },
+      context:document.body,
+      async:false,
+      type:"get",
+      success:function (data) {
+        let tmpMonthData = $.parseJSON(data);
+        let newMonthData = [];
+        let newMonthData2 = [];
+        tmpMonthData["power"].forEach((monthData) => {
+          newMonthData.push(monthData["use"]);
+          newMonthData2.push(monthData["appname"]);
+        });
+        MonthUse = newMonthData.slice();
+        MonthData[0] = newMonthData2.slice();
+      }
+    });
+    let oldPie = this.state.pie.datasets[0];
+    let newPie = {
+      ...oldPie
+    };
+    newPie.data = MonthUse;
+    let newLable = MonthData[0];
+    this.setState({
+      pie : {
+        labels : newLable,
+        datasets : [newPie]
+      }
+    });
   };
 
   render() {

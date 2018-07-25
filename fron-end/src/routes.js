@@ -193,13 +193,35 @@ const Profile = Loadable({
   loading: Loading,
 });
 
-
 const Notification = Loadable({
   loader: () => import('./views/User/Notification/Notification'),
   loading: Loading,
 });
+
 const getMedia = Loadable({
   loader: () => import('./views/getMedia/getMedia'),
+  loading: Loading,
+});
+
+const forecast = Loadable({
+  loader: () => import('./views/getMedia/forecast'),
+  loading: Loading,
+});
+
+
+const Avatar = Loadable({
+  loader: () => import('./views/User/Avatar/Avatar'),
+  loading: Loading,
+});
+
+
+const Schedule = Loadable({
+  loader: () => import('./views/Schedules/Schedule'),
+  loading: Loading,
+});
+
+const Schedules = Loadable({
+  loader: () => import('./views/Schedules/Schedules'),
   loading: Loading,
 });
 
@@ -250,8 +272,12 @@ const routes = [
   { path: '/main/fun/poweruse', name: 'Power Use', component: PowerUse },
   { path: '/main/user', exact: true, name: 'User', component: Profile },
   { path: '/main/user/profile', name: 'Profile', component: Profile },
-  { path: '/main/user/notification', name: 'Notification', component: Notification },
+  // { path: '/main/user/avatar', name: 'Avatar', component: Avatar },
+  // { path: '/main/user/notification', name: 'Notification', component: Notification },
   { path: '/main/getMedia', name: 'AI小微', component: getMedia },
+  { path: '/main/forecast', name: '小微预测', component: forecast },
+  { path: '/main/schedule', name: 'AI小微', component: Schedules },
+  { path: '/main/schedule/:id', name: '小微预测', component: Schedule },
 ];
 
 export default routes;

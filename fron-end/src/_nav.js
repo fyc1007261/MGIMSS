@@ -311,6 +311,11 @@ export default {
       icon: 'icon-cursor',
     },
     {
+      name: '小微预测',
+      url: '/main/forecast',
+      icon: 'icon-cursor',
+    },
+    {
       title: true,
       name: 'User',
       wrapper: {
@@ -328,11 +333,16 @@ export default {
           url: '/main/user/profile',
           icon: 'cui-clipboard',
         },
-        {
-          name: 'Notification',
-          url: '/main/user/notification',
-          icon: 'cui-bullhorn',
-        },
+        // {
+        //   name: 'Avatar',
+        //   url: '/main/user/avatar',
+        //   icon: 'cui-camera',
+        // },
+        // {
+        //   name: 'Notification',
+        //   url: '/main/user/notification',
+        //   icon: 'cui-bullhorn',
+        // },
       ],
     },
     {

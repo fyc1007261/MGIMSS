@@ -18,9 +18,8 @@ import { DefaultLayout } from './containers';
 // Pages
 import { Login, Page404, Page500, Register } from './views/Pages';
 
-import  getMedia  from './views/getMedia/getMedia';
-
 // import { renderRoutes } from 'react-router-config';
+import getMedia from '../src/views/getMedia/getMedia';
 
 class App extends Component {
   render() {

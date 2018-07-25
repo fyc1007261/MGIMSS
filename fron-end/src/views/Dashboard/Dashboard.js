@@ -499,8 +499,8 @@ const mainChartOpts = {
 
 
 
-let moneyBefore = [41,44,43,38,49,47,45,45,47,46,49,43,41,49,42,48,47,46,43,41,42,47,48,45,44,43,46,50,53,48,43,44,43,46,41,48,47,45,49,53];
-let moneyAfter = [38,40,41,37,44,46,42,41,43,43,42,38,37,45,37,46,42,44,35,38,41,44,43,43,41,39,45,44,49,41,41,41,38,42,34,46,45,42,47,51];
+//let moneyBefore = [41,44,43,38,49,47,45,45,47,46,49,43,41,49,42,48,47,46,43,41,42,47,48,45,44,43,46,50,53,48,43,44,43,46,41,48,47,45,49,53];
+//let moneyAfter = [38,40,41,37,44,46,42,41,43,43,42,38,37,45,37,46,42,44,35,38,41,44,43,43,41,39,45,44,49,41,41,41,38,42,34,46,45,42,47,51];
 
 // let moneyBefore = [];
 // let moneyAfter = [];
@@ -517,14 +517,58 @@ let moneyAfter = [38,40,41,37,44,46,42,41,43,43,42,38,37,45,37,46,42,44,35,38,41
 //     });
 //   }
 // });
-
+let moneyBefore = []
+let showtu3 = []
+let moneyAfter = []
 class MyDashboard extends Component {
+  componentWillMount() {
+    showtu3 = []
+    var xmlhttp;
+    if (window.XMLHttpRequest)
+    {
+      //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+      xmlhttp=new XMLHttpRequest();
+    }
+    xmlhttp.onreadystatechange=function()
+    {
+      if (xmlhttp.readyState==4 && xmlhttp.status==200)
+      {
+        moneyBefore = JSON.parse(xmlhttp.responseText)
+      }
+    }
+
+    xmlhttp.open("GET","/electric/charge",false);
+    xmlhttp.send();
+    var xmlhttp;
+    if (window.XMLHttpRequest)
+    {
+      //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+      xmlhttp=new XMLHttpRequest();
+    }
+    xmlhttp.onreadystatechange=function()
+    {
+      if (xmlhttp.readyState==4 && xmlhttp.status==200)
+      {
+        moneyAfter = JSON.parse(xmlhttp.responseText)
+      }
+    }
+
+    xmlhttp.open("GET","/electric/charge2",false);
+    xmlhttp.send();
+    var myDate = new Date();
+    var ltime = Math.floor(myDate.getTime()/(1000*60*60*24))*(1000*60*60*24)-8*1000*60*60;
+    for (var ii = 0 ; ii<10; ii++)
+    {
+      var myDate1 = new Date(ltime- (9-ii) * (1000*60*60*24));
+      showtu3.push(myDate1.toLocaleString());
+    }
+  }
   render() {
     const mainChart1 = {
-      labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      labels: showtu3,
       datasets: [
         {
-          label: 'Money Use Before Schedule',
+          label: 'charge in',
           backgroundColor: hexToRgba(brandInfo, 10),
           borderColor: brandInfo,
           pointHoverBackgroundColor: '#fff',
@@ -545,7 +589,7 @@ class MyDashboard extends Component {
           data: moneyBefore,
         },
         {
-          label: 'Money Use After Schedule',
+          label: 'charge out',
           backgroundColor: 'transparent',
           borderColor: brandSuccess,
           pointHoverBackgroundColor: '#fff',
@@ -598,7 +642,7 @@ class MyDashboard extends Component {
       total_before += moneyBefore[i];
       total_after += moneyAfter[i];
     }
-    let rate = ((total_before - total_after) / total_before).toFixed(2) * 100;
+    let rate = ((total_before) / total_after).toFixed(2) * 100;
 
     return(
       <Row>
@@ -607,8 +651,8 @@ class MyDashboard extends Component {
             <CardBody>
               <Row>
                 <Col sm="5">
-                  <CardTitle className="mb-0">Money Save</CardTitle>
-                  <div className="small text-muted">Recent 30 days</div>
+                  <CardTitle className="mb-0">charge</CardTitle>
+                  <div className="small text-muted">Recent 10 days</div>
                 </Col>
               </Row>
               <div className="chart-wrapper" style={{ height: 300 + 'px', marginTop: 40 + 'px' }}>
@@ -618,16 +662,16 @@ class MyDashboard extends Component {
             <CardFooter>
               <Row className="text-center">
                 <Col sm={12} md className="mb-sm-2 mb-0">
-                  <div className="text-muted">Money Use Before Schedule</div>
+                  <div className="text-muted">check in</div>
                   <strong>{total_before}</strong>
                 </Col>
                 <Col sm={12} md className="mb-sm-2 mb-0">
-                  <div className="text-muted">Money Use After Schedule</div>
+                  <div className="text-muted">check out</div>
                   <strong>{total_after}</strong>
                 </Col>
                 <Col sm={12} md className="mb-sm-2 mb-0">
                   <div className="text-muted">Money Save</div>
-                  <strong>{total_before - total_after} ({rate}%)</strong>
+                  <strong>{total_before} ({rate}%)</strong>
                   <Progress className="progress-xs mt-2" color="success" value={rate} />
                 </Col>
               </Row>

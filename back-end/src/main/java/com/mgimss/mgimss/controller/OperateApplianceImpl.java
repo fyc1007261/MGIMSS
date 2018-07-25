@@ -3,6 +3,7 @@ package com.mgimss.mgimss.controller;
 
 import com.mgimss.mgimss.entity.*;
 import com.mgimss.mgimss.repository.*;
+import com.mgimss.mgimss.utils.GetUserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -30,24 +31,31 @@ import static com.mgimss.mgimss.utils.ToJson.MapToJson;
 public class OperateApplianceImpl implements OperateAppliance {
 
     @Autowired
-    AppStatusRepository appStatusRepository;
+    public AppStatusRepository appStatusRepository;
 
     @Autowired
-    ApplianceRepository applianceRepository;
+    public ApplianceRepository applianceRepository;
 
     @Autowired
-    UserRepository userRepository;
+    public  UserRepository userRepository;
 
     @Autowired
-    PendingJobRepository pendingJobRepository;
+    public PendingJobRepository pendingJobRepository;
 
     @Autowired
-    RunningJobRepository runningJobRepository;
+    public RunningJobRepository runningJobRepository;
 
     @Autowired
-    FinishedJobRepository finishedJobRepository;
+    public FinishedJobRepository finishedJobRepository;
+
     @Autowired
-    GestureRepository gestureRepository;
+    public GestureRepository gestureRepository;
+
+    @Autowired
+    public GetUserContext getUserContext;
+
+    @Autowired
+    DailyRepository dailyRepository;
 
     //python calls
     public String post_appliance_status(String time, String id, String voltage, String current, String uid)
@@ -63,17 +71,14 @@ public class OperateApplianceImpl implements OperateAppliance {
 
         //用电器的id
         aid = Long.valueOf(id);
-
-        System.out.println("got in");
         //当前用户
-        user = userRepository.findByUid(Long.valueOf(uid));
+        user = getUserContext.getUser();
         //用电器
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
 
         if(appliance == null){
             return "err: no such appliance";
         }
-
 
         //信息发送时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -90,12 +95,24 @@ public class OperateApplianceImpl implements OperateAppliance {
         presentVoltage = Float.valueOf(voltage);
         presentCurrent = Float.valueOf(current);
 
-        System.out.println("HAHA");
         //记录入appStatus表
         AppStatus appStatus = new AppStatus(appliance, recordTime, presentVoltage, presentCurrent);
         appStatusRepository.save(appStatus);
-        System.out.println("HEIHEI");
 
+        Long date1 = recordTime.getTime() / (1000*60*60*24)*(1000*60*60*24)-(1000*60*60*8);
+        Long consumption = Math.round(Double.valueOf(voltage) *Double.valueOf(current)*30);
+        Date date2 = new Date(date1);
+        DailyPowerConsume dailyPowerConsume = dailyRepository.findByDateAndApp(date2,appliance.getAppId());
+        if (dailyPowerConsume ==null)
+        {
+            DailyPowerConsume dailyPowerConsume2 = new DailyPowerConsume(date2,consumption,appliance);
+            dailyRepository.save(dailyPowerConsume2);
+        }
+        else
+        {
+            dailyPowerConsume.setConsumption(dailyPowerConsume.getConsumption()+consumption);
+            dailyRepository.save(dailyPowerConsume);
+        }
         // return time for client to check for validity
         return "success";
     }
@@ -111,16 +128,9 @@ public class OperateApplianceImpl implements OperateAppliance {
         Date send_time;
         Job job;
 
-        //发送时间
         send_time = new Date();
-
-        //用电器的id
         aid = Long.valueOf(id);
-
-        //当前用户
-        user = userRepository.findByUid(Long.valueOf(1));
-
-        //用电器
+        user = getUserContext.getUser();
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
 
         if(appliance == null){
@@ -160,7 +170,6 @@ public class OperateApplianceImpl implements OperateAppliance {
                         perPower, 1, appliance, user);
             }
             else{
-
                 job.setAppliance(appliance);
                 job.setStatus(1);
                 Long curTime = new Date().getTime()/1000;
@@ -190,7 +199,7 @@ public class OperateApplianceImpl implements OperateAppliance {
 //        user = (User) auth.getPrincipal();
 
 
-        user = userRepository.findByUid(Long.valueOf(1));
+        user = getUserContext.getUser();
         if (!gesture.equals( "none"))
         {
             Gesture gest = new Gesture(gesture,name,user);
@@ -236,9 +245,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         String send_message;
         String recv_message;
 
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        user = (User) auth.getPrincipal();
+        user = getUserContext.getUser();
 
         System.out.println("APPLIANCE");
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
@@ -268,9 +275,10 @@ public class OperateApplianceImpl implements OperateAppliance {
     public String modify_appliance(Long aid, String mfrs, Long power,String gesture){
         User user;
         //当前用户
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        user = (User) auth.getPrincipal();
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        user = (User) auth.getPrincipal();
+        user = getUserContext.getUser();
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
         appliance.setMfrs(mfrs);
         appliance.setPower(power);
@@ -300,7 +308,7 @@ public class OperateApplianceImpl implements OperateAppliance {
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
 
-        user = userRepository.findByUid(1L);
+        user = getUserContext.getUser();
 
         if(option.equals("on")) new_state = 1;
         else if (option.equals("off")) new_state = 0;
@@ -346,7 +354,7 @@ public class OperateApplianceImpl implements OperateAppliance {
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
 
-        user = userRepository.findByUid(1L);
+        user = getUserContext.getUser();
 
         System.out.println("APPLIANCE");
 

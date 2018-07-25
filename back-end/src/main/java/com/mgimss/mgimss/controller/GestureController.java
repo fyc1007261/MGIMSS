@@ -74,12 +74,20 @@ public class GestureController {
                     Speechgenrate.voice("用电器开启成功");
 
                 }
+                else
+                {
+                    Speechgenrate.voice("用电器开启失败");
+                }
             }
             else{
                 String result2 = open_close_appliance(appliance.getAid(), "off");
                 if (!result2.contains("err")) {
                     Speechgenrate.voice("用电器关闭成功");
 
+                }
+                else
+                {
+                    Speechgenrate.voice("用电器关闭失败");
                 }
             }
             System.out.println(result);
