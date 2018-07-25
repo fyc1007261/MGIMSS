@@ -100,7 +100,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         appStatusRepository.save(appStatus);
 
         Long date1 = recordTime.getTime() / (1000*60*60*24)*(1000*60*60*24)-(1000*60*60*8);
-        Long consumption = Math.round(Double.valueOf(voltage) *Double.valueOf(current)*30);
+        Long consumption = Math.round(Double.valueOf(voltage) *Double.valueOf(current)*5);
         Date date2 = new Date(date1);
         DailyPowerConsume dailyPowerConsume = dailyRepository.findByDateAndApp(date2,appliance.getAppId());
         if (dailyPowerConsume ==null)
@@ -356,13 +356,13 @@ public class OperateApplianceImpl implements OperateAppliance {
 
         user = getUserContext.getUser();
 
-        System.out.println("APPLIANCE");
+        System.out.println("APPLIANCE+"+count);
 
         //查询电器
         appliance = applianceRepository.findByUserAndAid(user.getUid(), Long.valueOf(aid));
 
         //查询区间(5s)的开始时间
-        start_time = new Date(end_time.getTime() - (long)(5 * 1000 * Long.valueOf(count)));
+        start_time = new Date(end_time.getTime() - (long)(30 * 1000 * Long.valueOf(count)));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         sTime = sdf.format(start_time);
