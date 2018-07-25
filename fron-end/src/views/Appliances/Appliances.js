@@ -126,7 +126,8 @@ class ApplianceCapsule extends Component {
     this.state = {
       appliance: this.props.appliance,
       appLink: '/main/apps/' + this.props.appliance.id,
-      card: 0
+      card: 0,
+      detail: 0
     };
     this.switch_status = this.switch_status.bind(this);
     this.capsuleClick = this.capsuleClick.bind(this);
@@ -135,6 +136,7 @@ class ApplianceCapsule extends Component {
     this.cancelClick = this.cancelClick.bind(this);
     this.modifyClick = this.modifyClick.bind(this);
     this.displayCard = this.displayCard.bind(this);
+    this.displayCapsule = this.displayCapsule.bind(this);
   }
 
   switch_status(e) {
@@ -267,6 +269,56 @@ class ApplianceCapsule extends Component {
     }
   }
 
+  displayCapsule(){
+    if (this.state.detail === 1){
+
+    }
+    else{
+      return(
+        <div className="v-capsule" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][0]}}>
+          <div className="capsule-body" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][1]}}>
+            <div className="capsule-head">
+              <div className="caphead">
+                <span style={{
+                  backgroundColor: ColorScheme[this.state.appliance["id"] % 6][2],
+                  color: ColorScheme[this.state.appliance["id"] % 6][1]
+                }}>ID-{this.state.appliance["id"]}</span>
+                <p style={{color: ColorScheme[this.state.appliance["id"] % 6][1]}}>{this.state.appliance["name"]}</p>
+              </div>
+            </div>
+          </div>
+          <div className="capbody-row">
+            <div className="capbody-item" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
+              <span>Status</span></div>
+            <div className="capbody-content">
+
+            </div>
+          </div>
+          <div className="capbody-row">
+            <div className="capbody-item" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
+              <span>Update</span></div>
+            <div className="capbody-content">
+              <p>{this.state.appliance["updated"]}</p>
+            </div>
+          </div>
+          <div className="capbody-row">
+            <div className="capbody-item" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
+              <span>Runtime</span></div>
+            <div className="capbody-content">
+              <p>EMMM</p>
+            </div>
+          </div>
+          <div className="capbody-row">
+            <div className="capbody-line">
+              <Bar data={cardChartData} options={cardChartOpts} height={90}/>
+            </div>
+            <div className="capbody-line-mask">
+            </div>
+          </div>
+        </div>
+      )
+    }
+  }
   displayCard() {
     if (this.state.card === 1) {
       return (
@@ -422,47 +474,7 @@ class ApplianceCapsule extends Component {
     return (
       <div className="capsule-canvas" id={"capsule-canvas" + this.state.appliance["id"]}>
         <div className="capsule-core" id={"capsule-core" + this.state.appliance["id"]}>
-          <div className="v-capsule" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][0]}}>
-            <div className="capsule-body" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][1]}}>
-              <div className="capsule-head">
-                <div className="caphead">
-                <span style={{
-                  backgroundColor: ColorScheme[this.state.appliance["id"] % 6][2],
-                  color: ColorScheme[this.state.appliance["id"] % 6][1]
-                }}>ID-{this.state.appliance["id"]}</span>
-                  <p style={{color: ColorScheme[this.state.appliance["id"] % 6][1]}}>{this.state.appliance["name"]}</p>
-                </div>
-              </div>
-            </div>
-            <div className="capbody-row">
-              <div className="capbody-item" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
-                <span>Status</span></div>
-              <div className="capbody-content">
-
-              </div>
-            </div>
-            <div className="capbody-row">
-              <div className="capbody-item" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
-                <span>Update</span></div>
-              <div className="capbody-content">
-                <p>{this.state.appliance["updated"]}</p>
-              </div>
-            </div>
-            <div className="capbody-row">
-              <div className="capbody-item" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
-                <span>Runtime</span></div>
-              <div className="capbody-content">
-                <p>EMMM</p>
-              </div>
-            </div>
-            <div className="capbody-row">
-              <div className="capbody-line">
-                <Bar data={cardChartData} options={cardChartOpts} height={90}/>
-              </div>
-              <div className="capbody-line-mask">
-              </div>
-            </div>
-          </div>
+          {this.displayCapsule()}
           <div className="capsule-canvas-mask" onClick={this.capsuleClick}>
             <AppSwitch checked={this.state.appliance["status"] === "Active"}
                        onClick={this.switch_status}
@@ -492,6 +504,7 @@ class ApplianceCapsule extends Component {
             </div>
           </div>
         </div>
+
         {this.displayCard()}
       </div>
 
