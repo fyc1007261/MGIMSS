@@ -267,8 +267,8 @@ const routes = [
   { path: '/main/fun/dynamicChart', name: 'Dynamic Chart', component: DynamicChart },
   { path: '/main/user', exact: true, name: 'User', component: Profile },
   { path: '/main/user/profile', name: 'Profile', component: Profile },
-  { path: '/main/user/avatar', name: 'Avatar', component: Avatar },
-  { path: '/main/user/notification', name: 'Notification', component: Notification },
+  // { path: '/main/user/avatar', name: 'Avatar', component: Avatar },
+  // { path: '/main/user/notification', name: 'Notification', component: Notification },
   { path: '/main/getMedia', name: 'AI小微', component: getMedia },
   { path: '/main/forecast', name: '小微预测', component: forecast },
 ];

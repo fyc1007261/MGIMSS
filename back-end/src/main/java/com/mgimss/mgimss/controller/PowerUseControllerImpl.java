@@ -51,7 +51,9 @@ public class PowerUseControllerImpl implements PowerUseController {
             );
         }
 
-        buf.deleteCharAt(buf.length() - 1);
+        if(buf.charAt(buf.length()-1) == ',') {
+            buf.deleteCharAt(buf.length() - 1);
+        }
         buf.append("]}");
 
         return buf.toString();
@@ -91,7 +93,9 @@ public class PowerUseControllerImpl implements PowerUseController {
             );
         }
 
-        buf.deleteCharAt(buf.length() - 1);
+        if(buf.charAt(buf.length()-1) == ',') {
+            buf.deleteCharAt(buf.length() - 1);
+        }
         buf.append("]}");
         return buf.toString();
     }
@@ -119,7 +123,9 @@ public class PowerUseControllerImpl implements PowerUseController {
             );
         }
 
-        buf.deleteCharAt(buf.length() - 1);
+        if(buf.charAt(buf.length()-1) == ',') {
+            buf.deleteCharAt(buf.length() - 1);
+        }
         buf.append("]}");
         return buf.toString();
     }
@@ -152,7 +158,9 @@ public class PowerUseControllerImpl implements PowerUseController {
             );
         }
 
-        buf.deleteCharAt(buf.length() - 1);
+        if(buf.charAt(buf.length()-1) == ',') {
+            buf.deleteCharAt(buf.length() - 1);
+        }
         buf.append("]}");
         return buf.toString();
     }
