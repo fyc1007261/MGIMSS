@@ -8,7 +8,7 @@ import $ from 'jquery';
 const brandPrimary = getStyle('--primary');
 const brandInfo = getStyle('--info');
 
-//let highestUse = [["2018-07-05","2018-06","Light1","Light3"],[128,3577,344,2122]];
+// let highestUse = [["2018-07-05","2018-06","Light1","Light3"],[128,3577,344,2122]];
 
 let highestUse = [[],[]];
 

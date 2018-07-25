@@ -338,11 +338,16 @@ export default {
           url: '/main/user/profile',
           icon: 'cui-clipboard',
         },
-        {
-          name: 'Notification',
-          url: '/main/user/notification',
-          icon: 'cui-bullhorn',
-        },
+        // {
+        //   name: 'Avatar',
+        //   url: '/main/user/avatar',
+        //   icon: 'cui-camera',
+        // },
+        // {
+        //   name: 'Notification',
+        //   url: '/main/user/notification',
+        //   icon: 'cui-bullhorn',
+        // },
       ],
     },
     {

@@ -9,30 +9,28 @@ let appsData = [];
 
 class Appliance extends Component {
 
-  constructor(props) {
+  constructor(props){
     super(props);
+    let aid = this.props.id;
     $.ajax({
       type: "GET",
       async: false,
       url: "http://localhost:12333/appliance/get_info_by_id",
-      data: {"id": this.props.id},
+      data:{"id": aid},
       context: document.body,
-      success: function (data) {
+      success: function(data){
         appsData.push($.parseJSON(data.toString()));
       }
     });
-    this.state ={
-      aid: this.props.id,
-      count: this.props.count
-    };
   }
 
 
   render() {
-    const appliance = appsData.find(appliance => appliance.id.toString() === this.props.id)
+    const appliance = appsData.find(appliance => appliance.id.toString() === this.props.id);
     const appDetails = appliance ? Object.entries(appliance) : [['id', (<span><i className="text-muted icon-ban"></i> Not found</span>)]]
     return (
       <div className="detail-canvas animated fadeIn col-sm-12 col-md-4">
+        <Row>
           <Col>
             <Card>
               <CardHeader>
@@ -59,6 +57,7 @@ class Appliance extends Component {
           <Col className="col-6">
             <AppDynamicChart aid={this.state.aid} count={this.state.count}/>
           </Col>
+        </Row>
       </div>
     )
   }

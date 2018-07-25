@@ -7,10 +7,6 @@ let Now = new Date();
 const date = Now.getFullYear() + "-" + (Now.getMonth() < 9 ? "0" : "") + (Now.getMonth() + 1) + "-" + (Now.getDate() < 10 ? "0" : "") + (Now.getDate() - 1);
 const month = Now.getFullYear() + "-" + (Now.getMonth() < 9 ? "0" : "") + (Now.getMonth() + 1);
 
-const options = {
-  responsive: true
-};
-
 // let DayData = [["light1","light2","light3","light4"],[8,12,4,7]];
 // let MonthData = [["light1","light2","light3","light4"],[198,224,137,127]];
 
@@ -26,8 +22,7 @@ $.ajax({
   async:false,
   type:"get",
   success:function (data) {
-    console.log(data);
-    console.log(date);
+
     let tmpDayData = $.parseJSON(data);
     tmpDayData["power"].forEach((dayData) => {
       DayData[0].push(dayData["appname"]);
@@ -44,7 +39,7 @@ $.ajax({
   async:false,
   type:"get",
   success:function (data) {
-    console.log(data);
+
     let tmpMonthData = $.parseJSON(data);
     tmpMonthData["power"].forEach((monthData) => {
       MonthData[0].push(monthData["appname"]);
@@ -65,6 +60,10 @@ for(let i = 0; i < MonthUse.length; i++) {
   }
   colors.push(Colors[j]);
 }
+
+const options = {
+  responsive: true
+};
 
 const pie = {
   labels: DayData[0],

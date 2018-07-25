@@ -1,27 +1,15 @@
 import React, { Component } from 'react';
 import { Row, Col, Button, FormGroup, Label } from 'reactstrap';
 import $ from 'jquery';
+import avatar from './m.jpg';
 
-// let username = "Ming";
-// let cell_phone = 12345678950;
-// let email = "aaaaaaaaMing@gmail.com";
+let username = "Ming";
+let cell_phone = 12345678950;
+let email = "aaaaaaaaMing@gmail.com";
 
-let username = "";
-let cell_phone = "";
-let email = "";
-
-$.ajax({
-  url:"/user/get_user_info",
-  context:document.body,
-  async:false,
-  type:"get",
-  success:function (data) {
-    let tmpInfo = $.parseJSON(data);
-    username = tmpInfo["username"];
-    cell_phone = tmpInfo["phone"];
-    email = tmpInfo["email"];
-  }
-});
+// let username = "";
+// let cell_phone = "";
+// let email = "";
 
 class InputEmail extends Component {
   constructor() {
@@ -115,7 +103,7 @@ class InputPhonenumber extends Component {
   }
 }
 
-class ChangeProfile extends Component {
+class UpdateProfile extends Component {
   constructor() {
     super();
     this.state = {cell_phone:cell_phone, email:email, err1:0, err2:0};
@@ -140,26 +128,29 @@ class ChangeProfile extends Component {
       alert("Please check your information");
     }
     else {
-      $.ajax({
-        url:"/user/update_user_info",
-        data:{
-          new_email:this.state.email,
-          new_phone:this.state.cell_phone,
-        },
-        context:document.body,
-        async:false,
-        type:"get",
-        success:function (data) {
-          alert("success");
-        }
-      });
+      // $.ajax({
+      //   url:"/user/update_user_info",
+      //   data:{
+      //     new_email:this.state.email,
+      //     new_phone:this.state.cell_phone,
+      //   },
+      //   context:document.body,
+      //   async:false,
+      //   type:"get",
+      //   success:function (data) {
+      //     alert("success");
+      //   }
+      // });
+      this.props.SetChangeState();
     }
-    this.props.SetChangeState();
   };
 
   render() {
     return(
       <div className="profile-card">
+        <p>
+          <img src={avatar} alt="avatar"/>
+        </p>
         <FormGroup row>
           <Col md="3">
             <Label>Username</Label>
@@ -185,10 +176,7 @@ class ChangeProfile extends Component {
           </Col>
         </FormGroup>
         <Row>
-          <Col>
-          </Col>
-          <Col>
-          </Col>
+          <Col></Col><Col></Col>
           <Col>
             <Button block outline color="success" className="btn-pill" onClick={this.ChangeProfile}>Confirm</Button>
           </Col>
@@ -198,6 +186,26 @@ class ChangeProfile extends Component {
           </Col>
         </Row>
       </div>
+    );
+  }
+}
+
+class ChangeProfile extends Component {
+  render() {
+    // $.ajax({
+    //   url:"/user/get_user_info",
+    //   context:document.body,
+    //   async:false,
+    //   type:"get",
+    //   success:function (data) {
+    //     let tmpInfo = $.parseJSON(data);
+    //     username = tmpInfo["username"];
+    //     cell_phone = tmpInfo["phone"];
+    //     email = tmpInfo["email"];
+    //   }
+    // });
+    return(
+      <UpdateProfile SetChangeState={this.props.SetChangeState}/>
     );
   }
 }

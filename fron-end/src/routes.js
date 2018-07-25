@@ -199,11 +199,11 @@ const Profile = Loadable({
   loading: Loading,
 });
 
-
 const Notification = Loadable({
   loader: () => import('./views/User/Notification/Notification'),
   loading: Loading,
 });
+
 const getMedia = Loadable({
   loader: () => import('./views/getMedia/getMedia'),
   loading: Loading,
@@ -214,6 +214,13 @@ const forecast = Loadable({
   loading: Loading,
 });
 
+
+const Avatar = Loadable({
+  loader: () => import('./views/User/Avatar/Avatar'),
+  loading: Loading,
+});
+
+
 const Schedule = Loadable({
   loader: () => import('./views/Schedules/Schedule'),
   loading: Loading,
@@ -223,6 +230,7 @@ const Schedules = Loadable({
   loader: () => import('./views/Schedules/Schedules'),
   loading: Loading,
 });
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/main/', exact: true, name: 'Home', component: DefaultLayout },
@@ -271,7 +279,8 @@ const routes = [
   { path: '/main/fun/dynamicChart', name: 'Dynamic Chart', component: DynamicChart },
   { path: '/main/user', exact: true, name: 'User', component: Profile },
   { path: '/main/user/profile', name: 'Profile', component: Profile },
-  { path: '/main/user/notification', name: 'Notification', component: Notification },
+  // { path: '/main/user/avatar', name: 'Avatar', component: Avatar },
+  // { path: '/main/user/notification', name: 'Notification', component: Notification },
   { path: '/main/getMedia', name: 'AI小微', component: getMedia },
   { path: '/main/forecast', name: '小微预测', component: forecast },
   { path: '/main/schedule', name: 'AI小微', component: Schedules },

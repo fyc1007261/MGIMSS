@@ -55,6 +55,7 @@ public class PowerUseControllerImpl implements PowerUseController {
                             "},"
             );
         }
+
         if (buf.charAt(buf.length()-1) == ','){
             buf.deleteCharAt(buf.length()-1);
         }
@@ -163,7 +164,6 @@ public class PowerUseControllerImpl implements PowerUseController {
         if (buf.charAt(buf.length()-1) == ','){
             buf.deleteCharAt(buf.length()-1);
         }
-
         buf.append("]}");
         return buf.toString();
     }
