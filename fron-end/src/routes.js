@@ -214,6 +214,15 @@ const forecast = Loadable({
   loading: Loading,
 });
 
+const Schedule = Loadable({
+  loader: () => import('./views/Schedules/Schedule'),
+  loading: Loading,
+});
+
+const Schedules = Loadable({
+  loader: () => import('./views/Schedules/Schedules'),
+  loading: Loading,
+});
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/main/', exact: true, name: 'Home', component: DefaultLayout },
@@ -265,6 +274,8 @@ const routes = [
   { path: '/main/user/notification', name: 'Notification', component: Notification },
   { path: '/main/getMedia', name: 'AI小微', component: getMedia },
   { path: '/main/forecast', name: '小微预测', component: forecast },
+  { path: '/main/schedule', name: 'AI小微', component: Schedules },
+  { path: '/main/schedule/:id', name: '小微预测', component: Schedule },
 ];
 
 export default routes;
