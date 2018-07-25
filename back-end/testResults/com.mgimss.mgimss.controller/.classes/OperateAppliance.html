@@ -1,0 +1,99 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: OperateAppliance</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.mgimss.mgimss.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: OperateAppliance (com.mgimss.mgimss.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">OperateAppliance</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.mgimss.mgimss.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.mgimss.mgimss.entity.Appliance;
+<i>4</i>&nbsp;import org.springframework.stereotype.Controller;
+<i>5</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>6</i>&nbsp;import org.springframework.web.bind.annotation.ResponseBody;
+<i>7</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>8</i>&nbsp;import org.springframework.web.servlet.ModelAndView;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import javax.servlet.http.HttpServletRequest;
+<i>11</i>&nbsp;import javax.servlet.http.HttpServletResponse;
+<i>12</i>&nbsp;import java.util.Date;
+<i>13</i>&nbsp;import java.util.List;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;@RestController
+<i>16</i>&nbsp;public interface OperateAppliance {
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    //python calls
+<i>19</i>&nbsp;    @RequestMapping(&quot;/appliance/post_appliance&quot;)
+<i>20</i>&nbsp;    String post_appliance_status(String time, String id, String voltage, String current, String uid);
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    //python calls
+<i>23</i>&nbsp;    @RequestMapping(&quot;/appliance/notify_status_change&quot;)
+<i>24</i>&nbsp;    String notify_status_change(String id, String mode, String uid);
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    //java calls
+<i>27</i>&nbsp;    @RequestMapping(&quot;/appliance/request_status&quot;)
+<i>28</i>&nbsp;    String request_appliances_status(String aid, String count, Date end_time, HttpServletResponse response);
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @RequestMapping(&quot;/appliance/modify_appliance&quot;)
+<i>31</i>&nbsp;    String modify_appliance(Long aid, String mfrs, Long power,String gesture);
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    //java calls
+<i>34</i>&nbsp;    @RequestMapping(&quot;/appliance/add_appliance&quot;)
+<i>35</i>&nbsp;    String add_appliance(String name, String mfrs, Long ratedParameters, String gesture, HttpServletResponse response);
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    //java calls
+<i>39</i>&nbsp;    @RequestMapping(&quot;/appliance/delete_appliance&quot;)
+<i>40</i>&nbsp;    String delete_appliance(Long aid, HttpServletResponse response);
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    //java calls
+<i>43</i>&nbsp;    @RequestMapping(&quot;/appliance/switch_appliance&quot;)
+<i>44</i>&nbsp;    String switch_appliance(Long aid, String option, HttpServletResponse response);
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    //java calls
+<i>47</i>&nbsp;    @RequestMapping(&quot;/appliance/get_appliances&quot;)
+<i>48</i>&nbsp;    List&lt;Appliance&gt; get_appliances();
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-24 15:23</div>
+</div>
+</body>
+</html>

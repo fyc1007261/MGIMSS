@@ -97,7 +97,7 @@ public class Job
     }
 
     public Appliance getAppliance() { return appliance; }
-    public void setAppliance(Appliance jobId) { this.appliance = appliance; }
+    public void setAppliance(Appliance appliance) { this.appliance = appliance; }
 
     public Long getJobId() {
         return jobId;

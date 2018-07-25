@@ -3,7 +3,9 @@ package com.mgimss.mgimss.controller;
 
 import com.mgimss.mgimss.entity.Appliance;
 import com.mgimss.mgimss.entity.Job;
+import com.mgimss.mgimss.entity.User;
 import com.mgimss.mgimss.repository.*;
+import com.mgimss.mgimss.utils.GetUserContext;
 import com.mgimss.mgimss.utils.TimeToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,58 +21,68 @@ import java.util.List;
 @RestController
 public class ShowAppInfoImpl implements ShowAppInfo {
     @Autowired
-    ApplianceRepository applianceRepository;
+    public ApplianceRepository applianceRepository;
 
     @Autowired
-    UserRepository userRepository;
+    public UserRepository userRepository;
 
     @Autowired
-    PendingJobRepository pendingJobRepository;
+    public PendingJobRepository pendingJobRepository;
 
     @Autowired
-    RunningJobRepository runningJobRepository;
+    public RunningJobRepository runningJobRepository;
 
     @Autowired
-    FinishedJobRepository finishedJobRepository;
+    public FinishedJobRepository finishedJobRepository;
 
     @Autowired
-    GestureRepository gestureRepository;
+    public GestureRepository gestureRepository;
+
+    @Autowired
+    public GetUserContext getUserContext;
 
     public String get_all_status(HttpServletResponse response){
-        List<Appliance> applianceList = applianceRepository.findByUser(1L);
-        if (applianceList.size() == 0){
+        try{
+            User user = getUserContext.getUser();
+            List<Appliance> applianceList = applianceRepository.findByUser(user.getUid());
+            if (applianceList.size() == 0){
+                return "{\"data\":[]}";
+            }
+            // json builder
+            StringBuffer buf = new StringBuffer();
+            buf.append("{\"data\":[");
+            for (Appliance appliance:applianceList){
+                Job job = runningJobRepository.findByAppliance(appliance.getAppId());
+                Long runtime = 0L;
+                if (job!=null){
+                    Long start = job.getIntStartTime();
+                    Date now = new Date();
+                    runtime = (now.getTime()/1000 - start)/60;
+                }
+                buf.append(
+                        "{\"id\" : \"" + appliance.getAid() +
+                                "\", \"name\" : \"" + appliance.getName() +
+                                "\", \"status\" : \"" + ((appliance.getRunningState() == 1) ? "Active" : "Inactive") +
+                                "\", \"mfrs\" : \"" + appliance.getMfrs()+
+                                "\", \"runtime\" : \"" + runtime + "min"+
+                                "\", \"power\" : \"" + appliance.getPower() +
+                                "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
+                );
+                buf.append(',');
+            }
+            buf.deleteCharAt(buf.length()-1);
+            buf.append("]}");
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            return buf.toString();
+        }
+        catch (Exception ex){
             return "{\"data\":[]}";
         }
-        // json builder
-        StringBuffer buf = new StringBuffer();
-        buf.append("{\"data\":[");
-        for (Appliance appliance:applianceList){
-            Job job = runningJobRepository.findByAppliance(appliance.getAppId());
-            Long runtime = 0L;
-            if (job!=null){
-                Long start = job.getIntStartTime();
-                Date now = new Date();
-                runtime = (now.getTime()/1000 - start)/60;
-            }
-            buf.append(
-                    "{\"id\" : \"" + appliance.getAid() +
-                            "\", \"name\" : \"" + appliance.getName() +
-                            "\", \"status\" : \"" + ((appliance.getRunningState() == 1) ? "Active" : "Inactive") +
-                            "\", \"mfrs\" : \"" + appliance.getMfrs()+
-                            "\", \"runtime\" : \"" + runtime + "min"+
-                            "\", \"power\" : \"" + appliance.getPower() +
-                            "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
-            );
-            buf.append(',');
-        }
-        buf.deleteCharAt(buf.length()-1);
-        buf.append("]}");
-        response.addHeader("Access-Control-Allow-Origin", "*");
-        return buf.toString();
     }
 
     public String get_info_by_id(Long id, HttpServletResponse response){
-        Appliance appliance = applianceRepository.findByUserAndAid(1L, id);
+        User user = getUserContext.getUser();
+        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), id);
         Long app_id = appliance.getAppId();
         String start_time = "Not scheduled", finish_time = "Not scheduled";
         Long sta=0L, fin=0L;
@@ -81,11 +93,6 @@ public class ShowAppInfoImpl implements ShowAppInfo {
             fin = job.getIntStopTime();
             Date now = new Date();
             runtime = (now.getTime()/1000 - sta)/60;
-        }
-        job = finishedJobRepository.findByAppliance(app_id);
-        if (job != null){
-            sta = job.getIntStartTime();
-            fin = job.getIntStopTime();
         }
         job = pendingJobRepository.findByAppliance(app_id);
         if (job != null){
@@ -113,8 +120,8 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"manufacturer\" : \"" +appliance.getMfrs() +
                         "\", \"power\" : \"" +appliance.getPower() +
                         "\", \"runtime\" : \"" +runtime + "min"+
-                        "\", \"start_time\" : \"" +start_time +
-                        "\", \"finish_time\" : \"" +finish_time +
+                        "\", \"start time\" : \"" +start_time +
+                        "\", \"finish time\" : \"" +finish_time +
                         "\", \"gesture\" : \"" +gname +
                         "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
         );
@@ -123,8 +130,9 @@ public class ShowAppInfoImpl implements ShowAppInfo {
     }
 
     public String get_jobs(HttpServletResponse response){
-        List<Job> jobList = runningJobRepository.findByUid(1L);
-        jobList.addAll(pendingJobRepository.findByUid(1L));
+        User user = getUserContext.getUser();
+        List<Job> jobList = runningJobRepository.findByUid(user.getUid());
+        jobList.addAll(pendingJobRepository.findByUid(user.getUid()));
         // json builder
         StringBuffer buf = new StringBuffer();
         if (jobList.size() == 0 ){

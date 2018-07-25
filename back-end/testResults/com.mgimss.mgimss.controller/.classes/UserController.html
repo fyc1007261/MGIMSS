@@ -1,0 +1,82 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: UserController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.mgimss.mgimss.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: UserController (com.mgimss.mgimss.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">UserController</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.mgimss.mgimss.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.mgimss.mgimss.repository.UserRepository;
+<i>4</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>5</i>&nbsp;import org.springframework.security.authentication.AuthenticationManager;
+<i>6</i>&nbsp;import org.springframework.stereotype.Controller;
+<i>7</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>8</i>&nbsp;import org.springframework.web.bind.annotation.RequestMethod;
+<i>9</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>10</i>&nbsp;import org.springframework.web.servlet.ModelAndView;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import javax.servlet.http.HttpServletRequest;
+<i>13</i>&nbsp;import javax.servlet.http.HttpSession;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;@RestController
+<i>16</i>&nbsp;public interface UserController {
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    @RequestMapping(&quot;/user&quot;)
+<i>19</i>&nbsp;    ModelAndView getUserInfo();
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    @RequestMapping(&quot;user/updateInfo&quot;)
+<i>22</i>&nbsp;    ModelAndView updateUserInfo(String new_username, String new_password,
+<i>23</i>&nbsp;                                String new_email, String new_phone,
+<i>24</i>&nbsp;                                String new_host, String new_port);
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    @RequestMapping(&quot;/signup&quot;)
+<i>27</i>&nbsp;    ModelAndView signUp(HttpServletRequest request, String username, String password,
+<i>28</i>&nbsp;                        String phone, String email, String host, String port);
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @RequestMapping(&quot;/user/get_user_info&quot;)
+<i>31</i>&nbsp;    String get_user_info();
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    @RequestMapping(&quot;/user/update_user_info&quot;)
+<i>34</i>&nbsp;    String update_user_info(String new_email, String new_phone);
+<i>35</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-24 15:23</div>
+</div>
+</body>
+</html>

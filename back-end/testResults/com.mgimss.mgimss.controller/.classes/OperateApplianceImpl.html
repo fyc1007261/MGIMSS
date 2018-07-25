@@ -1,0 +1,483 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: OperateApplianceImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.mgimss.mgimss.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: OperateApplianceImpl (com.mgimss.mgimss.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">OperateApplianceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    11.1%
+  </span>
+  <span class="absValue">
+    (1/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0.6%
+  </span>
+  <span class="absValue">
+    (1/ 157)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.mgimss.mgimss.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;import com.mgimss.mgimss.entity.*;
+<i>5</i>&nbsp;import com.mgimss.mgimss.repository.*;
+<i>6</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>7</i>&nbsp;import org.springframework.security.core.Authentication;
+<i>8</i>&nbsp;import org.springframework.security.core.context.SecurityContext;
+<i>9</i>&nbsp;import org.springframework.security.core.context.SecurityContextHolder;
+<i>10</i>&nbsp;import org.springframework.stereotype.Controller;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import org.springframework.transaction.annotation.Isolation;
+<i>13</i>&nbsp;import org.springframework.transaction.annotation.Transactional;
+<i>14</i>&nbsp;import org.springframework.web.bind.annotation.ResponseBody;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>17</i>&nbsp;import org.springframework.web.servlet.ModelAndView;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;import javax.servlet.http.HttpServletRequest;
+<i>21</i>&nbsp;import javax.servlet.http.HttpServletResponse;
+<i>22</i>&nbsp;import java.text.ParseException;
+<i>23</i>&nbsp;import java.text.SimpleDateFormat;
+<i>24</i>&nbsp;import java.util.*;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;import static com.mgimss.mgimss.utils.ConnectHardware.sendMessage;
+<i>27</i>&nbsp;import static com.mgimss.mgimss.utils.ToJson.MapToJson;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;@RestController
+<b class="fc"><i>30</i>&nbsp;public class OperateApplianceImpl implements OperateAppliance {</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    @Autowired
+<i>33</i>&nbsp;    AppStatusRepository appStatusRepository;
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    @Autowired
+<i>36</i>&nbsp;    ApplianceRepository applianceRepository;
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    @Autowired
+<i>39</i>&nbsp;    UserRepository userRepository;
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    @Autowired
+<i>42</i>&nbsp;    PendingJobRepository pendingJobRepository;
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;    @Autowired
+<i>45</i>&nbsp;    RunningJobRepository runningJobRepository;
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    @Autowired
+<i>48</i>&nbsp;    FinishedJobRepository finishedJobRepository;
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    @Autowired
+<i>51</i>&nbsp;    GestureRepository gestureRepository;
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    //python calls
+<i>54</i>&nbsp;    public String post_appliance_status(String time, String id, String voltage, String current, String uid)
+<i>55</i>&nbsp;    {
+<i>56</i>&nbsp;        //appstatus只记录在运行的电器的信息，如果当前某电器没在运行，则python端不会发来它的信息
+<i>57</i>&nbsp;        //如果电器运行结束也不会发
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;        Date recordTime;
+<i>60</i>&nbsp;        float presentVoltage;
+<i>61</i>&nbsp;        float presentCurrent;
+<i>62</i>&nbsp;        User user;
+<i>63</i>&nbsp;        Long aid;
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;        //用电器的id
+<b class="nc"><i>66</i>&nbsp;        aid = Long.valueOf(id);</b>
+<i>67</i>&nbsp;
+<b class="nc"><i>68</i>&nbsp;        System.out.println(&quot;got in&quot;);</b>
+<i>69</i>&nbsp;        //当前用户
+<b class="nc"><i>70</i>&nbsp;        user = userRepository.findByUid(Long.valueOf(uid));</b>
+<i>71</i>&nbsp;        //用电器
+<b class="nc"><i>72</i>&nbsp;        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);</b>
+<i>73</i>&nbsp;
+<b class="nc"><i>74</i>&nbsp;        if(appliance == null){</b>
+<b class="nc"><i>75</i>&nbsp;            return &quot;err: no such appliance&quot;;</b>
+<i>76</i>&nbsp;        }
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;        //信息发送时间
+<b class="nc"><i>80</i>&nbsp;        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);</b>
+<i>81</i>&nbsp;        try {
+<b class="nc"><i>82</i>&nbsp;            recordTime = sdf.parse(time);</b>
+<b class="nc"><i>83</i>&nbsp;        } catch (ParseException e) {</b>
+<b class="nc"><i>84</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>85</i>&nbsp;            return &quot;err: no such appliance&quot;;</b>
+<b class="nc"><i>86</i>&nbsp;        }</b>
+<i>87</i>&nbsp;
+<b class="nc"><i>88</i>&nbsp;        System.out.println(recordTime);</b>
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;        //当前电压/电流
+<b class="nc"><i>91</i>&nbsp;        presentVoltage = Float.valueOf(voltage);</b>
+<b class="nc"><i>92</i>&nbsp;        presentCurrent = Float.valueOf(current);</b>
+<i>93</i>&nbsp;
+<b class="nc"><i>94</i>&nbsp;        System.out.println(&quot;HAHA&quot;);</b>
+<i>95</i>&nbsp;        //记录入appStatus表
+<b class="nc"><i>96</i>&nbsp;        AppStatus appStatus = new AppStatus(appliance, recordTime, presentVoltage, presentCurrent);</b>
+<b class="nc"><i>97</i>&nbsp;        appStatusRepository.save(appStatus);</b>
+<b class="nc"><i>98</i>&nbsp;        System.out.println(&quot;HEIHEI&quot;);</b>
+<i>99</i>&nbsp;
+<i>100</i>&nbsp;        // return time for client to check for validity
+<b class="nc"><i>101</i>&nbsp;        return &quot;success&quot;;</b>
+<i>102</i>&nbsp;    }
+<i>103</i>&nbsp;
+<i>104</i>&nbsp;    //python calls
+<i>105</i>&nbsp;    public String notify_status_change(String id, String mode, String uid)
+<i>106</i>&nbsp;    {
+<i>107</i>&nbsp;        //当有用电器开始工作或结束工作时，python会发过来这个请求
+<i>108</i>&nbsp;
+<i>109</i>&nbsp;        Long aid;
+<i>110</i>&nbsp;        int newMode;
+<i>111</i>&nbsp;        User user;
+<i>112</i>&nbsp;        Date send_time;
+<i>113</i>&nbsp;        Job job;
+<i>114</i>&nbsp;
+<i>115</i>&nbsp;        //发送时间
+<b class="nc"><i>116</i>&nbsp;        send_time = new Date();</b>
+<i>117</i>&nbsp;
+<i>118</i>&nbsp;        //用电器的id
+<b class="nc"><i>119</i>&nbsp;        aid = Long.valueOf(id);</b>
+<i>120</i>&nbsp;
+<i>121</i>&nbsp;        //当前用户
+<b class="nc"><i>122</i>&nbsp;        user = userRepository.findByUid(Long.valueOf(1));</b>
+<i>123</i>&nbsp;
+<i>124</i>&nbsp;        //用电器
+<b class="nc"><i>125</i>&nbsp;        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);</b>
+<i>126</i>&nbsp;
+<b class="nc"><i>127</i>&nbsp;        if(appliance == null){</b>
+<b class="nc"><i>128</i>&nbsp;            return &quot;err: no such appliance&quot;;</b>
+<i>129</i>&nbsp;        }
+<i>130</i>&nbsp;
+<i>131</i>&nbsp;        //无差错时，用电器更改为新的状态
+<b class="nc"><i>132</i>&nbsp;        newMode = Integer.valueOf(mode);</b>
+<b class="nc"><i>133</i>&nbsp;        if(newMode == 0){</b>
+<b class="nc"><i>134</i>&nbsp;            job = runningJobRepository.findByAppliance(appliance.getAppId());</b>
+<b class="nc"><i>135</i>&nbsp;            if (job == null) {</b>
+<b class="nc"><i>136</i>&nbsp;                return &quot;err: this running appliance &quot;+aid + &quot; is not in a running job yet&quot;;</b>
+<i>137</i>&nbsp;            }
+<b class="nc"><i>138</i>&nbsp;            appliance.setRunningState(newMode);</b>
+<b class="nc"><i>139</i>&nbsp;            appliance.setLastSendDataTime(send_time);</b>
+<b class="nc"><i>140</i>&nbsp;            job.setAppliance(appliance);</b>
+<b class="nc"><i>141</i>&nbsp;            job.setStatus(2);</b>
+<b class="nc"><i>142</i>&nbsp;            Long curTime = new Date().getTime()/1000;</b>
+<b class="nc"><i>143</i>&nbsp;            job.setIntTrueStopTime(curTime);</b>
+<b class="nc"><i>144</i>&nbsp;            job.setLastTime(job.getIntTrueStopTime() - job.getIntTrueStartTime());</b>
+<b class="nc"><i>145</i>&nbsp;            finishedJobRepository.save(job);</b>
+<i>146</i>&nbsp;
+<i>147</i>&nbsp;        }
+<b class="nc"><i>148</i>&nbsp;        if(newMode == 1){</b>
+<b class="nc"><i>149</i>&nbsp;            job = pendingJobRepository.findByAppliance(appliance.getAppId());</b>
+<b class="nc"><i>150</i>&nbsp;            appliance.setRunningState(newMode);</b>
+<b class="nc"><i>151</i>&nbsp;            appliance.setLastSendDataTime(send_time);</b>
+<b class="nc"><i>152</i>&nbsp;            if (job == null) {</b>
+<b class="nc"><i>153</i>&nbsp;                Long starttime = new Date().getTime()/1000;</b>
+<b class="nc"><i>154</i>&nbsp;                Optional&lt;Double&gt; pPower = appStatusRepository.findAvgPowerByAppliance(appliance.getAppId());</b>
+<i>155</i>&nbsp;                Long perPower;
+<b class="nc"><i>156</i>&nbsp;                if (!pPower.isPresent()){</b>
+<b class="nc"><i>157</i>&nbsp;                    perPower = appliance.getPower();</b>
+<i>158</i>&nbsp;                }
+<b class="nc"><i>159</i>&nbsp;                else perPower = Math.round(pPower.get());</b>
+<b class="nc"><i>160</i>&nbsp;                job = new Job(starttime, Long.MAX_VALUE, starttime, Long.MAX_VALUE, Long.MAX_VALUE,</b>
+<i>161</i>&nbsp;                        perPower, 1, appliance, user);
+<b class="nc"><i>162</i>&nbsp;            }</b>
+<i>163</i>&nbsp;            else{
+<i>164</i>&nbsp;
+<b class="nc"><i>165</i>&nbsp;                job.setAppliance(appliance);</b>
+<b class="nc"><i>166</i>&nbsp;                job.setStatus(1);</b>
+<b class="nc"><i>167</i>&nbsp;                Long curTime = new Date().getTime()/1000;</b>
+<b class="nc"><i>168</i>&nbsp;                job.setIntStartTime(curTime);</b>
+<i>169</i>&nbsp;            }
+<b class="nc"><i>170</i>&nbsp;            runningJobRepository.save(job);</b>
+<i>171</i>&nbsp;        }
+<b class="nc"><i>172</i>&nbsp;        applianceRepository.save(appliance);</b>
+<i>173</i>&nbsp;
+<b class="nc"><i>174</i>&nbsp;        return &quot;success&quot;;</b>
+<i>175</i>&nbsp;    }
+<i>176</i>&nbsp;
+<i>177</i>&nbsp;    //java calls
+<i>178</i>&nbsp;    public String add_appliance(String name, String mfrs, Long power, String gesture, HttpServletResponse response)
+<i>179</i>&nbsp;    {
+<i>180</i>&nbsp;        User user;
+<i>181</i>&nbsp;        Long aid;
+<i>182</i>&nbsp;        Date addDate;
+<i>183</i>&nbsp;        String port;
+<i>184</i>&nbsp;        String host;
+<i>185</i>&nbsp;        String send_message;
+<i>186</i>&nbsp;        String recv_message;
+<i>187</i>&nbsp;
+<i>188</i>&nbsp;        //当前用户
+<i>189</i>&nbsp;//        SecurityContext ctx = SecurityContextHolder.getContext();
+<i>190</i>&nbsp;//        Authentication auth = ctx.getAuthentication();
+<i>191</i>&nbsp;//        user = (User) auth.getPrincipal();
+<i>192</i>&nbsp;
+<i>193</i>&nbsp;
+<b class="nc"><i>194</i>&nbsp;        user = userRepository.findByUid(Long.valueOf(1));</b>
+<b class="nc"><i>195</i>&nbsp;        if (!gesture.equals( &quot;none&quot;))</b>
+<i>196</i>&nbsp;        {
+<b class="nc"><i>197</i>&nbsp;            Gesture gest = new Gesture(gesture,name,user);</b>
+<b class="nc"><i>198</i>&nbsp;            gestureRepository.save(gest);</b>
+<i>199</i>&nbsp;        }
+<i>200</i>&nbsp;        //获得新电器应分配的aid
+<b class="nc"><i>201</i>&nbsp;        Set&lt;Appliance&gt; present_apps = user.getAppliances();</b>
+<b class="nc"><i>202</i>&nbsp;        if (present_apps.size() == 0) aid = Long.valueOf(1);</b>
+<b class="nc"><i>203</i>&nbsp;        else aid = applianceRepository.findMaxAidByUid(user.getUid()) + 1;</b>
+<i>204</i>&nbsp;
+<i>205</i>&nbsp;        //添加时间
+<b class="nc"><i>206</i>&nbsp;        addDate = new Date();</b>
+<i>207</i>&nbsp;
+<b class="nc"><i>208</i>&nbsp;        Appliance appliance = new Appliance(user, aid, name, addDate, mfrs,</b>
+<i>209</i>&nbsp;                power, null, 0);
+<i>210</i>&nbsp;
+<b class="nc"><i>211</i>&nbsp;        host = user.getHardwareHost();</b>
+<b class="nc"><i>212</i>&nbsp;        port = user.getHardwarePort();</b>
+<i>213</i>&nbsp;
+<b class="nc"><i>214</i>&nbsp;        Map&lt;String, String&gt; map = new HashMap&lt;&gt;();</b>
+<b class="nc"><i>215</i>&nbsp;        map.put(&quot;id&quot;, String.valueOf(aid));</b>
+<b class="nc"><i>216</i>&nbsp;        map.put(&quot;name&quot;, name);</b>
+<b class="nc"><i>217</i>&nbsp;        map.put(&quot;option&quot;, &quot;add&quot;);</b>
+<i>218</i>&nbsp;
+<b class="nc"><i>219</i>&nbsp;        send_message = MapToJson(map);</b>
+<b class="nc"><i>220</i>&nbsp;        recv_message = sendMessage(host, port, send_message);</b>
+<i>221</i>&nbsp;
+<b class="nc"><i>222</i>&nbsp;        System.out.println(&quot;get message from server: &quot; + recv_message);</b>
+<b class="nc"><i>223</i>&nbsp;        if (recv_message.contains(&quot;err&quot;)) return recv_message;</b>
+<i>224</i>&nbsp;
+<i>225</i>&nbsp;        //当python做完了相应操作没出错时，同步数据库
+<b class="nc"><i>226</i>&nbsp;        applianceRepository.save(appliance);</b>
+<b class="nc"><i>227</i>&nbsp;        response.addHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);</b>
+<b class="nc"><i>228</i>&nbsp;        return recv_message;</b>
+<i>229</i>&nbsp;    }
+<i>230</i>&nbsp;
+<i>231</i>&nbsp;    //java calls
+<i>232</i>&nbsp;    public String delete_appliance(Long aid, HttpServletResponse response)
+<i>233</i>&nbsp;    {
+<i>234</i>&nbsp;        User user;
+<i>235</i>&nbsp;        String port;
+<i>236</i>&nbsp;        String host;
+<i>237</i>&nbsp;        String send_message;
+<i>238</i>&nbsp;        String recv_message;
+<i>239</i>&nbsp;
+<b class="nc"><i>240</i>&nbsp;        SecurityContext ctx = SecurityContextHolder.getContext();</b>
+<b class="nc"><i>241</i>&nbsp;        Authentication auth = ctx.getAuthentication();</b>
+<b class="nc"><i>242</i>&nbsp;        user = (User) auth.getPrincipal();</b>
+<i>243</i>&nbsp;
+<b class="nc"><i>244</i>&nbsp;        System.out.println(&quot;APPLIANCE&quot;);</b>
+<b class="nc"><i>245</i>&nbsp;        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);</b>
+<b class="nc"><i>246</i>&nbsp;        if (appliance == null){</b>
+<b class="nc"><i>247</i>&nbsp;            return &quot;err: no appliance&quot;;</b>
+<i>248</i>&nbsp;        }
+<i>249</i>&nbsp;
+<b class="nc"><i>250</i>&nbsp;        host = user.getHardwareHost();</b>
+<b class="nc"><i>251</i>&nbsp;        port = user.getHardwarePort();</b>
+<i>252</i>&nbsp;
+<b class="nc"><i>253</i>&nbsp;        Map&lt;String, String&gt; map = new HashMap&lt;&gt;();</b>
+<b class="nc"><i>254</i>&nbsp;        map.put(&quot;id&quot;, String.valueOf(aid));</b>
+<b class="nc"><i>255</i>&nbsp;        map.put(&quot;option&quot;, &quot;delete&quot;);</b>
+<i>256</i>&nbsp;
+<b class="nc"><i>257</i>&nbsp;        send_message = MapToJson(map);</b>
+<b class="nc"><i>258</i>&nbsp;        recv_message = sendMessage(host, port, send_message);</b>
+<b class="nc"><i>259</i>&nbsp;        System.out.println(&quot;get message from server: &quot; + recv_message);</b>
+<b class="nc"><i>260</i>&nbsp;        if (recv_message.contains(&quot;err&quot;)) return recv_message;</b>
+<i>261</i>&nbsp;
+<i>262</i>&nbsp;        //当python做完了相应操作没出错时，同步数据库
+<b class="nc"><i>263</i>&nbsp;        applianceRepository.delete(appliance);</b>
+<b class="nc"><i>264</i>&nbsp;        response.addHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);</b>
+<b class="nc"><i>265</i>&nbsp;        return recv_message;</b>
+<i>266</i>&nbsp;    }
+<i>267</i>&nbsp;
+<i>268</i>&nbsp;
+<i>269</i>&nbsp;    public String modify_appliance(Long aid, String mfrs, Long power,String gesture){
+<i>270</i>&nbsp;        User user;
+<i>271</i>&nbsp;        //当前用户
+<i>272</i>&nbsp;//        SecurityContext ctx = SecurityContextHolder.getContext();
+<i>273</i>&nbsp;//        Authentication auth = ctx.getAuthentication();
+<i>274</i>&nbsp;//        user = (User) auth.getPrincipal();
+<b class="nc"><i>275</i>&nbsp;        user = userRepository.findByUid(Long.valueOf(1));</b>
+<b class="nc"><i>276</i>&nbsp;        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);</b>
+<b class="nc"><i>277</i>&nbsp;        appliance.setMfrs(mfrs);</b>
+<b class="nc"><i>278</i>&nbsp;        appliance.setPower(power);</b>
+<b class="nc"><i>279</i>&nbsp;        applianceRepository.saveAndFlush(appliance);</b>
+<b class="nc"><i>280</i>&nbsp;        String gest = gestureRepository.findByNameAndUid(appliance.getName(),appliance.getUser().getUid());</b>
+<b class="nc"><i>281</i>&nbsp;        gestureRepository.deleteByGname(gest);</b>
+<i>282</i>&nbsp;
+<b class="nc"><i>283</i>&nbsp;        if (!gesture.equals( &quot;none&quot;))</b>
+<i>284</i>&nbsp;        {
+<b class="nc"><i>285</i>&nbsp;            Gesture gest2 = new Gesture(gesture,appliance.getName(),user);</b>
+<b class="nc"><i>286</i>&nbsp;            gestureRepository.save(gest2);</b>
+<i>287</i>&nbsp;        }
+<b class="nc"><i>288</i>&nbsp;        return &quot;success&quot;;</b>
+<i>289</i>&nbsp;    }
+<i>290</i>&nbsp;
+<i>291</i>&nbsp;
+<i>292</i>&nbsp;    //java calls
+<i>293</i>&nbsp;    public String switch_appliance(Long aid, String option, HttpServletResponse response){
+<i>294</i>&nbsp;        User user;
+<i>295</i>&nbsp;        String port;
+<i>296</i>&nbsp;        String host;
+<i>297</i>&nbsp;        int new_state;
+<i>298</i>&nbsp;        String send_message;
+<i>299</i>&nbsp;        String recv_message;
+<i>300</i>&nbsp;
+<i>301</i>&nbsp;//        SecurityContext ctx = SecurityContextHolder.getContext();
+<i>302</i>&nbsp;//        Authentication auth = ctx.getAuthentication();
+<i>303</i>&nbsp;//        user = (User) auth.getPrincipal();
+<i>304</i>&nbsp;
+<b class="nc"><i>305</i>&nbsp;        user = userRepository.findByUid(1L);</b>
+<i>306</i>&nbsp;
+<b class="nc"><i>307</i>&nbsp;        if(option.equals(&quot;on&quot;)) new_state = 1;</b>
+<b class="nc"><i>308</i>&nbsp;        else if (option.equals(&quot;off&quot;)) new_state = 0;</b>
+<b class="nc"><i>309</i>&nbsp;        else return &quot;err: wrong option string&quot;;</b>
+<i>310</i>&nbsp;
+<b class="nc"><i>311</i>&nbsp;        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);</b>
+<b class="nc"><i>312</i>&nbsp;        if (appliance == null){</b>
+<b class="nc"><i>313</i>&nbsp;            return &quot;err: no appliance&quot;;</b>
+<i>314</i>&nbsp;        }
+<i>315</i>&nbsp;
+<i>316</i>&nbsp;        // judge whether the appliance is in the pending job list
+<b class="nc"><i>317</i>&nbsp;        if (option.equals(&quot;on&quot;) &amp;&amp; pendingJobRepository.findByAppliance(appliance.getAppId())!=null)</b>
+<b class="nc"><i>318</i>&nbsp;            return &quot;Invalid operation&quot;;</b>
+<b class="nc"><i>319</i>&nbsp;        host = user.getHardwareHost();</b>
+<b class="nc"><i>320</i>&nbsp;        port = user.getHardwarePort();</b>
+<i>321</i>&nbsp;
+<b class="nc"><i>322</i>&nbsp;        Map&lt;String, String&gt; map = new HashMap&lt;&gt;();</b>
+<b class="nc"><i>323</i>&nbsp;        map.put(&quot;id&quot;, String.valueOf(aid));</b>
+<b class="nc"><i>324</i>&nbsp;        map.put(&quot;option&quot;, option);</b>
+<i>325</i>&nbsp;
+<b class="nc"><i>326</i>&nbsp;        send_message = MapToJson(map);</b>
+<b class="nc"><i>327</i>&nbsp;        recv_message = sendMessage(host, port, send_message);</b>
+<b class="nc"><i>328</i>&nbsp;        System.out.println(&quot;get message from server: &quot; + recv_message);</b>
+<b class="nc"><i>329</i>&nbsp;        response.addHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);</b>
+<b class="nc"><i>330</i>&nbsp;        return recv_message;</b>
+<i>331</i>&nbsp;
+<i>332</i>&nbsp;    }
+<i>333</i>&nbsp;
+<i>334</i>&nbsp;    //java calls
+<i>335</i>&nbsp;
+<i>336</i>&nbsp;    public String request_appliances_status(String aid, String count, Date end_time, HttpServletResponse response)
+<i>337</i>&nbsp;    {
+<i>338</i>&nbsp;        User user;
+<i>339</i>&nbsp;        Appliance appliance;
+<i>340</i>&nbsp;        List&lt;AppStatus&gt; appStatus;
+<i>341</i>&nbsp;        StringBuffer buf;
+<i>342</i>&nbsp;        Date start_time;
+<i>343</i>&nbsp;        String sTime;
+<i>344</i>&nbsp;        String eTime;
+<i>345</i>&nbsp;
+<i>346</i>&nbsp;        //当前用户
+<i>347</i>&nbsp;//        SecurityContext ctx = SecurityContextHolder.getContext();
+<i>348</i>&nbsp;//        Authentication auth = ctx.getAuthentication();
+<i>349</i>&nbsp;//        user = (User) auth.getPrincipal();
+<i>350</i>&nbsp;
+<b class="nc"><i>351</i>&nbsp;        user = userRepository.findByUid(1L);</b>
+<i>352</i>&nbsp;
+<b class="nc"><i>353</i>&nbsp;        System.out.println(&quot;APPLIANCE&quot;);</b>
+<i>354</i>&nbsp;
+<i>355</i>&nbsp;        //查询电器
+<b class="nc"><i>356</i>&nbsp;        appliance = applianceRepository.findByUserAndAid(user.getUid(), Long.valueOf(aid));</b>
+<i>357</i>&nbsp;
+<i>358</i>&nbsp;        //查询区间(5s)的开始时间
+<b class="nc"><i>359</i>&nbsp;        start_time = new Date(end_time.getTime() - (long)(5 * 1000 * Long.valueOf(count)));</b>
+<b class="nc"><i>360</i>&nbsp;        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);</b>
+<i>361</i>&nbsp;
+<b class="nc"><i>362</i>&nbsp;        sTime = sdf.format(start_time);</b>
+<b class="nc"><i>363</i>&nbsp;        eTime = sdf.format(end_time);</b>
+<i>364</i>&nbsp;
+<i>365</i>&nbsp;        //count条该电器的最近数据
+<b class="nc"><i>366</i>&nbsp;        appStatus = appStatusRepository.findByApplianceAndCountBetweenTime(appliance.getAppId(), Long.valueOf(count), sTime, eTime);</b>
+<b class="nc"><i>367</i>&nbsp;        buf = new StringBuffer();</b>
+<b class="nc"><i>368</i>&nbsp;        buf.append(&quot;{\&quot;status\&quot;:[&quot;);</b>
+<b class="nc"><i>369</i>&nbsp;        for(AppStatus a : appStatus) {</b>
+<b class="nc"><i>370</i>&nbsp;            buf.append(&quot;{\&quot;time\&quot;:\&quot;&quot; + a.getRecordTime() +</b>
+<b class="nc"><i>371</i>&nbsp;                        &quot;\&quot;,\&quot;current\&quot;:&quot; + a.getPresentCurrent() +</b>
+<b class="nc"><i>372</i>&nbsp;                        &quot;,\&quot;voltage\&quot;:&quot; + a.getPresentVoltage() +</b>
+<i>373</i>&nbsp;                        &quot;},&quot;
+<i>374</i>&nbsp;            );
+<b class="nc"><i>375</i>&nbsp;        }</b>
+<b class="nc"><i>376</i>&nbsp;        if(appStatus.size() &gt; 0)</b>
+<b class="nc"><i>377</i>&nbsp;            buf.deleteCharAt(buf.length() - 1);</b>
+<b class="nc"><i>378</i>&nbsp;        buf.append(&quot;]}&quot;);</b>
+<b class="nc"><i>379</i>&nbsp;        System.out.println(buf.toString());</b>
+<b class="nc"><i>380</i>&nbsp;        response.addHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);</b>
+<b class="nc"><i>381</i>&nbsp;        return buf.toString();</b>
+<i>382</i>&nbsp;
+<i>383</i>&nbsp;    }
+<i>384</i>&nbsp;
+<i>385</i>&nbsp;
+<i>386</i>&nbsp;    //java calls
+<i>387</i>&nbsp;    public List&lt;Appliance&gt; get_appliances(){
+<i>388</i>&nbsp;
+<i>389</i>&nbsp;        List&lt;Appliance&gt; appliances;
+<i>390</i>&nbsp;        User user;
+<i>391</i>&nbsp;
+<i>392</i>&nbsp;        //当前用户
+<b class="nc"><i>393</i>&nbsp;        SecurityContext ctx = SecurityContextHolder.getContext();</b>
+<b class="nc"><i>394</i>&nbsp;        Authentication auth = ctx.getAuthentication();</b>
+<b class="nc"><i>395</i>&nbsp;        user = (User) auth.getPrincipal();</b>
+<b class="nc"><i>396</i>&nbsp;        System.out.println(&quot;APPLIANCE&quot;);</b>
+<b class="nc"><i>397</i>&nbsp;        appliances = applianceRepository.findByUser(user.getUid());</b>
+<b class="nc"><i>398</i>&nbsp;        return appliances;</b>
+<i>399</i>&nbsp;    }
+<i>400</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-24 15:23</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: PowerUseController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.mgimss.mgimss.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: PowerUseController (com.mgimss.mgimss.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">PowerUseController</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.mgimss.mgimss.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>4</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;@RestController
+<i>7</i>&nbsp;public interface PowerUseController {
+<i>8</i>&nbsp;    @RequestMapping(&quot;/fun/getDailyPowerUse&quot;)
+<i>9</i>&nbsp;    String getDailyPowerUse();
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;    @RequestMapping(&quot;/fun/getMonthlyPowerUse&quot;)
+<i>12</i>&nbsp;    String getMonthlyPowerUse();
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    @RequestMapping(&quot;/fun/getDailyAppsPowerUse&quot;)
+<i>15</i>&nbsp;    String getDailyAppsPowerUse(String date);
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    @RequestMapping(&quot;/fun/getMonthlyAppsPowerUse&quot;)
+<i>18</i>&nbsp;    String getMonthlyAppsPowerUse(String month);
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    @RequestMapping(&quot;/fun/getHighestPowerUse&quot;)
+<i>21</i>&nbsp;    String getHighestPowerUse();
+<i>22</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-07-24 15:23</div>
+</div>
+</body>
+</html>
