@@ -49,7 +49,7 @@
   justify-content: center;
   -webkit-align-items: center;
   align-items: center;
-
+  margin-top: 2%;
   position: relative;
   z-index: 1000;
   width: 420px;
@@ -156,16 +156,16 @@
 
 .button--sonar::before {
   position: absolute;
-  top: 50%;
+  top: 48%;
   left: 50%;
   border-radius: 50%;
   content: '';
   opacity: 0;
   pointer-events: none;
   border: 3px solid rgba(255, 255, 255, 0.5);
-  margin: -24px 5px 5px -24px;
-  width: 47px;
-  height: 47px;
+  margin: -25px 0 0 -24px;
+  width: 48px;
+  height: 48px;
 }
 
 .button--sonar.button--active::before {
@@ -200,8 +200,8 @@
 }
 
 .material-circle {
-  width: 150vh;
-  height: 150vh;
+  width: 130vh;
+  height: 130vh;
   margin: -75vh 0 0 -75vh;
   z-index: 0;
   border-radius: 50%;

@@ -288,10 +288,10 @@ class ApplianceCapsule extends Component {
           <div className="col-12">
             <div className="controls">
               <button className="button button--sonar button--reject" data-stack={"stack_iman"}>
-                <i className="fa fa-times"></i>
+                <i className="fa fa-arrow-left"></i>
                 <span className="text-hidden">Reject</span></button>
               <button className="button button--sonar button--accept" data-stack={"stack_iman"}>
-                <i className="fa fa-check"></i>
+                <i className="fa fa-arrow-right"></i>
                 <span className="text-hidden">Accept</span></button>
             </div>
           </div>
