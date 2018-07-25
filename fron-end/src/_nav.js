@@ -328,11 +328,11 @@ export default {
           url: '/main/user/profile',
           icon: 'cui-clipboard',
         },
-        // {
-        //   name: 'Avatar',
-        //   url: '/main/user/avatar',
-        //   icon: 'cui-camera',
-        // },
+        {
+          name: 'Avatar',
+          url: '/main/user/avatar',
+          icon: 'cui-camera',
+        },
         // {
         //   name: 'Notification',
         //   url: '/main/user/notification',
