@@ -13,7 +13,7 @@
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
   background: #565f77;
-  width: 50%;
+  width: 55%;
   position: relative;
   float: left;
   left: 25%;
@@ -34,25 +34,7 @@
   -o-transition: opacity 1s ease-in-out 1.5s;
 }
 
-@media (max-width: 1250px) {
-  .cardContainer {
-    left: 22%;
-  }
-}
 
-@media (max-width: 1150px) {
-  .cardContainer {
-    left: 18%;
-  }
-}
-
-@media (max-width: 600px) {
-  .cardContainer {
-    width: 100%;
-    left: 0;
-    top: 5%;
-  }
-}
 
 .content__title {
   margin: 0 auto 6em 0;
@@ -63,18 +45,23 @@
 }
 
 .stack {
-  margin: 0 auto;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+
   position: relative;
   z-index: 1000;
   width: 420px;
   height: 320px;
-  padding: 0;
+  left: 50%;
+  transform: translate(-60%);
   list-style: none;
   pointer-events: none;
 }
 
 .stack__item {
-  background: #fff;
+  background-color: #fff;
   height: 300px;
   width: 100%;
   padding-right: 20px;
@@ -96,11 +83,40 @@
   pointer-events: auto;
 }
 
+@media (max-width: 1250px) {
+  .cardContainer {
+    left: 22%;
+  }
+  .stack__item{
+    width: 90%;
+  }
+
+}
+
+@media (max-width: 1150px) {
+  .cardContainer {
+    left: 20%;
+  }
+  .stack__item{
+    width: 85%;
+  }
+}
+
+@media (max-width: 830px) {
+  .cardContainer {
+    width: 100%;
+    left: 0;
+    top: 5%;
+  }
+}
+
 .controls {
   position: relative;
   width: 150px;
   text-align: center;
-  margin: 3em 0 0 0;
+  margin-left: auto;
+  margin-right: auto;
+  transform: translate(0, -45%);
 }
 
 .button {
@@ -108,7 +124,7 @@
   background: none;
   position: relative;
   display: inline-block;
-  /*padding: 0.05em;*/
+  padding-bottom:  0.15em;
   margin: 0 0.3em;
   cursor: pointer;
   font-size: 1.4em;
@@ -147,9 +163,9 @@
   opacity: 0;
   pointer-events: none;
   border: 3px solid rgba(255, 255, 255, 0.5);
-  margin: -24px 0 0 -23px;
-  width: 48px;
-  height: 48px;
+  margin: -24px 5px 5px -24px;
+  width: 47px;
+  height: 47px;
 }
 
 .button--sonar.button--active::before {

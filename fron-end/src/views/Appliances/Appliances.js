@@ -271,6 +271,7 @@ class ApplianceCapsule extends Component {
     if (this.state.card === 1) {
       return (
         <div className="cardContainer" id={"card" + this.state.appliance["id"]}>
+          <div className="col-12">
           <ul id="stack_iman" className="stack stack--iman">
             <li className="stack__item">
               <div className="card">
@@ -283,13 +284,16 @@ class ApplianceCapsule extends Component {
               </div>
             </li>
           </ul>
-          <div className="controls">
-            <button className="button button--sonar button--reject" data-stack={"stack_iman"}>
-              <i className="fa fa-times"></i>
-              <span className="text-hidden">Reject</span></button>
-            <button className="button button--sonar button--accept" data-stack={"stack_iman"}>
-              <i className="fa fa-check"></i>
-              <span className="text-hidden">Accept</span></button>
+          </div>
+          <div className="col-12">
+            <div className="controls">
+              <button className="button button--sonar button--reject" data-stack={"stack_iman"}>
+                <i className="fa fa-times"></i>
+                <span className="text-hidden">Reject</span></button>
+              <button className="button button--sonar button--accept" data-stack={"stack_iman"}>
+                <i className="fa fa-check"></i>
+                <span className="text-hidden">Accept</span></button>
+            </div>
           </div>
         </div>
       );

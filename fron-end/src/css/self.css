@@ -199,8 +199,9 @@
   -moz-animation-direction: normal;
 }
 
-@media(max-width: 600px){
+@media(max-width: 830px){
   .fade-core-h {
+    left: 50%;
     animation-direction: reverse;
     -webkit-animation-direction: reverse;
     -moz-animation-direction: reverse;
@@ -229,16 +230,7 @@
   border-radius: 100px;
   /*background-color: #533f03;*/
   transform: translate(0, -100%);
-  animation: bodyShowUp 2s ease;
-  animation-delay: 2s;
-  animation-fill-mode: forwards;
-  -moz-animation: bodyShowUp 2s ease;
-  -moz-animation-delay: 2s;
-  -moz-animation-fill-mode: forwards;
-  -webkit-animation: bodyShowUp 2s ease;
-  -webkit-animation-fill-mode: forwards;
-  -webkit-animation-delay: 2s; /* Safari 和 Chrome */
-  opacity: 0;
+
 }
 
 .v-capsule {
@@ -346,6 +338,16 @@
   top: 35%;
   left: 58%;
   transform: translate(6%, -50%);
+  animation: bodyShowUp 2s ease;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+  -moz-animation: bodyShowUp 2s ease;
+  -moz-animation-delay: 2s;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation: bodyShowUp 2s ease;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-delay: 2s; /* Safari 和 Chrome */
+  opacity: 0;
 }
 
 .capbody-content {
@@ -905,6 +907,7 @@
     left: 50%;
   }
 }
+
 
 
 
