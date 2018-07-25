@@ -1,5 +1,6 @@
 package com.mgimss.mgimss.controller;
 
+import com.mgimss.mgimss.entity.AppStatus;
 import com.mgimss.mgimss.entity.Appliance;
 import com.mgimss.mgimss.entity.Job;
 import com.mgimss.mgimss.repository.*;
@@ -115,7 +116,8 @@ public void before() throws Exception {
 } 
 
 @After
-public void after() throws Exception { 
+public void after() throws Exception {
+
 } 
 
 /** 
@@ -123,12 +125,84 @@ public void after() throws Exception {
 * Method: post_remaining(String time, Long remaining, String uid) 
 * 
 */ 
+
 @Test
-public void testNotify() throws Exception {
+public void testPost_appliance_status() throws Exception {
+    String ret = operateAppliance.post_appliance_status("1970-01-01 08:00:00", "1", "220", "2", "1");
+    assertEquals("success", ret);
+
+}
+
+/**
+ *
+ * Method: notify_status_change(String id, String mode, String uid)
+ *
+ */
+@Test
+public void testNotify_status_change() throws Exception {
     assertEquals("err: no such appliance", operateAppliance.notify_status_change("0","1","1"));
     assertEquals("success", operateAppliance.notify_status_change("1","0","1"));
-} 
+}
+
+/**
+ *
+ * Method: add_appliance(String name, String mfrs, Long power, String gesture, HttpServletResponse response)
+ *
+ */
+@Test
+public void testAdd_appliance() throws Exception {
+//TODO: Test goes here...
+}
+
+/**
+ *
+ * Method: delete_appliance(Long aid, HttpServletResponse response)
+ *
+ */
+@Test
+public void testDelete_appliance() throws Exception {
+//TODO: Test goes here...
+}
+
+/**
+ *
+ * Method: modify_appliance(Long aid, String mfrs, Long power, String gesture)
+ *
+ */
+@Test
+public void testModify_appliance() throws Exception {
+//TODO: Test goes here...
+}
+
+/**
+ *
+ * Method: switch_appliance(Long aid, String option, HttpServletResponse response)
+ *
+ */
+@Test
+public void testSwitch_appliance() throws Exception {
+//TODO: Test goes here...
+}
+
+/**
+ *
+ * Method: request_appliances_status(String aid, String count, Date end_time, HttpServletResponse response)
+ *
+ */
+@Test
+public void testRequest_appliances_status() throws Exception {
+//TODO: Test goes here...
+}
+
+/**
+ *
+ * Method: get_appliances()
+ *
+ */
+@Test
+public void testGet_appliances() throws Exception {
+//TODO: Test goes here...
+}
 
 
-
-} 
+}

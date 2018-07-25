@@ -68,10 +68,8 @@ public class OperateApplianceImpl implements OperateAppliance {
 
         //用电器的id
         aid = Long.valueOf(id);
-
-        System.out.println("got in");
         //当前用户
-        user = userRepository.findByUid(Long.valueOf(uid));
+        user = getUserContext.getUser();
         //用电器
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
 
@@ -113,16 +111,9 @@ public class OperateApplianceImpl implements OperateAppliance {
         Date send_time;
         Job job;
 
-        //发送时间
         send_time = new Date();
-
-        //用电器的id
         aid = Long.valueOf(id);
-
-        //当前用户
         user = getUserContext.getUser();
-
-        //用电器
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
 
         if(appliance == null){
@@ -191,7 +182,7 @@ public class OperateApplianceImpl implements OperateAppliance {
 //        user = (User) auth.getPrincipal();
 
 
-        user = userRepository.findByUid(Long.valueOf(1));
+        user = getUserContext.getUser();
         if (!gesture.equals( "none"))
         {
             Gesture gest = new Gesture(gesture,name,user);
@@ -237,9 +228,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         String send_message;
         String recv_message;
 
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        user = (User) auth.getPrincipal();
+        user = getUserContext.getUser();
 
         System.out.println("APPLIANCE");
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
@@ -272,7 +261,7 @@ public class OperateApplianceImpl implements OperateAppliance {
 //        SecurityContext ctx = SecurityContextHolder.getContext();
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
-        user = userRepository.findByUid(Long.valueOf(1));
+        user = getUserContext.getUser();
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
         appliance.setMfrs(mfrs);
         appliance.setPower(power);
@@ -302,7 +291,7 @@ public class OperateApplianceImpl implements OperateAppliance {
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
 
-        user = userRepository.findByUid(1L);
+        user = getUserContext.getUser();
 
         if(option.equals("on")) new_state = 1;
         else if (option.equals("off")) new_state = 0;
@@ -348,7 +337,7 @@ public class OperateApplianceImpl implements OperateAppliance {
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
 
-        user = userRepository.findByUid(1L);
+        user = getUserContext.getUser();
 
         System.out.println("APPLIANCE");
 
