@@ -132,7 +132,7 @@ class Schedule extends Component {
       alert("Duration must not be less than zero!");
       return;
     }
-  // send data to server
+    // send data to server
     let ret = "Fail to delete the job";
     let jid = document.getElementById("id").value;
     $.ajax({
@@ -180,22 +180,22 @@ class Schedule extends Component {
                         style={{"marginBottom": "6px", "marginLeft": "6px", "display": "none"}}> Cancel</Button>
                 <Button color={"danger"} onClick={this.deleteClick} id={"Delete"}
                         style={{"marginBottom": "6px", "marginLeft": "6px", "display":"inline"}}> Delete</Button>
-                  <Table responsive hover>
-                    <tbody>
-                      {
-                        jobDetails.map(([key, value]) => {
-                          return (
-                            <tr>
-                              <td>{`${key}:`}</td>
-                              <td>
-                                <Input defaultValue={value} disabled id={key}/>
-                              </td>
-                            </tr>
-                          )
-                        })
-                      }
-                    </tbody>
-                  </Table>
+                <Table responsive hover>
+                  <tbody>
+                  {
+                    jobDetails.map(([key, value]) => {
+                      return (
+                        <tr>
+                          <td>{`${key}:`}</td>
+                          <td>
+                            <Input defaultValue={value} disabled id={key}/>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  }
+                  </tbody>
+                </Table>
               </CardBody>
             </Card>
           </Col>

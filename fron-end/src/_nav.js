@@ -266,7 +266,7 @@ export default {
       children: [
         {
           name: 'Appliances',
-          url: '/main/apps',
+          url: '/main/apps_old',
           icon: 'cui-list',
         },
         {
