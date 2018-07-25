@@ -178,6 +178,11 @@ const Appliances = Loadable({
   loading: Loading,
 });
 
+const Appliances_old = Loadable({
+  loader: () => import('./views/Appliances/Appliances-old'),
+  loading: Loading,
+});
+
 const Appliance = Loadable({
   loader: () => import('./views/Appliances/Appliance'),
   loading: Loading,
@@ -267,6 +272,7 @@ const routes = [
   { path: '/main/widgets', name: 'Widgets', component: Widgets },
   { path: '/main/charts', name: 'Charts', component: Charts },
   { path: '/main/apps', exact: true,  name: 'Appliances', component: Appliances },
+  { path: '/main/apps_old', exact: true,  name: 'Appliances', component: Appliances_old },
   { path: '/main/apps/:id', exact: true, name: 'Appliance Details', component: Appliance },
   { path: '/main/fun', exact: true, name: 'Functions', component: PowerUse },
   { path: '/main/fun/poweruse', name: 'Power Use', component: PowerUse },
@@ -276,8 +282,8 @@ const routes = [
   // { path: '/main/user/notification', name: 'Notification', component: Notification },
   { path: '/main/getMedia', name: 'AI小微', component: getMedia },
   { path: '/main/forecast', name: '小微预测', component: forecast },
-  { path: '/main/schedule', name: 'AI小微', component: Schedules },
-  { path: '/main/schedule/:id', name: '小微预测', component: Schedule },
+  { path: '/main/schedule', exact: true, name: 'Schedules', component: Schedules },
+  { path: '/main/schedule/:id', exact: true, name: 'Schedule Details', component: Schedule },
 ];
 
 export default routes;
