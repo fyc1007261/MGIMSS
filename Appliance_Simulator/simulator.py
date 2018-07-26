@@ -1,4 +1,4 @@
-from appliance import Appliance
+from appliance import Appliance, ArduinoLED
 from battery import Battery
 
 import requests
@@ -51,10 +51,12 @@ def get_apps(apps):
         info = file.readlines()
         for line in info:
             line = eval(line)
-            app = Appliance(line[0], line[1], line[2], line[3], line[4])
+            if line[0] == 0:
+                app = ArduinoLED(line[0], line[1], line[2], line[3], line[4])
+            else:
+                app = Appliance(line[0], line[1], line[2], line[3], line[4])
             temp_id = line[0] + 1
             apps.append(app)
-
 
 
 def save_apps(apps):
