@@ -238,12 +238,23 @@ public class Speech {
             DataTest.beginTime = DataTest.change2date(dataresult);
             if (DataTest.beginTime == null)
             {
-                Speechgenrate.voice("小微走神了，请再给小微念一遍好吗");
+                DataTest.beginTime = DataTest.change3date(dataresult);
+                if (DataTest.beginTime == null)
+                {
+                    Speechgenrate.voice("小微走神了，请再给小微念一遍好吗");
+                }
+                else {
+                    Speechgenrate.voice("请设置必须完成时间");
+                    DataTest.stepA = 1;
+                    DataTest.stepB = 3;
+                }
             }
             else {
-                Speechgenrate.voice("请设置必须完成时间");
-                DataTest.stepA = 1;
-                DataTest.stepB = 3;
+
+                    Speechgenrate.voice("请设置必须完成时间");
+                    DataTest.stepA = 1;
+                    DataTest.stepB = 3;
+
             }
         }
         else if ((DataTest.stepA ==1) && (DataTest.stepB ==3))
@@ -251,12 +262,26 @@ public class Speech {
             DataTest.endTime = DataTest.change2date(dataresult);
             if (DataTest.endTime == null)
             {
-                Speechgenrate.voice("小微走神了，请再给小微念一遍好吗");
+                DataTest.endTime = DataTest.change3date(dataresult);
+                if (DataTest.endTime == null)
+                {
+                    Speechgenrate.voice("小微走神了，请再给小微念一遍好吗");
+                }
+                else {
+                    Speechgenrate.voice("请设置持续时间");
+                    DataTest.stepA = 1;
+                    DataTest.stepB = 4;
+
+                }
+
             }
             else {
-                Speechgenrate.voice("请设置持续时间");
-                DataTest.stepA = 1;
-                DataTest.stepB = 4;
+
+                    Speechgenrate.voice("请设置持续时间");
+                    DataTest.stepA = 1;
+                    DataTest.stepB = 4;
+
+
             }
         }
         else if ((DataTest.stepA ==1) && (DataTest.stepB ==4))
@@ -275,7 +300,8 @@ public class Speech {
                 }
                 else perPower = Math.round(pPower.get());
                 Job job;
-                System.out.println("startTime:"+DataTest.beginTime.getTime()/1000+"stopTime:"+DataTest.endTime.getTime()/1000+"LastTime:"+DataTest.lastTime+"PerPower:"+perPower);
+                //System.out.println("startTime:"+DataTest.beginTime.getTime()/1000+"stopTime:"+DataTest.endTime.getTime()/1000+"LastTime:"+DataTest.lastTime+"PerPower:"+perPower);
+                System.out.println();
                 job = new Job(DataTest.beginTime.getTime()/1000, DataTest.endTime.getTime()/1000, Long.valueOf(0), Long.valueOf(0), DataTest.lastTime,
                         perPower, 0, DataTest.appliance, user);
                 pendingJobRepository.save(job);

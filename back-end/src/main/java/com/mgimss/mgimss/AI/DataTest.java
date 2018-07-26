@@ -34,6 +34,21 @@ public class DataTest {
             return null;
         }
     }
+
+    public static Date  change3date(String arg) {
+        try {
+            java.text.SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
+            String s = arg;
+            Date date = formatter.parse(s);
+            System.out.println(date);
+            return date;
+        }
+        catch (Exception e)
+        {
+            System.out.println("error");
+            return null;
+        }
+    }
     public static Long  change2int(String arg) {
         try {
 //            java.text.SimpleDateFormat formatter = new SimpleDateFormat("HH小时mm分ss秒");
@@ -59,4 +74,5 @@ public class DataTest {
             return null;
         }
     }
+
 }

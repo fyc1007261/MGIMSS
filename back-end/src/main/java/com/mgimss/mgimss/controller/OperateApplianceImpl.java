@@ -1,6 +1,7 @@
 package com.mgimss.mgimss.controller;
 
 
+import com.mgimss.mgimss.AI.Speechgenrate;
 import com.mgimss.mgimss.entity.*;
 import com.mgimss.mgimss.repository.*;
 import com.mgimss.mgimss.utils.GetUserContext;
@@ -119,7 +120,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         if (job != null){
             Date now = new Date();
             run_second = (now.getTime()/1000 - job.getIntTrueStartTime());
-            if (run_second > 10 && run_second<15 && appliance.getAid()==0){
+            if (run_second >= 10 && run_second<15 && appliance.getAid()==0){
                 // temporary code with constants
             NotificationController notificationController = new NotificationController();
             notificationController.notification("It's time to turn off the light.");
@@ -163,7 +164,12 @@ public class OperateApplianceImpl implements OperateAppliance {
             job.setIntTrueStopTime(curTime);
             job.setLastTime(job.getIntTrueStopTime() - job.getIntTrueStartTime());
             finishedJobRepository.save(job);
-
+            try {
+                Speechgenrate.voice(appliance.getName()+"关闭成功");
+            }
+            catch(Exception e){
+                System.out.println("Speach erro");
+            }
         }
         if(newMode == 1){
             job = pendingJobRepository.findByAppliance(appliance.getAppId());
@@ -185,6 +191,12 @@ public class OperateApplianceImpl implements OperateAppliance {
                 job.setStatus(1);
                 Long curTime = new Date().getTime()/1000;
                 job.setIntStartTime(curTime);
+            }
+            try {
+                Speechgenrate.voice(appliance.getName()+"开启成功");
+            }
+            catch(Exception e){
+                System.out.println("Speach erro");
             }
             runningJobRepository.save(job);
         }
@@ -233,7 +245,6 @@ public class OperateApplianceImpl implements OperateAppliance {
         Map<String, String> map = new HashMap<>();
         map.put("id", String.valueOf(aid));
         map.put("name", name);
-        map.put("power", String.valueOf(power));
         map.put("power", String.valueOf(power));
         map.put("option", "add");
 
