@@ -258,7 +258,7 @@ def do_server(conn, addr, apps, battery):
         try:
             app_id = eval(data["id"])
         except ValueError:
-            conn.send(b"Invalid input")
+            conn.send(b"err: Invalid input")
             conn.close()
             return
         if switch_status(apps, app_id, 1) == 0:
@@ -271,7 +271,7 @@ def do_server(conn, addr, apps, battery):
         try:
             app_id = eval(data["id"])
         except ValueError:
-            conn.send(b"Invalid input")
+            conn.send(b"err: Invalid input")
             conn.close()
             return
         if switch_status(apps, app_id, 0) == 0:
@@ -284,25 +284,44 @@ def do_server(conn, addr, apps, battery):
         try:
             app_id = eval(data["id"])
             app_name = data["name"]
+            power = int(data["power"])
         except ValueError:
-            conn.send(b"Invalid input")
+            conn.send(b"err: Invalid input")
             conn.close()
             return
         info = dict()
         info["id"] = app_id
         info["name"] = app_name
         info["voltage"] = 220
-        info["current"] = random.randrange(1, 20)/10
+        info["current"] = power/220
         if create_app(apps, info) == 0:
             conn.send(b"success")
             print_debug("success when adding an app")
         else:
             conn.send(b"err: can't add appliance")
+    elif option == "modify":
+        try:
+            app_id = eval(data["id"])
+            power = int(data["power"])
+        except ValueError:
+            conn.send(b"err: Invalid input")
+            conn.close()
+            return
+        for app in apps:
+            if app.get_id() == app_id:
+                app.set_current(power/220)
+                conn.send(b"success")
+                print_debug("success when modify app")
+                break
+        else:
+            conn.send(b"err: No such appliance")
+            conn.close()
+            return
     elif option == "delete":
         try:
             app_id = eval(data["id"])
         except ValueError:
-            conn.send(b"Invalid input")
+            conn.send(b"err: Invalid input")
             conn.close()
             return
         if delete_app(apps, app_id) == 0:
@@ -315,7 +334,7 @@ def do_server(conn, addr, apps, battery):
             hour = int(data["time"])
             value = battery.get_generation_volume()[hour] * area_of_solar_generator
         except ValueError:
-            conn.send(b"Invalid input")
+            conn.send(b"err: Invalid input")
             conn.close()
             return
         conn.send(bytes(str(value), 'utf-8'))

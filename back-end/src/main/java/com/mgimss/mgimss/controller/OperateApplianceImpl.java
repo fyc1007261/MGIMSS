@@ -113,7 +113,18 @@ public class OperateApplianceImpl implements OperateAppliance {
             dailyPowerConsume.setConsumption(dailyPowerConsume.getConsumption()+consumption);
             dailyRepository.save(dailyPowerConsume);
         }
-        // return time for client to check for validity
+        // judge whether to send notifications
+        Job job = runningJobRepository.findByAppliance(appliance.getAppId());
+        Long run_second = 0L;
+        if (job != null){
+            Date now = new Date();
+            run_second = (now.getTime()/1000 - job.getIntTrueStartTime());
+            if (run_second > 10 && run_second<15 && appliance.getAid()==0){
+                // temporary code with constants
+            NotificationController notificationController = new NotificationController();
+            notificationController.notification("It's time to turn off the light.");
+            }
+        }
         return "success";
     }
 
@@ -222,6 +233,8 @@ public class OperateApplianceImpl implements OperateAppliance {
         Map<String, String> map = new HashMap<>();
         map.put("id", String.valueOf(aid));
         map.put("name", name);
+        map.put("power", String.valueOf(power));
+        map.put("power", String.valueOf(power));
         map.put("option", "add");
 
         send_message = MapToJson(map);
@@ -291,6 +304,20 @@ public class OperateApplianceImpl implements OperateAppliance {
             Gesture gest2 = new Gesture(gesture,appliance.getName(),user);
             gestureRepository.save(gest2);
         }
+
+        String host = user.getHardwareHost();
+        String port = user.getHardwarePort();
+
+        Map<String, String> map = new HashMap<>();
+        map.put("id", String.valueOf(aid));
+        map.put("option", "modify");
+        map.put("power", String.valueOf(power));
+
+        String send_message = MapToJson(map);
+        String recv_message = sendMessage(host, port, send_message);
+        System.out.println("get message from server: " + recv_message);
+        if (recv_message.contains("err")) return recv_message;
+
         return "success";
     }
 
