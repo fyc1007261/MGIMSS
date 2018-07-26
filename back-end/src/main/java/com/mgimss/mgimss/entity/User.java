@@ -23,6 +23,7 @@ public class User implements UserDetails {
     private String phone;
     private String  hardwareHost;
     private String hardwarePort;
+    private String avatarURL;
 
     @OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
     @JoinColumn(name="uid")
@@ -37,13 +38,14 @@ public class User implements UserDetails {
     }
 
     public User(String username, String password, String email,
-                String phone, String  hardwareHost, String hardwarePort, List<Role> roles){
+                String phone, String  hardwareHost, String hardwarePort, String avatarURL, List<Role> roles){
         this.username = username;
         this.password = password;
         this.email = email;
         this.phone = phone;
         this.hardwareHost = hardwareHost;
         this.hardwarePort = hardwarePort;
+        this.avatarURL = avatarURL;
         this.roles = roles;
     }
 
@@ -95,6 +97,14 @@ public class User implements UserDetails {
 
     public void setHardwareHost(String hardwareHost) {
         this.hardwareHost = hardwareHost;
+    }
+
+    public String getAvatarURL() {
+        return avatarURL;
+    }
+
+    public void setAvatarURL(String avatarURL) {
+        this.avatarURL = avatarURL;
     }
 
     public Set<Appliance> getAppliances() {
