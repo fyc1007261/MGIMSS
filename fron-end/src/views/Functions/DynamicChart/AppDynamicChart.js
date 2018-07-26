@@ -16,6 +16,7 @@ let currentPoints = [];
 let voltagePoints = [];
 let end_time;
 let start_time;
+let interval = 5;
 
 // let currentPoints = [0.2, 0.5, 0.4, 0.3];
 // let voltagePoints = [220.2, 220.5, 220.4, 220.3];
@@ -49,7 +50,7 @@ class CurrentChart extends Component {
         }
         else if (appsData.length > 0) {
           start_time = new Date();
-          start_time.setTime(end_time.getTime() - 1000 * 5 * props.count);
+          start_time.setTime(end_time.getTime() - 1000 * interval * props.count);
 
           let first_element = appsData[appsData.length - 1];
           let first_str = first_element["time"].replace(/-/g, "/");
@@ -68,17 +69,17 @@ class CurrentChart extends Component {
           // //alert("first_difference: "+first_difference);
 
           //返回数据从头开始
-          if (first_difference < 5) {
+          if (first_difference < interval) {
             // //alert("first element is the first");
             let i = appsData.length - 1;
             let time;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * (interval + 1))) {
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
-                time.setTime(time.getTime() + 1000 * 5);
+                time.setTime(time.getTime() + 1000 * interval);
               }
               labels.push(appsData[i]["time"].trim().split(" ")[1]);
               //alert("time: "+appsData[i]["time"].trim().split(" ")[1]);
@@ -89,7 +90,7 @@ class CurrentChart extends Component {
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
             i = labels.length;
             for (i; i < props.count; i++) {
-              time.setTime(time.getTime() + 1000 * 5);
+              time.setTime(time.getTime() + 1000 * interval);
               // //alert("time: "+time);
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               currentPoints.push(0);
@@ -97,23 +98,23 @@ class CurrentChart extends Component {
           }
           else {
             // //alert("first element is not the first");
-            let k = Math.floor(first_difference / 5);
+            let k = Math.floor(first_difference / interval);
             let time = new Date();
-            time.setTime(first_element_time.getTime() - k * 1000 * 5);
+            time.setTime(first_element_time.getTime() - k * 1000 * interval);
             for (k; k > 0; k--) {
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               // //alert("time: "+time);
               currentPoints.push(0);
-              time.setTime(time.getTime() + 1000 * 5);
+              time.setTime(time.getTime() + 1000 * interval);
             }
             let i = appsData.length - 1;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * (interval+1))) {
                 //alert("next time point is 0! time: " + time + ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
-                time.setTime(time.getTime() + 1000 * 5);
+                time.setTime(time.getTime() + 1000 * interval);
               }
               labels.push(appsData[i]["time"].trim().split(" ")[1]);
               //alert("time: "+appsData[i]["time"].trim().split(" ")[1]);
@@ -124,7 +125,7 @@ class CurrentChart extends Component {
             i = labels.length;
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
             for (i; i < props.count; i++) {
-              time.setTime(time.getTime() + 1000 * 5);
+              time.setTime(time.getTime() + 1000 * interval);
               // //alert("time: "+time);
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               currentPoints.push(0);
@@ -134,14 +135,14 @@ class CurrentChart extends Component {
         }
         else {
           start_time = new Date();
-          start_time.setTime(end_time.getTime() - 1000 * 5 * props.count);
+          start_time.setTime(end_time.getTime() - 1000 * interval * props.count);
           let time = start_time;
           let i = 0;
           for (i; i < props.count; i++) {
             // //alert("time: "+time);
             labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString());
             currentPoints.push(0);
-            time.setTime(time.getTime() + 1000 * 5);
+            time.setTime(time.getTime() + 1000 * interval);
           }
         }
 
@@ -254,7 +255,7 @@ class CurrentChart extends Component {
         }
         else if (appsData.length > 0) {
           start_time = new Date();
-          start_time.setTime(end_time.getTime() - 1000 * 5 * this.state.count);
+          start_time.setTime(end_time.getTime() - 1000 * interval * this.state.count);
 
           let first_element = appsData[appsData.length - 1];
           let first_str = first_element["time"].replace(/-/g, "/");
@@ -273,17 +274,17 @@ class CurrentChart extends Component {
           //alert("first_difference: "+first_difference);
 
           //返回数据从头开始
-          if (first_difference < 5) {
+          if (first_difference < interval) {
             //alert("first element is the first");
             let i = appsData.length - 1;
             let time;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * (interval+1))) {
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
-                time.setTime(time.getTime() + 1000 * 5);
+                time.setTime(time.getTime() + 1000 * interval);
               }
               labels.push(appsData[i]["time"].trim().split(" ")[1]);
               //alert("time: " + appsData[i]["time"].trim().split(" ")[1]);
@@ -294,7 +295,7 @@ class CurrentChart extends Component {
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
             i = labels.length;
             for (i; i < this.state.count; i++) {
-              time.setTime(time.getTime() + 1000 * 5);
+              time.setTime(time.getTime() + 1000 * interval);
               //alert("time: "+time);
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               currentPoints.push(0);
@@ -302,23 +303,23 @@ class CurrentChart extends Component {
           }
           else {
             //alert("first element is not the first");
-            let k = Math.floor(first_difference / 5);
+            let k = Math.floor(first_difference / interval);
             let time = new Date();
-            time.setTime(first_element_time.getTime() - k * 1000 * 5);
+            time.setTime(first_element_time.getTime() - k * 1000 * interval);
             for (k; k > 0; k--) {
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               //alert("time: "+time);
               currentPoints.push(0);
-              time.setTime(time.getTime() + 1000 * 5);
+              time.setTime(time.getTime() + 1000 * interval);
             }
             let i = appsData.length - 1;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * (interval+1))) {
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
-                time.setTime(time.getTime() + 1000 * 5);
+                time.setTime(time.getTime() + 1000 * interval);
               }
               labels.push(appsData[i]["time"].trim().split(" ")[1]);
               //alert("time: "+appsData[i]["time"].trim().split(" ")[1]);
@@ -329,7 +330,7 @@ class CurrentChart extends Component {
             i = labels.length;
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
             for (i; i < this.state.count; i++) {
-              time.setTime(time.getTime() + 1000 * 5);
+              time.setTime(time.getTime() + 1000 * interval);
               // //alert("time: "+time);
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               currentPoints.push(0);
@@ -339,14 +340,14 @@ class CurrentChart extends Component {
         }
         else {
           start_time = new Date();
-          start_time.setTime(end_time.getTime() - 1000 * 5 * this.state.count);
+          start_time.setTime(end_time.getTime() - 1000 * interval * this.state.count);
           let time = start_time;
           let i = 0;
           for (i; i < this.state.count; i++) {
             ////alert("time: "+time);
             labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString());
             currentPoints.push(0);
-            time.setTime(time.getTime() + 1000 * 5);
+            time.setTime(time.getTime() + 1000 * interval);
           }
         }
 
@@ -392,7 +393,7 @@ class CurrentChart extends Component {
 
 
   componentDidMount() {
-    this.timerID = setInterval(() => this.flush(), 5000);
+    this.timerID = setInterval(() => this.flush(), 1000*interval);
   };
 
   componentWillUnmount() {
@@ -442,7 +443,7 @@ class VoltageChart extends Component {
         }
         else if (appsData.length > 0) {
           start_time = new Date();
-          start_time.setTime(end_time.getTime() - 1000 * 5 * props.count);
+          start_time.setTime(end_time.getTime() - 1000 * interval * props.count);
 
           let first_element = appsData[appsData.length - 1];
           let first_str = first_element["time"].replace(/-/g, "/");
@@ -461,17 +462,17 @@ class VoltageChart extends Component {
           // //alert("first_difference: "+first_difference);
 
           //返回数据从头开始
-          if (first_difference < 5) {
+          if (first_difference < interval) {
             // //alert("first element is the first");
             let i = appsData.length - 1;
             let time;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * (interval+1))) {
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 voltagePoints.push(0);
-                time.setTime(time.getTime() + 1000 * 5);
+                time.setTime(time.getTime() + 1000 * interval);
               }
               labels.push(appsData[i]["time"].trim().split(" ")[1]);
               //alert("time: "+appsData[i]["time"].trim().split(" ")[1]);
@@ -482,7 +483,7 @@ class VoltageChart extends Component {
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
             i = labels.length;
             for (i; i < props.count; i++) {
-              time.setTime(time.getTime() + 1000 * 5);
+              time.setTime(time.getTime() + 1000 * interval);
               // //alert("time: "+time);
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               voltagePoints.push(0);
@@ -490,23 +491,23 @@ class VoltageChart extends Component {
           }
           else {
             // //alert("first element is not the first");
-            let k = Math.floor(first_difference / 5);
+            let k = Math.floor(first_difference / interval);
             let time = new Date();
-            time.setTime(first_element_time.getTime() - k * 1000 * 5);
+            time.setTime(first_element_time.getTime() - k * 1000 * interval);
             for (k; k > 0; k--) {
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               // //alert("time: "+time);
               voltagePoints.push(0);
-              time.setTime(time.getTime() + 1000 * 5);
+              time.setTime(time.getTime() + 1000 * interval);
             }
             let i = appsData.length - 1;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * (interval+1))) {
                 //alert("next time point is 0! time: " + time + ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 voltagePoints.push(0);
-                time.setTime(time.getTime() + 1000 * 5);
+                time.setTime(time.getTime() + 1000 * interval);
               }
               labels.push(appsData[i]["time"].trim().split(" ")[1]);
               //alert("time: "+appsData[i]["time"].trim().split(" ")[1]);
@@ -517,7 +518,7 @@ class VoltageChart extends Component {
             i = labels.length;
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
             for (i; i < props.count; i++) {
-              time.setTime(time.getTime() + 1000 * 5);
+              time.setTime(time.getTime() + 1000 * interval);
               // //alert("time: "+time);
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               voltagePoints.push(0);
@@ -527,14 +528,14 @@ class VoltageChart extends Component {
         }
         else {
           start_time = new Date();
-          start_time.setTime(end_time.getTime() - 1000 * 5 * props.count);
+          start_time.setTime(end_time.getTime() - 1000 * interval * props.count);
           let time = start_time;
           let i = 0;
           for (i; i < props.count; i++) {
             // //alert("time: "+time);
             labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString());
             voltagePoints.push(0);
-            time.setTime(time.getTime() + 1000 * 5);
+            time.setTime(time.getTime() + 1000 * interval);
           }
         }
 
@@ -617,7 +618,7 @@ class VoltageChart extends Component {
         }
         else if (appsData.length > 0) {
           start_time = new Date();
-          start_time.setTime(end_time.getTime() - 1000 * 5 * this.state.count);
+          start_time.setTime(end_time.getTime() - 1000 * interval * this.state.count);
 
           let first_element = appsData[appsData.length - 1];
           let first_str = first_element["time"].replace(/-/g, "/");
@@ -636,17 +637,17 @@ class VoltageChart extends Component {
           //alert("first_difference: "+first_difference);
 
           //返回数据从头开始
-          if (first_difference < 5) {
+          if (first_difference < interval) {
             //alert("first element is the first");
             let i = appsData.length - 1;
             let time;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * (interval+1))) {
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 voltagePoints.push(0);
-                time.setTime(time.getTime() + 1000 * 5);
+                time.setTime(time.getTime() + 1000 * interval);
               }
               labels.push(appsData[i]["time"].trim().split(" ")[1]);
               //alert("time: " + appsData[i]["time"].trim().split(" ")[1]);
@@ -657,7 +658,7 @@ class VoltageChart extends Component {
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
             i = labels.length;
             for (i; i < this.state.count; i++) {
-              time.setTime(time.getTime() + 1000 * 5);
+              time.setTime(time.getTime() + 1000 * interval);
               //alert("time: "+time);
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               voltagePoints.push(0);
@@ -665,23 +666,23 @@ class VoltageChart extends Component {
           }
           else {
             //alert("first element is not the first");
-            let k = Math.floor(first_difference / 5);
+            let k = Math.floor(first_difference / interval);
             let time = new Date();
-            time.setTime(first_element_time.getTime() - k * 1000 * 5);
+            time.setTime(first_element_time.getTime() - k * 1000 * interval);
             for (k; k > 0; k--) {
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               //alert("time: "+time);
               voltagePoints.push(0);
-              time.setTime(time.getTime() + 1000 * 5);
+              time.setTime(time.getTime() + 1000 * interval);
             }
             let i = appsData.length - 1;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * 6)) {
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * (interval+1))) {
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 voltagePoints.push(0);
-                time.setTime(time.getTime() + 1000 * 5);
+                time.setTime(time.getTime() + 1000 * interval);
               }
               labels.push(appsData[i]["time"].trim().split(" ")[1]);
               //alert("time: "+appsData[i]["time"].trim().split(" ")[1]);
@@ -692,7 +693,7 @@ class VoltageChart extends Component {
             i = labels.length;
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
             for (i; i < this.state.count; i++) {
-              time.setTime(time.getTime() + 1000 * 5);
+              time.setTime(time.getTime() + 1000 * interval);
               // //alert("time: "+time);
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               voltagePoints.push(0);
@@ -702,14 +703,14 @@ class VoltageChart extends Component {
         }
         else {
           start_time = new Date();
-          start_time.setTime(end_time.getTime() - 1000 * 5 * this.state.count);
+          start_time.setTime(end_time.getTime() - 1000 * interval * this.state.count);
           let time = start_time;
           let i = 0;
           for (i; i < this.state.count; i++) {
             ////alert("time: "+time);
             labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString());
             voltagePoints.push(0);
-            time.setTime(time.getTime() + 1000 * 5);
+            time.setTime(time.getTime() + 1000 * interval);
           }
         }
 
@@ -755,7 +756,7 @@ class VoltageChart extends Component {
 
 
   componentDidMount() {
-    this.timerID = setInterval(() => this.flush(), 5000);
+    this.timerID = setInterval(() => this.flush(), 1000*interval);
   };
 
   componentWillUnmount() {

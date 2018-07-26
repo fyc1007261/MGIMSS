@@ -60,7 +60,7 @@ public class Schedule {
 
         Long capacity = battery.getCapacity();
         Long remain = battery.getRemain();
-        Long timeSlice = 10L;
+        Long timeSlice = 100L;
         ntimeSlice = 3600L;
         ArrayList<Job> beginJob = new ArrayList();
         for (int i = 0; i < pendJob.size(); i++) //对每一个 pendJob做预测
@@ -145,6 +145,37 @@ public class Schedule {
 
                                 }
                             }
+
+
+
+                            for (int jj = 0; jj < i; jj++) //便利每个用job
+                            {
+                                if(pendJob.get(jj).getIntTrueStartTime() >= simulateTime)
+                                {
+                                    if (pendJob.get(jj).getIntTrueStopTime() <= simulateTime) {
+
+                                    } else {
+                                        Long runTime;
+                                        if (pendJob.get(jj).getIntTrueStopTime() < endSimulateTime) {
+                                            runTime = pendJob.get(jj).getIntTrueStopTime() - simulateTime;
+                                        } else {
+                                            runTime = endSimulateTime - simulateTime;
+                                        }
+                                        Long runPower = runTime * pendJob.get(jj).getPerPower();
+                                        if (runPower <= simulateRemain) {
+                                            simulateRemain = simulateRemain - runPower;
+                                        } else {
+                                            Long costPower = runPower - simulateRemain;
+                                            simulateRemain = Long.valueOf(0);
+                                            cost = cost + costPower * getCharge(simulateTime);
+                                        }
+
+                                    }
+                                }
+                            }
+
+
+
                             if (beginTime <= simulateTime)
                             {
                                 if (endTime <= simulateTime)
@@ -174,7 +205,7 @@ public class Schedule {
                             //System.out.println("simulateTime:"+simulateTime);
                         }//结束模拟阶段
                         System.out.println("applianceId:"+pendJob.get(i).getAppliance().getAid()+"doTime:"+doTime+"cost:"+cost);
-                        if (maxcost > cost )
+                        if ((maxcost > cost) && ((doTime + pendJob.get(i).getLastTime()+timeSlice) <= stopTime))
                         {
                             maxcost = cost;
                             maxTime = doTime;
@@ -196,7 +227,9 @@ public class Schedule {
             {
                 if (doit == Long.valueOf(0))//该job还可以延后执行
                 {
-                    Long doTime = startTime;//为该job在何时开始
+                    Long tmod = nowTime % timeSlice;
+
+                    Long doTime = (startTime/timeSlice*timeSlice)+timeSlice+tmod;//为该job在何时开始
                     Long maxcost = Long.MAX_VALUE;
                     Long maxTime = doTime;//对于给定的一个job它的最有开始时间
                     while ((doTime + pendJob.get(i).getLastTime()) <= stopTime) //对每一个合理的时间开始JOB
@@ -258,6 +291,33 @@ public class Schedule {
 
                                 }
                             }
+
+                            for (int jj = 0; jj < i; jj++) //便利每个用job
+                            {
+                                //System.out.println("lllllllllllllllllllllllllllllllllllll");
+                                if(pendJob.get(jj).getIntTrueStartTime() >= simulateTime)
+                                {
+                                    if (pendJob.get(jj).getIntTrueStopTime() <= simulateTime) {
+
+                                    } else {
+                                        Long runTime;
+                                        if (pendJob.get(jj).getIntTrueStopTime() < endSimulateTime) {
+                                            runTime = pendJob.get(jj).getIntTrueStopTime() - simulateTime;
+                                        } else {
+                                            runTime = endSimulateTime - simulateTime;
+                                        }
+                                        Long runPower = runTime * pendJob.get(jj).getPerPower();
+                                        if (runPower <= simulateRemain) {
+                                            simulateRemain = simulateRemain - runPower;
+                                        } else {
+                                            Long costPower = runPower - simulateRemain;
+                                            simulateRemain = Long.valueOf(0);
+                                            cost = cost + costPower * getCharge(simulateTime);
+                                        }
+
+                                    }
+                                }
+                            }
                             if (beginTime <= simulateTime)
                             {
                                 if (endTime <= simulateTime)
@@ -287,7 +347,7 @@ public class Schedule {
                             //System.out.println("simulateTime:"+simulateTime);
                         }//结束模拟阶段
                         System.out.println("applianceId:"+pendJob.get(i).getAppliance().getAid()+"doTime:"+doTime+"cost:"+cost);
-                        if (maxcost > cost )
+                        if ((maxcost > cost) && ((doTime + pendJob.get(i).getLastTime()+timeSlice) <= stopTime))
                         {
                             maxcost = cost;
                             maxTime = doTime;

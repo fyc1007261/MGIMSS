@@ -1,5 +1,6 @@
-import requests
+import serial
+ser = serial.Serial('COM3', 9600)
+while True:
+    ch = input("input: ")
+    ser.write(bytes(ch, 'UTF-8'))
 
-r = requests.get("http://localhost:12333/appliance/open_close_appliance?aid=0&option=off")
-print(r.text)
-print(r.headers)
