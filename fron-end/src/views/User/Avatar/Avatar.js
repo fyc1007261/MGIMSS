@@ -3,7 +3,9 @@ import '../../../css/profile_card.css';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import AvatarEditor from 'react-avatar-editor';
+import { Redirect } from 'react-router-dom';
 import { Col, Card, Button, Row } from 'reactstrap';
+import $ from 'jquery';
 
 const CLOUDINARY_UPLOAD_PRESET = 'mgimss';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/breezeeee/upload';
@@ -28,7 +30,7 @@ class ContactForm extends Component {
 
   onClickSave = () => {
     if (this.editor) {
-      const canvas = this.editor.getImage();
+      // const canvas = this.editor.getImage();
       const canvasScaled = this.editor.getImageScaledToCanvas();
       let file = canvasScaled.toDataURL("image/png");
       let upload = request.post(CLOUDINARY_UPLOAD_URL)
@@ -39,9 +41,18 @@ class ContactForm extends Component {
           console.error(err);
         }
         if (response.body.secure_url !== '') {
-          
+          let new_URL = response.body.secure_url;
+          $.ajax({
+            url:"/user/change_avatar",
+            data:{
+              new_avatarURL:new_URL
+            },
+            context:document.body,
+            async:false,
+            type:"get",
+          });
           this.setState({
-            uploadedFileCloudinaryUrl: response.body.secure_url
+            uploadedFileCloudinaryUrl: new_URL
           });
         }
       });
@@ -51,6 +62,12 @@ class ContactForm extends Component {
   setEditorRef = (editor) => this.editor = editor;
 
   render() {
+    if(this.state.uploadedFileCloudinaryUrl !== "") {
+      alert("success");
+      return(
+        <Redirect push to="/main/user/profile"/>
+      );
+    }
     if (this.state.showEdit) {
       return (
         <div className="profile-card">
