@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { Row, Col, Button, FormGroup, Label } from 'reactstrap';
 import $ from 'jquery';
-import avatar from './m.jpg';
 
-let username = "Ming";
-let cell_phone = 12345678950;
-let email = "aaaaaaaaMing@gmail.com";
+// let username = "Ming";
+// let cell_phone = 12345678950;
+// let email = "aaaaaaaaMing@gmail.com";
+// let avatarURL = "https://res.cloudinary.com/breezeeee/image/upload/v1532584389/mgimss/ymy0ccl6vxpuqtiuv2sv.png";
 
-// let username = "";
-// let cell_phone = "";
-// let email = "";
+let username = "";
+let cell_phone = "";
+let email = "";
+let avatarURL = "";
 
 class InputEmail extends Component {
   constructor() {
@@ -128,19 +129,19 @@ class UpdateProfile extends Component {
       alert("Please check your information");
     }
     else {
-      // $.ajax({
-      //   url:"/user/update_user_info",
-      //   data:{
-      //     new_email:this.state.email,
-      //     new_phone:this.state.cell_phone,
-      //   },
-      //   context:document.body,
-      //   async:false,
-      //   type:"get",
-      //   success:function (data) {
-      //     alert("success");
-      //   }
-      // });
+      $.ajax({
+        url:"/user/update_user_info",
+        data:{
+          new_email:this.state.email,
+          new_phone:this.state.cell_phone,
+        },
+        context:document.body,
+        async:false,
+        type:"get",
+        success:function (data) {
+          alert("success");
+        }
+      });
       this.props.SetChangeState();
     }
   };
@@ -149,7 +150,7 @@ class UpdateProfile extends Component {
     return(
       <div className="profile-card">
         <p>
-          <img src={avatar} alt="avatar"/>
+          <img src={avatarURL} alt="avatar"/>
         </p>
         <FormGroup row>
           <Col md="3">
@@ -192,18 +193,19 @@ class UpdateProfile extends Component {
 
 class ChangeProfile extends Component {
   render() {
-    // $.ajax({
-    //   url:"/user/get_user_info",
-    //   context:document.body,
-    //   async:false,
-    //   type:"get",
-    //   success:function (data) {
-    //     let tmpInfo = $.parseJSON(data);
-    //     username = tmpInfo["username"];
-    //     cell_phone = tmpInfo["phone"];
-    //     email = tmpInfo["email"];
-    //   }
-    // });
+    $.ajax({
+      url:"/user/get_user_info",
+      context:document.body,
+      async:false,
+      type:"get",
+      success:function (data) {
+        let tmpInfo = $.parseJSON(data);
+        username = tmpInfo["username"];
+        cell_phone = tmpInfo["phone"];
+        email = tmpInfo["email"];
+        avatarURL = tmpInfo["avatarURL"];
+      }
+    });
     return(
       <UpdateProfile SetChangeState={this.props.SetChangeState}/>
     );

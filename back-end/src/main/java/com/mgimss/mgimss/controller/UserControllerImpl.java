@@ -83,11 +83,12 @@ public class UserControllerImpl implements UserController {
         role.setName("ROLE_USER");
         List<Role> roles = new LinkedList<>();
         roles.add(role);
+        String defaultURL = "https://res.cloudinary.com/breezeeee/image/upload/v1532584303/mgimss/j8uysbayfptx1kkfpdcx.png";
 
         if (host == null) host = "localhost";
         if (port == null) port = "12334";
 
-        User new_user = new User(username, password, email, phone, host, port, roles);
+        User new_user = new User(username, password, email, phone, host, port, defaultURL, roles);
 
         userRepository.save(new_user);
 
@@ -114,8 +115,10 @@ public class UserControllerImpl implements UserController {
                         "\",\"email\":\"" + user.getEmail() +
                         "\",\"phone\":\"" + user.getPhone() +
                         "\",\"num\":" + app_num +
-                        "}");
+                        ",\"avatarURL\":\"" + user.getAvatarURL() +
+                        "\"}");
 
+        System.out.println(buf.toString());
         return buf.toString();
     }
 
@@ -132,4 +135,14 @@ public class UserControllerImpl implements UserController {
 
     }
 
+    public String change_avatar(String new_avatarURL) {
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        Authentication auth = ctx.getAuthentication();
+        User user = (User) auth.getPrincipal();
+
+        user.setAvatarURL(new_avatarURL);
+        userRepository.save(user);
+
+        return "success";
+    }
 }
