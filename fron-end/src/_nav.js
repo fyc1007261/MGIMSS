@@ -297,6 +297,11 @@ export default {
       ],
     },
     {
+      name: 'Appliances',
+      url: '/main/apps',
+      icon: 'cui-list',
+    },
+    {
       title: true,
       name: 'AI',
     },

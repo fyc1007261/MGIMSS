@@ -61,11 +61,12 @@
   width: 250px;
   height: 300px;
   position: relative;
-  transition: width 0s ease-in-out 1.5s, opacity 0.5s ease-in-out 1.5s;
-  -webkit-transition: width 0s ease-in-out 1.5s, opacity 0.5s ease-in-out 1.5s;
-  -moz-transition: width 0s ease-in-out 1.5s, opacity 0.5s ease-in-out 1.5s;
-  -o-transition: width 0s ease-in-out 1.5s, opacity 0.5s ease-in-out 1.5s;
-  background-color: #533f03;
+  transition: width 0s ease-in-out, opacity 0.5s ease-in-out;
+  -webkit-transition: width 0s ease-in-out, opacity 0.5s ease-in-out;
+  -moz-transition: width 0s ease-in-out, opacity 0.5s ease-in-out;
+  -o-transition: width 0s ease-in-out, opacity 0.5s ease-in-out;
+  /*background-color: #533f03;*/
+  opacity: 1;
 }
 
 .capsule-core {
@@ -77,7 +78,7 @@
   float: left;
   left: 50%;
   transform: translate(-50%, 0);
-  background-color: #81d47d;
+  /*background-color: #81d47d;*/
 }
 
 .fade {
@@ -90,7 +91,6 @@
 
 }
 
-
 .fade-back {
 
   width: 100%;
@@ -98,7 +98,7 @@
   animation-name: capsuleFadeOut-back, capsuleShowUp-back;
   animation-duration: 0.5s, 0.5s;
   animation-timing-function: ease-in-out, ease-in-out;
-  animation-delay: 1s, 1.5s;
+  animation-delay: 2s, 2.5s;
   animation-iteration-count: 1, 1;
   animation-fill-mode: forwards, forwards;
   animation-direction: normal, normal;
@@ -106,7 +106,7 @@
   -webkit-animation-name: capsuleFadeOut-back, capsuleShowUp-back;
   -webkit-animation-duration: 0.5s, 0.5s;
   -webkit-animation-timing-function: ease-in-out, ease-in-out;
-  -webkit-animation-delay: 1s, 1.5s;
+  -webkit-animation-delay: 2s, 2.5s;
   -webkit-animation-iteration-count: 1, 1;
   -webkit-animation-fill-mode: forwards, forwards;
   -webkit-animation-direction: normal, normal;
@@ -114,7 +114,7 @@
   -moz-animation-name: capsuleFadeOut-back, capsuleShowUp-back;
   -moz-animation-duration: 0.5s, 0.5s;
   -moz-animation-timing-function: ease-in-out, ease-in-out;
-  -moz-animation-delay: 1s, 1.5s;
+  -moz-animation-delay: 2s, 2.5s;
   -moz-animation-iteration-count: 1, 1;
   -moz-animation-fill-mode: forwards, forwards;
   -moz-animation-direction: normal, normal;
@@ -148,73 +148,77 @@
 }
 
 .fade-core-h {
-  animation-name: capsuleMove-full;
-  animation-duration: 1s;
-  animation-timing-function: ease-in-out;
-  animation-delay: 1s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-direction: normal;
+  animation-name: capsuleMove-full, caspsuleStrench-full;
+  animation-duration: 1s, 1s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-delay: 1s, 2s;
+  animation-iteration-count: 1, 1;
+  animation-fill-mode: forwards, forwards;
+  animation-direction: normal, normal;
 
-  -webkit-animation-name: capsuleMove-full;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-timing-function: ease-in-out;
-  -webkit-animation-delay: 1s;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-fill-mode: forwards;
-  -webkit-animation-direction: normal;
+  -webkit-animation-name: capsuleMove-full, caspsuleStrench-full;
+  -webkit-animation-duration: 1s, 1s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out;
+  -webkit-animation-delay: 1s, 2s;
+  -webkit-animation-iteration-count: 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards;
+  -webkit-animation-direction: normal, normal;
 
-  -moz-animation-name: capsuleMove-full;
-  -moz-animation-duration: 1s;
-  -moz-animation-timing-function: ease-in-out;
-  -moz-animation-delay: 1s;
-  -moz-animation-iteration-count: 1;
-  -moz-animation-fill-mode: forwards;
-  -moz-animation-direction: normal;
+  -moz-animation-name: capsuleMove-full, caspsuleStrench-full;
+  -moz-animation-duration: 1s, 1s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out;
+  -moz-animation-delay: 1s, 2s;
+  -moz-animation-iteration-count: 1, 1;
+  -moz-animation-fill-mode: forwards, forwards;
+  -moz-animation-direction: normal, normal;
+
 }
 
 .fade-core-back {
-  animation-name: capsuleMove-back;
-  animation-duration: 1s;
-  animation-timing-function: ease-in-out;
-  animation-delay: 0s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-direction: normal;
 
-  -webkit-animation-name: capsuleMove-back;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-timing-function: ease-in-out;
-  -webkit-animation-delay: 0s;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-fill-mode: forwards;
-  -webkit-animation-direction: normal;
+  left: 25%;
+  width: 50%;
+  height: 480px;
 
-  -moz-animation-name: capsuleMove-back;
-  -moz-animation-duration: 1s;
-  -moz-animation-timing-function: ease-in-out;
-  -moz-animation-delay: 0s;
-  -moz-animation-iteration-count: 1;
-  -moz-animation-fill-mode: forwards;
-  -moz-animation-direction: normal;
+  animation-name: capsuleMove-back, caspsuleStrench-back;
+  animation-duration: 1s, 1s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-delay: 1.5s, 0.5s;
+  animation-iteration-count: 1, 1;
+  animation-fill-mode: forwards, forwards;
+  animation-direction: normal, normal;
+
+  -webkit-animation-name: capsuleMove-back, caspsuleStrench-back;
+  -webkit-animation-duration: 1s, 1s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out;
+  -webkit-animation-delay: 1.5s, 0.5s;
+  -webkit-animation-iteration-count: 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards;
+  -webkit-animation-direction: normal, normal;
+
+  -moz-animation-name: capsuleMove-back, caspsuleStrench-back;
+  -moz-animation-duration: 1s, 1s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out;
+  -moz-animation-delay: 1.5s, 0.5s;
+  -moz-animation-iteration-count: 1, 1;
+  -moz-animation-fill-mode: forwards, forwards;
+  -moz-animation-direction: normal, normal;
 }
 
-@media(max-width: 830px){
+@media (max-width: 830px) {
   .fade-core-h {
     left: 50%;
-    animation-direction: reverse;
-    -webkit-animation-direction: reverse;
-    -moz-animation-direction: reverse;
   }
-  .fade-core-back{
-    animation-name: null;
-    -webkit-animation-name: null;
-    -moz-animation-name: null;
+
+  .fade-core-back {
+    left: 50%;
+    width: 100%;
   }
+
   /*.fade-back {*/
-    /*animation-delay: 0s, 0.5s;*/
-    /*-webkit-animation-delay: 0s, 0.5s;*/
-    /*-moz-animation-delay: 0s, 0.5s;*/
+  /*animation-delay: 0s, 0.5s;*/
+  /*-webkit-animation-delay: 0s, 0.5s;*/
+  /*-moz-animation-delay: 0s, 0.5s;*/
   /*}*/
 
 }
@@ -222,6 +226,8 @@
 .capsule-canvas-mask {
   margin-left: auto;
   margin-right: auto;
+  left: 50%;
+  position: relative;
   float: left;
   width: 200px;
   height: 300px;
@@ -229,14 +235,15 @@
   -webkit-border-radius: 100px;
   border-radius: 100px;
   /*background-color: #533f03;*/
-  transform: translate(0, -100%);
+  transform: translate(-50%, -100%);
 
 }
 
 .v-capsule {
   position: relative;
   top: 50%;
-  transform: translate(0, -50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
   border: 0 solid transparent;
   -moz-border-radius: 100px;
   -webkit-border-radius: 100px;
@@ -245,13 +252,91 @@
   height: 300px;
   background-color: #d6e973; /*#3c5e79*/
   overflow: hidden;
-  animation: capsuleUp 2s ease;
-  animation-fill-mode: forwards;
-  -moz-animation: capsuleUp 2s ease;
-  -moz-animation-fill-mode: forwards;
-  -webkit-animation: capsuleUp 2s ease;
-  -webkit-animation-fill-mode: forwards;
 
+  animation-name: capsuleUp;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
+
+  -webkit-animation-name: capsuleUp;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-delay: 0s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-direction: normal;
+
+  -moz-animation-name: capsuleUp;
+  -moz-animation-duration: 2s;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-delay: 0s;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-fill-mode: forwards;
+  -moz-animation-direction: normal;
+
+  opacity: 1;
+}
+
+.fade-v-h {
+  animation-name: vStrench;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
+
+  -webkit-animation-name: vStrench;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-delay: 2s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-direction: normal;
+
+  -moz-animation-name: vStrench;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-delay: 2s;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-fill-mode: forwards;
+  -moz-animation-direction: normal;
+}
+
+.fade-v-back {
+
+  width: 60%;
+  height: 480px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  border-radius: 30px;
+
+  animation-name: vStrench_back;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
+
+  -webkit-animation-name: vStrench_back;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-delay: 0.5s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-direction: normal;
+
+  -moz-animation-name: vStrench_back;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-delay: 0.5s;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-fill-mode: forwards;
+  -moz-animation-direction: normal;
 }
 
 .capsule-head {
@@ -267,7 +352,7 @@
   transform: translate(0, -50%);
   animation: appNameShowUp 2s ease;
   font-size: 17px;
-  width: 80%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   height: 50px;
@@ -275,6 +360,7 @@
   word-break: break-all;
   text-align: center;
   /*background-color: #41af67;*/
+
 }
 
 .caphead span {
@@ -308,6 +394,41 @@
   transform: translate(0, -50%);
 }
 
+.caphead-stretch{
+  animation: bodyShowUp 2s ease;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+  -moz-animation: bodyShowUp 2s ease;
+  -moz-animation-delay: 2s;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation: bodyShowUp 2s ease;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-delay: 2s; /* Safari 和 Chrome */
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+}
+
+
+.caphead-stretch-back{
+  animation: bodyShowUp 2s ease;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+  -moz-animation: bodyShowUp 2s ease;
+  -moz-animation-delay: 2s;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation: bodyShowUp 2s ease;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-delay: 2s; /* Safari 和 Chrome */
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+}
+
 .capsule-body {
   height: 150px;
   top: 50%;
@@ -315,6 +436,8 @@
   position: relative;
   background-color: #f9f7ec; /*#fcf8e3*/
   animation: open-capsule 2s ease;
+  -moz-animation: open-capsule 2s ease;
+  -webkit-animation: open-capsule 2s ease;
 }
 
 .capbody-item {
@@ -331,6 +454,9 @@
   border-radius: 8px;
   width: 40%;
   float: left;
+  text-align: center;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .capbody-statBtn {
@@ -348,6 +474,10 @@
   -webkit-animation-fill-mode: forwards;
   -webkit-animation-delay: 2s; /* Safari 和 Chrome */
   opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
 }
 
 .capbody-content {
@@ -357,6 +487,7 @@
   float: left;
   width: 50%;
   height: 90%;
+  font-size: 12px;
   /*background-color: #41af67;*/
   text-align: center;
   word-wrap: break-word;
@@ -365,7 +496,6 @@
 
 .capbody-content p {
   font-family: gotham-rounded-light;
-  font-size: 13px;
   position: relative;
   top: 50%;
   transform: translate(0%, -50%);
@@ -381,7 +511,7 @@
 
 .capbody-line-mask {
   height: 100px;
-  transform: translate(0%, -100%);
+  transform: translate(0%, -89%);
   z-index: 1;
 }
 
@@ -390,16 +520,351 @@
   transform: translate(0, -150%);
   height: 15%;
   width: 100%;
-  animation: bodyShowUp 2s ease;
+  animation: bodyShowUp 1s ease-in-out;
   animation-delay: 2s;
   animation-fill-mode: forwards;
-  -moz-animation: bodyShowUp 2s ease;
+  -moz-animation: bodyShowUp 1s ease-in-out;
   -moz-animation-delay: 2s;
   -moz-animation-fill-mode: forwards;
-  -webkit-animation: bodyShowUp 2s ease;
+  -webkit-animation: bodyShowUp 1s ease-in-out;
   -webkit-animation-fill-mode: forwards;
   -webkit-animation-delay: 2s; /* Safari 和 Chrome */
   opacity: 0;
+}
+
+.capbody-stretch-h {
+  animation-name: capbodyStretch;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
+
+  -webkit-animation-name: capbodyStretch;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-delay: 2s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-direction: normal;
+
+  -moz-animation-name: capbodyStretch;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-delay: 2s;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-fill-mode: forwards;
+  -moz-animation-direction: normal;
+}
+
+.capbody-stretch-back {
+  height: 340px;
+  animation-name: capbodyStretchBack;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
+
+  -webkit-animation-name: capbodyStretchBack;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-delay: 0.5s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-direction: normal;
+
+  -moz-animation-name: capbodyStretchBack;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-delay: 0.5s;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-fill-mode: forwards;
+  -moz-animation-direction: normal;
+}
+
+.capbody-row-stretch-h {
+  opacity: 1;
+  animation-name: capbodyRowStretch, Fade, Fade-back;
+  animation-duration: 1s, 1s, 1s;
+  animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  animation-delay: 2s, 1s, 2.5s;
+  animation-iteration-count: 1, 1, 1;
+  animation-fill-mode: forwards, forwards, forwards;
+  animation-direction: normal, normal, normal;
+
+  -webkit-animation-name: capbodyRowStretch, Fade, Fade-back;
+  -webkit-animation-duration: 1s, 1s, 1s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  -webkit-animation-delay: 2s, 1s, 2.5s;
+  -webkit-animation-iteration-count: 1, 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards, forwards;
+  -webkit-animation-direction: normal, normal, normal;
+
+  -moz-animation-name: capbodyRowStretch, Fade, Fade-back;
+  -moz-animation-duration: 1s, 1s, 1s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  -moz-animation-delay: 2s, 1s, 2.5s;
+  -moz-animation-iteration-count: 1, 1, 1;
+  -moz-animation-fill-mode: forwards, forwards, forwards;
+  -moz-animation-direction: normal, normal, normal;
+}
+
+.capbody-row-stretch-back {
+  opacity: 1;
+  transform: translate(8%, -660%);
+  height: 8%;
+  width: 90%;
+  animation-name: capbodyFade, capbodyRowStretchBack, capbodyFade-back;
+  animation-duration: 0.5s, 0.5s, 0.5s;
+  animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  animation-delay: 0s, 0.5s, 1.5s;
+  animation-iteration-count: 1, 1, 1;
+  animation-fill-mode: forwards, forwards, forwards;
+  animation-direction: normal, normal, normal;
+
+  -webkit-animation-name: capbodyFade, capbodyRowStretchBack, capbodyFade-back;
+  -webkit-animation-duration: 0.5s, 0.5s, 0.5s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  -webkit-animation-delay: 0s, 0.5s, 1.5s;
+  -webkit-animation-iteration-count: 1, 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards, forwards;
+  -webkit-animation-direction: normal, normal, normal;
+
+  -moz-animation-name: capbodyFade, capbodyRowStretchBack, capbodyFade-back;
+  -moz-animation-duration: 0.5s, 0.5s, 0.5s;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-delay: 0s, 0.5s, 1.5s;
+  -moz-animation-iteration-count: 1, 1, 1;
+  -moz-animation-fill-mode: forwards, forwards, forwards;
+  -moz-animation-direction: normal, normal, normal;
+}
+
+.new-rows-fade {
+
+  animation-name: Fade;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
+
+  -webkit-animation-name: Fade;
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-delay: 0s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-direction: normal;
+
+  -moz-animation-name: Fade;
+  -moz-animation-duration: 0.5s;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-delay: 0s;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-fill-mode: forwards;
+  -moz-animation-direction: normal;
+}
+
+.capbody-row-info {
+  transform: translate(8%, -660%);
+  width: 90%;
+  opacity: 0;
+  height: 8%;
+  animation-name: capsuleShowUp-back;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
+
+  -webkit-animation-name: capsuleShowUp-back;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-delay: 1s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-direction: normal;
+
+  -moz-animation-name: capsuleShowUp-back;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-delay: 1s;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-fill-mode: forwards;
+  -moz-animation-direction: normal;
+}
+
+.capbody-chart-h {
+  opacity: 1;
+  animation-name: Fade, ChartMove, Fade-back;
+  animation-duration: 1s, 0s, 1s;
+  animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  animation-delay: 1s, 2s, 3s;
+  animation-iteration-count: 1, 1, 1;
+  animation-fill-mode: forwards, forwards, forwards;
+  animation-direction: normal, normal, normal;
+
+  -webkit-animation-name: Fade, ChartMove, Fade-back;
+  -webkit-animation-duration: 1s, 0s, 1s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  -webkit-animation-delay: 1s, 2s, 3s;
+  -webkit-animation-iteration-count: 1, 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards, forwards;
+  -webkit-animation-direction: normal, normal, normal;
+
+  -moz-animation-name: Fade, ChartMove, Fade-back;
+  -moz-animation-duration: 1s, 0s, 1s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  -moz-animation-delay: 1s, 2s, 3s;
+  -moz-animation-iteration-count: 1, 1, 1;
+  -moz-animation-fill-mode: forwards, forwards, forwards;
+  -moz-animation-direction: normal, normal, normal;
+}
+
+.capbody-chart-line-h {
+  opacity: 1;
+
+  animation-name: Fade, Fade-back;
+  animation-duration: 1s, 1s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-delay: 1s, 3s;
+  animation-iteration-count: 1, 1;
+  animation-fill-mode: forwards, forwards;
+  animation-direction: normal, normal;
+
+  -webkit-animation-name: Fade, Fade-back;
+  -webkit-animation-duration: 1s, 1s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out;
+  -webkit-animation-delay: 1s, 3s;
+  -webkit-animation-iteration-count: 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards;
+  -webkit-animation-direction: normal, normal;
+
+  -moz-animation-name: Fade, Fade-back;
+  -moz-animation-duration: 1s, 1s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out;
+  -moz-animation-delay: 1s, 3s;
+  -moz-animation-iteration-count: 1, 1;
+  -moz-animation-fill-mode: forwards, forwards;
+  -moz-animation-direction: normal, normal;
+}
+
+.capbody-chart-back {
+  opacity: 1;
+  transform: translate(0%, -355%);
+  height: 14%;
+
+  animation-name: chartFade, ChartMove-back, chartFade-back;
+  animation-duration: 0.5s, 0.5s, 0.5s;
+  animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  animation-delay: 0s, 0.5s, 1.5s;
+  animation-iteration-count: 1, 1, 1;
+  animation-fill-mode: forwards, forwards, forwards;
+  animation-direction: normal, normal, normal;
+
+  -webkit-animation-name: chartFade, ChartMove-back, chartFade-back;
+  -webkit-animation-duration: 0.5s, 0.5s, 0.5s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  -webkit-animation-delay: 0s, 0.5s, 1.5s;
+  -webkit-animation-iteration-count: 1, 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards, forwards;
+  -webkit-animation-direction: normal, normal, normal;
+
+  -moz-animation-name: chartFade, ChartMove-back, chartFade-back;
+  -moz-animation-duration: 0.5s, 0.5s, 0.5s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  -moz-animation-delay: 0s, 0.5s, 1.5s;
+  -moz-animation-iteration-count: 1, 1, 1;
+  -moz-animation-fill-mode: forwards, forwards, forwards;
+  -moz-animation-direction: normal, normal, normal;
+}
+
+.capbody-chart-line-back {
+  opacity: 1;
+
+  animation-name: Fade, Fade-back;
+  animation-duration: 1s, 0.5s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-delay: 0s, 2s;
+  animation-iteration-count: 1, 1;
+  animation-fill-mode: forwards, forwards;
+  animation-direction: normal, normal;
+
+  -webkit-animation-name: Fade, Fade-back;
+  -webkit-animation-duration: 1s, 0.5s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out;
+  -webkit-animation-delay: 0s, 2s;
+  -webkit-animation-iteration-count: 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards;
+  -webkit-animation-direction: normal, normal;
+
+  -moz-animation-name: Fade, Fade-back;
+  -moz-animation-duration: 2s, 0.5s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out;
+  -moz-animation-delay: 0s, 2s;
+  -moz-animation-iteration-count: 1, 1;
+  -moz-animation-fill-mode: forwards, forwards;
+  -moz-animation-direction: normal, normal;
+}
+
+.switch-move-h{
+  opacity: 1;
+  animation-name: switchMove, Fade, Fade-back;
+  animation-duration: 1s, 1s, 1s;
+  animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  animation-delay: 2s, 1s, 2.5s;
+  animation-iteration-count: 1, 1, 1;
+  animation-fill-mode: forwards, forwards, forwards;
+  animation-direction: normal, normal, normal;
+
+  -webkit-animation-name: switchMove, Fade, Fade-back;
+  -webkit-animation-duration: 1s, 1s, 1s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  -webkit-animation-delay: 2s, 1s, 2.5s;
+  -webkit-animation-iteration-count: 1, 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards, forwards;
+  -webkit-animation-direction: normal, normal, normal;
+
+  -moz-animation-name: switchMove, Fade, Fade-back;
+  -moz-animation-duration: 1s, 1s, 1s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  -moz-animation-delay: 2s, 1s, 2.5s;
+  -moz-animation-iteration-count: 1, 1, 1;
+  -moz-animation-fill-mode: forwards, forwards, forwards;
+  -moz-animation-direction: normal, normal, normal;
+}
+
+.switch-move-back{
+  transform: translate(43%, -290%);
+  animation-name: capbodyFade, switchMove-back, capbodyFade-back;
+  animation-duration: 0.5s, 0.5s, 0.5s;
+  animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  animation-delay: 0s, 0.5s, 1.5s;
+  animation-iteration-count: 1, 1, 1;
+  animation-fill-mode: forwards, forwards, forwards;
+  animation-direction: normal, normal, normal;
+
+  -webkit-animation-name: capbodyFade, switchMove-back, capbodyFade-back;
+  -webkit-animation-duration: 0.5s, 0.5s, 0.5s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  -webkit-animation-delay: 0s, 0.5s, 1.5s;
+  -webkit-animation-iteration-count: 1, 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards, forwards;
+  -webkit-animation-direction: normal, normal, normal;
+
+  -moz-animation-name: capbodyFade, switchMove-back, capbodyFade-back;
+  -moz-animation-duration: 0.5s, 0.5s, 0.5s;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-delay: 0s, 0.5s, 1.5s;
+  -moz-animation-iteration-count: 1, 1, 1;
+  -moz-animation-fill-mode: forwards, forwards, forwards;
+  -moz-animation-direction: normal, normal, normal;
+
 }
 
 @keyframes capsuleUp {
@@ -509,7 +974,7 @@
     opacity: 0;
   }
   to {
-    opacity: 100;
+    opacity: 1;
   }
 }
 
@@ -519,7 +984,7 @@
     opacity: 0;
   }
   to {
-    opacity: 100;
+    opacity: 1;
   }
 }
 
@@ -529,7 +994,7 @@
     opacity: 0;
   }
   to {
-    opacity: 100;
+    opacity: 1;
   }
 }
 
@@ -539,7 +1004,7 @@
     opacity: 0;
   }
   to {
-    opacity: 100;
+    opacity: 1;
   }
 }
 
@@ -548,7 +1013,7 @@
     opacity: 0;
   }
   to {
-    opacity: 100;
+    opacity: 1;
   }
 }
 
@@ -558,7 +1023,7 @@
     opacity: 0;
   }
   to {
-    opacity: 100;
+    opacity: 1;
   }
 }
 
@@ -568,7 +1033,7 @@
     opacity: 0;
   }
   to {
-    opacity: 100;
+    opacity: 1;
   }
 }
 
@@ -578,7 +1043,7 @@
     opacity: 0;
   }
   to {
-    opacity: 100;
+    opacity: 1;
   }
 }
 
@@ -587,7 +1052,7 @@
     opacity: 0;
   }
   to {
-    opacity: 100;
+    opacity: 1;
   }
 }
 
@@ -597,7 +1062,7 @@
     opacity: 0;
   }
   to {
-    opacity: 100;
+    opacity: 1;
   }
 }
 
@@ -607,7 +1072,7 @@
     opacity: 0;
   }
   to {
-    opacity: 100;
+    opacity: 1;
   }
 }
 
@@ -617,7 +1082,7 @@
     opacity: 0;
   }
   to {
-    opacity: 100;
+    opacity: 1;
   }
 }
 
@@ -802,7 +1267,7 @@
 @-moz-keyframes capsuleShowUp-back /* Firefox */
 {
   from {
-
+    opacity: 0;
   }
   to {
     opacity: 1;
@@ -831,84 +1296,1766 @@
 
 @keyframes capsuleMove-full {
   from {
-    left: 50%;;
+    left: 50%;
+    width: 200px;
   }
   to {
-    left: 20%;
+    left: 25%;
+    width: 50%;
   }
 }
 
 @-moz-keyframes capsuleMove-full /* Firefox */
 {
   from {
-    left: 50%;;
+    left: 50%;
+    width: 200px;
   }
   to {
-    left: 20%;
+    left: 25%;
+    width: 50%;
   }
 }
 
 @-webkit-keyframes capsuleMove-full /* Safari 和 Chrome */
 {
   from {
-    left: 50%;;
+    left: 50%;
+    width: 200px;
   }
   to {
-    left: 20%;
+    left: 25%;
+    width: 50%;
   }
 }
 
 @-o-keyframes capsuleMove-full /* Opera */
 {
   from {
-    left: 50%;;
+    left: 50%;
+    width: 200px;
   }
   to {
-    left: 20%;
+    left: 25%;
+    width: 50%;
   }
 }
 
-
 @keyframes capsuleMove-back {
   from {
-    left: 20%;
+    left: 25%;
+    width: 50%;
   }
   to {
     left: 50%;
+    width: 200px;
   }
 }
 
 @-moz-keyframes capsuleMove-back /* Firefox */
 {
   from {
-    left: 20%;
+    left: 25%;
+    width: 50%;
   }
   to {
     left: 50%;
+    width: 200px;
   }
 }
 
 @-webkit-keyframes capsuleMove-back /* Safari 和 Chrome */
 {
   from {
-    left: 20%;
+    left: 25%;
+    width: 50%;
   }
   to {
     left: 50%;
+    width: 200px;
   }
 }
 
 @-o-keyframes capsuleMove-back /* Opera */
 {
   from {
-    left: 20%;
+    left: 25%;
+    width: 50%;
   }
   to {
     left: 50%;
+    width: 200px;
+  }
+}
+
+@media (max-width: 830px) {
+  @keyframes capsuleMove-full {
+    from {
+      width: 200px;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @-moz-keyframes capsuleMove-full /* Firefox */
+  {
+    from {
+      width: 200px;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @-webkit-keyframes capsuleMove-full /* Safari 和 Chrome */
+  {
+    from {
+      width: 200px;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @-o-keyframes capsuleMove-full /* Opera */
+  {
+    from {
+      width: 200px;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes capsuleMove-back {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 200px;
+    }
+  }
+
+  @-moz-keyframes capsuleMove-back /* Firefox */
+  {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 200px;
+    }
+  }
+
+  @-webkit-keyframes capsuleMove-back /* Safari 和 Chrome */
+  {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 200px;
+    }
+  }
+
+  @-o-keyframes capsuleMove-back /* Opera */
+  {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 200px;
+    }
+  }
+}
+
+@keyframes vStrench {
+  from {
+    width: 200px;
+    height: 300px;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+  }
+  to {
+    width: 60%;
+    height: 480px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+  }
+}
+
+@-moz-keyframes vStrench /* Firefox */
+{
+  from {
+    width: 200px;
+    height: 300px;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+  }
+  to {
+    width: 60%;
+    height: 480px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+  }
+}
+
+@-webkit-keyframes vStrench /* Safari 和 Chrome */
+{
+  from {
+    width: 200px;
+    height: 300px;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+  }
+  to {
+    width: 60%;
+    height: 480px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+  }
+}
+
+@-o-keyframes vStrench /* Opera */
+{
+  from {
+    width: 200px;
+    height: 300px;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+  }
+  to {
+    width: 60%;
+    height: 480px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+  }
+}
+
+@keyframes vStrench_back {
+  from {
+    width: 60%;
+    height: 480px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+  }
+  to {
+    width: 200px;
+    height: 300px;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+  }
+}
+
+@-moz-keyframes vStrench_back /* Firefox */
+{
+  from {
+    width: 60%;
+    height: 480px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+  }
+  to {
+    width: 200px;
+    height: 300px;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+  }
+}
+
+@-webkit-keyframes vStrench_back /* Safari 和 Chrome */
+{
+  from {
+    width: 60%;
+    height: 480px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+  }
+  to {
+    width: 200px;
+    height: 300px;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+  }
+}
+
+@-o-keyframes vStrench_back /* Opera */
+{
+  from {
+    width: 60%;
+    height: 480px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+  }
+  to {
+    width: 200px;
+    height: 300px;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
   }
 }
 
 
+@media (max-width: 1250px) {
+  .fade-v-back {
+    width: 80%;
+  }
+  @keyframes vStrench {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 80%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @-moz-keyframes vStrench /* Firefox */
+  {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 80%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @-webkit-keyframes vStrench /* Safari 和 Chrome */
+  {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 80%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @-o-keyframes vStrench /* Opera */
+  {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 80%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @keyframes vStrench_back {
+    from {
+      width: 60%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+
+  @-moz-keyframes vStrench_back /* Firefox */
+  {
+    from {
+      width: 60%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+
+  @-webkit-keyframes vStrench_back /* Safari 和 Chrome */
+  {
+    from {
+      width: 60%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+
+  @-o-keyframes vStrench_back /* Opera */
+  {
+    from {
+      width: 60%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+}
+
+@media (max-width: 1380px) {
+  .fade-v-back {
+    width: 70%;
+  }
+  @keyframes vStrench {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 70%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @-moz-keyframes vStrench /* Firefox */
+  {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 70%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @-webkit-keyframes vStrench /* Safari 和 Chrome */
+  {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 70%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @-o-keyframes vStrench /* Opera */
+  {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 70%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @keyframes vStrench_back {
+    from {
+      width: 70%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+
+  @-moz-keyframes vStrench_back /* Firefox */
+  {
+    from {
+      width: 70%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+
+  @-webkit-keyframes vStrench_back /* Safari 和 Chrome */
+  {
+    from {
+      width: 70%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+
+  @-o-keyframes vStrench_back /* Opera */
+  {
+    from {
+      width: 70%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+}
+
+@media (max-width: 830px) {
+  .fade-v-back {
+    width: 60%;
+  }
+  @keyframes vStrench {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 60%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @-moz-keyframes vStrench /* Firefox */
+  {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 60%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @-webkit-keyframes vStrench /* Safari 和 Chrome */
+  {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 60%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @-o-keyframes vStrench /* Opera */
+  {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 60%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @keyframes vStrench_back {
+    from {
+      width: 60%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+
+  @-moz-keyframes vStrench_back /* Firefox */
+  {
+    from {
+      width: 60%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+
+  @-webkit-keyframes vStrench_back /* Safari 和 Chrome */
+  {
+    from {
+      width: 60%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+
+  @-o-keyframes vStrench_back /* Opera */
+  {
+    from {
+      width: 60%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+}
+
+@media (max-width: 580px) {
+  .fade-v-back {
+    width: 80%;
+  }
+  @keyframes vStrench {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 80%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @-moz-keyframes vStrench /* Firefox */
+  {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 80%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @-webkit-keyframes vStrench /* Safari 和 Chrome */
+  {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 80%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @-o-keyframes vStrench /* Opera */
+  {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 80%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @keyframes vStrench_back {
+    from {
+      width: 80%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+
+  @-moz-keyframes vStrench_back /* Firefox */
+  {
+    from {
+      width: 80%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+
+  @-webkit-keyframes vStrench_back /* Safari 和 Chrome */
+  {
+    from {
+      width: 80%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+
+  @-o-keyframes vStrench_back /* Opera */
+  {
+    from {
+      width: 80%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .fade-v-back {
+    width: 90%;
+  }
+  @keyframes vStrench {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 90%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @-moz-keyframes vStrench /* Firefox */
+  {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 90%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @-webkit-keyframes vStrench /* Safari 和 Chrome */
+  {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 90%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @-o-keyframes vStrench /* Opera */
+  {
+    from {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+    to {
+      width: 90%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+
+  @keyframes vStrench_back {
+    from {
+      width: 90%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+
+  @-moz-keyframes vStrench_back /* Firefox */
+  {
+    from {
+      width: 90%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+
+  @-webkit-keyframes vStrench_back /* Safari 和 Chrome */
+  {
+    from {
+      width: 90%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+
+  @-o-keyframes vStrench_back /* Opera */
+  {
+    from {
+      width: 90%;
+      height: 480px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      border-radius: 30px;
+    }
+    to {
+      width: 200px;
+      height: 300px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+    }
+  }
+}
 
 
+@keyframes caspsuleStrench-full {
+  from {
+    height: 300px;
+  }
+  to {
+    height: 480px;
+  }
+}
 
+@-moz-keyframes caspsuleStrench-full /* Firefox */
+{
+  from {
+    height: 300px;
+  }
+  to {
+    height: 480px;
+  }
+}
+
+@-webkit-keyframes caspsuleStrench-full /* Safari 和 Chrome */
+{
+  from {
+    height: 300px;
+  }
+  to {
+    height: 480px;
+  }
+}
+
+@-o-keyframes caspsuleStrench-full /* Opera */
+{
+  from {
+    height: 300px;
+  }
+  to {
+    height: 480px;
+  }
+}
+
+@keyframes caspsuleStrench-back {
+  from {
+    height: 480px;
+  }
+  to {
+    height: 300px;
+  }
+}
+
+@-moz-keyframes caspsuleStrench-back /* Firefox */
+{
+  from {
+    height: 480px;
+  }
+  to {
+    height: 300px;
+  }
+}
+
+@-webkit-keyframes caspsuleStrench-back /* Safari 和 Chrome */
+{
+  from {
+    height: 480px;
+  }
+  to {
+    height: 300px;
+  }
+}
+
+@-o-keyframes caspsuleStrench-back /* Opera */
+{
+  from {
+    height: 480px;
+  }
+  to {
+    height: 300px;
+  }
+}
+
+@keyframes infoShowUp {
+  from {
+    height: 150px;
+  }
+  to {
+    height: 200px;
+  }
+}
+
+@-moz-keyframes infoShowUp /* Firefox */
+{
+  from {
+    height: 150px;
+  }
+  to {
+    height: 200px;
+  }
+}
+
+@-webkit-keyframes infoShowUp /* Safari 和 Chrome */
+{
+  from {
+    height: 150px;
+  }
+  to {
+    height: 200px;
+  }
+}
+
+@-o-keyframes infoShowUp /* Opera */
+{
+  from {
+    height: 150px;
+  }
+  to {
+    height: 200px;
+  }
+}
+
+@keyframes Fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes Fade /* Firefox */
+{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes Fade /* Safari 和 Chrome */
+{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-o-keyframes Fade /* Opera */
+{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes Fade-back {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes Fade-back /* Firefox */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes Fade-back /* Safari 和 Chrome */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes Fade-back /* Opera */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes capbodyRowStretch {
+  from {
+    transform: translate(0, -150%);
+    height: 15%;
+    width: 100%;
+  }
+  to {
+    transform: translate(8%, -660%);
+    height: 8%;
+    width: 90%;
+  }
+}
+
+@-moz-keyframes capbodyRowStretch /* Firefox */
+{
+  from {
+    transform: translate(0, -150%);
+    height: 15%;
+    width: 100%;
+  }
+  to {
+    transform: translate(8%, -660%);
+    height: 8%;
+    width: 90%;
+  }
+}
+
+@-webkit-keyframes capbodyRowStretch /* Safari 和 Chrome */
+{
+  from {
+    transform: translate(0, -150%);
+    height: 15%;
+    width: 100%;
+  }
+  to {
+    transform: translate(8%, -660%);
+    height: 8%;
+    width: 90%;
+  }
+}
+
+@-o-keyframes capbodyRowStretch /* Opera */
+{
+  from {
+    transform: translate(0, -150%);
+    height: 15%;
+    width: 100%;
+  }
+  to {
+    transform: translate(8%, -660%);
+    height: 8%;
+    width: 90%;
+  }
+}
+
+@keyframes capbodyRowStretchBack {
+  from {
+    transform: translate(8%, -660%);
+    height: 8%;
+    width: 90%;
+  }
+  to {
+    transform: translate(0%, -150%);
+    height: 15%;
+    width: 100%;
+  }
+}
+
+@-moz-keyframes capbodyRowStretchBack /* Firefox */
+{
+  from {
+    transform: translate(8%, -660%);
+    height: 8%;
+    width: 90%;
+  }
+  to {
+    transform: translate(0%, -150%);
+    height: 15%;
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes capbodyRowStretchBack /* Safari 和 Chrome */
+{
+  from {
+    transform: translate(8%, -660%);
+    height: 8%;
+    width: 90%;
+  }
+  to {
+    transform: translate(0%, -150%);
+    height: 15%;
+    width: 100%;
+  }
+}
+
+@-o-keyframes capbodyRowStretchBack /* Opera */
+{
+  from {
+    transform: translate(8%, -660%);
+    height: 8%;
+    width: 90%;
+  }
+  to {
+    transform: translate(0%, -150%);
+    height: 15%;
+    width: 100%;
+  }
+}
+
+@keyframes ChartMove {
+  from {
+    transform: initial;
+    height: 15%;
+  }
+  to {
+    transform: translate(0%, -355%);
+    height: 14%;
+  }
+}
+
+@-moz-keyframes ChartMove /* Firefox */
+{
+  from {
+    transform: initial;
+    height: 15%;
+  }
+  to {
+    transform: translate(0%, -355%);
+    height: 14%;
+  }
+}
+
+@-webkit-keyframes ChartMove /* Safari 和 Chrome */
+{
+  from {
+    transform: initial;
+    height: 15%;
+  }
+  to {
+    transform: translate(0%, -355%);
+    height: 14%;
+  }
+}
+
+@-o-keyframes ChartMove /* Opera */
+{
+  from {
+    transform: initial;
+    height: 15%;
+  }
+  to {
+    transform: translate(0%, -355%);
+    height: 14%;
+  }
+}
+
+@keyframes ChartMove-back {
+  from {
+    transform: translate(0%, -355%);
+    height: 14%;
+  }
+  to {
+    transform: translate(0, -150%);
+    height: 15%;
+  }
+}
+
+@-moz-keyframes ChartMove-back /* Firefox */
+{
+  from {
+    transform: translate(0%, -355%);
+    height: 14%;
+  }
+  to {
+    transform: translate(0, -150%);
+    height: 15%;
+  }
+}
+
+@-webkit-keyframes ChartMove-back /* Safari 和 Chrome */
+{
+  from {
+    transform: translate(0%, -355%);
+    height: 14%;
+  }
+  to {
+    transform: translate(0, -150%);
+    height: 15%;
+  }
+}
+
+@-o-keyframes ChartMove-back /* Opera */
+{
+  from {
+    transform: translate(0%, -355%);
+    height: 14%;
+  }
+  to {
+    transform: translate(0, -150%);
+    height: 15%;
+  }
+}
+
+@keyframes capbodyFade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes capbodyFade /* Firefox */
+{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes capbodyFade /* Safari 和 Chrome */
+{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-o-keyframes capbodyFade /* Opera */
+{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes capbodyFade-back {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes capbodyFade-back /* Firefox */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes capbodyFade-back /* Safari 和 Chrome */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes capbodyFade-back /* Opera */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes chartFade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes chartFade /* Firefox */
+{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes chartFade /* Safari 和 Chrome */
+{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-o-keyframes chartFade /* Opera */
+{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes chartFade-back {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes chartFade-back /* Firefox */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes chartFade-back /* Safari 和 Chrome */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes chartFade-back /* Opera */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes capbodyStretch {
+  from {
+    height: 150px;
+  }
+  to {
+    height: 340px;
+  }
+}
+
+@-moz-keyframes capbodyStretch /* Firefox */
+{
+  from {
+    height: 150px;
+  }
+  to {
+    height: 340px;
+  }
+}
+
+@-webkit-keyframes capbodyStretch /* Safari 和 Chrome */
+{
+  from {
+    height: 150px;
+  }
+  to {
+    height: 340px;
+  }
+}
+
+@-o-keyframes capbodyStretch /* Opera */
+{
+  from {
+    height: 150px;
+  }
+  to {
+    height: 340px;
+  }
+}
+
+@keyframes capbodyStretchBack {
+  from {
+    height: 340px;
+  }
+  to {
+    height: 150px;
+  }
+}
+
+@-moz-keyframes capbodyStretchBack /* Firefox */
+{
+  from {
+    height: 340px;
+  }
+  to {
+    height: 150px;
+  }
+}
+
+@-webkit-keyframes capbodyStretchBack /* Safari 和 Chrome */
+{
+  from {
+    height: 340px;
+  }
+  to {
+    height: 150px;
+  }
+}
+
+@-o-keyframes capbodyStretch /* Opera */
+{
+  from {
+    height: 340px;
+  }
+  to {
+    height: 150px;
+  }
+}
+
+
+@keyframes switchMove {
+  from {
+    transform: translate(6%, -50%);
+  }
+  to {
+    transform: translate(43%, -290%);
+  }
+}
+
+@-moz-keyframes switchMove /* Firefox */
+{
+  from {
+    transform: translate(6%, -50%);
+  }
+  to {
+    transform: translate(43%, -290%);
+  }
+}
+
+@-webkit-keyframes switchMove /* Safari 和 Chrome */
+{
+  from {
+    transform: translate(6%, -50%);
+  }
+  to {
+    transform: translate(43%, -290%);
+  }
+}
+
+@-o-keyframes switchMove /* Opera */
+{
+  from {
+    transform: translate(6%, -50%);
+  }
+  to {
+    transform: translate(43%, -290%);
+  }
+}
+
+
+@keyframes switchMove-back {
+  from {
+    transform: translate(43%, -290%);
+  }
+  to {
+    transform: translate(6%, -50%);
+  }
+}
+
+@-moz-keyframes switchMove-back /* Firefox */
+{
+  from {
+    transform: translate(43%, -290%);
+  }
+  to {
+    transform: translate(6%, -50%);
+  }
+}
+
+@-webkit-keyframes switchMove-back /* Safari 和 Chrome */
+{
+  from {
+    transform: translate(43%, -290%);
+  }
+  to {
+    transform: translate(6%, -50%);
+  }
+}
+
+@-o-keyframes switchMove-back /* Opera */
+{
+  from {
+    transform: translate(43%, -290%);
+  }
+  to {
+    transform: translate(6%, -50%);
+  }
+}
