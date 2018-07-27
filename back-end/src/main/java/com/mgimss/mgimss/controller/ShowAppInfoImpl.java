@@ -113,6 +113,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         }
         // json builder
         StringBuilder buf = new StringBuilder();
+        buf.append("{\"data\":[");
         buf.append(
                 "{\"id\" : \"" + appliance.getAid() +
                         "\", \"name\" : \"" + appliance.getName() +
@@ -125,6 +126,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"gesture\" : \"" +gname +
                         "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
         );
+        buf.append("]}");
         response.addHeader("Access-Control-Allow-Origin", "*");
         return buf.toString();
     }
