@@ -23,7 +23,7 @@ public class Schedule {
     {
         Date date = new Date(time*1000);
         int hour = date.getHours();
-        System.out.println("hour:"+hour);
+        //System.out.println("hour:"+hour);
         if (hour<8)
             return Long.valueOf(10);
         else if(hour <16)
@@ -43,7 +43,7 @@ public class Schedule {
         Long charge = solarPredictData[j];
         if (charge < 0L)
             charge = 0L;
-        return charge;
+        return charge/60;
     }
     public Long getSolarBackCharge(Long time)
     {
@@ -150,7 +150,7 @@ public class Schedule {
 
                             for (int jj = 0; jj < i; jj++) //便利每个用job
                             {
-                                if(pendJob.get(jj).getIntTrueStartTime() >= simulateTime)
+                                if(pendJob.get(jj).getIntTrueStartTime() <= simulateTime)
                                 {
                                     if (pendJob.get(jj).getIntTrueStopTime() <= simulateTime) {
 
@@ -291,12 +291,19 @@ public class Schedule {
 
                                 }
                             }
-
+                            Long status1 = 0L;
+                            Long status2 = 0L;
+                            Long status3 = 0L;
+                            Long status4 = 0L;
                             for (int jj = 0; jj < i; jj++) //便利每个用job
                             {
                                 //System.out.println("lllllllllllllllllllllllllllllllllllll");
-                                if(pendJob.get(jj).getIntTrueStartTime() >= simulateTime)
+                                status1 = pendJob.get(jj).getIntTrueStartTime();
+                                status2 = simulateTime;
+                                if(pendJob.get(jj).getIntTrueStartTime() <= simulateTime)
                                 {
+                                    status3 = pendJob.get(jj).getIntTrueStopTime();
+                                    status4 = simulateTime;
                                     if (pendJob.get(jj).getIntTrueStopTime() <= simulateTime) {
 
                                     } else {
@@ -336,6 +343,7 @@ public class Schedule {
                                         simulateRemain = simulateRemain - runPower;
                                     } else {
                                         Long costPower = runPower - simulateRemain;
+                                        System.out.println("cost: "+costPower+"runPower:"+runPower+"simulateRemain:"+simulateRemain+"status1:"+status1+"status2:"+status2+"status3:"+status3);
                                         simulateRemain = Long.valueOf(0);
                                         cost = cost + costPower * getCharge(simulateTime);
                                     }
@@ -346,9 +354,13 @@ public class Schedule {
                             simulateTime+= timeSlice;
                             //System.out.println("simulateTime:"+simulateTime);
                         }//结束模拟阶段
+                        Date date5 = new Date(doTime*1000);
+                        System.out.println(date5.toString());
+                        System.out.println(getSolarCharge(doTime));
                         System.out.println("applianceId:"+pendJob.get(i).getAppliance().getAid()+"doTime:"+doTime+"cost:"+cost);
                         if ((maxcost > cost) && ((doTime + pendJob.get(i).getLastTime()+timeSlice) <= stopTime))
                         {
+                            System.out.println("MAXTIME:"+maxcost+"cost"+cost);
                             maxcost = cost;
                             maxTime = doTime;
                         }
@@ -358,7 +370,8 @@ public class Schedule {
                     job.setIntTrueStartTime(maxTime);
                     job.setIntTrueStopTime(maxTime+pendJob.get(i).getLastTime());
                     pendingJobRepository.save(job);
-
+                    Date date6 = new Date(maxTime*1000);
+                    System.out.println(date6.toString());
                     System.out.println("Final applianceID:"+pendJob.get(i).getAppliance().getAid()+"doTime:"+maxTime+"cost"+maxcost);
                 }
             }

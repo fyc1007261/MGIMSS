@@ -9,13 +9,17 @@ class UserInfo extends Component {
     // let num_of_apps = 11;
     // let cell_phone = "12345678950";
     // let email = "aaaaaaaaMing@gmail.com";
+
     // let avatarURL = "https://res.cloudinary.com/breezeeee/image/upload/v1532584389/mgimss/ymy0ccl6vxpuqtiuv2sv.png";
+
 
     let username = "";
     let num_of_apps = 0;
     let cell_phone = "";
     let email = "";
+
     let avatarURL = "";
+
 
     $.ajax({
       url:"/user/get_user_info",
@@ -28,7 +32,9 @@ class UserInfo extends Component {
         cell_phone = tmpInfo["phone"];
         email = tmpInfo["email"];
         num_of_apps = tmpInfo["num"];
+
         avatarURL = tmpInfo["avatarURL"];
+
       }
     });
     return (

@@ -110,6 +110,7 @@ public class Speech {
             }
             else { // 失败
                 String desc = jsonObject.getString("desc");
+                Speechgenrate.voice("语音识别失败");
                 throw new Exception("讯飞语音接口调用失败："+desc);
             }
         }
@@ -125,6 +126,12 @@ public class Speech {
             DataTest.stepA=2;
             DataTest.stepB=1;
         }
+        else if (dataresult.indexOf("退出任务")>=0)
+        {
+            Speechgenrate.voice("好的，小微帮你退出任务");
+            DataTest.stepA=0;
+            DataTest.stepB=0;
+        }
         else if (dataresult.indexOf("开启")>=0)
         {
             DataTest.name = dataresult.substring(2,dataresult.length()).split("。")[0];
@@ -139,7 +146,7 @@ public class Speech {
 
                 result = open_close_appliance(DataTest.appliance.getAid(),"on");
                 if (!result.contains("err")) {
-                    Speechgenrate.voice("用电器开启成功");
+//                    Speechgenrate.voice("用电器开启成功");
 
                 }
                 else{
@@ -163,7 +170,7 @@ public class Speech {
 
                 result = open_close_appliance(DataTest.appliance.getAid(),"off");
                 if (!result.contains("err")) {
-                    Speechgenrate.voice("用电器关闭成功");
+//                    Speechgenrate.voice("用电器关闭成功");
 
                 }
                 else{
@@ -238,12 +245,23 @@ public class Speech {
             DataTest.beginTime = DataTest.change2date(dataresult);
             if (DataTest.beginTime == null)
             {
-                Speechgenrate.voice("小微走神了，请再给小微念一遍好吗");
+                DataTest.beginTime = DataTest.change3date(dataresult);
+                if (DataTest.beginTime == null)
+                {
+                    Speechgenrate.voice("小微走神了，请再给小微念一遍好吗");
+                }
+                else {
+                    Speechgenrate.voice("请设置必须完成时间");
+                    DataTest.stepA = 1;
+                    DataTest.stepB = 3;
+                }
             }
             else {
-                Speechgenrate.voice("请设置必须完成时间");
-                DataTest.stepA = 1;
-                DataTest.stepB = 3;
+
+                    Speechgenrate.voice("请设置必须完成时间");
+                    DataTest.stepA = 1;
+                    DataTest.stepB = 3;
+
             }
         }
         else if ((DataTest.stepA ==1) && (DataTest.stepB ==3))
@@ -251,12 +269,26 @@ public class Speech {
             DataTest.endTime = DataTest.change2date(dataresult);
             if (DataTest.endTime == null)
             {
-                Speechgenrate.voice("小微走神了，请再给小微念一遍好吗");
+                DataTest.endTime = DataTest.change3date(dataresult);
+                if (DataTest.endTime == null)
+                {
+                    Speechgenrate.voice("小微走神了，请再给小微念一遍好吗");
+                }
+                else {
+                    Speechgenrate.voice("请设置持续时间");
+                    DataTest.stepA = 1;
+                    DataTest.stepB = 4;
+
+                }
+
             }
             else {
-                Speechgenrate.voice("请设置持续时间");
-                DataTest.stepA = 1;
-                DataTest.stepB = 4;
+
+                    Speechgenrate.voice("请设置持续时间");
+                    DataTest.stepA = 1;
+                    DataTest.stepB = 4;
+
+
             }
         }
         else if ((DataTest.stepA ==1) && (DataTest.stepB ==4))
@@ -275,7 +307,8 @@ public class Speech {
                 }
                 else perPower = Math.round(pPower.get());
                 Job job;
-                System.out.println("startTime:"+DataTest.beginTime.getTime()/1000+"stopTime:"+DataTest.endTime.getTime()/1000+"LastTime:"+DataTest.lastTime+"PerPower:"+perPower);
+                //System.out.println("startTime:"+DataTest.beginTime.getTime()/1000+"stopTime:"+DataTest.endTime.getTime()/1000+"LastTime:"+DataTest.lastTime+"PerPower:"+perPower);
+                System.out.println();
                 job = new Job(DataTest.beginTime.getTime()/1000, DataTest.endTime.getTime()/1000, Long.valueOf(0), Long.valueOf(0), DataTest.lastTime,
                         perPower, 0, DataTest.appliance, user);
                 pendingJobRepository.save(job);

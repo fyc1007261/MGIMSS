@@ -11,17 +11,19 @@
   </component>
   <component name="CoverageDataManager">
 
-    <SUITE FILE_PATH="coverage/Appliance_Simulator$simulator.coverage" NAME="simulator Coverage Results" MODIFIED="1532572135042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
 
+    <SUITE FILE_PATH="coverage/Appliance_Simulator$simulator.coverage" NAME="simulator Coverage Results" MODIFIED="1532572135042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="battery.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="battery.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/battery.py">
           <provider selected="true" editor-type-id="text-editor">
 
+
             <state relative-caret-position="352">
               <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="22" />
+
 
             </state>
           </provider>
@@ -33,11 +35,11 @@
 
             <state relative-caret-position="75">
               <caret line="107" column="31" selection-start-line="107" selection-start-column="31" selection-end-line="107" selection-end-column="31" />
+
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
 
               </folding>
-
             </state>
           </provider>
         </entry>
@@ -45,8 +47,8 @@
       <file leaf-file-name="appliance.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/appliance.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1407">
-              <caret line="63" column="23" lean-forward="false" selection-start-line="63" selection-start-column="23" selection-end-line="63" selection-end-column="23" />
+            <state relative-caret-position="1971">
+              <caret line="73" column="0" lean-forward="false" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -55,8 +57,8 @@
       <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="33" />
+            <state relative-caret-position="162">
+              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -66,7 +68,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>conti</find>
       <find>batt</find>
       <find>strf</find>
       <find>now</find>
@@ -86,7 +87,6 @@
       <find>AUTO_CHARGE</find>
       <find>add</find>
       <find>single_to_server</find>
-      <find>battery</find>
       <find>overf</find>
       <find>send_solar</find>
       <find>auto_charge</find>
@@ -96,6 +96,8 @@
       <find>do</find>
       <find>do_se</find>
       <find>success when sending app</find>
+      <find>battery</find>
+      <find>area_of_solar_generator</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -124,10 +126,7 @@
 
     <option name="x" value="335" />
     <option name="y" value="175" />
-
-
     <option name="width" value="1275" />
-
     <option name="height" value="765" />
   </component>
   <component name="ProjectView">
@@ -135,6 +134,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+
 
       <pane id="ProjectPane">
         <subPane>
@@ -147,6 +147,7 @@
           <select />
         </subPane>
       </pane>
+
       <pane id="Scope" />
 
     </panes>
@@ -186,6 +187,7 @@
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="haha" type="PythonConfigurationType" factoryName="Python">
       <module name="Appliance_Simulator" />
@@ -204,9 +206,12 @@
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="simulator" type="PythonConfigurationType" factoryName="Python">
+
       <module name="Appliance_Simulator" />
+
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -219,11 +224,14 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulator.py" />
+
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
     </configuration>
 
     <list>
@@ -256,8 +264,8 @@
     <frame x="268" y="140" width="1020" height="612" extended-state="1" />
 
     <editor active="true" />
-
     <layout>
+
 
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.500994" side_tool="true" weight="0.1940594" />
@@ -282,6 +290,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
 
+
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -301,6 +310,7 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+
 
     <entry file="file://$PROJECT_DIR$/appliance.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -338,13 +348,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="406">
           <caret line="117" column="19" lean-forward="true" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
-
           <folding>
 
             <element signature="e#0#31#0" expanded="true" />
 
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -359,12 +367,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6061">
 
+
           <caret line="209" lean-forward="true" selection-start-line="209" selection-end-line="209" />
+
           <folding>
             <element signature="e#0#31#0" expanded="true" />
 
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -386,13 +395,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="15" column="18" lean-forward="true" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-
           <folding>
 
             <element signature="e#0#31#0" expanded="true" />
 
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -407,13 +414,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1537">
           <caret line="53" column="54" lean-forward="true" selection-start-line="53" selection-start-column="54" selection-end-line="53" selection-end-column="54" />
-
           <folding>
 
             <element signature="e#0#31#0" expanded="true" />
 
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -428,12 +433,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2929">
 
+
           <caret line="101" column="12" selection-start-line="101" selection-start-column="12" selection-end-line="101" selection-end-column="12" />
+
           <folding>
             <element signature="e#0#31#0" expanded="true" />
 
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -448,12 +454,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6061">
 
+
           <caret line="209" lean-forward="true" selection-start-line="209" selection-end-line="209" />
+
           <folding>
             <element signature="e#0#31#0" expanded="true" />
 
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -468,13 +475,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="406">
           <caret line="117" column="19" lean-forward="true" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
-
           <folding>
 
             <element signature="e#0#31#0" expanded="true" />
 
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -489,11 +494,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6061">
 
+
           <caret line="209" lean-forward="true" selection-start-line="209" selection-end-line="209" />
+
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -508,11 +514,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="406">
           <caret line="117" column="19" lean-forward="true" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
-
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -528,11 +532,11 @@
         <state relative-caret-position="6061">
 
           <caret line="209" lean-forward="true" selection-start-line="209" selection-end-line="209" />
+
           <folding>
             <element signature="e#0#31#0" expanded="true" />
 
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -554,12 +558,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="99" column="29" lean-forward="true" selection-start-line="99" selection-start-column="29" selection-end-line="99" selection-end-column="29" />
-
           <folding>
 
             <element signature="e#0#31#0" expanded="true" />
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -574,11 +576,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1537">
           <caret line="53" column="54" lean-forward="true" selection-start-line="53" selection-start-column="54" selection-end-line="53" selection-end-column="54" />
-
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -592,11 +592,12 @@
     <entry file="file://$PROJECT_DIR$/simulator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2929">
+
           <caret line="101" column="12" selection-start-line="101" selection-start-column="12" selection-end-line="101" selection-end-column="12" />
+
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -610,11 +611,12 @@
     <entry file="file://$PROJECT_DIR$/simulator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6061">
+
           <caret line="209" lean-forward="true" selection-start-line="209" selection-end-line="209" />
+
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -629,11 +631,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="406">
           <caret line="117" column="19" lean-forward="true" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
-
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -647,11 +647,12 @@
     <entry file="file://$PROJECT_DIR$/simulator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6061">
+
           <caret line="209" lean-forward="true" selection-start-line="209" selection-end-line="209" />
+
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -666,10 +667,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="406">
           <caret line="117" column="19" lean-forward="true" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
-
           <folding>
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -685,11 +684,11 @@
         <state relative-caret-position="6061">
 
           <caret line="209" lean-forward="true" selection-start-line="209" selection-end-line="209" />
+
           <folding>
             <element signature="e#0#31#0" expanded="true" />
 
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -702,6 +701,7 @@
         </state>
       </provider>
     </entry>
+
     <entry file="file://$PROJECT_DIR$/appliance.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
@@ -714,11 +714,11 @@
         <state relative-caret-position="352">
 
           <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+
           <folding>
             <element signature="e#0#31#0" expanded="true" />
 
           </folding>
-
         </state>
       </provider>
     </entry>
@@ -726,17 +726,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7424">
 
+
           <caret line="256" column="16" selection-start-line="256" selection-start-column="16" selection-end-line="256" selection-end-column="16" />
+
           <folding>
             <element signature="e#0#31#0" expanded="true" />
 
           </folding>
-
         </state>
       </provider>
     </entry>
-    <entry file="file://E:/Anaconda/Lib/site-packages/arduino/__init__.py">
+    <entry file="file://E:/Anaconda/Lib/site-packages/arduino/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/battery.py">
       <provider selected="true" editor-type-id="text-editor">
+
 
         <state relative-caret-position="189">
           <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
@@ -744,27 +747,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/battery.py">
+    <entry file="file://$PROJECT_DIR$/appliances.mgimss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="15" lean-forward="false" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
-          <folding />
+        <state relative-caret-position="29">
+          <caret line="1" column="24" lean-forward="true" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-
-    <entry file="file://$PROJECT_DIR$/test.py">
+    <entry file="file://$PROJECT_DIR$/appliance.py">
       <provider selected="true" editor-type-id="text-editor">
+
 
         <state relative-caret-position="145">
           <caret line="5" selection-start-line="5" selection-end-line="5" />
 
+
         </state>
       </provider>
     </entry>
-
-    <entry file="file://$PROJECT_DIR$/battery.py">
+    <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
+
 
         <state relative-caret-position="352">
           <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="22" />
@@ -777,6 +780,7 @@
 
         <state relative-caret-position="75">
           <caret line="107" column="31" selection-start-line="107" selection-start-column="31" selection-end-line="107" selection-end-column="31" />
+
           <folding>
             <element signature="e#0#31#0" expanded="true" />
 
