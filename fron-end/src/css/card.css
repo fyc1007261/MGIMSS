@@ -172,45 +172,6 @@
   }
 }
 
-@media (max-width: 720px) {
-  .stack {
-    transform: translate(-53%);
-  }
-
-  .stack__item {
-    width: 85%;
-  }
-}
-
-@media (max-width: 710px) {
-  .stack {
-    transform: translate(-50%);
-  }
-
-  .stack__item {
-    width: 80%;
-  }
-}
-
-@media (max-width: 680px) {
-  .stack {
-    transform: translate(-47%);
-  }
-
-  .stack__item {
-    width: 75%;
-  }
-}
-
-@media (max-width: 650px) {
-  .stack {
-    transform: translate(-45%);
-  }
-
-  .stack__item {
-    width: 70%;
-  }
-}
 
 @media (max-width: 580px) {
   .stack {
