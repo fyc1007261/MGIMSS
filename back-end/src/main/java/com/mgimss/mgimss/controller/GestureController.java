@@ -71,7 +71,7 @@ public class GestureController {
             if (appliance.getRunningState() == 0) {
                 String result2 = open_close_appliance(appliance.getAid(), "on");
                 if (!result2.contains("err")) {
-                    Speechgenrate.voice("用电器开启成功");
+//                    Speechgenrate.voice("用电器开启成功");
 
                 }
                 else
@@ -82,7 +82,7 @@ public class GestureController {
             else{
                 String result2 = open_close_appliance(appliance.getAid(), "off");
                 if (!result2.contains("err")) {
-                    Speechgenrate.voice("用电器关闭成功");
+//                    Speechgenrate.voice("用电器关闭成功");
 
                 }
                 else
@@ -94,7 +94,14 @@ public class GestureController {
             return "success";
         } catch (Exception e) {
             e.printStackTrace();
-            return "err: illegal gesture";
+            try {
+                Speechgenrate.voice("手势识别失败");
+                }
+                catch (Exception ee)
+                {
+                    System.out.println("语音合成失败");
+                }
+                return "err: illegal gesture";
         }
 
     }
