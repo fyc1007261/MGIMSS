@@ -56,6 +56,7 @@ const getBadge = (status) => {
           'primary'
 };
 let appsData;
+let appInfo;
 let angleStart = -360;
 let ColorScheme = [["#3c5e79", "#F9F7EC", "#187da0", "cadetblue", "primary"],
   ["#3c5e79", "#F9F7EC", "#187da0", "cadetblue", "primary"],
@@ -123,12 +124,26 @@ class ApplianceCapsule extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      appliance: this.props.appliance,
-      appLink: '/main/apps/' + this.props.appliance.id,
-      card: 0,
-      detail: 0
-    };
+    $.ajax({
+      type: "GET",
+      async: false,
+      url: "/appliance/get_info_by_id",
+      data:{"id": this.props.appliance["id"]},
+      context: document.body,
+      success: function(data){
+        appInfo = $.parseJSON(data.toString())["data"];
+      }
+    });
+
+    {appInfo.map((appliance, index) =>
+      this.state = {
+        appliance: appliance,
+        appLink: '/main/apps/' + this.props.appliance.id,
+        card: 0,
+        detail: 0
+      }
+    )}
+
     this.switch_status = this.switch_status.bind(this);
     this.capsuleClick = this.capsuleClick.bind(this);
     this.infoClick = this.infoClick.bind(this);
@@ -170,23 +185,27 @@ class ApplianceCapsule extends Component {
     e.target.disabled = 0;
   };
 
+
   componentDidMount() {
-    $(".caphead").textfill({maxFontPixels: 17, innerTag: 'p'});
-    $(".capbody-content").textfill({maxFontPixels: 13, innerTag: 'p'});
+
+      $(".caphead").textfill({maxFontPixels: 17, innerTag: 'p'});
+      $(".capbody-content").textfill({maxFontPixels: 13, innerTag: 'p'});
+      $(".capbody-item").textfill({maxFontPixels: 12, innerTag: 'span'});
+
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     let card_id = "card" + this.state.appliance["id"];
-    let this_card =$("#" + card_id);
-    if (this.state.card === 1)
-    {
-      if( !this_card.hasClass("card-fade"))
-        this_card.addClass("card-fade");
+    let this_card = $("#" + card_id);
+    if (this.state.card === 1) {
+      if (!this_card.hasClass("card-fade-h"))
+        this_card.addClass("card-fade-h");
     }
-    else{
-      this_card.removeClass("card-fade");
+    else {
+      this_card.removeClass("card-fade-h");
     }
   }
+
   rotate(li, d) {
     $({d: angleStart}).animate({d: d}, {
       step: function (now) {
@@ -269,139 +288,145 @@ class ApplianceCapsule extends Component {
     }
   }
 
-  displayCapsule(){
-    if (this.state.detail === 1){
-
-    }
-    else{
-      return(
-        <div className="v-capsule" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][0]}}>
-          <div className="capsule-body" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][1]}}>
-            <div className="capsule-head">
-              <div className="caphead">
-                <span style={{
-                  backgroundColor: ColorScheme[this.state.appliance["id"] % 6][2],
-                  color: ColorScheme[this.state.appliance["id"] % 6][1]
-                }}>ID-{this.state.appliance["id"]}</span>
-                <p style={{color: ColorScheme[this.state.appliance["id"] % 6][1]}}>{this.state.appliance["name"]}</p>
-              </div>
-            </div>
-          </div>
-          <div className="capbody-row">
-            <div className="capbody-item" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
-              <span>Status</span></div>
-            <div className="capbody-content">
-
-            </div>
-          </div>
-          <div className="capbody-row">
-            <div className="capbody-item" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
-              <span>Update</span></div>
-            <div className="capbody-content">
-              <p>{this.state.appliance["updated"]}</p>
-            </div>
-          </div>
-          <div className="capbody-row">
-            <div className="capbody-item" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
-              <span>Runtime</span></div>
-            <div className="capbody-content">
-              <p>EMMM</p>
-            </div>
-          </div>
-          <div className="capbody-row">
-            <div className="capbody-line">
-              <Bar data={cardChartData} options={cardChartOpts} height={90}/>
-            </div>
-            <div className="capbody-line-mask">
-            </div>
-          </div>
-        </div>
-      )
-    }
-  }
-  displayCard() {
-    if (this.state.card === 1) {
-      return (
-        <div className="cardContainer" id={"card" + this.state.appliance["id"]}>
-          <div className="col-12">
-          <ul id="stack_iman" className="stack stack--iman">
-            <li className="stack__item">
-              <div className="card">
-                <VoltageChart aid={this.state.appliance["id"]} alt={"Tree 2"} count={10}/>
-              </div>
-            </li>
-            <li className="stack__item">
-              <div className="card">
-                <CurrentChart aid={this.state.appliance["id"]} alt={"Tree 1"} count={10}/>
-              </div>
-            </li>
-          </ul>
-          </div>
-          <div className="col-12">
-            <div className="controls">
-              <button className="button button--sonar button--reject" data-stack={"stack_iman"}>
-                <i className="fa fa-arrow-left"></i>
-                <span className="text-hidden">Reject</span></button>
-              <button className="button button--sonar button--accept" data-stack={"stack_iman"}>
-                <i className="fa fa-arrow-right"></i>
-                <span className="text-hidden">Accept</span></button>
-            </div>
-          </div>
-        </div>
-      );
-    }
-    else{
-      // Tools.syncDeleteScriptInHead('http://localhost:12333/js/card/modernizr-custom.js', function () {
-      // });
-      // Tools.syncDeleteScripts(['http://localhost:12333/js/card/classie.js',
-      //   'http://localhost:12333/js/card/card.js', 'http://localhost:12333/js/card/dynamics.min.js',
-      //   'http://localhost:12333/js/card/main.js', 'http://localhost:12333/js/card/card2.js'], function () {
-      // });
-    }
-  }
 
   infoClick(e) {
     // alert("info");
     e.stopPropagation();
     let input = $(e.target).parent().find("input")[0];
+
     let id = "capsule-canvas" + input.name;
     let this_capsule = $("#" + id);
-    let core_id = "capsule-core" + input.name;
-    let this_capsule_core =$("#" + core_id);
+
+    let this_capsule_core = this_capsule.find('.capsule-core');
+
     let card_id = "card" + this.state.appliance["id"];
-    let this_card =$("#" + card_id);
+    let this_card = $("#" + card_id);
+
+    let this_v_capsule = this_capsule.find('.v-capsule');
+
+    let this_capbody_rows = this_v_capsule.find('.capbody-row.brief');
+
+    let new_rows = this_v_capsule.find('.info');
+
+    let this_capbody_chart = this_v_capsule.find('.capbody-row.chart');
+
+    let this_mask = this_capsule_core.find('.capsule-canvas-mask');
+
+    let this_capbody = this_v_capsule.find('.capsule-body');
+
+    let this_switch = this_capsule_core.find('.capbody-statBtn');
+
     let other_capsules = $(".capsule-canvas").not("#" + id);
 
 
     if (this_capsule.hasClass("fade-h")) {
-      // other_capsules.removeClass("fade-back");
+
       this_capsule.removeClass("fade-h");
       this_capsule.addClass("fade-back");
+
       this_capsule_core.removeClass("fade-core-h");
       this_capsule_core.addClass("fade-core-back");
-      this_card.removeClass("card-fade");
+
+      this_card.removeClass("card-fade-h");
+      this_capsule_core.addClass("fade-core-back");
+      this_card.addClass("card-fade-back");
+
+      this_v_capsule.removeClass("fade-v-h");
+      this_v_capsule.addClass("fade-v-back");
+
+      this_capbody_rows.removeClass("capbody-row-stretch-h");
+      this_capbody_rows.addClass("capbody-row-stretch-back");
+
+      this_capbody_chart.removeClass("capbody-chart-h");
+      this_capbody_chart.addClass("capbody-chart-back");
+
+      this_mask.removeClass("fade-v-h");
+      this_mask.addClass("fade-v-back");
+
+      this_capbody.removeClass("capbody-stretch-h");
+      this_capbody.addClass("capbody-stretch-back");
+
+      new_rows.addClass("new-rows-fade");
+
+      this_switch.removeClass("switch-move-h");
+      this_switch.addClass("switch-move-back");
+
+      other_capsules.removeClass("fade-others");
+      other_capsules.addClass("fade-others-back");
 
       let that = this;
 
-      function removeFadeBack() {
-        this_capsule.removeClass("fade-back");
+
+
+      function showOldChart() {
         that.setState({
-          card: 0
+          card: 0,
+          detail: 0
         });
       }
 
-      setTimeout(removeFadeBack, 2000);
+      function removeClass(){
+        other_capsules.removeClass("fade");
+      }
+
+      function removeClass2(){
+        this_capsule.removeClass("fade-back");
+      }
+
+
+      setTimeout(removeClass, 2500);
+      setTimeout(removeClass2, 3000);
+      setTimeout(showOldChart, 1000);
     }
 
     else {
       this_capsule.removeClass("fade-back");
       this_capsule.addClass("fade-h");
+
       this_capsule_core.removeClass("fade-core-back");
       this_capsule_core.addClass("fade-core-h");
 
+      this_card.removeClass("card-fade-back");
+
+      this_v_capsule.removeClass("fade-v-back");
+      this_v_capsule.addClass("fade-v-h");
+
+      this_capbody_rows.removeClass("capbody-row-stretch-back");
+      this_capbody_rows.addClass("capbody-row-stretch-h");
+
+      this_capbody_chart.removeClass("capbody-chart-back");
+      this_capbody_chart.addClass("capbody-chart-h");
+
+      this_mask.removeClass("fade-v-back");
+      this_mask.addClass("fade-v-h");
+
+      this_capbody.removeClass("capbody-stretch-back");
+      this_capbody.addClass("capbody-stretch-h");
+
+      this_switch.removeClass("switch-move-back");
+      this_switch.addClass("switch-move-h");
+
+      other_capsules.addClass("fade");
+
       this.setState({
-        card: 1
+        card: 1,
       });
+
+      let that = this;
+
+      function showInfo() {
+        that.setState({
+          detail: 1
+        });
+
+      }
+      // function textAdapt(){
+      //   $(".capbody-content.info").textfill({maxFontPixels: 13, innerTag: 'p'});
+      //   $(".capbody-item").textfill({maxFontPixels: 12, innerTag: 'span'});
+      // }
+      setTimeout(showInfo, 1900);
+
+
       Tools.syncReloadScriptInHead('http://localhost:12333/js/card/modernizr-custom.js', function () {
       });
       Tools.syncReloadScripts(['http://localhost:12333/js/card/classie.js',
@@ -412,7 +437,7 @@ class ApplianceCapsule extends Component {
 
     }
 
-    other_capsules.toggleClass("fade");
+
   }
 
   deleteClick(e) {
@@ -457,29 +482,163 @@ class ApplianceCapsule extends Component {
     return false;
   }
 
+
+  displayCapsule() {
+    if (this.state.detail === 1) {
+
+      return [
+        <div className="capbody-row-info">
+          <div className="capbody-item info" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
+            <span>manufacturer</span></div>
+          <div className="capbody-content info">
+            <p>{this.state.appliance["manufacturer"]}</p>
+          </div>
+        </div>,
+        <div className="capbody-row-info">
+          <div className="capbody-item info" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
+            <span>power</span></div>
+          <div className="capbody-content info">
+            <p>{this.state.appliance["power"]}</p>
+          </div>
+        </div>,
+        <div className="capbody-row-info">
+          <div className="capbody-item info" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
+            <span>start time</span></div>
+          <div className="capbody-content info">
+            <p>{this.state.appliance["start time"]}</p>
+          </div>
+        </div>,
+        <div className="capbody-row-info">
+          <div className="capbody-item info" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
+            <span>finish time</span></div>
+          <div className="capbody-content info">
+            <p>{this.state.appliance["finish time"]}</p>
+          </div>
+        </div>,
+        <div className="capbody-row-info">
+          <div className="capbody-item info" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
+            <span>gesture</span></div>
+          <div className="capbody-content info">
+            <p>{this.state.appliance["gesture"]}</p>
+          </div>
+        </div>,
+      ];
+    }
+
+  }
+
+  displayCard() {
+    if (this.state.card === 1) {
+      return (
+        <div className="cardContainer" id={"card" + this.state.appliance["id"]}>
+          <div className="col-12">
+            <ul id="stack_iman" className="stack stack--iman">
+              <li className="stack__item">
+                <div className="card">
+                  <VoltageChart aid={this.state.appliance["id"]} alt={"Tree 2"} count={10}/>
+                </div>
+              </li>
+              <li className="stack__item">
+                <div className="card">
+                  <CurrentChart aid={this.state.appliance["id"]} alt={"Tree 1"} count={10}/>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div className="col-12">
+            <div className="controls">
+              <button className="button button--sonar button--reject" data-stack={"stack_iman"}>
+                <i className="fa fa-arrow-left"></i>
+                <span className="text-hidden">Reject</span></button>
+              <button className="button button--sonar button--accept" data-stack={"stack_iman"}>
+                <i className="fa fa-arrow-right"></i>
+                <span className="text-hidden">Accept</span></button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+  }
   render() {
 
-    cardChartData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'My First dataset',
-          borderColor: 'rgba(255,255,255,.55)',
-          data: [Math.random() * (25 - 0 + 1), Math.random() * (40 - 13 + 1) + 13, Math.random() * (35 - 6 + 1) + 6, Math.random() * (24 - 13 + 1) + 13, Math.random() * (37 - 2 + 1) + 2, Math.random() * (34 - 21 + 1) + 21, Math.random() * (44 - 9 + 1) + 9],
-        },
-      ],
-    };
-
-
+    if (this.state.detail === 1) {
+      cardChartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+          'January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [
+          {
+            label: "random",
+            borderColor: 'rgba(255,255,255,.55)',
+            data: [Math.random() * (25 - 0 + 1), Math.random() * (40 - 13 + 1) + 13, Math.random() * (35 - 6 + 1) + 6, Math.random() * (24 - 13 + 1) + 13, Math.random() * (37 - 2 + 1) + 2, Math.random() * (34 - 21 + 1) + 21, Math.random() * (44 - 9 + 1) + 9,
+              Math.random() * (25 - 0 + 1), Math.random() * (40 - 13 + 1) + 13, Math.random() * (35 - 6 + 1) + 6, Math.random() * (24 - 13 + 1) + 13, Math.random() * (37 - 2 + 1) + 2, Math.random() * (34 - 21 + 1) + 21, Math.random() * (44 - 9 + 1) + 9],
+          },
+        ],
+      };
+    }
+    else {
+      cardChartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [
+          {
+            label: "random",
+            borderColor: 'rgba(255,255,255,.55)',
+            data: [Math.random() * (25 - 0 + 1), Math.random() * (40 - 13 + 1) + 13, Math.random() * (35 - 6 + 1) + 6, Math.random() * (24 - 13 + 1) + 13, Math.random() * (37 - 2 + 1) + 2, Math.random() * (34 - 21 + 1) + 21, Math.random() * (44 - 9 + 1) + 9],
+          },
+        ],
+      };
+    }
     return (
       <div className="capsule-canvas" id={"capsule-canvas" + this.state.appliance["id"]}>
         <div className="capsule-core" id={"capsule-core" + this.state.appliance["id"]}>
-          {this.displayCapsule()}
+          <div className="v-capsule" id={"v-capsule" + this.state.appliance["id"]}
+               style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][0]}}>
+            <div className="capsule-body" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][1]}}>
+              <div className="capsule-head">
+                <div className="caphead">
+                <span style={{
+                  backgroundColor: ColorScheme[this.state.appliance["id"] % 6][2],
+                  color: ColorScheme[this.state.appliance["id"] % 6][1]
+                }}>ID-{this.state.appliance["id"]}</span>
+                  <p style={{color: ColorScheme[this.state.appliance["id"] % 6][1]}}>{this.state.appliance["name"]}</p>
+                </div>
+              </div>
+            </div>
+            <div className="capbody-row brief">
+              <div className="capbody-item" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
+                <span>Status</span></div>
+              <div className="capbody-content">
+              </div>
+            </div>
+            <div className="capbody-row brief">
+              <div className="capbody-item" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
+                <span>Update</span></div>
+              <div className="capbody-content">
+                <p>{this.state.appliance["updated"]}</p>
+              </div>
+            </div>
+            <div className="capbody-row brief">
+              <div className="capbody-item" style={{backgroundColor: ColorScheme[this.state.appliance["id"] % 6][3]}}>
+                <span>Runtime</span></div>
+              <div className="capbody-content">
+                <p>{this.state.appliance["runtime"]}</p>
+              </div>
+            </div>
+            {this.displayCapsule()}
+            <div className="capbody-row chart">
+              <div className="capbody-line">
+                <Bar data={cardChartData} options={cardChartOpts} height={90}/>
+              </div>
+              <div className="capbody-line-mask">
+              </div>
+            </div>
+          </div>
           <div className="capsule-canvas-mask" onClick={this.capsuleClick}>
             <AppSwitch checked={this.state.appliance["status"] === "Active"}
                        onClick={this.switch_status}
                        className={'mx-1 capbody-statBtn'} variant={'3d'} outline={'alt'}
-                       color={ColorScheme[this.state.appliance["id"] % 6][4]} label/>
+                       color={ColorScheme[this.state.appliance["id"] % 6][4]}
+                       id={"switch"+ this.state.appliance["id"]} label/>
             <div className='selector'>
               <ul>
                 <li>
@@ -565,21 +724,12 @@ class Appliances extends Component {
         ret = data;
       }
     });
-    // index = Math.floor(Math.random()*(6));
+
   }
 
-  // componentDidMount() {
-  //   Tools.syncLoadScriptInHead('http://localhost:12333/js/card/modernizr-custom.js', function () {
-  //   });
-  //   Tools.syncLoadScripts(['http://localhost:12333/js/card/classie.js',
-  //     'http://localhost:12333/js/card/card.js', 'http://localhost:12333/js/card/dynamics.min.js',
-  //     'http://localhost:12333/js/card/main.js', 'http://localhost:12333/js/card/card2.js'], function () {
-  //   });
-  // }
 
   render() {
-    // show data
-    // const appList = appsData.filter((appliance) => appliance.id < 10);
+
     this.constructor();
     let other_capsules = $(".capsule-canvas");
 

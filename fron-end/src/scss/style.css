@@ -7,7 +7,9 @@
  * Licensed under MIT (https://coreui.io/license)
  */
 /*!
- * Bootstrap v4.1.3 (https://getbootstrap.com/)
+
+ * Bootstrap v4.1.2 (https://getbootstrap.com/)
+
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -182,7 +184,8 @@ img {
   vertical-align: middle;
   border-style: none; }
 
-svg {
+
+svg:not(:root) {
   overflow: hidden;
   vertical-align: middle; }
 
@@ -2358,6 +2361,7 @@ input[type="button"].btn-block {
   .input-group > .custom-select:focus,
   .input-group > .custom-file .custom-file-input:focus ~ .custom-file-label {
     z-index: 3; }
+
   .input-group > .custom-file .custom-file-input:focus {
     z-index: 4; }
   .input-group > .form-control:not(:last-child),
@@ -2668,6 +2672,9 @@ input[type="button"].btn-block {
     @media screen and (prefers-reduced-motion: reduce) {
       .custom-range::-webkit-slider-thumb {
         transition: none; } }
+    .custom-range::-webkit-slider-thumb:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px #e4e5e6, 0 0 0 0.2rem rgba(32, 168, 216, 0.25); }
     .custom-range::-webkit-slider-thumb:active {
       background-color: #b6e4f4; }
   .custom-range::-webkit-slider-runnable-track {
@@ -2689,6 +2696,9 @@ input[type="button"].btn-block {
     @media screen and (prefers-reduced-motion: reduce) {
       .custom-range::-moz-range-thumb {
         transition: none; } }
+    .custom-range::-moz-range-thumb:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px #e4e5e6, 0 0 0 0.2rem rgba(32, 168, 216, 0.25); }
     .custom-range::-moz-range-thumb:active {
       background-color: #b6e4f4; }
   .custom-range::-moz-range-track {
@@ -2713,6 +2723,9 @@ input[type="button"].btn-block {
     @media screen and (prefers-reduced-motion: reduce) {
       .custom-range::-ms-thumb {
         transition: none; } }
+    .custom-range::-ms-thumb:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px #e4e5e6, 0 0 0 0.2rem rgba(32, 168, 216, 0.25); }
     .custom-range::-ms-thumb:active {
       background-color: #b6e4f4; }
   .custom-range::-ms-track {
