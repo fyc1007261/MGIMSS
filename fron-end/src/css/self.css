@@ -840,7 +840,7 @@
 }
 
 .switch-move-back{
-  transform: translate(43%, -290%);
+  transform: translate(58%, -290%);
   animation-name: capbodyFade, switchMove-back, capbodyFade-back;
   animation-duration: 0.5s, 0.5s, 0.5s;
   animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
@@ -2986,7 +2986,7 @@
     transform: translate(6%, -50%);
   }
   to {
-    transform: translate(43%, -290%);
+    transform: translate(58%, -290%);
   }
 }
 
@@ -2996,7 +2996,7 @@
     transform: translate(6%, -50%);
   }
   to {
-    transform: translate(43%, -290%);
+    transform: translate(58%, -290%);
   }
 }
 
@@ -3006,7 +3006,7 @@
     transform: translate(6%, -50%);
   }
   to {
-    transform: translate(43%, -290%);
+    transform: translate(58%, -290%);
   }
 }
 
@@ -3016,14 +3016,13 @@
     transform: translate(6%, -50%);
   }
   to {
-    transform: translate(43%, -290%);
+    transform: translate(58%, -290%);
   }
 }
 
-
 @keyframes switchMove-back {
   from {
-    transform: translate(43%, -290%);
+    transform: translate(58%, -290%);
   }
   to {
     transform: translate(6%, -50%);
@@ -3033,7 +3032,7 @@
 @-moz-keyframes switchMove-back /* Firefox */
 {
   from {
-    transform: translate(43%, -290%);
+    transform: translate(58%, -290%);
   }
   to {
     transform: translate(6%, -50%);
@@ -3043,7 +3042,7 @@
 @-webkit-keyframes switchMove-back /* Safari 和 Chrome */
 {
   from {
-    transform: translate(43%, -290%);
+    transform: translate(58%, -290%);
   }
   to {
     transform: translate(6%, -50%);
@@ -3053,9 +3052,202 @@
 @-o-keyframes switchMove-back /* Opera */
 {
   from {
-    transform: translate(43%, -290%);
+    transform: translate(58%, -290%);
   }
   to {
     transform: translate(6%, -50%);
   }
 }
+
+@media(max-width: 1450px) {
+  .switch-move-back{
+    transform: translate(48%, -290%);
+  }
+  @keyframes switchMove{
+    from {
+      transform: translate(6%, -50%);
+    }
+    to {
+      transform: translate(48%, -290%);
+    }
+  }
+  @-webkit-keyframes switchMove{
+    from {
+      transform: translate(6%, -50%);
+    }
+    to {
+      transform: translate(48%, -290%);
+    }
+  }
+  @-moz-keyframes switchMove{
+    from {
+      transform: translate(6%, -50%);
+    }
+    to {
+      transform: translate(48%, -290%);
+    }
+  }
+  @-o-keyframes switchMove{
+    from {
+      transform: translate(6%, -50%);
+    }
+    to {
+      transform: translate(48%, -290%);
+    }
+  }
+
+  @keyframes switchMove-back{
+    from {
+      transform: translate(48%, -290%);
+    }
+    to {
+      transform: translate(6%, -50%);
+    }
+  }
+  @-webkit-keyframes switchMove-back{
+    from {
+      transform: translate(48%, -290%);
+    }
+    to {
+      transform: translate(6%, -50%);
+    }
+  }
+  @-moz-keyframes switchMove-back{
+    from {
+      transform: translate(48%, -290%);
+    }
+    to {
+      transform: translate(6%, -50%);
+    }
+  }
+  @-o-keyframes switchMove-back{
+    from {
+      transform: translate(48%, -290%);
+    }
+    to {
+      transform: translate(6%, -50%);
+    }
+  }
+}
+
+@media(max-width: 430px) {
+  .switch-move-back{
+    transform: translate(33%, -290%);
+  }
+  @keyframes switchMove{
+    from {
+      transform: translate(6%, -50%);
+    }
+    to {
+      transform: translate(33%, -290%);
+    }
+  }
+  @-webkit-keyframes switchMove{
+    from {
+      transform: translate(6%, -50%);
+    }
+    to {
+      transform: translate(33%, -290%);
+    }
+  }
+  @-moz-keyframes switchMove{
+    from {
+      transform: translate(6%, -50%);
+    }
+    to {
+      transform: translate(33%, -290%);
+    }
+  }
+  @-o-keyframes switchMove{
+    from {
+      transform: translate(6%, -50%);
+    }
+    to {
+      transform: translate(33%, -290%);
+    }
+  }
+
+  @keyframes switchMove-back{
+    from {
+      transform: translate(33%, -290%);
+    }
+    to {
+      transform: translate(6%, -50%);
+    }
+  }
+  @-webkit-keyframes switchMove-back{
+    from {
+      transform: translate(33%, -290%);
+    }
+    to {
+      transform: translate(6%, -50%);
+    }
+  }
+  @-moz-keyframes switchMove-back{
+    from {
+      transform: translate(33%, -290%);
+    }
+    to {
+      transform: translate(6%, -50%);
+    }
+  }
+  @-o-keyframes switchMove-back{
+    from {
+      transform: translate(33%, -290%);
+    }
+    to {
+      transform: translate(6%, -50%);
+    }
+  }
+}
+
+
+@media(max-width: 330px) {
+  .switch-move-back{
+    transform: translate(13%, -290%);
+  }
+  @keyframes switchMove{
+    to {
+      transform: translate(13%, -290%);
+    }
+  }
+  @-webkit-keyframes switchMove{
+    to {
+      transform: translate(13%, -290%);
+    }
+  }
+  @-moz-keyframes switchMove{
+    to {
+      transform: translate(13%, -290%);
+    }
+  }
+  @-o-keyframes switchMove{
+    to {
+      transform: translate(13%, -290%);
+    }
+  }
+
+  @keyframes switchMove-back{
+    from {
+      transform: translate(13%, -290%);
+    }
+  }
+  @-webkit-keyframes switchMove-back{
+    from {
+      transform: translate(13%, -290%);
+    }
+  }
+  @-moz-keyframes switchMove-back{
+    from {
+      transform: translate(13%, -290%);
+    }
+  }
+  @-o-keyframes switchMove-back{
+    from {
+      transform: translate(13%, -290%);
+    }
+  }
+}
+
+
+
