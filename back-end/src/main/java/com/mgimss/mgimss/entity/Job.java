@@ -19,6 +19,8 @@ public class Job
     private Long lastTime;
     private Long perPower;
     private int  status;
+    private String simulatio1data;
+    private String simulatio2data;
 
 
     @ManyToOne
@@ -123,6 +125,21 @@ public class Job
         this.user = user;
     }
 
+    public String getSimulatio1data() {
+        return simulatio1data;
+    }
+
+    public void setSimulatio1data(String simulatio1data) {
+        this.simulatio1data = simulatio1data;
+    }
+
+    public String getSimulatio2data() {
+        return simulatio2data;
+    }
+
+    public void setSimulatio2data(String simulatio2data) {
+        this.simulatio2data = simulatio2data;
+    }
     //    public void myinit(Long intStopTime, Long intStartTime, Long intTrueStopTime, Long lastTime, Long perPower, Long jobId)
 //    {
 ////        setIntStartTime(intStartTime);

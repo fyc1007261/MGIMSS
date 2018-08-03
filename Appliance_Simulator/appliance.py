@@ -1,5 +1,5 @@
-import serial
-ser = serial.Serial('COM3', 9600)
+# import serial
+# ser = serial.Serial('COM3', 9600)
 option_on = b'b'
 option_off = b'a'
 
@@ -57,17 +57,18 @@ class Appliance:
 
 
 class ArduinoLED(Appliance):
-    def __init__(self, app_id, name="unknown appliance", voltage=220, current=0, status=0):
+    def __init__(self, app_id,ser, name="unknown appliance", voltage=220, current=0, status=0):
         Appliance.__init__(self, app_id, name, voltage, current, status)
+        self.__ser = ser
         if status == 1:
             ser.write(option_on)
         if status == 0:
             ser.write(option_off)
 
     def turn_on(self):
-        ser.write(option_on)
+        self.__ser.write(option_on)
         return Appliance.turn_on(self)
 
     def turn_off(self):
-        ser.write(option_off)
+        self.__ser.write(option_off)
         return Appliance.turn_off(self)

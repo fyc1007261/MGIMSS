@@ -8,6 +8,7 @@ import com.mgimss.mgimss.repository.*;
 import com.mgimss.mgimss.utils.GetUserContext;
 import com.mgimss.mgimss.utils.TimeToString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.mgimss.mgimss.utils.TimeToString;
 import javax.servlet.http.HttpServletRequest;
@@ -175,6 +176,29 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         );
         response.addHeader("Access-Control-Allow-Origin", "*");
         return buf.toString();
+    }
+
+    public String get_jobs1_by_id(Long id){
+        Job job = runningJobRepository.findByJobId(id);
+        if (job==null)
+            job = pendingJobRepository.findByJobId(id);
+        if (job.getSimulatio1data() == null)
+        {
+            return "1";
+        }
+        return job.getSimulatio1data();
+    }
+
+
+    public  String get_jobs2_by_id(Long id){
+        Job job = runningJobRepository.findByJobId(id);
+        if (job==null)
+            job = pendingJobRepository.findByJobId(id);
+        if (job.getSimulatio2data() == null)
+        {
+            return "1";
+        }
+        return job.getSimulatio2data();
     }
 
 }

@@ -1,4 +1,6 @@
 import datetime
+# import serial
+# ser = serial.Serial('COM3', 9600,timeout=0.5)
 
 generation = {0: 0,
               1: 0,
@@ -59,6 +61,42 @@ class Battery:
     def get_generation_volume(self):
         return self.__generation_volume
 
+    def get_light_intensity(self,ser):
+        up2down = ser.read(500);
+        tigan = "none"
+        print(up2down)
+        if up2down.find(b"D") >= 0 :
+            tigan = "down"
+        elif up2down.find(b"U") >= 0:
+            tigan = "up"
+        ser.flushInput()
+        data = ser.readline();
+        while (data != b'light\r\n'):
+            data = ser.readline();
+        print(data)
+        last_data = ser.readline()
+        print(int(last_data))
+        last_data2 = ser.readline()
+        print(int(last_data2))
+
+        last_data3 = ser.readline()
+        while (last_data3 == b''):
+            last_data3 = ser.readline();
+
+        print(float(last_data3))
+        last_data4 = ser.readline()
+        print(float(last_data4))
+        last_data5 = ser.readline()
+        print(float(last_data5))
+        print(tigan)
+        sensor = []
+        sensor.append(int(last_data))
+        sensor.append(int(last_data2))
+        sensor.append(float(last_data3))
+        sensor.append(float(last_data4))
+        sensor.append(float(last_data5))
+        sensor.append(tigan)
+        return sensor
 
 if __name__ == "__main__":
     battery = Battery(200)

@@ -8,7 +8,7 @@ void setup() {
 }
 
 void loop() {
-  while (1){
+ 
     int ch = Serial.read();
     if (ch == option_on)
       digitalWrite(ledPin, HIGH);
@@ -16,5 +16,5 @@ void loop() {
       digitalWrite(ledPin, LOW);
     Serial.println(ch);
     delay(500);
-  }
+  
 }

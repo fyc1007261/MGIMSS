@@ -4,6 +4,8 @@ import com.mgimss.mgimss.entity.Appliance;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DataTest {
     public static int stepA = 0;
@@ -15,6 +17,9 @@ public class DataTest {
     public static Date endTime ;
     public static Long lastTime = Long.valueOf(0);
     public static Appliance appliance;
+    public static Map<Long,Boolean> usersensor = new HashMap();
+    public static Map<Long,Boolean> userdistance = new HashMap();
+    public static Map<Long,Boolean> usertemperature = new HashMap();
 
     public static  void main(String[] arg)
     {

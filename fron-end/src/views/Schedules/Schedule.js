@@ -2,10 +2,22 @@ import React, { Component } from 'react';
 import { Button, Badge, Card, CardBody, CardHeader, Col, Row, Table,
   Modal, ModalBody, ModalFooter, ModalHeader, Input} from 'reactstrap';
 import $ from "jquery";
+// 引入 ECharts 主模块
+import echarts from 'echarts';
+// import ReactEcharts from 'echarts-for-react'
+// 引入柱状图
+import  'echarts/lib/chart/bar';
+// 引入提示框和标题组件
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/markLine';
+import 'echarts/lib/component/markPoint';
 
 let jobsData = [{"id":1, "Status":"Pending",  "Appliance":"app1", "Duration":"100", "Start after":"2018-12-03T15:33", "Finish by":456},
   {"id":3, "status": "Running", "app_name":"app3", "duration":"1h"}];
-
+var showtu1 = [];
+var showtu2 = [];
+var showtu3 = [];
 class Schedule extends Component {
 
   constructor(props){
@@ -30,12 +42,136 @@ class Schedule extends Component {
       }
     });
   }
+  componentWillMount() {
 
+    var xmlhttp;
+    if (window.XMLHttpRequest)
+    {
+      //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+      xmlhttp=new XMLHttpRequest();
+    }
+    xmlhttp.onreadystatechange=function()
+    {
+      if (xmlhttp.readyState==4 && xmlhttp.status==200)
+      {
+        console.log(xmlhttp.responseText)
+        showtu1 = JSON.parse(xmlhttp.responseText)
+        if (showtu1 === 1 )
+        {
+          showtu1 = [];
+        }
+      }
+    }
+
+    xmlhttp.open("GET","/schedule/get_jobs1_by_id?id="+this.props.match.params.id,false);
+    xmlhttp.send();
+    var xmlhttp;
+    if (window.XMLHttpRequest)
+    {
+      //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+      xmlhttp=new XMLHttpRequest();
+    }
+    xmlhttp.onreadystatechange=function()
+    {
+      if (xmlhttp.readyState==4 && xmlhttp.status==200)
+      {
+        showtu2 = JSON.parse(xmlhttp.responseText)
+        if (showtu2 === 1 )
+        {
+          showtu2 = [];
+        }
+      }
+    }
+
+    xmlhttp.open("GET","/schedule/get_jobs2_by_id?id="+this.props.match.params.id,false);
+    xmlhttp.send();
+    showtu3 =[];
+    var myDate = new Date();
+
+    var ltime = Math.floor(myDate.getTime())
+    for (var ii = 0 ; ii<showtu2.length; ii++)
+    {
+      var myDate1 = new Date(ltime+ii*100*1000);
+      showtu3.push(myDate1.toLocaleString());
+    }
+  }
   componentDidMount()
   {
     document.getElementById("Start after").type = "datetime-local";
     document.getElementById("Finish by").type = "datetime-local";
     document.getElementById("Duration").type = "number";
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    // 绘制图表
+    myChart.setOption({
+      title : {
+        text: 'AI小微帮你智能调度',
+        subtext: ''
+      },
+      tooltip : {
+        trigger: 'axis'
+      },
+      legend: {
+        data:['navie','perfect']
+      },
+      toolbox: {
+        show : true,
+        feature : {
+          mark : {show: true},
+          dataView : {show: true, readOnly: false},
+          magicType : {show: true, type: ['line', 'bar']},
+          restore : {show: true},
+          saveAsImage : {show: true}
+        }
+      },
+      calculable : true,
+      xAxis : [
+        {
+          type : 'category',
+          boundaryGap : false,
+          data : showtu3
+        }
+      ],
+      yAxis : [
+        {
+          type : 'value',
+        }
+      ],
+      series : [
+        {
+          name:'navie',
+          type:'line',
+          data:showtu1,
+          markPoint : {
+            data : [
+              {type : 'max', name: '最大值'},
+              {type : 'min', name: '最小值'}
+            ]
+          },
+          markLine : {
+            data : [
+              {type : 'average', name: '平均值'}
+            ]
+          }
+        },
+        {
+          name:'perfect',
+          type:'line',
+          data:showtu2,
+          markPoint : {
+            data : [
+              {type : 'max', name: '最大值'},
+              {type : 'min', name: '最小值'}
+            ]
+          },
+          markLine : {
+            data : [
+              {type : 'average', name : '平均值'}
+            ]
+          }
+        }
+      ]
+    });
   }
   modifyClick(ele){
     if (ele.target.style.display == "")
@@ -163,6 +299,7 @@ class Schedule extends Component {
   render() {
     const job = jobsData.find(job => job.id.toString() === this.props.match.params.id);
     const jobDetails = job ? Object.entries(job) : [['id', (<span><i className="text-muted icon-ban"></i> Not found</span>)]]
+
     return (
       <div className="animated fadeIn">
         <Row>
@@ -200,6 +337,7 @@ class Schedule extends Component {
             </Card>
           </Col>
         </Row>
+        <div id="main" style={{ width: 1100, height: 400 ,margin:"auto"}}></div>
       </div>
     )
   }
