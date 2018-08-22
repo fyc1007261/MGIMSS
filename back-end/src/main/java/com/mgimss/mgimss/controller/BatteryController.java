@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface BatteryController {
     //python calls
     @RequestMapping("/battery/post_remaining")
-    String post_remaining(String time, Long remain, String uid);
+    String post_remaining(String time, Long remain, String uid,Long light_intensity,float distance,float humidity,float temperature,String tigan);
 
     //java calls
     @RequestMapping("/battery/get_remaining")

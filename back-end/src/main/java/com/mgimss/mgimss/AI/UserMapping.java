@@ -4,5 +4,5 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserMapping {
-    public static Map<Long,Thread> usermapping = new HashMap();;
+    public static Map<Long,Thread> usermapping = new HashMap();
 }

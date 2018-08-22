@@ -19,4 +19,10 @@ public interface ShowAppInfo {
 
     @RequestMapping("/schedule/get_job_by_id")
     String get_job_by_id(Long id, HttpServletResponse response);
+
+    @RequestMapping("/schedule/get_jobs1_by_id")
+    String get_jobs1_by_id(Long id);
+
+    @RequestMapping("/schedule/get_jobs2_by_id")
+    String get_jobs2_by_id(Long id);
 }

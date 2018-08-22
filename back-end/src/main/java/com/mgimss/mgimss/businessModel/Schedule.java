@@ -86,6 +86,8 @@ public class Schedule {
                     Long doTime = nowTime;//为该job在何时开始
                     Long maxcost = Long.MAX_VALUE;
                     Long maxTime = doTime;//对于给定的一个job它的最有开始时间
+                    ArrayList<Long> simulation1data = new ArrayList();
+                    ArrayList<Long> simulation2data = new ArrayList();
                     while ((doTime + pendJob.get(i).getLastTime()) <= stopTime) //对每一个合理的时间开始JOB
                     {
                         Long simulateTime = nowTime;
@@ -95,6 +97,7 @@ public class Schedule {
                         Long simulateCapacity = capacity;
 
                         Long cost = Long.valueOf(0);
+                        ArrayList<Long> showdata1 = new ArrayList();
                         while (simulateTime < stopTime)//开始模拟从nowtime一直到stopTime进行模拟
                         {
                             //System.out.println("simulateTime:"+simulateTime);
@@ -200,7 +203,7 @@ public class Schedule {
 
                                 }
                             }
-
+                            showdata1.add(cost / 10000);
                             simulateTime+= timeSlice;
                             //System.out.println("simulateTime:"+simulateTime);
                         }//结束模拟阶段
@@ -209,12 +212,19 @@ public class Schedule {
                         {
                             maxcost = cost;
                             maxTime = doTime;
+                            simulation2data = showdata1;
+                        }
+                        if (doTime == nowTime)
+                        {
+                            simulation1data = showdata1;
                         }
                         doTime += timeSlice;
                     }
                     Job job = pendingJobRepository.findByAppliance(pendJob.get(i).getAppliance().getAppId());
                     job.setIntTrueStartTime(maxTime);
                     job.setIntTrueStopTime(maxTime+pendJob.get(i).getLastTime());
+                    job.setSimulatio1data(simulation1data.toString());
+                    job.setSimulatio2data(simulation2data.toString());
                     pendingJobRepository.save(job);
                     if (maxTime == nowTime)
                     {
@@ -232,6 +242,8 @@ public class Schedule {
                     Long doTime = (startTime/timeSlice*timeSlice)+timeSlice+tmod;//为该job在何时开始
                     Long maxcost = Long.MAX_VALUE;
                     Long maxTime = doTime;//对于给定的一个job它的最有开始时间
+                    ArrayList<Long> simulation1data = new ArrayList();
+                    ArrayList<Long> simulation2data = new ArrayList();
                     while ((doTime + pendJob.get(i).getLastTime()) <= stopTime) //对每一个合理的时间开始JOB
                     {
                         Long simulateTime = nowTime;
@@ -241,6 +253,8 @@ public class Schedule {
                         Long simulateCapacity = capacity;
 
                         Long cost = Long.valueOf(0);
+                        ArrayList<Long> showdata1 = new ArrayList();
+
                         while (simulateTime < stopTime)//开始模拟从nowtime一直到stopTime进行模拟
                         {
                             //System.out.println("simulateTime:"+simulateTime);
@@ -350,7 +364,7 @@ public class Schedule {
 
                                 }
                             }
-
+                            showdata1.add(cost / 10000);
                             simulateTime+= timeSlice;
                             //System.out.println("simulateTime:"+simulateTime);
                         }//结束模拟阶段
@@ -363,12 +377,19 @@ public class Schedule {
                             System.out.println("MAXTIME:"+maxcost+"cost"+cost);
                             maxcost = cost;
                             maxTime = doTime;
+                            simulation2data = showdata1;
+                        }
+                        if (doTime == (startTime/timeSlice*timeSlice)+timeSlice+tmod)
+                        {
+                            simulation1data = showdata1;
                         }
                         doTime += timeSlice;
                     }
                     Job job = pendingJobRepository.findByAppliance(pendJob.get(i).getAppliance().getAppId());
                     job.setIntTrueStartTime(maxTime);
                     job.setIntTrueStopTime(maxTime+pendJob.get(i).getLastTime());
+                    job.setSimulatio1data(simulation1data.toString());
+                    job.setSimulatio2data(simulation2data.toString());
                     pendingJobRepository.save(job);
                     Date date6 = new Date(maxTime*1000);
                     System.out.println(date6.toString());
