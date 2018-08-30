@@ -3,6 +3,7 @@ package com.mgimss.mgimss.controller;
 
 import com.mgimss.mgimss.entity.Appliance;
 import com.mgimss.mgimss.entity.Job;
+import com.mgimss.mgimss.entity.Sensor;
 import com.mgimss.mgimss.entity.User;
 import com.mgimss.mgimss.repository.*;
 import com.mgimss.mgimss.utils.GetUserContext;
@@ -23,6 +24,9 @@ import java.util.List;
 public class ShowAppInfoImpl implements ShowAppInfo {
     @Autowired
     public ApplianceRepository applianceRepository;
+
+    @Autowired
+    public SensorRepository sensorRepository;
 
     @Autowired
     public UserRepository userRepository;
@@ -111,6 +115,16 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         if (gname == null)
         {
             gname = "none";
+        }
+        String s1name;
+        Sensor sensor1 = sensorRepository.findByAidAndUidandSensorid(0L,appliance.getUser().getUid(),appliance.getAid());
+        if (sensor1 == null)
+        {
+            s1name = "none";
+        }
+        else
+        {
+            s1name = "open";
         }
         // json builder
         StringBuilder buf = new StringBuilder();

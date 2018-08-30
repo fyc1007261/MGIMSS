@@ -15,6 +15,9 @@ public interface SensorRepository extends JpaRepository<Sensor, Long>{
     @Query(nativeQuery = true, value="select * from sensor where sensorid  =:sensorid and uid =:uid")
     List<Sensor> find2ByNameAndUid(@Param("sensorid") Long sensorid, @Param("uid") Long uid);
 
+    @Query(nativeQuery = true, value="select * from sensor where sensorid  =:sensorid and uid =:uid and aid =:aid")
+    Sensor findByAidAndUidandSensorid(@Param("sensorid") Long sensorid, @Param("uid") Long uid,@Param("aid") Long aid);
+
     @Modifying
     @Transactional
     @Query(nativeQuery = true, value="delete from sensor where senid =:senid" )

@@ -9,8 +9,8 @@ import datetime
 
 
 tz = pytz.timezone('Asia/Shanghai')
-username = "531121540741hVPxo"
-password = "4MXFSbf"
+username = "534949863394MsG8x"
+password = "FG5fIab"
 # generation = {0: 0,
 #               1: 0,
 #               2: 0,
@@ -41,13 +41,14 @@ password = "4MXFSbf"
 def get_generation():
     today = datetime.datetime.now(tz).strftime('%Y%m%d') + "000000"
     yesterday = (datetime.datetime.now(tz) - datetime.timedelta(days=1)).strftime('%Y%m%d') + "000000"
-    time_range = [yesterday, today]
+
+    time_range = '['+yesterday+','+ today+']'
 
 
     generation = {x: 0 for x in range(24)}
     args = {"userID": username, "pwd": password, "dataFormat": "json", "staIDs": 58361,
             "interfaceId": "getRadiEleByTimeRangeAndStaID", "dataCode": "RADI_CHN_MUL_HOR2400",
-            "timeRange": "[20180731000000,20180801000000]", "elements": "V14311"
+            "timeRange": time_range, "elements": "V14311"
             }
     r = requests.get("http://api.data.cma.cn:8090/api", args)
     response = eval(r.text)
@@ -133,4 +134,5 @@ class Battery:
 
 if __name__ == "__main__":
     battery = Battery(200)
+    print("battery 真实数据")
     print(battery.get_generation_volume())

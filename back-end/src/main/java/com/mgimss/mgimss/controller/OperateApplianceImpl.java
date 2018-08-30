@@ -58,6 +58,9 @@ public class OperateApplianceImpl implements OperateAppliance {
     @Autowired
     DailyRepository dailyRepository;
 
+    @Autowired
+    public SensorRepository sensorRepository;
+
     //python calls
     public String post_appliance_status(String time, String id, String voltage, String current, String uid)
     {
@@ -206,7 +209,7 @@ public class OperateApplianceImpl implements OperateAppliance {
     }
 
     //java calls
-    public String add_appliance(String name, String mfrs, Long power, String gesture, HttpServletResponse response)
+    public String add_appliance(String name, String mfrs, Long power, String gesture,String s1name, HttpServletResponse response)
     {
         User user;
         Long aid;
@@ -228,6 +231,7 @@ public class OperateApplianceImpl implements OperateAppliance {
             Gesture gest = new Gesture(gesture,name,user);
             gestureRepository.save(gest);
         }
+
         //获得新电器应分配的aid
         Set<Appliance> present_apps = user.getAppliances();
         if (present_apps.size() == 0) aid = Long.valueOf(1);
@@ -238,7 +242,12 @@ public class OperateApplianceImpl implements OperateAppliance {
 
         Appliance appliance = new Appliance(user, aid, name, addDate, mfrs,
                 power, null, 0);
-
+        //关联传感器
+        if (!s1name.equals("none"))
+        {
+            Sensor sensor1 = new Sensor(1L,aid,user);
+            sensorRepository.save(sensor1);
+        }
         host = user.getHardwareHost();
         port = user.getHardwarePort();
 
@@ -296,7 +305,7 @@ public class OperateApplianceImpl implements OperateAppliance {
     }
 
 
-    public String modify_appliance(Long aid, String mfrs, Long power,String gesture){
+    public String modify_appliance(Long aid, String mfrs, Long power,String gesture,String s1name){
         User user;
         //当前用户
 //        SecurityContext ctx = SecurityContextHolder.getContext();
@@ -309,13 +318,18 @@ public class OperateApplianceImpl implements OperateAppliance {
         applianceRepository.saveAndFlush(appliance);
         String gest = gestureRepository.findByNameAndUid(appliance.getName(),appliance.getUser().getUid());
         gestureRepository.deleteByGname(gest);
-
+        Sensor sensor1 = sensorRepository.findByAidAndUidandSensorid(1L,appliance.getUser().getUid(),appliance.getAid());
+        sensorRepository.deleteByGname(sensor1.getSenid());
         if (!gesture.equals( "none"))
         {
             Gesture gest2 = new Gesture(gesture,appliance.getName(),user);
             gestureRepository.save(gest2);
         }
-
+        if (!s1name.equals("none"))
+        {
+            Sensor new_sensor1 = new Sensor(1L,aid,user);
+            sensorRepository.save(new_sensor1);
+        }
         String host = user.getHardwareHost();
         String port = user.getHardwarePort();
 
