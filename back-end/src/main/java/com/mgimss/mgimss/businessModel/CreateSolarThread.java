@@ -50,7 +50,7 @@ public class CreateSolarThread extends  Thread {
             try {
                 Date date = new Date();
 
-                int hour = date.getHours();
+                int hour = date.getHours()+24;
 
                 Long time;
                 Long count = solarPowerRepository.findCount(clientId);

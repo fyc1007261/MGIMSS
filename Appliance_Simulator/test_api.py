@@ -1,8 +1,8 @@
 import requests
 
 
-username = "531121540741hVPxo"
-password = "4MXFSbf"
+username = "534949863394MsG8x"
+password = "FG5flab"
 #
 # http://api.data.cma.cn:8090/api?userId=<帐号>&pwd=<密码>&dataFormat=json&
 #     interfaceId=getRadiEleByTimeRangeAndStaID&dataCode=RADI_CHN_MUL_HOR2400&
@@ -20,4 +20,5 @@ args = {"userID": username, "pwd": password, "dataFormat": "json", "staIDs": 583
         "timeRange": "[20180708000000,20180709000000]", "elements": "V14311"
         }
 r = requests.get("http://api.data.cma.cn:8090/api", args)
-print(r.text)
+if __name__ == "__main__":
+        print(r.text)
