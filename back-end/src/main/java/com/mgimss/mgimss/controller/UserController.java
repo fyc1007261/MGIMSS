@@ -32,4 +32,7 @@ public interface UserController {
 
     @RequestMapping("/user/update_user_info")
     String update_user_info(String new_email, String new_phone);
+
+    @RequestMapping("/user/change_avatar")
+    String change_avatar(String new_avatarURL);
 }

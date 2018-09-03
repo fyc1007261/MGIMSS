@@ -4,6 +4,8 @@ import com.mgimss.mgimss.entity.Appliance;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DataTest {
     public static int stepA = 0;
@@ -15,6 +17,9 @@ public class DataTest {
     public static Date endTime ;
     public static Long lastTime = Long.valueOf(0);
     public static Appliance appliance;
+    public static Map<Long,Boolean> usersensor = new HashMap();
+    public static Map<Long,Boolean> userdistance = new HashMap();
+    public static Map<Long,Boolean> usertemperature = new HashMap();
 
     public static  void main(String[] arg)
     {
@@ -23,6 +28,21 @@ public class DataTest {
     public static Date  change2date(String arg) {
         try {
             java.text.SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日，HH:mm:ss");
+            String s = arg;
+            Date date = formatter.parse(s);
+            System.out.println(date);
+            return date;
+        }
+        catch (Exception e)
+        {
+            System.out.println("error");
+            return null;
+        }
+    }
+
+    public static Date  change3date(String arg) {
+        try {
+            java.text.SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
             String s = arg;
             Date date = formatter.parse(s);
             System.out.println(date);
@@ -59,4 +79,5 @@ public class DataTest {
             return null;
         }
     }
+
 }

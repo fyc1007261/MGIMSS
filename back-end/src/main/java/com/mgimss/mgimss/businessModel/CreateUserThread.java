@@ -29,6 +29,8 @@ public class CreateUserThread extends  Thread {
     private SolarPowerRepository solarPowerRepository;
 
     private Long clientId;
+
+    private Long cloud = 1L;
     public int getTime()
     {
         return 100000;

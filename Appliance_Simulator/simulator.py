@@ -1,4 +1,4 @@
-from appliance import Appliance
+from appliance import Appliance, ArduinoLED
 from battery import Battery
 
 import requests
@@ -8,7 +8,8 @@ import datetime
 import socket
 import random
 import pytz
-
+import serial
+ser = serial.Serial('COM3', 9600,timeout=0.5)
 
 # define
 # whether to print log when succeeded
@@ -51,10 +52,12 @@ def get_apps(apps):
         info = file.readlines()
         for line in info:
             line = eval(line)
-            app = Appliance(line[0], line[1], line[2], line[3], line[4])
+            if line[0] == 0:
+                app = ArduinoLED(line[0], ser,line[1], line[2], line[3], line[4])
+            else:
+                app = Appliance(line[0], line[1], line[2], line[3], line[4])
             temp_id = line[0] + 1
             apps.append(app)
-
 
 
 def save_apps(apps):
@@ -73,7 +76,16 @@ def all_to_server(url, apps, battery):
             overflow += battery.discharge(app.get_current() * app.get_voltage() * frequency)
             single_to_server(url, app, now)
     # finally send the status of battery
-    payload = {"time": now, "remaining": round(battery.get_power()), "uid": 1}
+    sensorStayus = battery.get_light_intensity(ser)
+    light_intensity = sensorStayus[0]
+    distance = sensorStayus[2]
+    print(light_intensity)
+    if (sensorStayus[1] == 0):
+        my_switch_status(apps,0,0)
+    else:
+        my_switch_status(apps,0,1)
+    print(sensorStayus[5])
+    payload = {"time": now, "remaining": round(battery.get_power()), "uid": 1,"light_intensity":light_intensity,"distance":distance,"humidity":sensorStayus[3],"temperature":sensorStayus[4],"tigan":sensorStayus[5]}
     try:
         r = requests.post(url=server_battery, data=payload)
         if r.text.find("success") < 0:
@@ -94,6 +106,32 @@ def all_to_server(url, apps, battery):
                 print_debug("success when sending battery overflow status to server at" + now)
         except requests.exceptions.ConnectionError:
             print("Cannot connect to the server")
+
+def my_switch_status(apps, app_id, option=-1):
+    for appliance in apps:
+        if appliance.get_id() == app_id:
+            status = appliance.get_status()
+            if option == status:
+                return -1
+            if status == 1:
+                if appliance.turn_off() == 0:
+                    print("LED open")
+                    send_status_change(server_change, app_id, 0)
+                    save_apps(apps)
+                    return -1
+                break
+            else:
+                if appliance.turn_on() == 0:
+                    print("LED open")
+                    send_status_change(server_change, app_id, 1)
+                    save_apps(apps)
+                    return -1
+                break
+    else:
+        print("No such appliance.")
+        return -1
+    save_apps(apps)
+    return 0
 
 
 def single_to_server(url, appliance, now):
@@ -205,32 +243,32 @@ def change_properties(apps, app_id, info):
 
 
 # option: 1 for on, 0 for off, -1 for switch
-def switch_status(apps, app_id, option=-1):
-    lock.acquire()
+def m_switch_status(apps, app_id, option=-1):
+
     for appliance in apps:
         if appliance.get_id() == app_id:
             status = appliance.get_status()
             if option == status:
-                lock.release()
+
                 return -1
             if status == 1:
                 if appliance.turn_off() != 0:
                     send_status_change(server_change, app_id, 0)
-                    lock.release()
+
                     return -1
                 break
             else:
                 if appliance.turn_on() != 0:
                     send_status_change(server_change, app_id, 1)
-                    lock.release()
+
                     return -1
                 break
     else:
         print("No such appliance.")
-        lock.release()
+
         return -1
     save_apps(apps)
-    lock.release()
+
     return 0
 
 
@@ -256,10 +294,10 @@ def do_server(conn, addr, apps, battery):
         try:
             app_id = eval(data["id"])
         except ValueError:
-            conn.send(b"Invalid input")
+            conn.send(b"err: Invalid input")
             conn.close()
             return
-        if switch_status(apps, app_id, 1) == 0:
+        if m_switch_status(apps, app_id, 1) == 0:
             conn.send(b"success")
             print_debug("success when turning on an app")
             send_status_change(server_change, app_id, 1)
@@ -269,10 +307,10 @@ def do_server(conn, addr, apps, battery):
         try:
             app_id = eval(data["id"])
         except ValueError:
-            conn.send(b"Invalid input")
+            conn.send(b"err: Invalid input")
             conn.close()
             return
-        if switch_status(apps, app_id, 0) == 0:
+        if m_switch_status(apps, app_id, 0) == 0:
             conn.send(b"success")
             print_debug("success when turning off an app")
             send_status_change(server_change, app_id, 0)
@@ -282,25 +320,44 @@ def do_server(conn, addr, apps, battery):
         try:
             app_id = eval(data["id"])
             app_name = data["name"]
+            power = int(data["power"])
         except ValueError:
-            conn.send(b"Invalid input")
+            conn.send(b"err: Invalid input")
             conn.close()
             return
         info = dict()
         info["id"] = app_id
         info["name"] = app_name
         info["voltage"] = 220
-        info["current"] = random.randrange(1, 20)/10
+        info["current"] = power/220
         if create_app(apps, info) == 0:
             conn.send(b"success")
             print_debug("success when adding an app")
         else:
             conn.send(b"err: can't add appliance")
+    elif option == "modify":
+        try:
+            app_id = eval(data["id"])
+            power = int(data["power"])
+        except ValueError:
+            conn.send(b"err: Invalid input")
+            conn.close()
+            return
+        for app in apps:
+            if app.get_id() == app_id:
+                app.set_current(power/220)
+                conn.send(b"success")
+                print_debug("success when modify app")
+                break
+        else:
+            conn.send(b"err: No such appliance")
+            conn.close()
+            return
     elif option == "delete":
         try:
             app_id = eval(data["id"])
         except ValueError:
-            conn.send(b"Invalid input")
+            conn.send(b"err: Invalid input")
             conn.close()
             return
         if delete_app(apps, app_id) == 0:
@@ -313,7 +370,7 @@ def do_server(conn, addr, apps, battery):
             hour = int(data["time"])
             value = battery.get_generation_volume()[hour] * area_of_solar_generator
         except ValueError:
-            conn.send(b"Invalid input")
+            conn.send(b"err: Invalid input")
             conn.close()
             return
         conn.send(bytes(str(value), 'utf-8'))
@@ -405,7 +462,7 @@ def main():
             except ValueError:
                 print("Invalid input")
                 continue
-            if switch_status(apps, app_id) == 0:
+            if m_switch_status(apps, app_id) == 0:
                 print("success")
             else:
                 print("err:")

@@ -51,6 +51,7 @@ class ECharts  extends Component {
 
     xmlhttp.open("GET","/forecast/true",false);
     xmlhttp.send();
+    showtu3 =[];
     var myDate = new Date();
     var ltime = Math.floor(myDate.getTime()/3600000)*3600000-1000*60*60*10;
     for (var ii = 0 ; ii<20; ii++)

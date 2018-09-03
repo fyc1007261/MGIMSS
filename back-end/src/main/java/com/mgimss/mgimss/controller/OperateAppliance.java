@@ -28,11 +28,11 @@ public interface OperateAppliance {
     String request_appliances_status(String aid, String count, Date end_time, HttpServletResponse response);
 
     @RequestMapping("/appliance/modify_appliance")
-    String modify_appliance(Long aid, String mfrs, Long power,String gesture);
+    String modify_appliance(Long aid, String mfrs, Long power,String gesture,String s1name,String s2name,String s3name,String s4name);
 
     //java calls
     @RequestMapping("/appliance/add_appliance")
-    String add_appliance(String name, String mfrs, Long ratedParameters, String gesture, HttpServletResponse response);
+    String add_appliance(String name, String mfrs, Long ratedParameters, String gesture, String s1name,String s2name,String s3name,String s4name,HttpServletResponse response);
 
 
     //java calls
@@ -42,6 +42,9 @@ public interface OperateAppliance {
     //java calls
     @RequestMapping("/appliance/switch_appliance")
     String switch_appliance(Long aid, String option, HttpServletResponse response);
+    //java calls
+    @RequestMapping("/appliance/switch__sensor1")
+    String switch_sensor1(Long aid, String option);
 
     //java calls
     @RequestMapping("/appliance/get_appliances")

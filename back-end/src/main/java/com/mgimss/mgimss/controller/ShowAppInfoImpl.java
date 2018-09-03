@@ -3,11 +3,13 @@ package com.mgimss.mgimss.controller;
 
 import com.mgimss.mgimss.entity.Appliance;
 import com.mgimss.mgimss.entity.Job;
+import com.mgimss.mgimss.entity.Sensor;
 import com.mgimss.mgimss.entity.User;
 import com.mgimss.mgimss.repository.*;
 import com.mgimss.mgimss.utils.GetUserContext;
 import com.mgimss.mgimss.utils.TimeToString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.mgimss.mgimss.utils.TimeToString;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,9 @@ import java.util.List;
 public class ShowAppInfoImpl implements ShowAppInfo {
     @Autowired
     public ApplianceRepository applianceRepository;
+
+    @Autowired
+    public SensorRepository sensorRepository;
 
     @Autowired
     public UserRepository userRepository;
@@ -121,6 +126,16 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         {
             gname = "none";
         }
+        String s1name;
+        Sensor sensor1 = sensorRepository.findByAidAndUidandSensorid(0L,appliance.getUser().getUid(),appliance.getAid());
+        if (sensor1 == null)
+        {
+            s1name = "none";
+        }
+        else
+        {
+            s1name = "open";
+        }
         // json builder
         StringBuilder buf = new StringBuilder();
         buf.append("{\"data\":[");
@@ -134,6 +149,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"start time\" : \"" +start_time +
                         "\", \"finish time\" : \"" +finish_time +
                         "\", \"gesture\" : \"" +gname +
+                        "\", \"s1name\" : \"" +s1name +
                         "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
         );
         buf.append("]}");
@@ -185,6 +201,29 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         );
         response.addHeader("Access-Control-Allow-Origin", "*");
         return buf.toString();
+    }
+
+    public String get_jobs1_by_id(Long id){
+        Job job = runningJobRepository.findByJobId(id);
+        if (job==null)
+            job = pendingJobRepository.findByJobId(id);
+        if (job.getSimulatio1data() == null)
+        {
+            return "1";
+        }
+        return job.getSimulatio1data();
+    }
+
+
+    public  String get_jobs2_by_id(Long id){
+        Job job = runningJobRepository.findByJobId(id);
+        if (job==null)
+            job = pendingJobRepository.findByJobId(id);
+        if (job.getSimulatio2data() == null)
+        {
+            return "1";
+        }
+        return job.getSimulatio2data();
     }
 
 }
