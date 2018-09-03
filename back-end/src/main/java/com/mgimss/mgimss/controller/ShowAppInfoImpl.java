@@ -59,18 +59,21 @@ public class ShowAppInfoImpl implements ShowAppInfo {
             for (Appliance appliance:applianceList){
                 Job job = runningJobRepository.findByAppliance(appliance.getAppId());
                 Long runtime = 0L;
+                String rtime;
                 if (job!=null){
                     Long start = job.getIntStartTime();
                     Date now = new Date();
                     runtime = (now.getTime()/1000 - start)/60;
+                    rtime = runtime + " min";
+                }
+                else {
+                    rtime = "pending";
                 }
                 buf.append(
                         "{\"id\" : \"" + appliance.getAid() +
                                 "\", \"name\" : \"" + appliance.getName() +
                                 "\", \"status\" : \"" + ((appliance.getRunningState() == 1) ? "Active" : "Inactive") +
-                                "\", \"mfrs\" : \"" + appliance.getMfrs()+
-                                "\", \"runtime\" : \"" + runtime + "min"+
-                                "\", \"power\" : \"" + appliance.getPower() +
+                                "\", \"runtime\" : \"" + rtime+
                                 "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
                 );
                 buf.append(',');
@@ -93,11 +96,16 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         Long sta=0L, fin=0L;
         Job job = runningJobRepository.findByAppliance(app_id);
         Long runtime = 0L;
+        String rtime;
         if (job != null){
             sta = job.getIntStartTime();
             fin = job.getIntStopTime();
             Date now = new Date();
             runtime = (now.getTime()/1000 - sta)/60;
+            rtime = runtime + " min";
+        }
+        else {
+            rtime = "pending";
         }
         job = pendingJobRepository.findByAppliance(app_id);
         if (job != null){
@@ -109,6 +117,8 @@ public class ShowAppInfoImpl implements ShowAppInfo {
             TimeToString timeToString = new TimeToString();
             start_time = timeToString.LongToString(sta, ' ');
             finish_time = timeToString.LongToString(fin, ' ');
+            start_time = (start_time.equals("Null"))?  "Not scheduled" :  start_time;
+            finish_time = (finish_time.equals("Null"))?  "Not scheduled" :  finish_time;
         }
 
         String gname = gestureRepository.findByNameAndUid(appliance.getName(),appliance.getUser().getUid());
@@ -135,7 +145,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"status\" : \"" + ((appliance.getRunningState()==1) ? "Active":"Inactive") +
                         "\", \"manufacturer\" : \"" +appliance.getMfrs() +
                         "\", \"power\" : \"" +appliance.getPower() +
-                        "\", \"runtime\" : \"" +runtime + "min"+
+                        "\", \"runtime\" : \"" +rtime+
                         "\", \"start time\" : \"" +start_time +
                         "\", \"finish time\" : \"" +finish_time +
                         "\", \"gesture\" : \"" +gname +

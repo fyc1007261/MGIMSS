@@ -1,0 +1,304 @@
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: 'codropsicons';
+  src:url('../fonts/codropsicons/codropsicons.eot');
+  src:url('../fonts/codropsicons/codropsicons.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/codropsicons/codropsicons.woff') format('woff'),
+  url('../fonts/codropsicons/codropsicons.ttf') format('truetype'),
+  url('../fonts/codropsicons/codropsicons.svg#codropsicons') format('svg');
+}
+
+
+
+@font-face {
+  font-family: 'icomoon';
+  src:url('../fonts/icomoon/icomoon.eot?-rdnm34');
+  src:url('../fonts/icomoon/icomoon.eot?#iefix-rdnm34') format('embedded-opentype'),
+  url('../fonts/icomoon/icomoon.woff?-rdnm34') format('woff'),
+  url('../fonts/icomoon/icomoon.ttf?-rdnm34') format('truetype'),
+  url('../fonts/icomoon/icomoon.svg?-rdnm34#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+*, *:after, *:before { -webkit-box-sizing: border-box; box-sizing: border-box; }
+.clearfix:before, .clearfix:after { content: ''; display: table; }
+.clearfix:after { clear: both; }
+
+div.cs-select {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+  background: #fff;
+  width: 100%;
+  max-width: 500px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+}
+
+div.cs-select:focus {
+  outline: none; /* For better accessibility add a style for this in your skin */
+}
+
+.cs-select select {
+  display: none;
+}
+
+.cs-select span {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Placeholder and selected option */
+.cs-select > span {
+  padding-right: 3em;
+}
+
+.cs-select > span::after,
+.cs-select .cs-selected span::after {
+  speak: none;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.cs-select > span::after {
+  content: '\25BE';
+  right: 1em;
+}
+
+.cs-select .cs-selected span::after {
+  content: '\2713';
+  margin-left: 1em;
+}
+
+.cs-select.cs-active > span::after {
+  -webkit-transform: translateY(-50%) rotate(180deg);
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* Options */
+.cs-select .cs-options {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  background: #fff;
+  visibility: hidden;
+}
+
+.cs-select.cs-active .cs-options {
+  visibility: visible;
+}
+
+.cs-select ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.cs-select ul span {
+  padding: 1em;
+}
+
+.cs-select ul li.cs-focus span {
+  background-color: #ddd;
+}
+
+/* Optgroup and optgroup label */
+.cs-select li.cs-optgroup ul {
+  padding-left: 1em;
+}
+
+.cs-select li.cs-optgroup > span {
+  cursor: default;
+}
+
+
+/*//////////*/
+
+div.cs-skin-slide {
+  color: black;
+  font-family: gotham-rounded-light;
+  font-size: 12px;
+  width: 85%;
+  height: 40px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-58%,-50%);
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+
+div.cs-skin-slide::before {
+  content: '';
+  background: #fff;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
+}
+
+/*修改条目数量的话在这里*/
+.cs-skin-slide.cs-active::before {
+  -webkit-transform: scale3d(1.1,5,1);
+  transform: scale3d(1.1,5,1);
+}
+
+.cs-skin-slide > span {
+  height: 30px;
+  line-height: 30px;
+  padding-left: 10px;
+  -webkit-transition: text-indent 0.3s, opacity 0.3s;
+  transition: text-indent 0.3s, opacity 0.3s;
+}
+
+.cs-skin-slide.cs-active > span {
+  text-indent: -290px;
+  opacity: 0;
+}
+
+.cs-skin-slide > span::after,
+.cs-skin-slide.cs-active > span::after {
+  font-family: 'icomoon';
+  content: '\e00f';
+  color: #eb7e7f;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.cs-skin-slide.cs-active > span::after {
+  -webkit-transform: translate3d(0,-50%,0);
+  transform: translate3d(0,-50%,0);
+}
+
+/*这里height也要改*/
+.cs-skin-slide .cs-options {
+  background: transparent;
+  position: relative;
+  padding-top: 6px;
+  width: 100%;
+  height: 500%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate3d(-50%,-53%,0);
+  transform: translate3d(-50%,-53%,0);
+}
+
+.cs-skin-slide .cs-options li {
+  opacity: 0;
+  -webkit-transform: translate3d(30%,0,0);
+  transform: translate3d(30%,0,0);
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.cs-skin-slide.cs-active .cs-options li {
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+  opacity: 1;
+}
+
+.cs-skin-slide.cs-active .cs-options li:first-child {
+  -webkit-transition-delay: 0.05s;
+  transition-delay: 0.05s;
+}
+
+.cs-skin-slide.cs-active .cs-options li:nth-child(2) {
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+}
+
+.cs-skin-slide.cs-active .cs-options li:nth-child(3) {
+  -webkit-transition-delay: 0.15s;
+  transition-delay: 0.15s;
+}
+
+.cs-skin-slide.cs-active .cs-options li:nth-child(4) {
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+}
+
+.cs-skin-slide.cs-active .cs-options li:nth-child(5) {
+  -webkit-transition-delay: 0.25s;
+  transition-delay: 0.25s;
+} /* more options need more delay declaration */
+
+.cs-skin-slide .cs-options li span {
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: 80%;
+  padding-left: 25%;
+}
+
+.cs-skin-slide .cs-options li span:hover,
+.cs-skin-slide .cs-options li.cs-focus span,
+.cs-skin-slide .cs-options li.cs-selected span {
+  color: #eb7e7f;
+  background: transparent;
+}
+
+.cs-skin-slide .cs-selected span::after {
+  content: '';
+}
+
+[class^="icon-"] span:before,
+[class*=" icon-"] span:before {
+  font-family: 'icomoon';
+  position: absolute;
+  left: 10%;
+  top: 50%;
+  -webkit-transform: translate3d(0,-50%,0);
+  transform: translate3d(0,-50%,0);
+  font-size: 12px;
+}
+
+.icon-camera span::before {
+  content: '\e00b';
+}
+
+.icon-money span::before {
+  content: '\e008';
+}
+
+.icon-heart span::before {
+  content: '\e00a';
+}
+
+.icon-food span::before {
+  content: '\e009';
+}
+
+.icon-shirt span::before {
+  content: '\e00c';
+}
