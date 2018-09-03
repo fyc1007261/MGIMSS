@@ -27,6 +27,8 @@
   src: url('../fonts/gotham-rounded-light.otf');
 }
 
+
+
 .dChart {
   width: 10px;
   height: 10px;
@@ -36,6 +38,7 @@
 .Chart {
   position: absolute;
 }
+
 
 .canvas {
   margin-left: auto;
@@ -65,7 +68,7 @@
   -webkit-transition: width 0s ease-in-out, opacity 0.5s ease-in-out;
   -moz-transition: width 0s ease-in-out, opacity 0.5s ease-in-out;
   -o-transition: width 0s ease-in-out, opacity 0.5s ease-in-out;
-  /*background-color: #533f03;*/
+  background-color: #533f03;
   opacity: 1;
 }
 
@@ -88,7 +91,68 @@
   -webkit-transition: width 0s ease-in-out 0.5s, opacity 0.5s ease-in-out;
   -moz-transition: width 0s ease-in-out 0.5s, opacity 0.5s ease-in-out;
   -o-transition: width 0s ease-in-out 0.5s, opacity 0.5s ease-in-out;
+}
 
+.mask-fade-h{
+
+  animation-name: otherFade;
+  animation-duration: 0s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
+
+  -webkit-animation-name: otherFade;
+  -webkit-animation-duration: 0s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-delay: 0.5s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-direction: normal;
+
+  -moz-animation-name: otherFade;
+  -moz-animation-duration: 0s;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-delay: 0.5s;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-fill-mode: forwards;
+  -moz-animation-direction: normal;
+}
+
+
+@keyframes otherFade {
+  from{
+    display: inline-block;
+  }
+  to {
+    display: none;
+  }
+}
+
+@-webkit-keyframes otherFade{
+  from{
+    display: inline-block;
+  }
+  to {
+    display: none;
+  }
+}
+@-moz-keyframes otherFade{
+  from{
+    display: inline-block;
+  }
+  to {
+    display: none;
+  }
+}
+@-o-keyframes otherFade{
+  from{
+    display: inline-block;
+  }
+  to {
+    display: none;
+  }
 }
 
 .fade-back {
@@ -119,6 +183,7 @@
   -moz-animation-fill-mode: forwards, forwards;
   -moz-animation-direction: normal, normal;
 }
+
 
 .fade-h {
 
@@ -178,7 +243,7 @@
 
   left: 25%;
   width: 50%;
-  height: 480px;
+  height: 750px;
 
   animation-name: capsuleMove-back, caspsuleStrench-back;
   animation-duration: 1s, 1s;
@@ -197,6 +262,64 @@
   -webkit-animation-direction: normal, normal;
 
   -moz-animation-name: capsuleMove-back, caspsuleStrench-back;
+  -moz-animation-duration: 1s, 1s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out;
+  -moz-animation-delay: 1.5s, 0.5s;
+  -moz-animation-iteration-count: 1, 1;
+  -moz-animation-fill-mode: forwards, forwards;
+  -moz-animation-direction: normal, normal;
+}
+
+
+.mod-fade-core-h {
+  animation-name: mod-capsuleMove-full, caspsuleStrench-full;
+  animation-duration: 1s, 1s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-delay: 1s, 2s;
+  animation-iteration-count: 1, 1;
+  animation-fill-mode: forwards, forwards;
+  animation-direction: normal, normal;
+
+  -webkit-animation-name: mod-capsuleMove-full, caspsuleStrench-full;
+  -webkit-animation-duration: 1s, 1s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out;
+  -webkit-animation-delay: 1s, 2s;
+  -webkit-animation-iteration-count: 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards;
+  -webkit-animation-direction: normal, normal;
+
+  -moz-animation-name: mod-capsuleMove-full, caspsuleStrench-full;
+  -moz-animation-duration: 1s, 1s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out;
+  -moz-animation-delay: 1s, 2s;
+  -moz-animation-iteration-count: 1, 1;
+  -moz-animation-fill-mode: forwards, forwards;
+  -moz-animation-direction: normal, normal;
+
+}
+
+.mod-fade-core-back {
+
+  width: 50%;
+  height: 750px;
+
+  animation-name: mod-capsuleMove-back, caspsuleStrench-back;
+  animation-duration: 1s, 1s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-delay: 1.5s, 0.5s;
+  animation-iteration-count: 1, 1;
+  animation-fill-mode: forwards, forwards;
+  animation-direction: normal, normal;
+
+  -webkit-animation-name: mod-capsuleMove-back, caspsuleStrench-back;
+  -webkit-animation-duration: 1s, 1s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out;
+  -webkit-animation-delay: 1.5s, 0.5s;
+  -webkit-animation-iteration-count: 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards;
+  -webkit-animation-direction: normal, normal;
+
+  -moz-animation-name: mod-capsuleMove-back, caspsuleStrench-back;
   -moz-animation-duration: 1s, 1s;
   -moz-animation-timing-function: ease-in-out, ease-in-out;
   -moz-animation-delay: 1.5s, 0.5s;
@@ -309,7 +432,7 @@
 .fade-v-back {
 
   width: 60%;
-  height: 480px;
+  height: 750px;
   -moz-border-radius: 30px;
   -webkit-border-radius: 30px;
   border-radius: 30px;
@@ -339,6 +462,7 @@
   -moz-animation-direction: normal;
 }
 
+
 .capsule-head {
   /*background-color: #41af67;*/
   height: 80px;
@@ -350,7 +474,7 @@
   top: 70%;
   position: relative;
   transform: translate(0, -50%);
-  animation: appNameShowUp 2s ease;
+  animation: appNameShowUp 2s ease-in-out;
   font-size: 17px;
   width: 100%;
   margin-left: auto;
@@ -370,13 +494,13 @@
   font-size: 17px;
   position: absolute;
   transform: translate(-50%, -103%);
-  animation: spanShowUp 2s ease;
+  animation: spanShowUp 2s ease-in-out;
   animation-delay: 2s;
   animation-fill-mode: forwards;
-  -moz-animation: spanShowUp 2s ease;
+  -moz-animation: spanShowUp 2s ease-in-out;
   -moz-animation-delay: 2s;
   -moz-animation-fill-mode: forwards;
-  -webkit-animation: spanShowUp 2s ease;
+  -webkit-animation: spanShowUp 2s ease-in-out;
   -webkit-animation-fill-mode: forwards;
   -webkit-animation-delay: 2s; /* Safari 和 Chrome */
   background-color: peru; /*#187da0*/
@@ -395,13 +519,13 @@
 }
 
 .caphead-stretch{
-  animation: bodyShowUp 2s ease;
+  animation: bodyShowUp 2s ease-in-out;
   animation-delay: 2s;
   animation-fill-mode: forwards;
-  -moz-animation: bodyShowUp 2s ease;
+  -moz-animation: bodyShowUp 2s ease-in-out;
   -moz-animation-delay: 2s;
   -moz-animation-fill-mode: forwards;
-  -webkit-animation: bodyShowUp 2s ease;
+  -webkit-animation: bodyShowUp 2s ease-in-out;
   -webkit-animation-fill-mode: forwards;
   -webkit-animation-delay: 2s; /* Safari 和 Chrome */
   opacity: 0;
@@ -413,13 +537,13 @@
 
 
 .caphead-stretch-back{
-  animation: bodyShowUp 2s ease;
+  animation: bodyShowUp 2s ease-in-out;
   animation-delay: 2s;
   animation-fill-mode: forwards;
-  -moz-animation: bodyShowUp 2s ease;
+  -moz-animation: bodyShowUp 2s ease-in-out;
   -moz-animation-delay: 2s;
   -moz-animation-fill-mode: forwards;
-  -webkit-animation: bodyShowUp 2s ease;
+  -webkit-animation: bodyShowUp 2s ease-in-out;
   -webkit-animation-fill-mode: forwards;
   -webkit-animation-delay: 2s; /* Safari 和 Chrome */
   opacity: 0;
@@ -435,9 +559,9 @@
   transform: translate(0, -50%);
   position: relative;
   background-color: #f9f7ec; /*#fcf8e3*/
-  animation: open-capsule 2s ease;
-  -moz-animation: open-capsule 2s ease;
-  -webkit-animation: open-capsule 2s ease;
+  animation: openCapsule 2s ease-in-out;
+  -moz-animation: openCapsule 2s ease-in-out;
+  -webkit-animation: openCapsule 2s ease-in-out;
 }
 
 .capbody-item {
@@ -459,18 +583,28 @@
   word-break: break-all;
 }
 
-.capbody-statBtn {
+.stateDiv{
   position: relative;
-  top: 35%;
-  left: 58%;
-  transform: translate(6%, -50%);
-  animation: bodyShowUp 2s ease;
+  width: 40px;
+  height: 30px;
+  top: 29%;
+  left: 71%;
+  transform: translate(-50%, 0);
+  /*background-color: #56bddb;*/
+}
+
+.capbody-statusBtn {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: bodyShowUp 1s ease-in-out;
   animation-delay: 2s;
   animation-fill-mode: forwards;
-  -moz-animation: bodyShowUp 2s ease;
+  -moz-animation: bodyShowUp 1s ease-in-out;
   -moz-animation-delay: 2s;
   -moz-animation-fill-mode: forwards;
-  -webkit-animation: bodyShowUp 2s ease;
+  -webkit-animation: bodyShowUp 1s ease-in-out;
   -webkit-animation-fill-mode: forwards;
   -webkit-animation-delay: 2s; /* Safari 和 Chrome */
   opacity: 0;
@@ -479,6 +613,69 @@
   -moz-transition: opacity 0.5s ease-in-out;
   -o-transition: opacity 0.5s ease-in-out;
 }
+
+.capbody-Btn {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: bodyShowUp 1s ease-in-out;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+  -moz-animation: bodyShowUp 1s ease-in-out;
+  -moz-animation-delay: 1s;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation: bodyShowUp 1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-delay: 1s; /* Safari 和 Chrome */
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+}
+
+.lightDiv{
+  position: relative;
+  width: 40px;
+  height: 30px;
+  /*background-color: silver;*/
+  top: 40.7%;
+  left: 71%;
+  transform: translate(-50%, 0);
+}
+
+.thermalDiv{
+  position: relative;
+  width: 40px;
+  height: 30px;
+  /*background-color: silver;*/
+  top: 43.2%;
+  left: 71%;
+  transform: translate(-50%, 0);
+}
+
+.motionDiv{
+  position: relative;
+  width: 40px;
+  height: 30px;
+  /*background-color: silver;*/
+  top: 45.7%;
+  left: 71%;
+  transform: translate(-50%, 0);
+}
+
+.rangeDiv{
+  position: relative;
+  width: 40px;
+  height: 30px;
+  /*background-color: silver;*/
+  top: 48.2%;
+  left: 71%;
+  transform: translate(-50%, 0);
+}
+
+
 
 .capbody-content {
   transform: translate(15%, -50%);
@@ -492,6 +689,43 @@
   text-align: center;
   word-wrap: break-word;
   word-break: break-all;
+}
+
+.capbody-content-input {
+  transform: translate(103%, -26%);
+  position: relative;
+  top: 0;
+  width: 50%;
+  height: 6.5%;
+  font-size: 12px;
+  /*background-color: #41af67;*/
+  animation: bodyShowUp 1s ease-in-out;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+  -moz-animation: bodyShowUp 1s ease-in-out;
+  -moz-animation-delay: 1s;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation: bodyShowUp 1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-delay: 1s; /* Safari 和 Chrome */
+  opacity: 0;
+}
+
+.input-move-h{
+  opacity: 0;
+}
+
+.input-move-back{
+  opacity: 1;
+  animation: capBtnFade  0.5s ease-in-out;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+  -moz-animation: capBtnFade 0.5s ease-in-out;
+  -moz-animation-delay: 0s;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation: capBtnFade 0.5s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-delay: 0s; /* Safari 和 Chrome */
 }
 
 .capbody-content p {
@@ -559,7 +793,7 @@
 }
 
 .capbody-stretch-back {
-  height: 340px;
+  height: 600px;
   animation-name: capbodyStretchBack;
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
@@ -590,7 +824,7 @@
   animation-name: capbodyRowStretch, Fade, Fade-back;
   animation-duration: 1s, 1s, 1s;
   animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
-  animation-delay: 2s, 1s, 2.5s;
+  animation-delay: 2s, 1s, 3s;
   animation-iteration-count: 1, 1, 1;
   animation-fill-mode: forwards, forwards, forwards;
   animation-direction: normal, normal, normal;
@@ -598,7 +832,7 @@
   -webkit-animation-name: capbodyRowStretch, Fade, Fade-back;
   -webkit-animation-duration: 1s, 1s, 1s;
   -webkit-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
-  -webkit-animation-delay: 2s, 1s, 2.5s;
+  -webkit-animation-delay: 2s, 1s, 3s;
   -webkit-animation-iteration-count: 1, 1, 1;
   -webkit-animation-fill-mode: forwards, forwards, forwards;
   -webkit-animation-direction: normal, normal, normal;
@@ -606,7 +840,7 @@
   -moz-animation-name: capbodyRowStretch, Fade, Fade-back;
   -moz-animation-duration: 1s, 1s, 1s;
   -moz-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
-  -moz-animation-delay: 2s, 1s, 2.5s;
+  -moz-animation-delay: 2s, 1s, 3s;
   -moz-animation-iteration-count: 1, 1, 1;
   -moz-animation-fill-mode: forwards, forwards, forwards;
   -moz-animation-direction: normal, normal, normal;
@@ -614,8 +848,8 @@
 
 .capbody-row-stretch-back {
   opacity: 1;
-  transform: translate(8%, -660%);
-  height: 8%;
+  transform: translate(8%, -1060%);
+  height: 6.5%;
   width: 90%;
   animation-name: capbodyFade, capbodyRowStretchBack, capbodyFade-back;
   animation-duration: 0.5s, 0.5s, 0.5s;
@@ -642,8 +876,64 @@
   -moz-animation-direction: normal, normal, normal;
 }
 
-.new-rows-fade {
+.mod-capbody-row-stretch-h {
+  opacity: 1;
+  animation-name: capbodyRowStretch, Fade, Dispear;
+  animation-duration: 1s, 1s, 0s;
+  animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  animation-delay: 2s, 1s, 3s;
+  animation-iteration-count: 1, 1, 1;
+  animation-fill-mode: forwards, forwards, forwards;
+  animation-direction: normal, normal, normal;
 
+  -webkit-animation-name: capbodyRowStretch, Fade, Dispear;
+  -webkit-animation-duration: 1s, 1s, 0s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  -webkit-animation-delay: 2s, 1s, 3s;
+  -webkit-animation-iteration-count: 1, 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards, forwards;
+  -webkit-animation-direction: normal, normal, normal;
+
+  -moz-animation-name: capbodyRowStretch, Fade, Dispear;
+  -moz-animation-duration: 1s, 1s, 0s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  -moz-animation-delay: 2s, 1s, 3s;
+  -moz-animation-iteration-count: 1, 1, 1;
+  -moz-animation-fill-mode: forwards, forwards, forwards;
+  -moz-animation-direction: normal, normal, normal;
+}
+
+.mod-capbody-row-stretch-back {
+  opacity: 1;
+  transform: translate(8%, -640%);
+  height: 6.5%;
+  width: 90%;
+  animation-name: ShowOut, capbodyRowStretchBack, capbodyFade-back;
+  animation-duration: 0s, 0.5s, 0.5s;
+  animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  animation-delay: 0s, 0.5s, 1.5s;
+  animation-iteration-count: 1, 1, 1;
+  animation-fill-mode: forwards, forwards, forwards;
+  animation-direction: normal, normal, normal;
+
+  -webkit-animation-name: ShowOut, capbodyRowStretchBack, capbodyFade-back;
+  -webkit-animation-duration: 0s, 0.5s, 0.5s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  -webkit-animation-delay: 0s, 0.5s, 1.5s;
+  -webkit-animation-iteration-count: 1, 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards, forwards;
+  -webkit-animation-direction: normal, normal, normal;
+
+  -moz-animation-name: ShowOut, capbodyRowStretchBack, capbodyFade-back;
+  -moz-animation-duration: 0s, 0.5s, 0.5s;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-delay: 0s, 0.5s, 1.5s;
+  -moz-animation-iteration-count: 1, 1, 1;
+  -moz-animation-fill-mode: forwards, forwards, forwards;
+  -moz-animation-direction: normal, normal, normal;
+}
+
+.new-rows-fade {
   animation-name: Fade;
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
@@ -670,10 +960,10 @@
 }
 
 .capbody-row-info {
-  transform: translate(8%, -660%);
+  transform: translate(8%, -1060%);
   width: 90%;
   opacity: 0;
-  height: 8%;
+  height: 6.5%;
   animation-name: capsuleShowUp-back;
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
@@ -756,7 +1046,7 @@
 
 .capbody-chart-back {
   opacity: 1;
-  transform: translate(0%, -355%);
+  transform: translate(0%, -494%);
   height: 14%;
 
   animation-name: chartFade, ChartMove-back, chartFade-back;
@@ -817,7 +1107,7 @@
   animation-name: switchMove, Fade, Fade-back;
   animation-duration: 1s, 1s, 1s;
   animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
-  animation-delay: 2s, 1s, 2.5s;
+  animation-delay: 2s, 1s, 3s;
   animation-iteration-count: 1, 1, 1;
   animation-fill-mode: forwards, forwards, forwards;
   animation-direction: normal, normal, normal;
@@ -825,7 +1115,7 @@
   -webkit-animation-name: switchMove, Fade, Fade-back;
   -webkit-animation-duration: 1s, 1s, 1s;
   -webkit-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
-  -webkit-animation-delay: 2s, 1s, 2.5s;
+  -webkit-animation-delay: 2s, 1s, 3s;
   -webkit-animation-iteration-count: 1, 1, 1;
   -webkit-animation-fill-mode: forwards, forwards, forwards;
   -webkit-animation-direction: normal, normal, normal;
@@ -833,39 +1123,154 @@
   -moz-animation-name: switchMove, Fade, Fade-back;
   -moz-animation-duration: 1s, 1s, 1s;
   -moz-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
-  -moz-animation-delay: 2s, 1s, 2.5s;
+  -moz-animation-delay: 2s, 1s, 3s;
   -moz-animation-iteration-count: 1, 1, 1;
   -moz-animation-fill-mode: forwards, forwards, forwards;
   -moz-animation-direction: normal, normal, normal;
 }
 
 .switch-move-back{
-  transform: translate(58%, -290%);
-  animation-name: capbodyFade, switchMove-back, capbodyFade-back;
-  animation-duration: 0.5s, 0.5s, 0.5s;
+
+  top: 12.2%;
+
+  animation-name: switchMove-back, capbodyFade, capbodyFade-back;
+  animation-duration: 0s, 0.5s, 0.5s;
   animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
-  animation-delay: 0s, 0.5s, 1.5s;
+  animation-delay: 0.5s, 0s, 1.5s;
   animation-iteration-count: 1, 1, 1;
   animation-fill-mode: forwards, forwards, forwards;
   animation-direction: normal, normal, normal;
 
-  -webkit-animation-name: capbodyFade, switchMove-back, capbodyFade-back;
-  -webkit-animation-duration: 0.5s, 0.5s, 0.5s;
+  -webkit-animation-name: switchMove-back, capbodyFade, capbodyFade-back;
+  -webkit-animation-duration: 0s, 0.5s, 0.5s;
   -webkit-animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
-  -webkit-animation-delay: 0s, 0.5s, 1.5s;
+  -webkit-animation-delay: 0.5s, 0s, 1.5s;
   -webkit-animation-iteration-count: 1, 1, 1;
   -webkit-animation-fill-mode: forwards, forwards, forwards;
   -webkit-animation-direction: normal, normal, normal;
 
-  -moz-animation-name: capbodyFade, switchMove-back, capbodyFade-back;
-  -moz-animation-duration: 0.5s, 0.5s, 0.5s;
+  -moz-animation-name: switchMove-back, capbodyFade, capbodyFade-back;
+  -moz-animation-duration: 0s, 0.5s, 0.5s;
   -moz-animation-timing-function: ease-in-out;
-  -moz-animation-delay: 0s, 0.5s, 1.5s;
+  -moz-animation-delay:  0.5s, 0s, 1.5s;
   -moz-animation-iteration-count: 1, 1, 1;
   -moz-animation-fill-mode: forwards, forwards, forwards;
   -moz-animation-direction: normal, normal, normal;
 
 }
+
+.light-move-back{
+
+  top: 40.7%;
+  animation-name: capbodyFade, capbodyFade-back;
+  animation-duration: 0.5s, 0.5s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-delay: 0s, 1.5s;
+  animation-iteration-count: 1, 1;
+  animation-fill-mode: forwards, forwards;
+  animation-direction: normal, normal;
+
+  -webkit-animation-name: capbodyFade, capbodyFade-back;
+  -webkit-animation-duration: 0.5s, 0.5s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out;
+  -webkit-animation-delay: 0s, 1.5s;
+  -webkit-animation-iteration-count: 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards;
+  -webkit-animation-direction: normal, normal;
+
+  -moz-animation-name: capbodyFade, capbodyFade-back;
+  -moz-animation-duration: 0.5s, 0.5s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out;
+  -moz-animation-delay: 0s, 1.5s;
+  -moz-animation-iteration-count: 1, 1;
+  -moz-animation-fill-mode: forwards, forwards;
+  -moz-animation-direction: normal, normal;
+
+}
+.thermal-move-back{
+
+  top: 43.2%;
+  animation-name: capbodyFade, capbodyFade-back;
+  animation-duration: 0.5s, 0.5s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-delay: 0s, 1.5s;
+  animation-iteration-count: 1, 1;
+  animation-fill-mode: forwards, forwards;
+  animation-direction: normal, normal;
+
+  -webkit-animation-name: capbodyFade, capbodyFade-back;
+  -webkit-animation-duration: 0.5s, 0.5s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out;
+  -webkit-animation-delay: 0s, 1.5s;
+  -webkit-animation-iteration-count: 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards;
+  -webkit-animation-direction: normal, normal;
+
+  -moz-animation-name: capbodyFade, capbodyFade-back;
+  -moz-animation-duration: 0.5s, 0.5s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out;
+  -moz-animation-delay: 0s, 1.5s;
+  -moz-animation-iteration-count: 1, 1;
+  -moz-animation-fill-mode: forwards, forwards;
+  -moz-animation-direction: normal, normal;
+}
+
+.motion-move-back{
+
+  top: 45.7%;
+  animation-name: capbodyFade, capbodyFade-back;
+  animation-duration: 0.5s, 0.5s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-delay: 0s, 1.5s;
+  animation-iteration-count: 1, 1;
+  animation-fill-mode: forwards, forwards;
+  animation-direction: normal, normal;
+
+  -webkit-animation-name: capbodyFade, capbodyFade-back;
+  -webkit-animation-duration: 0.5s, 0.5s;
+  -webkit-animation-timing-function: ease-in-out, ease-in-out;
+  -webkit-animation-delay: 0s, 1.5s;
+  -webkit-animation-iteration-count: 1, 1;
+  -webkit-animation-fill-mode: forwards, forwards;
+  -webkit-animation-direction: normal, normal;
+
+  -moz-animation-name: capbodyFade, capbodyFade-back;
+  -moz-animation-duration: 0.5s, 0.5s;
+  -moz-animation-timing-function: ease-in-out, ease-in-out;
+  -moz-animation-delay: 0s, 1.5s;
+  -moz-animation-iteration-count: 1, 1;
+  -moz-animation-fill-mode: forwards, forwards;
+  -moz-animation-direction: normal, normal;
+}
+
+.range-move-back{
+
+   top: 48.2%;
+   animation-name: capbodyFade, capbodyFade-back;
+   animation-duration: 0.5s, 0.5s;
+   animation-timing-function: ease-in-out, ease-in-out;
+   animation-delay: 0s, 1.5s;
+   animation-iteration-count: 1, 1;
+   animation-fill-mode: forwards, forwards;
+   animation-direction: normal, normal;
+
+   -webkit-animation-name: capbodyFade, capbodyFade-back;
+   -webkit-animation-duration: 0.5s, 0.5s;
+   -webkit-animation-timing-function: ease-in-out, ease-in-out;
+   -webkit-animation-delay: 0s, 1.5s;
+   -webkit-animation-iteration-count: 1, 1;
+   -webkit-animation-fill-mode: forwards, forwards;
+   -webkit-animation-direction: normal, normal;
+
+   -moz-animation-name: capbodyFade, capbodyFade-back;
+   -moz-animation-duration: 0.5s, 0.5s;
+   -moz-animation-timing-function: ease-in-out, ease-in-out;
+   -moz-animation-delay: 0s, 1.5s;
+   -moz-animation-iteration-count: 1, 1;
+   -moz-animation-fill-mode: forwards, forwards;
+   -moz-animation-direction: normal, normal;
+ }
+
 
 @keyframes capsuleUp {
   from {
@@ -918,7 +1323,7 @@
   }
 }
 
-@keyframes open-capsule {
+@keyframes openCapsule {
   from {
     height: 5px;
   }
@@ -930,7 +1335,7 @@
   }
 }
 
-@-moz-keyframes open-capsule /* Firefox */
+@-moz-keyframes openCapsule /* Firefox */
 {
   from {
     height: 5px;
@@ -943,7 +1348,7 @@
   }
 }
 
-@-webkit-keyframes open-capsule /* Safari 和 Chrome */
+@-webkit-keyframes openCapsule /* Safari 和 Chrome */
 {
   from {
     height: 5px;
@@ -956,7 +1361,7 @@
   }
 }
 
-@-o-keyframes open-capsule /* Opera */
+@-o-keyframes openCapsule /* Opera */
 {
   from {
     height: 5px;
@@ -1341,6 +1746,45 @@
   }
 }
 
+@keyframes mod-capsuleMove-full {
+  from {
+    width: 200px;
+  }
+  to {
+    width: 50%;
+  }
+}
+
+@-moz-keyframes mod-capsuleMove-full /* Firefox */
+{
+  from {
+    width: 200px;
+  }
+  to {
+    width: 50%;
+  }
+}
+
+@-webkit-keyframes mod-capsuleMove-full /* Safari 和 Chrome */
+{
+  from {
+    width: 200px;
+  }
+  to {
+    width: 50%;
+  }
+}
+
+@-o-keyframes mod-capsuleMove-full /* Opera */
+{
+  from {
+    width: 200px;
+  }
+  to {
+    width: 50%;
+  }
+}
+
 @keyframes capsuleMove-back {
   from {
     left: 25%;
@@ -1388,6 +1832,45 @@
   }
 }
 
+@keyframes mod-capsuleMove-back {
+  from {
+    width: 50%;
+  }
+  to {
+    width: 200px;
+  }
+}
+
+@-moz-keyframes  mod-capsuleMove-back /* Firefox */
+{
+  from {
+    width: 50%;
+  }
+  to {
+    width: 200px;
+  }
+}
+
+@-webkit-keyframes  mod-capsuleMove-back /* Safari 和 Chrome */
+{
+  from {
+    width: 50%;
+  }
+  to {
+    width: 200px;
+  }
+}
+
+@-o-keyframes  mod-capsuleMove-back /* Opera */
+{
+  from {
+    width: 50%;
+  }
+  to {
+    width: 200px;
+  }
+}
+
 @media (max-width: 830px) {
   @keyframes capsuleMove-full {
     from {
@@ -1419,6 +1902,45 @@
   }
 
   @-o-keyframes capsuleMove-full /* Opera */
+  {
+    from {
+      width: 200px;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes mod-capsuleMove-full {
+    from {
+      width: 200px;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @-moz-keyframes mod-capsuleMove-full /* Firefox */
+  {
+    from {
+      width: 200px;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @-webkit-keyframes mod-capsuleMove-full /* Safari 和 Chrome */
+  {
+    from {
+      width: 200px;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @-o-keyframes mod-capsuleMove-full /* Opera */
   {
     from {
       width: 200px;
@@ -1466,6 +1988,45 @@
       width: 200px;
     }
   }
+
+  @keyframes mod-capsuleMove-back {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 200px;
+    }
+  }
+
+  @-moz-keyframes mod-capsuleMove-back /* Firefox */
+  {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 200px;
+    }
+  }
+
+  @-webkit-keyframes mod-capsuleMove-back /* Safari 和 Chrome */
+  {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 200px;
+    }
+  }
+
+  @-o-keyframes mod-capsuleMove-back /* Opera */
+  {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 200px;
+    }
+  }
 }
 
 @keyframes vStrench {
@@ -1478,7 +2039,7 @@
   }
   to {
     width: 60%;
-    height: 480px;
+    height: 750px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     border-radius: 30px;
@@ -1496,7 +2057,7 @@
   }
   to {
     width: 60%;
-    height: 480px;
+    height: 750px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     border-radius: 30px;
@@ -1514,7 +2075,7 @@
   }
   to {
     width: 60%;
-    height: 480px;
+    height: 750px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     border-radius: 30px;
@@ -1532,7 +2093,7 @@
   }
   to {
     width: 60%;
-    height: 480px;
+    height: 750px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     border-radius: 30px;
@@ -1542,7 +2103,7 @@
 @keyframes vStrench_back {
   from {
     width: 60%;
-    height: 480px;
+    height: 750px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     border-radius: 30px;
@@ -1560,7 +2121,7 @@
 {
   from {
     width: 60%;
-    height: 480px;
+    height: 750px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     border-radius: 30px;
@@ -1578,7 +2139,7 @@
 {
   from {
     width: 60%;
-    height: 480px;
+    height: 750px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     border-radius: 30px;
@@ -1596,7 +2157,7 @@
 {
   from {
     width: 60%;
-    height: 480px;
+    height: 750px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     border-radius: 30px;
@@ -1616,16 +2177,9 @@
     width: 80%;
   }
   @keyframes vStrench {
-    from {
-      width: 200px;
-      height: 300px;
-      -moz-border-radius: 100px;
-      -webkit-border-radius: 100px;
-      border-radius: 100px;
-    }
     to {
       width: 80%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1634,16 +2188,9 @@
 
   @-moz-keyframes vStrench /* Firefox */
   {
-    from {
-      width: 200px;
-      height: 300px;
-      -moz-border-radius: 100px;
-      -webkit-border-radius: 100px;
-      border-radius: 100px;
-    }
     to {
       width: 80%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1652,16 +2199,9 @@
 
   @-webkit-keyframes vStrench /* Safari 和 Chrome */
   {
-    from {
-      width: 200px;
-      height: 300px;
-      -moz-border-radius: 100px;
-      -webkit-border-radius: 100px;
-      border-radius: 100px;
-    }
     to {
       width: 80%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1670,16 +2210,9 @@
 
   @-o-keyframes vStrench /* Opera */
   {
-    from {
-      width: 200px;
-      height: 300px;
-      -moz-border-radius: 100px;
-      -webkit-border-radius: 100px;
-      border-radius: 100px;
-    }
     to {
       width: 80%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1689,7 +2222,7 @@
   @keyframes vStrench_back {
     from {
       width: 60%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1707,7 +2240,7 @@
   {
     from {
       width: 60%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1725,7 +2258,7 @@
   {
     from {
       width: 60%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1743,7 +2276,7 @@
   {
     from {
       width: 60%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1772,7 +2305,7 @@
     }
     to {
       width: 70%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1790,7 +2323,7 @@
     }
     to {
       width: 70%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1808,7 +2341,7 @@
     }
     to {
       width: 70%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1826,7 +2359,7 @@
     }
     to {
       width: 70%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1836,7 +2369,7 @@
   @keyframes vStrench_back {
     from {
       width: 70%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1854,7 +2387,7 @@
   {
     from {
       width: 70%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1872,7 +2405,7 @@
   {
     from {
       width: 70%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1890,7 +2423,7 @@
   {
     from {
       width: 70%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1919,7 +2452,7 @@
     }
     to {
       width: 60%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1937,7 +2470,7 @@
     }
     to {
       width: 60%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1955,7 +2488,7 @@
     }
     to {
       width: 60%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1973,7 +2506,7 @@
     }
     to {
       width: 60%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -1983,7 +2516,7 @@
   @keyframes vStrench_back {
     from {
       width: 60%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2001,7 +2534,7 @@
   {
     from {
       width: 60%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2019,7 +2552,7 @@
   {
     from {
       width: 60%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2037,7 +2570,7 @@
   {
     from {
       width: 60%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2066,7 +2599,7 @@
     }
     to {
       width: 80%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2084,7 +2617,7 @@
     }
     to {
       width: 80%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2102,7 +2635,7 @@
     }
     to {
       width: 80%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2120,7 +2653,7 @@
     }
     to {
       width: 80%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2130,7 +2663,7 @@
   @keyframes vStrench_back {
     from {
       width: 80%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2148,7 +2681,7 @@
   {
     from {
       width: 80%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2166,7 +2699,7 @@
   {
     from {
       width: 80%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2184,7 +2717,7 @@
   {
     from {
       width: 80%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2199,7 +2732,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 481px) {
   .fade-v-back {
     width: 90%;
   }
@@ -2213,7 +2746,7 @@
     }
     to {
       width: 90%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2231,7 +2764,7 @@
     }
     to {
       width: 90%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2249,7 +2782,7 @@
     }
     to {
       width: 90%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2267,7 +2800,7 @@
     }
     to {
       width: 90%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2277,7 +2810,7 @@
   @keyframes vStrench_back {
     from {
       width: 90%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2295,7 +2828,7 @@
   {
     from {
       width: 90%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2313,7 +2846,7 @@
   {
     from {
       width: 90%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2331,7 +2864,7 @@
   {
     from {
       width: 90%;
-      height: 480px;
+      height: 750px;
       -moz-border-radius: 30px;
       -webkit-border-radius: 30px;
       border-radius: 30px;
@@ -2352,7 +2885,7 @@
     height: 300px;
   }
   to {
-    height: 480px;
+    height: 750px;
   }
 }
 
@@ -2362,7 +2895,7 @@
     height: 300px;
   }
   to {
-    height: 480px;
+    height: 750px;
   }
 }
 
@@ -2372,7 +2905,7 @@
     height: 300px;
   }
   to {
-    height: 480px;
+    height: 750px;
   }
 }
 
@@ -2382,13 +2915,13 @@
     height: 300px;
   }
   to {
-    height: 480px;
+    height: 750px;
   }
 }
 
 @keyframes caspsuleStrench-back {
   from {
-    height: 480px;
+    height: 750px;
   }
   to {
     height: 300px;
@@ -2398,7 +2931,7 @@
 @-moz-keyframes caspsuleStrench-back /* Firefox */
 {
   from {
-    height: 480px;
+    height: 750px;
   }
   to {
     height: 300px;
@@ -2408,7 +2941,7 @@
 @-webkit-keyframes caspsuleStrench-back /* Safari 和 Chrome */
 {
   from {
-    height: 480px;
+    height: 750px;
   }
   to {
     height: 300px;
@@ -2418,7 +2951,7 @@
 @-o-keyframes caspsuleStrench-back /* Opera */
 {
   from {
-    height: 480px;
+    height: 750px;
   }
   to {
     height: 300px;
@@ -2549,8 +3082,8 @@
     width: 100%;
   }
   to {
-    transform: translate(8%, -660%);
-    height: 8%;
+    transform: translate(8%, -1060%);
+    height: 6.5%;
     width: 90%;
   }
 }
@@ -2563,8 +3096,8 @@
     width: 100%;
   }
   to {
-    transform: translate(8%, -660%);
-    height: 8%;
+    transform: translate(8%, -1060%);
+    height: 6.5%;
     width: 90%;
   }
 }
@@ -2577,8 +3110,8 @@
     width: 100%;
   }
   to {
-    transform: translate(8%, -660%);
-    height: 8%;
+    transform: translate(8%, -1060%);
+    height: 6.5%;
     width: 90%;
   }
 }
@@ -2591,16 +3124,16 @@
     width: 100%;
   }
   to {
-    transform: translate(8%, -660%);
-    height: 8%;
+    transform: translate(8%, -1060%);
+    height: 6.5%;
     width: 90%;
   }
 }
 
 @keyframes capbodyRowStretchBack {
   from {
-    transform: translate(8%, -660%);
-    height: 8%;
+    transform: translate(8%, -1060%);
+    height: 6.5%;
     width: 90%;
   }
   to {
@@ -2613,8 +3146,8 @@
 @-moz-keyframes capbodyRowStretchBack /* Firefox */
 {
   from {
-    transform: translate(8%, -660%);
-    height: 8%;
+    transform: translate(8%, -1060%);
+    height: 6.5%;
     width: 90%;
   }
   to {
@@ -2627,8 +3160,8 @@
 @-webkit-keyframes capbodyRowStretchBack /* Safari 和 Chrome */
 {
   from {
-    transform: translate(8%, -660%);
-    height: 8%;
+    transform: translate(8%, -1060%);
+    height: 6.5%;
     width: 90%;
   }
   to {
@@ -2641,8 +3174,8 @@
 @-o-keyframes capbodyRowStretchBack /* Opera */
 {
   from {
-    transform: translate(8%, -660%);
-    height: 8%;
+    transform: translate(8%, -1060%);
+    height: 6.5%;
     width: 90%;
   }
   to {
@@ -2658,7 +3191,7 @@
     height: 15%;
   }
   to {
-    transform: translate(0%, -355%);
+    transform: translate(0%, -494%);
     height: 14%;
   }
 }
@@ -2670,7 +3203,7 @@
     height: 15%;
   }
   to {
-    transform: translate(0%, -355%);
+    transform: translate(0%, -494%);
     height: 14%;
   }
 }
@@ -2682,7 +3215,7 @@
     height: 15%;
   }
   to {
-    transform: translate(0%, -355%);
+    transform: translate(0%, -494%);
     height: 14%;
   }
 }
@@ -2694,14 +3227,14 @@
     height: 15%;
   }
   to {
-    transform: translate(0%, -355%);
+    transform: translate(0%, -494%);
     height: 14%;
   }
 }
 
 @keyframes ChartMove-back {
   from {
-    transform: translate(0%, -355%);
+    transform: translate(0%, -494%);
     height: 14%;
   }
   to {
@@ -2713,7 +3246,7 @@
 @-moz-keyframes ChartMove-back /* Firefox */
 {
   from {
-    transform: translate(0%, -355%);
+    transform: translate(0%, -494%);
     height: 14%;
   }
   to {
@@ -2725,7 +3258,7 @@
 @-webkit-keyframes ChartMove-back /* Safari 和 Chrome */
 {
   from {
-    transform: translate(0%, -355%);
+    transform: translate(0%, -494%);
     height: 14%;
   }
   to {
@@ -2737,7 +3270,7 @@
 @-o-keyframes ChartMove-back /* Opera */
 {
   from {
-    transform: translate(0%, -355%);
+    transform: translate(0%, -494%);
     height: 14%;
   }
   to {
@@ -2776,6 +3309,45 @@
 }
 
 @-o-keyframes capbodyFade /* Opera */
+{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes capBtnFade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes capBtnFade /* Firefox */
+{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes capBtnFade /* Safari 和 Chrome */
+{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-o-keyframes capBtnFade /* Opera */
 {
   from {
     opacity: 1;
@@ -2907,7 +3479,7 @@
     height: 150px;
   }
   to {
-    height: 340px;
+    height: 600px;
   }
 }
 
@@ -2917,7 +3489,7 @@
     height: 150px;
   }
   to {
-    height: 340px;
+    height: 600px;
   }
 }
 
@@ -2927,7 +3499,7 @@
     height: 150px;
   }
   to {
-    height: 340px;
+    height: 600px;
   }
 }
 
@@ -2937,13 +3509,13 @@
     height: 150px;
   }
   to {
-    height: 340px;
+    height: 600px;
   }
 }
 
 @keyframes capbodyStretchBack {
   from {
-    height: 340px;
+    height: 600px;
   }
   to {
     height: 150px;
@@ -2953,7 +3525,7 @@
 @-moz-keyframes capbodyStretchBack /* Firefox */
 {
   from {
-    height: 340px;
+    height: 600px;
   }
   to {
     height: 150px;
@@ -2963,7 +3535,7 @@
 @-webkit-keyframes capbodyStretchBack /* Safari 和 Chrome */
 {
   from {
-    height: 340px;
+    height: 600px;
   }
   to {
     height: 150px;
@@ -2973,7 +3545,7 @@
 @-o-keyframes capbodyStretch /* Opera */
 {
   from {
-    height: 340px;
+    height: 600px;
   }
   to {
     height: 150px;
@@ -2983,271 +3555,200 @@
 
 @keyframes switchMove {
   from {
-    transform: translate(6%, -50%);
+    top: 29%;
   }
   to {
-    transform: translate(58%, -290%);
+    top: 12.2%;
   }
 }
 
 @-moz-keyframes switchMove /* Firefox */
 {
   from {
-    transform: translate(6%, -50%);
+    top: 29%;
   }
   to {
-    transform: translate(58%, -290%);
+    top: 12.2%;
   }
 }
 
 @-webkit-keyframes switchMove /* Safari 和 Chrome */
 {
   from {
-    transform: translate(6%, -50%);
+    top: 29%;
   }
   to {
-    transform: translate(58%, -290%);
+    top: 12.2%;
   }
 }
 
 @-o-keyframes switchMove /* Opera */
 {
   from {
-    transform: translate(6%, -50%);
+    top: 29%;
   }
   to {
-    transform: translate(58%, -290%);
+    top: 12.2%;
   }
 }
 
 @keyframes switchMove-back {
   from {
-    transform: translate(58%, -290%);
+    top: 12.2%;
   }
   to {
-    transform: translate(6%, -50%);
+    top: 29%;
   }
 }
 
 @-moz-keyframes switchMove-back /* Firefox */
 {
   from {
-    transform: translate(58%, -290%);
+    top: 12.2%;
   }
   to {
-    transform: translate(6%, -50%);
+    top: 29%;
   }
 }
 
 @-webkit-keyframes switchMove-back /* Safari 和 Chrome */
 {
   from {
-    transform: translate(58%, -290%);
+    top: 12.2%;
   }
   to {
-    transform: translate(6%, -50%);
+    top: 29%;
   }
 }
 
 @-o-keyframes switchMove-back /* Opera */
 {
   from {
-    transform: translate(58%, -290%);
+    top: 12.2%;
   }
   to {
-    transform: translate(6%, -50%);
-  }
-}
-
-@media(max-width: 1450px) {
-  .switch-move-back{
-    transform: translate(48%, -290%);
-  }
-  @keyframes switchMove{
-    from {
-      transform: translate(6%, -50%);
-    }
-    to {
-      transform: translate(48%, -290%);
-    }
-  }
-  @-webkit-keyframes switchMove{
-    from {
-      transform: translate(6%, -50%);
-    }
-    to {
-      transform: translate(48%, -290%);
-    }
-  }
-  @-moz-keyframes switchMove{
-    from {
-      transform: translate(6%, -50%);
-    }
-    to {
-      transform: translate(48%, -290%);
-    }
-  }
-  @-o-keyframes switchMove{
-    from {
-      transform: translate(6%, -50%);
-    }
-    to {
-      transform: translate(48%, -290%);
-    }
-  }
-
-  @keyframes switchMove-back{
-    from {
-      transform: translate(48%, -290%);
-    }
-    to {
-      transform: translate(6%, -50%);
-    }
-  }
-  @-webkit-keyframes switchMove-back{
-    from {
-      transform: translate(48%, -290%);
-    }
-    to {
-      transform: translate(6%, -50%);
-    }
-  }
-  @-moz-keyframes switchMove-back{
-    from {
-      transform: translate(48%, -290%);
-    }
-    to {
-      transform: translate(6%, -50%);
-    }
-  }
-  @-o-keyframes switchMove-back{
-    from {
-      transform: translate(48%, -290%);
-    }
-    to {
-      transform: translate(6%, -50%);
-    }
-  }
-}
-
-@media(max-width: 430px) {
-  .switch-move-back{
-    transform: translate(33%, -290%);
-  }
-  @keyframes switchMove{
-    from {
-      transform: translate(6%, -50%);
-    }
-    to {
-      transform: translate(33%, -290%);
-    }
-  }
-  @-webkit-keyframes switchMove{
-    from {
-      transform: translate(6%, -50%);
-    }
-    to {
-      transform: translate(33%, -290%);
-    }
-  }
-  @-moz-keyframes switchMove{
-    from {
-      transform: translate(6%, -50%);
-    }
-    to {
-      transform: translate(33%, -290%);
-    }
-  }
-  @-o-keyframes switchMove{
-    from {
-      transform: translate(6%, -50%);
-    }
-    to {
-      transform: translate(33%, -290%);
-    }
-  }
-
-  @keyframes switchMove-back{
-    from {
-      transform: translate(33%, -290%);
-    }
-    to {
-      transform: translate(6%, -50%);
-    }
-  }
-  @-webkit-keyframes switchMove-back{
-    from {
-      transform: translate(33%, -290%);
-    }
-    to {
-      transform: translate(6%, -50%);
-    }
-  }
-  @-moz-keyframes switchMove-back{
-    from {
-      transform: translate(33%, -290%);
-    }
-    to {
-      transform: translate(6%, -50%);
-    }
-  }
-  @-o-keyframes switchMove-back{
-    from {
-      transform: translate(33%, -290%);
-    }
-    to {
-      transform: translate(6%, -50%);
-    }
-  }
-}
-
-
-@media(max-width: 330px) {
-  .switch-move-back{
-    transform: translate(13%, -290%);
-  }
-  @keyframes switchMove{
-    to {
-      transform: translate(13%, -290%);
-    }
-  }
-  @-webkit-keyframes switchMove{
-    to {
-      transform: translate(13%, -290%);
-    }
-  }
-  @-moz-keyframes switchMove{
-    to {
-      transform: translate(13%, -290%);
-    }
-  }
-  @-o-keyframes switchMove{
-    to {
-      transform: translate(13%, -290%);
-    }
-  }
-
-  @keyframes switchMove-back{
-    from {
-      transform: translate(13%, -290%);
-    }
-  }
-  @-webkit-keyframes switchMove-back{
-    from {
-      transform: translate(13%, -290%);
-    }
-  }
-  @-moz-keyframes switchMove-back{
-    from {
-      transform: translate(13%, -290%);
-    }
-  }
-  @-o-keyframes switchMove-back{
-    from {
-      transform: translate(13%, -290%);
-    }
+    top: 29%;
   }
 }
 
 
 
+@keyframes Dispear {
+  from{
+    display: inline-block;
+  }
+  to {
+    display: none;
+  }
+}
+
+@-webkit-keyframes Dispear{
+  from{
+    display: inline-block;
+  }
+  to {
+    display: none;
+  }
+}
+@-moz-keyframes Dispear{
+  from{
+    display: inline-block;
+  }
+  to {
+    display: none;
+  }
+}
+@-o-keyframes Dispear{
+  from{
+    display: inline-block;
+  }
+  to {
+    display: none;
+  }
+}
+
+@keyframes ShowOut {
+  from{
+    display: none;
+  }
+  to {
+    display: inline-block;
+  }
+}
+
+@-webkit-keyframes ShowOut{
+  from{
+    display: none;
+  }
+  to {
+    display: inline-block;
+  }
+}
+@-moz-keyframes ShowOut{
+  from{
+    display: none;
+  }
+  to {
+    display: inline-block;
+  }
+}
+@-o-keyframes ShowOut{
+  from{
+    display: none;
+  }
+  to {
+    display: inline-block;
+  }
+}
+/*input*/
+.input {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  width: calc(100% - 2em);
+
+}
+
+.input__field {
+  position: relative;
+  display: block;
+  float: right;
+  padding: 0.8em;
+  width: 60%;
+  border: none;
+  border-radius: 0;
+  background: #f0f0f0;
+  color: #aaa;
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-appearance: none; /* for box shadows to show on iOS */
+}
+
+.input__field:focus {
+  outline: none;
+}
+
+.input__field--kyo {
+  padding: 0.85em 1.5em;
+  width: 100%;
+  border-radius: 2em;
+  background: #fff;
+  color: #535d92;
+  font-family: gotham-rounded-light;
+}
+
+/* Kyo */
+.input--kyo {
+  z-index: auto;
+}
+
+*, *:after, *:before { -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+
+.selector{
+  z-index: 1000;
+}
+
+.null{
+  width: 40px;
+}

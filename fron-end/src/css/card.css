@@ -21,6 +21,13 @@
   opacity: 0;
 }
 
+.cardContainer:after{
+  content:'';
+  width:100%;
+  height:100%;
+  box-shadow:0 0 30px 10px rgba(228,229,230,.7) inset;
+}
+
 .card-fade-h {
   opacity: 1;
   transition: opacity 1s ease-in-out 1.5s;
