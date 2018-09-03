@@ -42,8 +42,9 @@ public interface OperateAppliance {
     //java calls
     @RequestMapping("/appliance/switch_appliance")
     String switch_appliance(Long aid, String option, HttpServletResponse response);
+
     //java calls
-    @RequestMapping("/appliance/switch__sensor1")
+    @RequestMapping("/appliance/switch_sensor1")
     String switch_sensor1(Long aid, String option);
 
     //java calls

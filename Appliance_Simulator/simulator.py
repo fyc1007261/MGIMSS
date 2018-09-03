@@ -9,6 +9,7 @@ import socket
 import random
 import pytz
 import serial
+
 ser = serial.Serial('COM3', 9600,timeout=0.5)
 
 # define

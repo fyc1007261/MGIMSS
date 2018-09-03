@@ -130,11 +130,11 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         Sensor sensor1 = sensorRepository.findByAidAndUidandSensorid(0L,appliance.getUser().getUid(),appliance.getAid());
         if (sensor1 == null)
         {
-            s1name = "none";
+            s1name = "Inactive";
         }
         else
         {
-            s1name = "open";
+            s1name = "Active";
         }
         // json builder
         StringBuilder buf = new StringBuilder();
