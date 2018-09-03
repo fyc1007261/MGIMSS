@@ -12,6 +12,7 @@ import java.util.List;
 public class Schedule {
 
     private Long[] solarPredictData;
+    private Long cloud = 10L;
     private Long nTime;
     private Long ntimeSlice;
     public Long getTime()
@@ -40,7 +41,7 @@ public class Schedule {
         {
             j = 19;
         }
-        Long charge = solarPredictData[j];
+        Long charge = solarPredictData[j] * cloud / 10;
         if (charge < 0L)
             charge = 0L;
         return charge/60;

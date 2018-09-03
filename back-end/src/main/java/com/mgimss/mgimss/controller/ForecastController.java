@@ -34,7 +34,7 @@ public class ForecastController
 
     @Autowired
     SolarPowerRepository solarPowerRepository;
-
+    private Long cloud = 10L;
     @RequestMapping("/forecast/predict")
     public String predictdata() {
         try {
@@ -52,7 +52,7 @@ public class ForecastController
             ArrayList<Long> forecastdata = new ArrayList<Long>();
             for  (int ii = 0;ii<predictData.length;ii++) {
                 if (predictData[ii] >= 0L)
-                    forecastdata.add(predictData[ii]);
+                    forecastdata.add(predictData[ii] * cloud / 10);
                 else
                     forecastdata.add(0L);
             }
