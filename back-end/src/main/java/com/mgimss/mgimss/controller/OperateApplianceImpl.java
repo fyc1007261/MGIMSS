@@ -391,8 +391,6 @@ public class OperateApplianceImpl implements OperateAppliance {
 
     public String switch_sensor1(Long aid, String option){
         User user;
-
-
 //        SecurityContext ctx = SecurityContextHolder.getContext();
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
@@ -402,7 +400,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         Sensor sensor1 = sensorRepository.findByAidAndUidandSensorid(0L,appliance.getUser().getUid(),appliance.getAid());
         sensorRepository.deleteByGname(sensor1.getSenid());
 
-        if (!option.equals("none"))
+        if (!option.equals("off"))
         {
             Sensor new_sensor1 = new Sensor(0L,aid,user);
             sensorRepository.save(new_sensor1);

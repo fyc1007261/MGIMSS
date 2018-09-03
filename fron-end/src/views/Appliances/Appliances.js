@@ -213,8 +213,34 @@ class ApplianceCapsule extends Component {
     e.target.disabled = 0;
   };
 
-  switch_light_status(){
-
+  switch_light_status(e){
+    let a_id = this.props.appliance.id;
+    e.target.disabled = 1;
+    let opt = e.target.checked ? "on" : "off";
+    let ret_val = "Error with connection";
+    // alert("a_id: "+a_id + "opt: "+opt);
+    $.ajax({
+      type: "POST",
+      async: false,
+      url: "http://localhost:12333/appliance/switch_sensor1",
+      data: {aid: a_id, option: opt},
+      success: function (data) {
+        ret_val = data;
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("！！！!");
+        alert(jqXHR);
+        alert(textStatus);
+        alert(errorThrown);
+      }
+    });
+    if (ret_val !== "success") {
+      {
+        alert(ret_val);
+        e.target.checked = 1 - e.target.checked;
+      }
+    }
+    e.target.disabled = 0;
   }
 
   componentDidMount() {
@@ -1025,8 +1051,8 @@ class ApplianceCapsule extends Component {
     if (this.state.detail === 1 || this.state.modify === 1) {
       return [
         <div className="lightDiv">
-          <AppSwitch checked={this.state.appliance["status"] === "Active"}
-                     onClick={this.switch_status}
+          <AppSwitch checked={this.state.appliance["s1name"] === "Active"}
+                     onClick={this.switch_light_status}
                      className={'mx-1 capbody-Btn'} variant={'3d'} outline={'alt'}
                      color={ColorScheme[this.state.appliance["id"] % 6][4]}
                      id={"lightSense" + this.state.appliance["id"]} label/>
