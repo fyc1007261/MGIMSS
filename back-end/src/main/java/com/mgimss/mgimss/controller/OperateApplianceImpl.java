@@ -243,11 +243,11 @@ public class OperateApplianceImpl implements OperateAppliance {
         Appliance appliance = new Appliance(user, aid, name, addDate, mfrs,
                 power, null, 0);
         //关联传感器
-        if (!s1name.equals("none"))
-        {
-            Sensor sensor1 = new Sensor(1L,aid,user);
-            sensorRepository.save(sensor1);
-        }
+//        if (!s1name.equals("none"))
+//        {
+//            Sensor sensor1 = new Sensor(1L,aid,user);
+//            sensorRepository.save(sensor1);
+//        }
         host = user.getHardwareHost();
         port = user.getHardwarePort();
 
@@ -318,18 +318,18 @@ public class OperateApplianceImpl implements OperateAppliance {
         applianceRepository.saveAndFlush(appliance);
         String gest = gestureRepository.findByNameAndUid(appliance.getName(),appliance.getUser().getUid());
         gestureRepository.deleteByGname(gest);
-        Sensor sensor1 = sensorRepository.findByAidAndUidandSensorid(1L,appliance.getUser().getUid(),appliance.getAid());
-        sensorRepository.deleteByGname(sensor1.getSenid());
+//        Sensor sensor1 = sensorRepository.findByAidAndUidandSensorid(1L,appliance.getUser().getUid(),appliance.getAid());
+//        sensorRepository.deleteByGname(sensor1.getSenid());
         if (!gesture.equals( "none"))
         {
             Gesture gest2 = new Gesture(gesture,appliance.getName(),user);
             gestureRepository.save(gest2);
         }
-        if (!s1name.equals("none"))
-        {
-            Sensor new_sensor1 = new Sensor(1L,aid,user);
-            sensorRepository.save(new_sensor1);
-        }
+//        if (!s1name.equals("none"))
+//        {
+//            Sensor new_sensor1 = new Sensor(1L,aid,user);
+//            sensorRepository.save(new_sensor1);
+//        }
         String host = user.getHardwareHost();
         String port = user.getHardwarePort();
 
@@ -389,6 +389,28 @@ public class OperateApplianceImpl implements OperateAppliance {
 
     }
 
+    public String switch_sensor1(Long aid, String option){
+        User user;
+
+
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        user = (User) auth.getPrincipal();
+
+        user = getUserContext.getUser();
+        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
+        Sensor sensor1 = sensorRepository.findByAidAndUidandSensorid(0L,appliance.getUser().getUid(),appliance.getAid());
+        sensorRepository.deleteByGname(sensor1.getSenid());
+
+        if (!option.equals("none"))
+        {
+            Sensor new_sensor1 = new Sensor(0L,aid,user);
+            sensorRepository.save(new_sensor1);
+        }
+
+        return "success";
+
+    }
     //java calls
 
     public String request_appliances_status(String aid, String count, Date end_time, HttpServletResponse response)
