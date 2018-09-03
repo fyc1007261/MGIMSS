@@ -92,7 +92,7 @@ public class BatteryControllerImpl implements BatteryController{
                 DataTest.usersensor.put(user.getUid(),false);
             }
             if (sensorCharge == true) {
-                List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(0L,1L);
+                List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(0L,user.getUid());
                 for (int ii = 0 ;ii<sensorapp.size();ii++)
                 {
                     open_close_appliance2(sensorapp.get(ii).getAid(),"on");

@@ -139,6 +139,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"start time\" : \"" +start_time +
                         "\", \"finish time\" : \"" +finish_time +
                         "\", \"gesture\" : \"" +gname +
+                        "\", \"s1name\" : \"" +s1name +
                         "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
         );
         buf.append("]}");
