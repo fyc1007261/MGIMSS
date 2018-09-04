@@ -149,6 +149,9 @@ class ApplianceCapsule extends Component {
 
     this.switch_status = this.switch_status.bind(this);
     this.switch_light_status = this.switch_light_status.bind(this);
+    this.switch_thermal_status = this.switch_thermal_status.bind(this);
+    this.switch_motion_status = this.switch_motion_status.bind(this);
+    this.switch_range_status = this.switch_range_status.bind(this);
     this.capsuleClick = this.capsuleClick.bind(this);
     this.infoClick = this.infoClick.bind(this);
     this.deleteClick = this.deleteClick.bind(this);
@@ -244,6 +247,97 @@ class ApplianceCapsule extends Component {
     }
     e.target.disabled = 0;
   }
+
+  switch_thermal_status(e) {
+    let a_id = this.props.appliance.id;
+    e.target.disabled = 1;
+    let opt = e.target.checked ? "on" : "off";
+    let ret_val = "Error with connection";
+    // alert("a_id: "+a_id + "opt: "+opt);
+    $.ajax({
+      type: "POST",
+      async: false,
+      url: "http://localhost:12333/appliance/switch_sensor3",
+      data: {aid: a_id, option: opt},
+      success: function (data) {
+        ret_val = data;
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("！！！!");
+        alert(jqXHR);
+        alert(textStatus);
+        alert(errorThrown);
+      }
+    });
+    if (ret_val !== "success") {
+      {
+        alert(ret_val);
+        e.target.checked = 1 - e.target.checked;
+      }
+    }
+    e.target.disabled = 0;
+  }
+
+  switch_motion_status(e) {
+    let a_id = this.props.appliance.id;
+    e.target.disabled = 1;
+    let opt = e.target.checked ? "on" : "off";
+    let ret_val = "Error with connection";
+    // alert("a_id: "+a_id + "opt: "+opt);
+    $.ajax({
+      type: "POST",
+      async: false,
+      url: "http://localhost:12333/appliance/switch_sensor4",
+      data: {aid: a_id, option: opt},
+      success: function (data) {
+        ret_val = data;
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("！！！!");
+        alert(jqXHR);
+        alert(textStatus);
+        alert(errorThrown);
+      }
+    });
+    if (ret_val !== "success") {
+      {
+        alert(ret_val);
+        e.target.checked = 1 - e.target.checked;
+      }
+    }
+    e.target.disabled = 0;
+  }
+
+  switch_range_status(e) {
+    let a_id = this.props.appliance.id;
+    e.target.disabled = 1;
+    let opt = e.target.checked ? "on" : "off";
+    let ret_val = "Error with connection";
+    // alert("a_id: "+a_id + "opt: "+opt);
+    $.ajax({
+      type: "POST",
+      async: false,
+      url: "http://localhost:12333/appliance/switch_sensor2",
+      data: {aid: a_id, option: opt},
+      success: function (data) {
+        ret_val = data;
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("！！！!");
+        alert(jqXHR);
+        alert(textStatus);
+        alert(errorThrown);
+      }
+    });
+    if (ret_val !== "success") {
+      {
+        alert(ret_val);
+        e.target.checked = 1 - e.target.checked;
+      }
+    }
+    e.target.disabled = 0;
+  }
+
 
   manufactInputChange(e) {
     let input = e.target.value;
@@ -848,7 +942,7 @@ class ApplianceCapsule extends Component {
         that.setState({
           detail: 0,
           modify: 1,
-        }
+          }
         );
 
         Tools.syncReloadScripts([
@@ -981,7 +1075,8 @@ class ApplianceCapsule extends Component {
 
     if (this.state.modify === 1) {
 
-     return [
+
+      return [
         <div className="capbody-content-input info">
               <span className="input input--kyo">
                 <input className="input__field input__field--kyo" type="text"
@@ -1146,22 +1241,22 @@ class ApplianceCapsule extends Component {
                      id={"lightSense" + this.state.appliance["id"]} label/>
         </div>,
         <div className="thermalDiv">
-          <AppSwitch checked={this.state.appliance["status"] === "Active"}
-                     onClick={this.switch_status}
+          <AppSwitch checked={this.state.appliance["s2name"] === "Active"}
+                     onClick={this.switch_thermal_status}
                      className={'mx-1 capbody-Btn'} variant={'3d'} outline={'alt'}
                      color={ColorScheme[this.state.appliance["id"] % 6][4]}
                      id={"lightSense" + this.state.appliance["id"]} label/>
         </div>,
         <div className="motionDiv">
-          <AppSwitch checked={this.state.appliance["status"] === "Active"}
-                     onClick={this.switch_status}
+          <AppSwitch checked={this.state.appliance["s3name"] === "Active"}
+                     onClick={this.switch_motion_status}
                      className={'mx-1 capbody-Btn'} variant={'3d'} outline={'alt'}
                      color={ColorScheme[this.state.appliance["id"] % 6][4]}
                      id={"lightSense" + this.state.appliance["id"]} label/>
         </div>,
         <div className="rangeDiv">
-          <AppSwitch checked={this.state.appliance["status"] === "Active"}
-                     onClick={this.switch_status}
+          <AppSwitch checked={this.state.appliance["s4name"] === "Active"}
+                     onClick={this.switch_range_status}
                      className={'mx-1 capbody-Btn'} variant={'3d'} outline={'alt'}
                      color={ColorScheme[this.state.appliance["id"] % 6][4]}
                      id={"lightSense" + this.state.appliance["id"]} label/>
@@ -1346,3 +1441,13 @@ class Appliances extends Component {
 }
 
 export default Appliances;
+
+
+
+
+
+
+
+
+
+

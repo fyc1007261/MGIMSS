@@ -136,6 +136,39 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         {
             s1name = "Active";
         }
+
+        String s2name;
+        Sensor sensor2 = sensorRepository.findByAidAndUidandSensorid(1L,appliance.getUser().getUid(),appliance.getAid());
+        if (sensor2 == null)
+        {
+            s2name = "Inactive";
+        }
+        else
+        {
+            s2name = "Active";
+        }
+
+        String s3name;
+        Sensor sensor3 = sensorRepository.findByAidAndUidandSensorid(2L,appliance.getUser().getUid(),appliance.getAid());
+        if (sensor3 == null)
+        {
+            s3name = "Inactive";
+        }
+        else
+        {
+            s3name = "Active";
+        }
+
+        String s4name;
+        Sensor sensor4 = sensorRepository.findByAidAndUidandSensorid(3L,appliance.getUser().getUid(),appliance.getAid());
+        if (sensor4 == null)
+        {
+            s4name = "Inactive";
+        }
+        else
+        {
+            s4name = "Active";
+        }
         // json builder
         StringBuilder buf = new StringBuilder();
         buf.append("{\"data\":[");
@@ -150,6 +183,9 @@ public class ShowAppInfoImpl implements ShowAppInfo {
                         "\", \"finish time\" : \"" +finish_time +
                         "\", \"gesture\" : \"" +gname +
                         "\", \"s1name\" : \"" +s1name +
+                        "\", \"s2name\" : \"" +s2name +
+                        "\", \"s3name\" : \"" +s3name +
+                        "\", \"s4name\" : \"" +s4name +
                         "\", \"updated\" : \""+ appliance.getLastSendDataTime() +"\"}"
         );
         buf.append("]}");

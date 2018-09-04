@@ -304,8 +304,8 @@ public class OperateApplianceImpl implements OperateAppliance {
         return recv_message;
     }
 
-    //后几个传感器参数没什么用
-    public String modify_appliance(Long aid, String mfrs, Long power,String gesture, HttpServletResponse response){
+
+    public String modify_appliance(Long aid, String mfrs, Long power,String gesture,HttpServletResponse response){
         User user;
         //当前用户
 //        SecurityContext ctx = SecurityContextHolder.getContext();
@@ -413,7 +413,8 @@ public class OperateApplianceImpl implements OperateAppliance {
         }
         catch (Exception e)
         {
-            return "err: fail to open sensor";
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            return "err: fail to open light sensor";
         }
 
     }
@@ -433,7 +434,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         }
         if (!option.equals("off"))
         {
-            Sensor new_sensor1 = new Sensor(0L,aid,user);
+            Sensor new_sensor1 = new Sensor(1L,aid,user);
             sensorRepository.save(new_sensor1);
         }
         response.addHeader("Access-Control-Allow-Origin", "*");
@@ -442,7 +443,8 @@ public class OperateApplianceImpl implements OperateAppliance {
         }
         catch (Exception e)
         {
-            return "err: fail to open sensor";
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            return "err: fail to open range sensor";
         }
 
     }
@@ -462,7 +464,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         }
         if (!option.equals("off"))
         {
-            Sensor new_sensor1 = new Sensor(0L,aid,user);
+            Sensor new_sensor1 = new Sensor(2L,aid,user);
             sensorRepository.save(new_sensor1);
         }
         response.addHeader("Access-Control-Allow-Origin", "*");
@@ -471,7 +473,8 @@ public class OperateApplianceImpl implements OperateAppliance {
         }
         catch (Exception e)
         {
-            return "err: fail to open sensor";
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            return "err: fail to open thermal sensor";
         }
 
     }
@@ -490,7 +493,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         }
         if (!option.equals("off"))
         {
-            Sensor new_sensor1 = new Sensor(0L,aid,user);
+            Sensor new_sensor1 = new Sensor(3L,aid,user);
             sensorRepository.save(new_sensor1);
         }
         response.addHeader("Access-Control-Allow-Origin", "*");
@@ -499,7 +502,8 @@ public class OperateApplianceImpl implements OperateAppliance {
         }
         catch (Exception e)
         {
-            return "err: fail to open sensor";
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            return "err: fail to open motion sensor";
         }
 
     }
