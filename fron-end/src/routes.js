@@ -123,6 +123,11 @@ const Dashboard = Loadable({
   loading: Loading,
 });
 
+const About = Loadable({
+  loader: () => import('./views/About'),
+  loading: Loading,
+});
+
 const CoreUIIcons = Loadable({
   loader: () => import('./views/Icons/CoreUIIcons'),
   loading: Loading,
@@ -234,6 +239,7 @@ const Schedules = Loadable({
 const routes = [
   { path: '/main/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/main/dashboard', name: 'Dashboard', component: Dashboard },
+  { path: '/main/about', name: 'About', component: About },
   { path: '/main/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/main/theme/colors', name: 'Colors', component: Colors },
   { path: '/main/theme/typography', name: 'Typography', component: Typography },

@@ -1,6 +1,11 @@
 export default {
   items: [
     {
+      name: 'About',
+      url: '/main/about',
+      icon: 'cui-aperture',
+    },
+    {
       name: 'Dashboard',
       url: '/main/dashboard',
       icon: 'icon-speedometer',
