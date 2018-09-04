@@ -5,6 +5,7 @@ import com.mgimss.mgimss.AI.getForecastData;
 import com.mgimss.mgimss.businessModel.CreateSolarThread;
 import com.mgimss.mgimss.businessModel.CreateUserThread;
 import com.mgimss.mgimss.repository.*;
+import com.mgimss.mgimss.utils.GetUserContext;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,11 +35,14 @@ public class ForecastController
 
     @Autowired
     SolarPowerRepository solarPowerRepository;
+
+    @Autowired
+    public GetUserContext getUserContext;
     private Long cloud = 10L;
     @RequestMapping("/forecast/predict")
     public String predictdata() {
         try {
-            Long uid = 1L;
+            Long uid =getUserContext.getUser().getUid();
             List<BigInteger> predictSourceData = solarPowerRepository.findAllDataByUid(uid);
 
             System.out.println("predicSourceData");
@@ -69,7 +73,7 @@ public class ForecastController
     @RequestMapping("/forecast/true")
     public String truedata() {
         try {
-            Long uid = 1L;
+            Long uid =getUserContext.getUser().getUid();
             List<BigInteger> predictSourceData = solarPowerRepository.findAllDataByUid(uid);
 
             System.out.println("predicSourceData");

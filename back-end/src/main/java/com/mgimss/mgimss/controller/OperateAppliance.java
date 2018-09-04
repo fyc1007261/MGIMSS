@@ -45,8 +45,16 @@ public interface OperateAppliance {
 
     //java calls
     @RequestMapping("/appliance/switch_sensor1")
-    String switch_sensor1(Long aid, String option);
-
+    String switch_sensor1(Long aid, String option, HttpServletResponse response);
+    //java calls
+    @RequestMapping("/appliance/switch_sensor2")
+    String switch_sensor2(Long aid, String option, HttpServletResponse response); //java calls
+    //java calls
+    @RequestMapping("/appliance/switch_sensor3")
+    String switch_sensor3(Long aid, String option, HttpServletResponse response); //java calls
+    //java calls
+    @RequestMapping("/appliance/switch_sensor4")
+    String switch_sensor4(Long aid, String option, HttpServletResponse response);
     //java calls
     @RequestMapping("/appliance/get_appliances")
     List<Appliance> get_appliances();

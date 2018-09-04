@@ -5,6 +5,7 @@ import com.mgimss.mgimss.entity.User;
 import com.mgimss.mgimss.repository.DailyRepository;
 import com.mgimss.mgimss.repository.PowerUseRepository;
 import com.mgimss.mgimss.repository.UserRepository;
+import com.mgimss.mgimss.utils.GetUserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -22,11 +23,14 @@ public class PowerUseControllerImpl implements PowerUseController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    public GetUserContext getUserContext;
+
     public String getDailyPowerUse() {
 //        SecurityContext ctx = SecurityContextHolder.getContext();
 //        Authentication auth = ctx.getAuthentication();
 //        User user = (User) auth.getPrincipal();
-        User user = userRepository.findByUid(1L);
+        User user = getUserContext.getUser();
         List<DailyPowerConsume> AllUse = dailyRepository.find7daysUse(user.getUid());
         Map<Date, Long> DailyUse = new HashMap<>();
         List<Date> DateList = new ArrayList<>();
@@ -68,7 +72,7 @@ public class PowerUseControllerImpl implements PowerUseController {
 //        SecurityContext ctx = SecurityContextHolder.getContext();
 //        Authentication auth = ctx.getAuthentication();
 //        User user = (User) auth.getPrincipal();
-        User user = userRepository.findByUid(1L);
+        User user = getUserContext.getUser();
         List<DailyPowerConsume> AllUse = dailyRepository.find7monthsUse(user.getUid());
         Map<String, Long> MonthlyUse = new HashMap<>();
         List<String> DateList = new ArrayList<>();
@@ -108,7 +112,7 @@ public class PowerUseControllerImpl implements PowerUseController {
 //        SecurityContext ctx = SecurityContextHolder.getContext();
 //        Authentication auth = ctx.getAuthentication();
 //        User user = (User) auth.getPrincipal();
-        User user = userRepository.findByUid(1L);
+        User user = getUserContext.getUser();
         List<DailyPowerConsume> AllUse = dailyRepository.findByDate(date, user.getUid());
         Map<String, Long> DailyUse = new HashMap<>();
 
@@ -138,7 +142,7 @@ public class PowerUseControllerImpl implements PowerUseController {
 //        SecurityContext ctx = SecurityContextHolder.getContext();
 //        Authentication auth = ctx.getAuthentication();
 //        User user = (User) auth.getPrincipal();
-        User user = userRepository.findByUid(1L);
+        User user = getUserContext.getUser();
         List<DailyPowerConsume> AllUse = dailyRepository.findByMonth(month, user.getUid());
         Map<String, Long> MonthlyUse = new HashMap<>();
 
@@ -178,7 +182,7 @@ public class PowerUseControllerImpl implements PowerUseController {
 //        SecurityContext ctx = SecurityContextHolder.getContext();
 //        Authentication auth = ctx.getAuthentication();
 //        User user = (User) auth.getPrincipal();
-        User user = userRepository.findByUid(1L);
+        User user = getUserContext.getUser();
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy");
         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM");
         Date Today = new Date();
