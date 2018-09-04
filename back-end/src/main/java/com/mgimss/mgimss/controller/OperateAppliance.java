@@ -28,7 +28,7 @@ public interface OperateAppliance {
     String request_appliances_status(String aid, String count, Date end_time, HttpServletResponse response);
 
     @RequestMapping("/appliance/modify_appliance")
-    String modify_appliance(Long aid, String mfrs, Long power,String gesture,String s1name,String s2name,String s3name,String s4name);
+    String modify_appliance(Long aid, String mfrs, Long power,String gesture, HttpServletResponse response);
 
     //java calls
     @RequestMapping("/appliance/add_appliance")

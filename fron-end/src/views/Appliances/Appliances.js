@@ -14,14 +14,8 @@ require('../../css/self.css');
 require('../../css/style.css');
 require('../../css/card.css');
 require('../../css/dropdown.css');
+require('../../css/buttons.css');
 require('./jquery.textfill.js');
-
-// require('./card/modernizr-custom');
-// require('./card/classie');
-// require('./card/card');
-// require('./card/dynamics.min');
-// require('./card/main');
-// require('./card/card2');
 
 //
 
@@ -147,7 +141,10 @@ class ApplianceCapsule extends Component {
       appliance: this.props.appliance,
       card: 0,
       detail: 0,
-      modify: 0
+      modify: 0,
+      manufact_input: "",
+      power_input: "",
+      gesture_chosen: ""
     };
 
     this.switch_status = this.switch_status.bind(this);
@@ -163,6 +160,11 @@ class ApplianceCapsule extends Component {
     this.displaySwitch = this.displaySwitch.bind(this);
     this.displaySelector = this.displaySelector.bind(this);
     this.displayButtons = this.displayButtons.bind(this);
+    this.manufactInputChange = this.manufactInputChange.bind(this);
+    this.powerInputChange = this.powerInputChange.bind(this);
+    this.confirmModify = this.confirmModify.bind(this);
+    this.revokeModify = this.revokeModify.bind(this);
+
   }
 
   switch_status(e) {
@@ -213,7 +215,7 @@ class ApplianceCapsule extends Component {
     e.target.disabled = 0;
   };
 
-  switch_light_status(e){
+  switch_light_status(e) {
     let a_id = this.props.appliance.id;
     e.target.disabled = 1;
     let opt = e.target.checked ? "on" : "off";
@@ -242,6 +244,93 @@ class ApplianceCapsule extends Component {
     }
     e.target.disabled = 0;
   }
+
+  manufactInputChange(e) {
+    let input = e.target.value;
+    this.setState({
+      manufact_input: input
+    })
+  }
+
+  powerInputChange(e) {
+    let input = e.target.value;
+    this.setState({
+      power_input: input
+    })
+  }
+
+  confirmModify() {
+    let id = this.state.appliance["id"];
+    let m_id = "manufacturer" + id;
+    let p_id = "power" + id;
+    let g_id = "gesture" + id;
+    let m_input = $('#' + m_id).val();
+    let p_input = $('#' + p_id).val();
+    let g_input = $("#" + g_id + "  option:selected").val();
+    alert(m_input + ", " + p_input + "," + g_input);
+
+    let ret_val = "Error with connection";
+
+    $.ajax({
+      type: "POST",
+      async: false,
+      url: "http://localhost:12333/appliance/modify_appliance",
+      data: {
+        aid: this.state.appliance["id"],
+        mfrs: m_input,
+        power: p_input,
+        gesture: g_input
+      },
+      success: function(data){
+        ret_val = data;
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("！！！!");
+        alert(jqXHR);
+        alert(textStatus);
+        alert(errorThrown);
+      }
+    });
+    if (ret_val !== "success") {
+      alert(ret_val);
+    }
+    else{
+      alert(ret_val);
+    }
+  }
+
+
+  revokeModify() {
+    let id = this.state.appliance["id"];
+    let m_id = "manufacturer" + id;
+    let p_id = "power" + id;
+    let g_id = "gesture" + id;
+    let m_input = this.state.appliance["manufacturer"];
+    let p_input = this.state.appliance["power"];
+    let g_input = this.state.appliance["gesture"];
+    $('#' + m_id).val(m_input);
+    $('#' + p_id).val(p_input);
+    $("#" + g_id).val(g_input);
+    this.setState({
+      manufact_input: m_input,
+      power_input: p_input,
+      gesture_chosen: g_input
+    })
+  }
+
+  // motionInputChange(e){
+  //   let input = e.target.value;
+  //   this.setState({
+  //     motion_input: input
+  //   })
+  // }
+  //
+  // rangeInputChange(e){
+  //   let input = e.target.value;
+  //   this.setState({
+  //     range_input: input
+  //   })
+  // }
 
   componentDidMount() {
 
@@ -369,7 +458,7 @@ class ApplianceCapsule extends Component {
 
     let id = "capsule-canvas" + input.name;
     let this_capsule = $("#" + id);
-    let mask_id = "mask"+input.name;
+    let mask_id = "mask" + input.name;
 
     let this_capsule_core = this_capsule.find('.capsule-core');
 
@@ -400,7 +489,7 @@ class ApplianceCapsule extends Component {
 
     let other_capsules = $(".capsule-canvas").not("#" + id);
 
-    let other_masks =  $(".capsule-canvas-mask").not("#" + mask_id);
+    let other_masks = $(".capsule-canvas-mask").not("#" + mask_id);
 
     if (this_capsule.hasClass("fade-h")) {
 
@@ -696,6 +785,16 @@ class ApplianceCapsule extends Component {
         appInfo.map((appliance, index) =>
           this.setState({
             appliance: appliance,
+          }, function () {
+            let m_input = this.state.appliance["manufacturer"];
+            let p_input = this.state.appliance["power"];
+            let g_input = this.state.appliance["gesture"];
+            // alert("g_" + g_input);
+            this.setState({
+              manufact_input: m_input,
+              power_input: p_input,
+              gesture_chosen: g_input
+            });
           })
         )
       }
@@ -744,20 +843,21 @@ class ApplianceCapsule extends Component {
       let that = this;
 
       function showInfo() {
+
+        let g_id = "gesture" + id;
         that.setState({
           detail: 0,
-          modify: 1
-        });
+          modify: 1,
+        }
+        );
 
         Tools.syncReloadScripts([
           'http://localhost:12333/js/dropdown/classie.js',
-          'http://localhost:12333/js/dropdown/selectFx.js', 'http://localhost:12333/js/dropdown/dropdown.js'], function () {
+          'http://localhost:12333/js/dropdown/selectFx.js', 'http://localhost:12333/js/dropdown/dropdown.js',
+          'http://localhost:12333/js/buttons/buttons.js'], function () {
         });
       }
-
       setTimeout(showInfo, 1900);
-
-
     }
   }
 
@@ -772,29 +872,6 @@ class ApplianceCapsule extends Component {
     alert("cancel");
     e.stopPropagation();
     return false;
-  }
-
-  submitJob() {
-    let gesture = gesture_list[document.getElementById("gesture").selectedIndex];
-    let mfrs = document.getElementById("mfrs_m").value === "" ?
-      document.getElementById("mfrs_m").placeholder : document.getElementById("mfrs_m").value;
-    let power = document.getElementById("power_m").value === "" ?
-      document.getElementById("power_m").placeholder : document.getElementById("power_m").value;
-    let ret = "Fail to send information";
-    let aid = this.props.aid;
-    $.ajax({
-      type: "POST",
-      async: false,
-      url: "/appliance/modify_appliance",
-      data: {aid: aid, mfrs: mfrs, power: power, gesture: gesture},
-      context: document.body,
-      success: function (data) {
-        ret = data;
-      }
-    });
-    alert(ret);
-    if (ret === "success")
-      window.location.reload();
   }
 
 
@@ -903,32 +980,33 @@ class ApplianceCapsule extends Component {
   displayInput() {
 
     if (this.state.modify === 1) {
-      return [
+
+     return [
         <div className="capbody-content-input info">
               <span className="input input--kyo">
                 <input className="input__field input__field--kyo" type="text"
-                       id={"manufacturer" + this.state.appliance["id"]}
+                       id={"updated" + this.state.appliance["id"]}
                        value={this.state.appliance["updated"]}/>
               </span>
         </div>,
         <div className="capbody-content-input info">
               <span className="input input--kyo">
                 <input className="input__field input__field--kyo" type="text"
-                       id={"manufacturer" + this.state.appliance["id"]}
+                       id={"runtime" + this.state.appliance["id"]}
                        value={this.state.appliance["runtime"]}/>
               </span>
         </div>,
         <div className="capbody-content-input info">
               <span className="input input--kyo">
                 <input className="input__field input__field--kyo" type="text"
-                       id={"manufacturer" + this.state.appliance["id"]}
+                       id={"startTime" + this.state.appliance["id"]}
                        value={this.state.appliance["start time"]}/>
               </span>
         </div>,
         <div className="capbody-content-input info">
               <span className="input input--kyo">
                 <input className="input__field input__field--kyo" type="text"
-                       id={"manufacturer" + this.state.appliance["id"]}
+                       id={"finishTime" + this.state.appliance["id"]}
                        value={this.state.appliance["finish time"]}/>
               </span>
         </div>,
@@ -944,27 +1022,29 @@ class ApplianceCapsule extends Component {
               <span className="input input--kyo">
                 <input className="input__field input__field--kyo" type="text"
                        id={"manufacturer" + this.state.appliance["id"]}
-                       value={this.state.appliance["manufacturer"]}
-                       />
+                       value={this.state.manufact_input}
+                       onChange={this.manufactInputChange}/>
               </span>
         </div>,
         <div className="capbody-content-input info">
           <span className="input input--kyo">
-                <input className="input__field input__field--kyo" type="text" id={"power" + this.state.appliance["id"]}
-                       value={this.state.appliance["power"]}
-                       />
+                <input className="input__field input__field--kyo" type="text"
+                       id={"power" + this.state.appliance["id"]}
+                       value={this.state.power_input}
+                       onChange={this.powerInputChange}/>
           </span>
         </div>,
         <div className="capbody-content-input info">
-          <select className="cs-select cs-skin-slide" id={"gesture" + this.state.appliance["id"]}>
-            <option value="sightseeing" data-class="icon-money">None</option>
-            <option value="business" data-class="icon-money">Thumb Up</option>
-            <option value="honeymoon" data-class="icon-money">Heart</option>
-            <option value="food" data-class="icon-money">Victory</option>
-            <option value="shopping" data-class="icon-shirt">Bad</option>
+          <select className="cs-select cs-skin-slide" id={"gesture" + this.state.appliance["id"]} defaultValue={this.state.appliance["gesture"]}>
+            <option value="none" data-class="icon-money">None</option>
+            <option value="thumb_up" data-class="icon-money">Thumb Up</option>
+            <option value="heart_d" data-class="icon-money">Heart</option>
+            <option value="victory" data-class="icon-money">Victory</option>
+            <option value="bad" data-class="icon-shirt">Bad</option>
           </select>
         </div>,
       ]
+
     }
   }
 
@@ -1039,11 +1119,19 @@ class ApplianceCapsule extends Component {
     }
   }
 
-  displayButtons(){
+  displayButtons() {
     if (this.state.modify === 1) {
-      return [
-
-      ]
+      return (
+        <div className="haha">
+          <a className="awesomeButton" href="#" data-title="Awesome Button"></a>
+          <Button color="primary" onClick={this.confirmModify} className="mr-1">
+            Confirm
+          </Button>
+          <Button color="primary" onClick={this.revokeModify} className="mr-1">
+            Revoke
+          </Button>
+        </div>
+      )
     }
   }
 
@@ -1159,7 +1247,7 @@ class ApplianceCapsule extends Component {
               </div>
             </div>
           </div>
-          <div className="capsule-canvas-mask" onClick={this.capsuleClick} id={"mask"+this.state.appliance["id"]}>
+          <div className="capsule-canvas-mask" onClick={this.capsuleClick} id={"mask" + this.state.appliance["id"]}>
             {this.displaySelector()}
             <div className="stateDiv">
               <AppSwitch checked={this.state.appliance["status"] === "Active"}
@@ -1170,6 +1258,7 @@ class ApplianceCapsule extends Component {
             </div>
             {this.displaySwitch()}
             {this.displayInput()}
+            {this.displayButtons()}
           </div>
         </div>
         {this.displayCard()}

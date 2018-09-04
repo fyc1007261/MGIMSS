@@ -14,8 +14,10 @@ const Colors = ["#20a8d8","#e83e8c","#4dbd74","#ffc107","#6f42c1","#63c2de","#20
 
 let DayData = [[],[]];
 let MonthData = [[],[]];
+
 let DayUse = [];
 let MonthUse = [];
+
 let colors = [];
 
 const options = {
