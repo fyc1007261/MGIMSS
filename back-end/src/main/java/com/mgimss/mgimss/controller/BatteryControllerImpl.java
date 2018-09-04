@@ -4,6 +4,7 @@ import com.mgimss.mgimss.AI.Speechgenrate;
 import com.mgimss.mgimss.entity.*;
 import com.mgimss.mgimss.repository.*;
 import com.mgimss.mgimss.AI.DataTest;
+import com.mgimss.mgimss.utils.GetUserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -41,6 +42,8 @@ public class BatteryControllerImpl implements BatteryController{
     @Autowired
     SensorRepository sensorRepository;
 
+    @Autowired
+    public GetUserContext getUserContext;
     //python calls
     public String post_remaining(String time, Long remaining, String uid,Long light_intensity,float distance,float humidity,float temperature,String tigan){
 
@@ -107,7 +110,11 @@ public class BatteryControllerImpl implements BatteryController{
             if(distance > 5.0)
             {
                 DataTest.userdistance.put(user.getUid(),true);
-
+                List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(1L,user.getUid());
+                for (int ii = 0 ;ii<sensorapp.size();ii++)
+                {
+                    open_close_appliance2(sensorapp.get(ii).getAid(),"off");
+                }
             }
             else
             {
@@ -118,13 +125,22 @@ public class BatteryControllerImpl implements BatteryController{
                 DataTest.userdistance.put(user.getUid(),false);
             }
             if (distanceCharge == true) {
+                List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(1L,user.getUid());
+                for (int ii = 0 ;ii<sensorapp.size();ii++)
+                {
+                    open_close_appliance2(sensorapp.get(ii).getAid(),"on");
+                }
                 Speechgenrate.voice("发现有人靠近，是否要开启照明设备");
             }
 
             if(temperature < 32)
             {
                 DataTest.usertemperature.put(user.getUid(),true);
-
+                List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(2L,user.getUid());
+                for (int ii = 0 ;ii<sensorapp.size();ii++)
+                {
+                    open_close_appliance2(sensorapp.get(ii).getAid(),"off");
+                }
             }
             else
             {
@@ -135,16 +151,31 @@ public class BatteryControllerImpl implements BatteryController{
                 DataTest.usertemperature.put(user.getUid(),false);
             }
             if (temperatureCharge == true) {
+                List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(2L,user.getUid());
+                for (int ii = 0 ;ii<sensorapp.size();ii++)
+                {
+                    open_close_appliance2(sensorapp.get(ii).getAid(),"on");
+                }
                 Speechgenrate.voice("温度过高，是否要开启空调");
             }
 
             if( tigan.equals("down"))
             {
-                open_close_appliance2(0L,"on");
+                List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(3L,user.getUid());
+                for (int ii = 0 ;ii<sensorapp.size();ii++)
+                {
+                    open_close_appliance2(sensorapp.get(ii).getAid(),"on");
+                }
+                //open_close_appliance2(0L,"on");
             }
             if( tigan.equals("up"))
             {
-                open_close_appliance2(0L,"off");
+                List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(3L,user.getUid());
+                for (int ii = 0 ;ii<sensorapp.size();ii++)
+                {
+                    open_close_appliance2(sensorapp.get(ii).getAid(),"off");
+                }
+                //open_close_appliance2(0L,"off");
             }
         }
         catch (Exception e)
@@ -216,7 +247,7 @@ public class BatteryControllerImpl implements BatteryController{
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
 
-        user = userRepository.findByUid(1L);
+        user = getUserContext.getUser();
 
         System.out.println("obtainSolar");
 
@@ -249,7 +280,7 @@ public class BatteryControllerImpl implements BatteryController{
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
 
-        user = userRepository.findByUid(Long.valueOf(1));
+        user = getUserContext.getUser();
 
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
         if (appliance == null){
@@ -289,7 +320,7 @@ public class BatteryControllerImpl implements BatteryController{
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
 
-        user = userRepository.findByUid(Long.valueOf(1));
+        user = getUserContext.getUser();
 
         System.out.println("APPLIANCE");
         if(option.equals("on")) new_state = 1;

@@ -9,6 +9,7 @@ import com.mgimss.mgimss.repository.ApplianceRepository;
 import com.mgimss.mgimss.repository.GestureRepository;
 import com.mgimss.mgimss.repository.PendingJobRepository;
 import com.mgimss.mgimss.repository.UserRepository;
+import com.mgimss.mgimss.utils.GetUserContext;
 import com.mgimss.mgimss.utils.upload;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -38,6 +39,9 @@ public class GestureController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    public GetUserContext getUserContext;
 
     @RequestMapping("gesture/upload")
     @ResponseBody
@@ -121,7 +125,7 @@ public class GestureController {
 //        SecurityContext ctx = SecurityContextHolder.getContext();
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
-        user = userRepository.findByUid(Long.valueOf(1));
+        user = getUserContext.getUser();
         //获得新电器应分配的aid
         Set<Appliance> present_apps = user.getAppliances();
         if (present_apps.size() == 0) aid = Long.valueOf(1);
@@ -164,7 +168,7 @@ public class GestureController {
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
 
-        user = userRepository.findByUid(Long.valueOf(1));
+        user = getUserContext.getUser();
 
         System.out.println("APPLIANCE");
         if(option.equals("on")) new_state = 1;

@@ -124,7 +124,7 @@ public class CreateSolarThread extends  Thread {
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
 
-        user = userRepository.findByUid(1L);
+        user = userRepository.findByUid(clientId);
 
         System.out.println("obtainSolar");
 

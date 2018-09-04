@@ -389,7 +389,36 @@ public class OperateApplianceImpl implements OperateAppliance {
 
     }
 
-    public String switch_sensor1(Long aid, String option){
+    public String switch_sensor1(Long aid, String option,  HttpServletResponse response){
+        try {
+            User user;
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        user = (User) auth.getPrincipal();
+
+            user = getUserContext.getUser();
+            Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
+            Sensor sensor1 = sensorRepository.findByAidAndUidandSensorid(0L, appliance.getUser().getUid(), appliance.getAid());
+            if (sensor1 != null) {
+                sensorRepository.deleteByGname(sensor1.getSenid());
+            }
+            if (!option.equals("off")) {
+                Sensor new_sensor1 = new Sensor(0L, aid, user);
+                sensorRepository.save(new_sensor1);
+            }
+            response.addHeader("Access-Control-Allow-Origin", "*");
+
+            return "success";
+        }
+        catch (Exception e)
+        {
+            return "err: fail to open sensor";
+        }
+
+    }
+
+    public String switch_sensor2(Long aid, String option,  HttpServletResponse response){
+        try{
         User user;
 //        SecurityContext ctx = SecurityContextHolder.getContext();
 //        Authentication auth = ctx.getAuthentication();
@@ -397,16 +426,80 @@ public class OperateApplianceImpl implements OperateAppliance {
 
         user = getUserContext.getUser();
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
-        Sensor sensor1 = sensorRepository.findByAidAndUidandSensorid(0L,appliance.getUser().getUid(),appliance.getAid());
-        sensorRepository.deleteByGname(sensor1.getSenid());
-
+        Sensor sensor1 = sensorRepository.findByAidAndUidandSensorid(1L,appliance.getUser().getUid(),appliance.getAid());
+        if (sensor1 != null) {
+            sensorRepository.deleteByGname(sensor1.getSenid());
+        }
         if (!option.equals("off"))
         {
             Sensor new_sensor1 = new Sensor(0L,aid,user);
             sensorRepository.save(new_sensor1);
         }
+        response.addHeader("Access-Control-Allow-Origin", "*");
 
         return "success";
+        }
+        catch (Exception e)
+        {
+            return "err: fail to open sensor";
+        }
+
+    }
+
+    public String switch_sensor3(Long aid, String option,  HttpServletResponse response){
+        try{
+        User user;
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        user = (User) auth.getPrincipal();
+
+        user = getUserContext.getUser();
+        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
+        Sensor sensor1 = sensorRepository.findByAidAndUidandSensorid(2L,appliance.getUser().getUid(),appliance.getAid());
+        if (sensor1 != null) {
+            sensorRepository.deleteByGname(sensor1.getSenid());
+        }
+        if (!option.equals("off"))
+        {
+            Sensor new_sensor1 = new Sensor(0L,aid,user);
+            sensorRepository.save(new_sensor1);
+        }
+        response.addHeader("Access-Control-Allow-Origin", "*");
+
+        return "success";
+        }
+        catch (Exception e)
+        {
+            return "err: fail to open sensor";
+        }
+
+    }
+    public String switch_sensor4(Long aid, String option,  HttpServletResponse response){
+        try{
+        User user;
+//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication auth = ctx.getAuthentication();
+//        user = (User) auth.getPrincipal();
+
+        user = getUserContext.getUser();
+        Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
+        Sensor sensor1 = sensorRepository.findByAidAndUidandSensorid(3L,appliance.getUser().getUid(),appliance.getAid());
+        if (sensor1 != null) {
+            sensorRepository.deleteByGname(sensor1.getSenid());
+        }
+        if (!option.equals("off"))
+        {
+            Sensor new_sensor1 = new Sensor(0L,aid,user);
+            sensorRepository.save(new_sensor1);
+        }
+        response.addHeader("Access-Control-Allow-Origin", "*");
+
+        return "success";
+        }
+        catch (Exception e)
+        {
+            return "err: fail to open sensor";
+        }
 
     }
     //java calls
