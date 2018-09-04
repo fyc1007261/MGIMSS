@@ -83,7 +83,7 @@ public class UserControllerImpl implements UserController {
         role.setName("ROLE_USER");
         List<Role> roles = new LinkedList<>();
         roles.add(role);
-        String defaultURL = "https://res.cloudinary.com/breezeeee/image/upload/v1532584303/mgimss/j8uysbayfptx1kkfpdcx.png";
+        String defaultURL = "https://res.cloudinary.com/breezeeee/image/upload/v1535940487/mgimss/Avatar/orcueeusckscoymqyiyj.png";
 
         if (host == null) host = "localhost";
         if (port == null) port = "12334";
