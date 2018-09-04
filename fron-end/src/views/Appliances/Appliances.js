@@ -940,8 +940,8 @@ class ApplianceCapsule extends Component {
 
         let g_id = "gesture" + id;
         that.setState({
-            detail: 0,
-            modify: 1,
+          detail: 0,
+          modify: 1,
           }
         );
 
@@ -1074,6 +1074,7 @@ class ApplianceCapsule extends Component {
   displayInput() {
 
     if (this.state.modify === 1) {
+
 
       return [
         <div className="capbody-content-input info">

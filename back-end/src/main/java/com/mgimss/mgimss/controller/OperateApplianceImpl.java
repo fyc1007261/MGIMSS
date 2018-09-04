@@ -343,9 +343,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         System.out.println("get message from server: " + recv_message);
 
         response.addHeader("Access-Control-Allow-Origin", "*");
-
         if (recv_message.contains("err")) return recv_message;
-
         return "success";
     }
 

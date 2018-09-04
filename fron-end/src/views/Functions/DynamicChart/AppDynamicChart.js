@@ -31,7 +31,9 @@ let end_time;
 
 let start_time;
 
+
 let interval = 6;
+
 
 
 // let currentPoints = [0.2, 0.5, 0.4, 0.3];
@@ -91,7 +93,6 @@ class CurrentChart extends Component {
 
         else if (appsData.length > 0) {
 
-
           start_time = new Date();
 
           start_time.setTime(end_time.getTime() - 1000 * interval * props.count);
@@ -138,6 +139,7 @@ class CurrentChart extends Component {
 
             for (i; i >= 0; i--) {
 
+
               while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * (interval + 1))) {
 
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
@@ -164,31 +166,18 @@ class CurrentChart extends Component {
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
 
             i = labels.length;
-
-            if (i === props.count - 1) {
-
+            if (i === props.count - 1){
               time.setTime(time.getTime() + 1000 * interval);
-
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
               currentPoints.push(appsData[0]["current"]);
-
             }
-
-            else {
-
+            else{
               for (i; i < props.count; i++) {
-
                 time.setTime(time.getTime() + 1000 * interval);
-
                 // //alert("time: "+time);
-
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
                 currentPoints.push(0);
-
               }
-
             }
 
           }
@@ -247,31 +236,18 @@ class CurrentChart extends Component {
             i = labels.length;
 
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
-
-            if (i === props.count - 1) {
-
+            if (i === props.count - 1){
               time.setTime(time.getTime() + 1000 * interval);
-
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
               currentPoints.push(appsData[0]["current"]);
-
             }
-
-            else {
-
+            else{
               for (i; i < props.count; i++) {
-
                 time.setTime(time.getTime() + 1000 * interval);
-
                 // //alert("time: "+time);
-
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
                 currentPoints.push(0);
-
               }
-
             }
 
           }
@@ -493,14 +469,10 @@ class CurrentChart extends Component {
 
       success: (data) => {
 
-
         appsData = $.parseJSON(data.toString())["status"];
 
-
         // alert(appsData);
-
         labels = [];
-
         currentPoints = [];
 
 
@@ -594,32 +566,19 @@ class CurrentChart extends Component {
             i = labels.length;
 
 
-            if (i === this.state.count - 1) {
-
+            if (i === this.state.count - 1){
               time.setTime(time.getTime() + 1000 * interval);
-
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
               currentPoints.push(appsData[0]["current"]);
-
             }
-
-            else {
-
+            else{
               for (i; i < this.state.count; i++) {
-
                 time.setTime(time.getTime() + 1000 * interval);
-
                 // //alert("time: "+time);
-
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
                 currentPoints.push(0);
-
               }
-
             }
-
 
           }
 
@@ -678,36 +637,20 @@ class CurrentChart extends Component {
 
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
 
-
-            if (i === this.state.count - 1) {
-
+            if (i === this.state.count - 1){
               time.setTime(time.getTime() + 1000 * interval);
-
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
               currentPoints.push(appsData[0]["current"]);
-
             }
-
-            else {
-
+            else{
               for (i; i < this.state.count; i++) {
-
                 time.setTime(time.getTime() + 1000 * interval);
-
                 // //alert("time: "+time);
-
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
                 currentPoints.push(0);
-
               }
-
             }
-
           }
-
-
         }
 
         else {
@@ -985,7 +928,6 @@ class VoltageChart extends Component {
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
 
               currentPoints.push(appsData[0]["voltage"]);
-
             }
 
             else {
@@ -1061,30 +1003,18 @@ class VoltageChart extends Component {
 
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
 
-            if (i === props.count - 1) {
-
+            if (i === props.count - 1){
               time.setTime(time.getTime() + 1000 * interval);
-
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
               voltagePoints.push(appsData[0]["voltage"]);
-
             }
-
-            else {
-
+            else{
               for (i; i < props.count; i++) {
-
                 time.setTime(time.getTime() + 1000 * interval);
-
                 // //alert("time: "+time);
-
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
                 voltagePoints.push(0);
-
               }
-
             }
 
           }
@@ -1101,31 +1031,18 @@ class VoltageChart extends Component {
           let time = start_time;
 
           let i = 0;
-
-          if (i === props.count - 1) {
-
+          if (i === props.count - 1){
             time.setTime(time.getTime() + 1000 * interval);
-
             labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
             voltagePoints.push(appsData[0]["voltage"]);
-
           }
-
-          else {
-
+          else{
             for (i; i < props.count; i++) {
-
               time.setTime(time.getTime() + 1000 * interval);
-
               // //alert("time: "+time);
-
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
               voltagePoints.push(0);
-
             }
-
           }
 
         }
@@ -1329,8 +1246,7 @@ class VoltageChart extends Component {
 
             for (i; i >= 0; i--) {
 
-              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * (interval + 2))) {
-
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * (interval+2))) {
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
 
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
@@ -1356,28 +1272,17 @@ class VoltageChart extends Component {
 
             i = labels.length;
 
-            if (i === this.state.count - 1) {
-
+            if (i === this.state.count - 1){
               time.setTime(time.getTime() + 1000 * interval);
-
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
               voltagePoints.push(appsData[0]["voltage"]);
-
             }
-
-            else {
-
+            else{
               for (i; i < this.state.count; i++) {
-
                 time.setTime(time.getTime() + 1000 * interval);
-
                 // //alert("time: "+time);
-
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
                 voltagePoints.push(0);
-
               }
 
             }
@@ -1439,30 +1344,18 @@ class VoltageChart extends Component {
 
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
 
-            if (i === this.state.count - 1) {
-
+            if (i === this.state.count - 1){
               time.setTime(time.getTime() + 1000 * interval);
-
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
               voltagePoints.push(appsData[0]["voltage"]);
-
             }
-
-            else {
-
+            else{
               for (i; i < this.state.count; i++) {
-
                 time.setTime(time.getTime() + 1000 * interval);
-
                 // //alert("time: "+time);
-
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
                 voltagePoints.push(0);
-
               }
-
             }
 
           }
