@@ -16,7 +16,7 @@ let currentPoints = [];
 let voltagePoints = [];
 let end_time;
 let start_time;
-let interval = 5;
+let interval = 6;
 
 // let currentPoints = [0.2, 0.5, 0.4, 0.3];
 // let voltagePoints = [220.2, 220.5, 220.4, 220.3];
@@ -700,7 +700,7 @@ class VoltageChart extends Component {
             let time;
             time = new Date(appsData[i]["time"].replace(/-/g, "/"));
             for (i; i >= 0; i--) {
-              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * (interval+1))) {
+              while (!(new Date(appsData[i]["time"].replace(/-/g, "/")).getTime() - time.getTime() <= 1000 * (interval+2))) {
                 //alert("next time point is 0! time: " + time+ ", app: "+ new Date(appsData[i]["time"].replace(/-/g,"/")));
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 voltagePoints.push(0);

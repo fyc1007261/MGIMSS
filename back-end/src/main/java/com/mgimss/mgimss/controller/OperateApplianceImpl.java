@@ -435,7 +435,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         appliance = applianceRepository.findByUserAndAid(user.getUid(), Long.valueOf(aid));
 
         //查询区间(5s)的开始时间
-        start_time = new Date(end_time.getTime() - (long)(5.5 * 1000 * Long.valueOf(count)));
+        start_time = new Date(end_time.getTime() - (long)(6 * 1000 * Long.valueOf(count)));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         sTime = sdf.format(start_time);
