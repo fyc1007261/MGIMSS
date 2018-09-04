@@ -51,20 +51,24 @@ public class GestureController {
         try {
             String body = imageStr.split(",")[1].replaceAll(" ", "+");
             res = upload.inspect_gesture(body);
+            String result = "no gesture";
+
             JSONObject jsonObject = JSONObject.fromObject(res);
             JSONArray hands= jsonObject.getJSONArray("hands");
-            JSONObject gesture = JSONObject.fromObject(hands.get(0));
-            JSONObject gestureDetail = gesture.getJSONObject("gesture");
-            double thumb_up = gestureDetail.getDouble("thumb_up");
-            double heart_d = gestureDetail.getDouble("heart_d");
-            double victory = gestureDetail.getDouble("victory");
-            String result = "no gesture";
-            if (thumb_up >40.0)
-                result = "thumb_up";
-            if (heart_d >40.0)
-                result = "heart_d";
-            if (victory >40.0)
-                result = "victory";
+            for (int jj = 0;jj<hands.length();jj++) {
+                JSONObject gesture = JSONObject.fromObject(hands.get(jj));
+                JSONObject gestureDetail = gesture.getJSONObject("gesture");
+                double thumb_up = gestureDetail.getDouble("thumb_up");
+                double heart_d = gestureDetail.getDouble("heart_d");
+                double victory = gestureDetail.getDouble("victory");
+
+                if (thumb_up > 40.0)
+                    result = "thumb_up";
+                if (heart_d > 40.0)
+                    result = "heart_d";
+                if (victory > 40.0)
+                    result = "victory";
+            }
             if (result == "no gesture")
             {
                 Speechgenrate.voice("小微没有识别该手势");
