@@ -10,72 +10,23 @@ const month = Now.getFullYear() + "-" + (Now.getMonth() < 9 ? "0" : "") + (Now.g
 // let DayData = [["light1","light2","light3","light4"],[8,12,4,7]];
 // let MonthData = [["light1","light2","light3","light4"],[198,224,137,127]];
 
+const Colors = ["#20a8d8","#e83e8c","#4dbd74","#ffc107","#6f42c1","#63c2de","#20c997","#f86c6b","#f8cb00","#6610f2","#17a2b8"];
+
 let DayData = [[],[]];
 let MonthData = [[],[]];
 
-$.ajax({
-  url:"/fun/getDailyAppsPowerUse",
-  data:{
-    date : date
-  },
-  context:document.body,
-  async:false,
-  type:"get",
-  success:function (data) {
+let DayUse = [];
+let MonthUse = [];
 
-    let tmpDayData = $.parseJSON(data);
-    tmpDayData["power"].forEach((dayData) => {
-      DayData[0].push(dayData["appname"]);
-      DayData[1].push(dayData["use"]);
-    });
-  }
-});
-$.ajax({
-  url:"/fun/getMonthlyAppsPowerUse",
-  data:{
-    month : month
-  },
-  context:document.body,
-  async:false,
-  type:"get",
-  success:function (data) {
-
-    let tmpMonthData = $.parseJSON(data);
-    tmpMonthData["power"].forEach((monthData) => {
-      MonthData[0].push(monthData["appname"]);
-      MonthData[1].push(monthData["use"]);
-    });
-  }
-});
-
-let DayUse = DayData[1].slice();
-let MonthUse = MonthData[1].slice();
-
-const Colors = ["#20a8d8","#e83e8c","#4dbd74","#ffc107","#6f42c1","#63c2de","#20c997","#f86c6b","#f8cb00","#6610f2","#17a2b8"];
 let colors = [];
-for(let i = 0; i < MonthUse.length; i++) {
-  let j = i;
-  while(j >= Colors.length) {
-    j -= Colors.length;
-  }
-  colors.push(Colors[j]);
-}
 
 const options = {
   responsive: true
 };
 
-const pie = {
-  labels: DayData[0],
-  datasets: [
-    {
-      data: DayData[1],
-      backgroundColor: colors,
-      hoverBackgroundColor: colors,
-    }]
-};
+let pie = {};
 
-class AppsPowerUse extends Component {
+class AppsPowerUseFun extends Component {
   constructor() {
     super();
     this.state = {
@@ -150,6 +101,15 @@ class AppsPowerUse extends Component {
         });
         DayData[0] = newDaydate2.slice();
         DayUse = newDayData.slice();
+        if(DayUse.length > colors.length) {
+          for(let i = colors.length; i < DayUse.length; i++) {
+            let j = i;
+            while(j >= Colors.length) {
+              j -= Colors.length;
+            }
+            colors.push(Colors[j]);
+          }
+        }
       }
     });
     let oldPie = this.state.pie.datasets[0];
@@ -185,6 +145,15 @@ class AppsPowerUse extends Component {
         });
         MonthUse = newMonthData.slice();
         MonthData[0] = newMonthData2.slice();
+        if(MonthUse.length > colors.length) {
+          for(let i = colors.length; i < MonthUse.length; i++) {
+            let j = i;
+            while(j >= Colors.length) {
+              j -= Colors.length;
+            }
+            colors.push(Colors[j]);
+          }
+        }
       }
     });
     let oldPie = this.state.pie.datasets[0];
@@ -248,6 +217,71 @@ class AppsPowerUse extends Component {
         </CardBody>
       </Card>
       </div>
+    );
+  }
+}
+
+class AppsPowerUse extends Component {
+  render() {
+    DayData = [[],[]];
+    MonthData = [[],[]];
+    DayUse = [];
+    MonthUse = [];
+    colors = [];
+    $.ajax({
+      url:"/fun/getDailyAppsPowerUse",
+      data:{
+        date : date
+      },
+      context:document.body,
+      async:false,
+      type:"get",
+      success:function (data) {
+
+        let tmpDayData = $.parseJSON(data);
+        tmpDayData["power"].forEach((dayData) => {
+          DayData[0].push(dayData["appname"]);
+          DayData[1].push(dayData["use"]);
+        });
+      }
+    });
+    $.ajax({
+      url:"/fun/getMonthlyAppsPowerUse",
+      data:{
+        month : month
+      },
+      context:document.body,
+      async:false,
+      type:"get",
+      success:function (data) {
+
+        let tmpMonthData = $.parseJSON(data);
+        tmpMonthData["power"].forEach((monthData) => {
+          MonthData[0].push(monthData["appname"]);
+          MonthData[1].push(monthData["use"]);
+        });
+      }
+    });
+
+    DayUse = DayData[1].slice();
+    MonthUse = MonthData[1].slice();
+
+    for(let i = 0; i < MonthUse.length; i++) {
+      let j = i;
+      while(j >= Colors.length) {
+        j -= Colors.length;
+      }
+      colors.push(Colors[j]);
+    }
+    pie = {labels: DayData[0],
+      datasets: [
+        {
+          data: DayData[1],
+          backgroundColor: colors,
+          hoverBackgroundColor: colors,
+        }]};
+    return(
+      <AppsPowerUseFun/>
     );
   }
 }

@@ -9,6 +9,7 @@ import com.mgimss.mgimss.repository.ApplianceRepository;
 import com.mgimss.mgimss.repository.GestureRepository;
 import com.mgimss.mgimss.repository.PendingJobRepository;
 import com.mgimss.mgimss.repository.UserRepository;
+import com.mgimss.mgimss.utils.GetUserContext;
 import com.mgimss.mgimss.utils.upload;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -39,6 +40,9 @@ public class GestureController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    public GetUserContext getUserContext;
+
     @RequestMapping("gesture/upload")
     @ResponseBody
     public String upload(String imageStr){
@@ -47,20 +51,24 @@ public class GestureController {
         try {
             String body = imageStr.split(",")[1].replaceAll(" ", "+");
             res = upload.inspect_gesture(body);
+            String result = "no gesture";
+
             JSONObject jsonObject = JSONObject.fromObject(res);
             JSONArray hands= jsonObject.getJSONArray("hands");
-            JSONObject gesture = JSONObject.fromObject(hands.get(0));
-            JSONObject gestureDetail = gesture.getJSONObject("gesture");
-            double thumb_up = gestureDetail.getDouble("thumb_up");
-            double heart_d = gestureDetail.getDouble("heart_d");
-            double victory = gestureDetail.getDouble("victory");
-            String result = "no gesture";
-            if (thumb_up >40.0)
-                result = "thumb_up";
-            if (heart_d >40.0)
-                result = "heart_d";
-            if (victory >40.0)
-                result = "victory";
+            for (int jj = 0;jj<hands.length();jj++) {
+                JSONObject gesture = JSONObject.fromObject(hands.get(jj));
+                JSONObject gestureDetail = gesture.getJSONObject("gesture");
+                double thumb_up = gestureDetail.getDouble("thumb_up");
+                double heart_d = gestureDetail.getDouble("heart_d");
+                double victory = gestureDetail.getDouble("victory");
+
+                if (thumb_up > 40.0)
+                    result = "thumb_up";
+                if (heart_d > 40.0)
+                    result = "heart_d";
+                if (victory > 40.0)
+                    result = "victory";
+            }
             if (result == "no gesture")
             {
                 Speechgenrate.voice("小微没有识别该手势");
@@ -121,7 +129,7 @@ public class GestureController {
 //        SecurityContext ctx = SecurityContextHolder.getContext();
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
-        user = userRepository.findByUid(Long.valueOf(1));
+        user = getUserContext.getUser();
         //获得新电器应分配的aid
         Set<Appliance> present_apps = user.getAppliances();
         if (present_apps.size() == 0) aid = Long.valueOf(1);
@@ -164,7 +172,7 @@ public class GestureController {
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
 
-        user = userRepository.findByUid(Long.valueOf(1));
+        user = getUserContext.getUser();
 
         System.out.println("APPLIANCE");
         if(option.equals("on")) new_state = 1;

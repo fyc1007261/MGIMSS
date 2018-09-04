@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 import { Col, Card, Button, Row } from 'reactstrap';
 import $ from 'jquery';
 
-const CLOUDINARY_UPLOAD_PRESET = 'mgimss';
+const CLOUDINARY_UPLOAD_PRESET = 'Avatar';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/breezeeee/upload';
 
 class ContactForm extends Component {

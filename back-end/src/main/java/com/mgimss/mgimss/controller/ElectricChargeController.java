@@ -5,6 +5,7 @@ import com.mgimss.mgimss.entity.Charge;
 import com.mgimss.mgimss.entity.User;
 import com.mgimss.mgimss.repository.ChargeRepository;
 import com.mgimss.mgimss.repository.UserRepository;
+import com.mgimss.mgimss.utils.GetUserContext;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,8 @@ public class ElectricChargeController {
 
     @Autowired
     ChargeRepository chargeRepository;
+    @Autowired
+    public GetUserContext getUserContext;
 
     @RequestMapping("/electric/charge")
     String post_charge(String time, String charge, String uid, String option)
@@ -29,7 +32,7 @@ public class ElectricChargeController {
         Date date = new Date();
         Long Ldata = date.getTime()/(1000*60*60*24)*(1000*60*60*24);
         Date date2 = new Date(Ldata);
-        Long ans = chargeRepository.sumSellByTime(date2,date,1L);
+        Long ans = chargeRepository.sumSellByTime(date2,date,getUserContext.getUser().getUid());
         System.out.println(ans);
         Long Ldata2;
         Long Ldata1;
@@ -39,7 +42,7 @@ public class ElectricChargeController {
             Ldata2 = Ldata1 +(1000*60*60*24);
             Date date3 = new Date(Ldata1);
             Date date4 = new Date(Ldata2);
-            ans = chargeRepository.sumSellByTime(date3,date4,1L);
+            ans = chargeRepository.sumSellByTime(date3,date4,getUserContext.getUser().getUid());
             if (ans ==null)
                 ans = 0L;
             forecastdata.add(ans);
@@ -54,7 +57,7 @@ public class ElectricChargeController {
         Date date = new Date();
         Long Ldata = date.getTime()/(1000*60*60*24)*(1000*60*60*24);
         Date date2 = new Date(Ldata);
-        Long ans = chargeRepository.sumSellByTime(date2,date,1L);
+        Long ans = chargeRepository.sumSellByTime(date2,date,getUserContext.getUser().getUid());
         System.out.println(ans);
         Long Ldata2;
         Long Ldata1;
@@ -64,7 +67,7 @@ public class ElectricChargeController {
             Ldata2 = Ldata1 +(1000*60*60*24);
             Date date3 = new Date(Ldata1);
             Date date4 = new Date(Ldata2);
-            ans = chargeRepository.sumBuyByTime(date3,date4,1L);
+            ans = chargeRepository.sumBuyByTime(date3,date4,getUserContext.getUser().getUid());
             if (ans ==null)
                 ans = 0L;
             forecastdata.add(ans);

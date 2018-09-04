@@ -5,6 +5,7 @@ import com.mgimss.mgimss.entity.Appliance;
 import com.mgimss.mgimss.entity.Job;
 import com.mgimss.mgimss.entity.User;
 import com.mgimss.mgimss.repository.*;
+import com.mgimss.mgimss.utils.GetUserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -27,13 +28,15 @@ public class ManageJob {
 
     @Autowired
     RunningJobRepository runningJobRepository;
+    @Autowired
+    public GetUserContext getUserContext;
     @RequestMapping("schedule/create_job")
     public String createJob(Long startTime ,Long stopTime, Long lastTime, Long aid) {
         User user;
 //        SecurityContext ctx = SecurityContextHolder.getContext();
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
-        user = userRepository.findByUid(1L);
+        user = getUserContext.getUser();
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
 
         // judge whether the job already exists
