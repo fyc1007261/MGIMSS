@@ -27,7 +27,7 @@ public class Schedule {
         //System.out.println("hour:"+hour);
         if (hour<8)
             return Long.valueOf(10);
-        else if(hour <16)
+        else if(hour <20)
             return Long.valueOf(20);
         else
             return Long.valueOf(10);

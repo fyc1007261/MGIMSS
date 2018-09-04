@@ -305,7 +305,7 @@ public class OperateApplianceImpl implements OperateAppliance {
     }
 
 
-    public String modify_appliance(Long aid, String mfrs, Long power,String gesture,String s1name,String s2name,String s3name,String s4name){
+    public String modify_appliance(Long aid, String mfrs, Long power,String gesture,HttpServletResponse response){
         User user;
         //当前用户
 //        SecurityContext ctx = SecurityContextHolder.getContext();
@@ -341,6 +341,9 @@ public class OperateApplianceImpl implements OperateAppliance {
         String send_message = MapToJson(map);
         String recv_message = sendMessage(host, port, send_message);
         System.out.println("get message from server: " + recv_message);
+
+        response.addHeader("Access-Control-Allow-Origin", "*");
+
         if (recv_message.contains("err")) return recv_message;
 
         return "success";
@@ -412,7 +415,8 @@ public class OperateApplianceImpl implements OperateAppliance {
         }
         catch (Exception e)
         {
-            return "err: fail to open sensor";
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            return "err: fail to open light sensor";
         }
 
     }
@@ -432,7 +436,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         }
         if (!option.equals("off"))
         {
-            Sensor new_sensor1 = new Sensor(0L,aid,user);
+            Sensor new_sensor1 = new Sensor(1L,aid,user);
             sensorRepository.save(new_sensor1);
         }
         response.addHeader("Access-Control-Allow-Origin", "*");
@@ -441,7 +445,8 @@ public class OperateApplianceImpl implements OperateAppliance {
         }
         catch (Exception e)
         {
-            return "err: fail to open sensor";
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            return "err: fail to open range sensor";
         }
 
     }
@@ -461,7 +466,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         }
         if (!option.equals("off"))
         {
-            Sensor new_sensor1 = new Sensor(0L,aid,user);
+            Sensor new_sensor1 = new Sensor(2L,aid,user);
             sensorRepository.save(new_sensor1);
         }
         response.addHeader("Access-Control-Allow-Origin", "*");
@@ -470,7 +475,8 @@ public class OperateApplianceImpl implements OperateAppliance {
         }
         catch (Exception e)
         {
-            return "err: fail to open sensor";
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            return "err: fail to open thermal sensor";
         }
 
     }
@@ -489,7 +495,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         }
         if (!option.equals("off"))
         {
-            Sensor new_sensor1 = new Sensor(0L,aid,user);
+            Sensor new_sensor1 = new Sensor(3L,aid,user);
             sensorRepository.save(new_sensor1);
         }
         response.addHeader("Access-Control-Allow-Origin", "*");
@@ -498,7 +504,8 @@ public class OperateApplianceImpl implements OperateAppliance {
         }
         catch (Exception e)
         {
-            return "err: fail to open sensor";
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            return "err: fail to open motion sensor";
         }
 
     }
@@ -527,7 +534,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         appliance = applianceRepository.findByUserAndAid(user.getUid(), Long.valueOf(aid));
 
         //查询区间(5s)的开始时间
-        start_time = new Date(end_time.getTime() - (long)(30 * 1000 * Long.valueOf(count)));
+        start_time = new Date(end_time.getTime() - (long)(6 * 1000 * Long.valueOf(count)));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         sTime = sdf.format(start_time);
