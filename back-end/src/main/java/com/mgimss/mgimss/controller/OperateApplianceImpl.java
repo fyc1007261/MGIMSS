@@ -304,8 +304,8 @@ public class OperateApplianceImpl implements OperateAppliance {
         return recv_message;
     }
 
-
-    public String modify_appliance(Long aid, String mfrs, Long power,String gesture,String s1name,String s2name,String s3name,String s4name){
+    //后几个传感器参数没什么用
+    public String modify_appliance(Long aid, String mfrs, Long power,String gesture, HttpServletResponse response){
         User user;
         //当前用户
 //        SecurityContext ctx = SecurityContextHolder.getContext();
@@ -341,8 +341,9 @@ public class OperateApplianceImpl implements OperateAppliance {
         String send_message = MapToJson(map);
         String recv_message = sendMessage(host, port, send_message);
         System.out.println("get message from server: " + recv_message);
-        if (recv_message.contains("err")) return recv_message;
 
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        if (recv_message.contains("err")) return recv_message;
         return "success";
     }
 
@@ -434,7 +435,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         appliance = applianceRepository.findByUserAndAid(user.getUid(), Long.valueOf(aid));
 
         //查询区间(5s)的开始时间
-        start_time = new Date(end_time.getTime() - (long)(30 * 1000 * Long.valueOf(count)));
+        start_time = new Date(end_time.getTime() - (long)(5.5 * 1000 * Long.valueOf(count)));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         sTime = sdf.format(start_time);

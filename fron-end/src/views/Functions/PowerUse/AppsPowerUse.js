@@ -51,7 +51,7 @@ $.ajax({
 let DayUse = DayData[1].slice();
 let MonthUse = MonthData[1].slice();
 
-const Colors = ["#20a8d8","#e83e8c","#4dbd74","#ffc107","#6f42c1","#63c2de","#20c997","f86c6b","#f8cb00","#6610f2","#17a2b8"];
+const Colors = ["#20a8d8","#e83e8c","#4dbd74","#ffc107","#6f42c1","#63c2de","#20c997","#f86c6b","#f8cb00","#6610f2","#17a2b8"];
 let colors = [];
 for(let i = 0; i < MonthUse.length; i++) {
   let j = i;

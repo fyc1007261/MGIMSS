@@ -62,8 +62,8 @@ public class CreateUserThread extends  Thread {
 
                 System.out.println("predicSourceData");
                 System.out.println(predictSourceData);
-                Long[] data = new Long[predictSourceData.size()];
-                for (int g = 0 ;g<predictSourceData.size();g++)
+                Long[] data = new Long[predictSourceData.size()-24];
+                for (int g = 0 ;g<predictSourceData.size()-24;g++)
                 {
                     data[g] = (predictSourceData.get(g)).longValue();
                 }
