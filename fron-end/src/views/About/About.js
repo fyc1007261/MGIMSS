@@ -3,13 +3,13 @@ import { Jumbotron, Carousel, CarouselCaption, CarouselControl, CarouselIndicato
 
 const items = [
   {
-    src: 'https://res.cloudinary.com/breezeeee/image/upload/v1536050170/mgimss/About/1.jpg',
+    src: 'https://res.cloudinary.com/breezeeee/image/upload/v1536130598/mgimss/About/1.jpg',
   },
   {
-    src: 'https://res.cloudinary.com/breezeeee/image/upload/v1536050170/mgimss/About/2.jpg',
+    src: 'https://res.cloudinary.com/breezeeee/image/upload/v1536130598/mgimss/About/2.jpg',
   },
   {
-    src: 'https://res.cloudinary.com/breezeeee/image/upload/v1536050170/mgimss/About/3.jpg',
+    src: 'https://res.cloudinary.com/breezeeee/image/upload/v1536130598/mgimss/About/3.jpg',
   },
 ];
 
@@ -68,21 +68,13 @@ class About extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xs="16" xl="8">
+          <Col xs="24" xl="12">
                 <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous} ride="carousel">
                   <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
                   {slides}
                   <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
                   <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
                 </Carousel>
-          </Col>
-          <Col xs="8" xl="4">
-            <Jumbotron>
-              <h1 className="display-3">Hello, world!</h1>
-              <p className="lead">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
-              <hr className="my-2" />
-              <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-            </Jumbotron>
           </Col>
         </Row>
         <Row>
