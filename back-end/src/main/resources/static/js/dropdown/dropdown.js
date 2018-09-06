@@ -1,5 +1,5 @@
 (function() {
-    [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
+    [].slice.call( document.querySelectorAll( 'select.cs-skin-slide' )).forEach( function(el) {
         new SelectFx(el);
     } );
 })();
