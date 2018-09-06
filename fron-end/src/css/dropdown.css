@@ -36,7 +36,6 @@ div.cs-select {
   text-align: left;
   background: #fff;
   width: 100%;
-  max-width: 500px;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -301,4 +300,160 @@ div.cs-skin-slide::before {
 
 .icon-shirt span::before {
   content: '\e00c';
+}
+
+
+
+div.cs-skin-underline {
+  background: transparent;
+  font-size: 14px;
+  width: 98%;
+  vertical-align: middle;
+  position: relative;
+  margin-bottom: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  color: #566473;
+}
+
+.cs-skin-underline > span {
+  padding: 0.5em 3em 0.5em 0.5em;
+  border-bottom: 3px solid #000;
+  border-color: inherit;
+  font-weight: normal;
+}
+
+.cs-skin-underline > span::after {
+  font-family: 'icomoon';
+  content: '\e003';
+  right: 0.25em;
+  -webkit-transform: translate3d(0,-50%,0) rotate3d(0,0,1,45deg);
+  transform: translate3d(0,-50%,0) rotate3d(0,0,1,45deg);
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+}
+
+.cs-skin-underline.cs-active > span::after {
+  -webkit-transform: translate3d(0,-50%,0) rotate3d(0,0,1,270deg);
+  transform: translate3d(0,-50%,0) rotate3d(0,0,1,270deg);
+}
+
+.cs-skin-underline .cs-options {
+  background-color: rgba(248,248,255, 0.5);
+  opacity: 0;
+  -webkit-transition: opacity 0.3s 0.4s, visibility 0s 0.7s;
+  transition: opacity 0.3s 0.4s, visibility 0s 0.7s;
+}
+
+.cs-skin-underline.cs-active .cs-options {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+
+.cs-skin-underline ul span {
+  position: relative;
+  text-transform: uppercase;
+  font-size: 72%;
+  width: 100%;
+  font-weight: 400;
+  letter-spacing: 1px;
+  padding: 1.2em 0.8em;
+  opacity: 0;
+  -webkit-transform: translate3d(100%,0,0);
+  transform: translate3d(100%,0,0);
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.cs-select ul span::after {
+  content: '';
+  opacity: 0;
+}
+
+.cs-select .cs-selected span::after {
+  font-family: 'icomoon';
+  content: '\e010';
+  opacity: 1;
+  -webkit-transition: opacity 0.3s 0.7s;
+  transition: opacity 0.3s 0.7s;
+}
+
+.cs-skin-underline ul span::before {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  left: 0;
+  height: 3px;
+  width: 200%;
+  background-color: rgba(255, 255, 255, 0.6);
+
+  -webkit-transform: translate3d(200%,0,0);
+  transform: translate3d(200%,0,0);
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+}
+
+.cs-skin-underline.cs-active ul span,
+.cs-skin-underline.cs-active ul span::before {
+  opacity: 1;
+  -webkit-transform: translate3d(-50%,0,0);
+  transform: translate3d(-50%,0,0);
+}
+
+.cs-skin-underline li:nth-child(5) span,
+.cs-skin-underline li:nth-child(5) span::before,
+.cs-skin-underline.cs-active li:first-child span,
+.cs-skin-underline.cs-active li:first-child span::before {
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+}
+
+.cs-skin-underline li:nth-child(4) span,
+.cs-skin-underline li:nth-child(4) span::before,
+.cs-skin-underline.cs-active li:nth-child(2) span,
+.cs-skin-underline.cs-active li:nth-child(2) span::before {
+  -webkit-transition-delay: 0.05s;
+  transition-delay: 0.05s;
+}
+
+.cs-skin-underline li:nth-child(3) span,
+.cs-skin-underline li:nth-child(3) span::before {
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+}
+
+.cs-skin-underline li:nth-child(2) span,
+.cs-skin-underline li:nth-child(2) span::before,
+.cs-skin-underline.cs-active li:nth-child(4) span,
+.cs-skin-underline.cs-active li:nth-child(4) span::before {
+  -webkit-transition-delay: 0.15s;
+  transition-delay: 0.15s;
+}
+
+.cs-skin-underline li:first-child span,
+.cs-skin-underline li:first-child span::before,
+.cs-skin-underline.cs-active li:nth-child(5) span,
+.cs-skin-underline.cs-active li:nth-child(5) span::before {
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+} /* more items require more delay declarations */
+
+.cs-skin-underline .cs-options li span:hover,
+.cs-skin-underline .cs-options li.cs-focus span,
+.cs-skin-underline li.cs-selected span {
+  color: #566473;
+  background: transparent;
+}
+
+.underline-div{
+  width: 90%;
+  height: 60px;
+  position: absolute;
+}
+
+.space-div{
+  width: 100%;
+  height: 60px;
 }

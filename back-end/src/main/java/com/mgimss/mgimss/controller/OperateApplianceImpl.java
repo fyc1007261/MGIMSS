@@ -209,7 +209,7 @@ public class OperateApplianceImpl implements OperateAppliance {
     }
 
     //java calls
-    public String add_appliance(String name, String mfrs, Long power, String gesture,String s1name, String s2name,String s3name,String s4name,HttpServletResponse response)
+    public String add_appliance(String name, String mfrs, Long power, String gesture,HttpServletResponse response)
     {
         User user;
         Long aid;
@@ -226,6 +226,10 @@ public class OperateApplianceImpl implements OperateAppliance {
 
 
         user = getUserContext.getUser();
+        if (gesture == null)
+        {
+            gesture = "none";
+        }
         if (!gesture.equals( "none"))
         {
             Gesture gest = new Gesture(gesture,name,user);
