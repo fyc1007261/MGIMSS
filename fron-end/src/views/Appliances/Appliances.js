@@ -15,7 +15,11 @@ require('../../css/style.css');
 require('../../css/card.css');
 require('../../css/dropdown.css');
 require('../../css/buttons.css');
+require('../../css/modals.css');
+require('../../css/remodal.css');
+require('../../css/remodal-default-theme.css');
 require('./jquery.textfill.js');
+// require('./modals/iziModal.js');
 
 //
 
@@ -169,6 +173,8 @@ class ApplianceCapsule extends Component {
     this.revokeModify = this.revokeModify.bind(this);
 
   }
+
+
 
   switch_status(e) {
 
@@ -375,7 +381,7 @@ class ApplianceCapsule extends Component {
         power: p_input,
         gesture: g_input
       },
-      success: function(data){
+      success: function (data) {
         ret_val = data;
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -388,7 +394,7 @@ class ApplianceCapsule extends Component {
     if (ret_val !== "success") {
       alert(ret_val);
     }
-    else{
+    else {
       alert(ret_val);
     }
   }
@@ -432,6 +438,10 @@ class ApplianceCapsule extends Component {
     // $(".capbody-content").textfill({maxFontPixels: 13, innerTag: 'p'});
     $(".capbody-item").textfill({maxFontPixels: 12, innerTag: 'span'});
 
+    Tools.syncReloadScripts([
+      'http://localhost:12333/js/modals/remodal.js',
+      'http://localhost:12333/js/modals/remodal2.js'], function () {
+    });
 
   }
 
@@ -487,6 +497,8 @@ class ApplianceCapsule extends Component {
 
   capsuleClick(e) {
 
+    e.stopPropagation();
+
     let selectors = $(document).find(".selector");
 
     let y = e.clientY;
@@ -509,6 +521,7 @@ class ApplianceCapsule extends Component {
       this.toggleOptions(selector);
     }
     if (elm.tagName === 'UL') {
+      //这是点到那个小方块啦
       selector = $(e.target).parent();
       // alert(e.target.parentNode.tagName);
       parent_y = e.target.parentNode.parentNode.getBoundingClientRect().top;
@@ -940,8 +953,8 @@ class ApplianceCapsule extends Component {
 
         let g_id = "gesture" + id;
         that.setState({
-          detail: 0,
-          modify: 1,
+            detail: 0,
+            modify: 1,
           }
         );
 
@@ -951,13 +964,38 @@ class ApplianceCapsule extends Component {
           'http://localhost:12333/js/buttons/buttons.js'], function () {
         });
       }
+
       setTimeout(showInfo, 1900);
+
+      //
+      // let app_body = $(".app-body");
+      // let app_body_height = app_body.height();
+      // let main_canvas = $("#mainCanvas");
+      // main_canvas.height(app_body_height);
+      // app_body.height(app_body_height);
     }
   }
 
   deleteClick(e) {
     alert("delete");
     e.stopPropagation();
+
+    $.ajax({
+      type: "POST",
+      async: false,
+      url: "http://localhost:12333/appliance/delete_appliance",
+      data: {aid: this.state.appliance["id"]},
+      success: function (data) {
+
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("！！！!");
+        alert(jqXHR);
+        alert(textStatus);
+        alert(errorThrown);
+      }
+    });
+
     return false;
   }
 
@@ -1079,29 +1117,29 @@ class ApplianceCapsule extends Component {
       return [
         <div className="capbody-content-input info">
               <span className="input input--kyo">
-                <input className="input__field input__field--kyo" type="text"
-                       id={"updated" + this.state.appliance["id"]}
+                <input className="input__field input__field--kyo--unabled" type="text"
+                       id={"updated" + this.state.appliance["id"]} disabled
                        value={this.state.appliance["updated"]}/>
               </span>
         </div>,
         <div className="capbody-content-input info">
               <span className="input input--kyo">
-                <input className="input__field input__field--kyo" type="text"
-                       id={"runtime" + this.state.appliance["id"]}
+                <input className="input__field input__field--kyo--unabled" type="text"
+                       id={"runtime" + this.state.appliance["id"]} disabled
                        value={this.state.appliance["runtime"]}/>
               </span>
         </div>,
         <div className="capbody-content-input info">
               <span className="input input--kyo">
-                <input className="input__field input__field--kyo" type="text"
-                       id={"startTime" + this.state.appliance["id"]}
+                <input className="input__field input__field--kyo--unabled" type="text"
+                       id={"startTime" + this.state.appliance["id"]} disabled
                        value={this.state.appliance["start time"]}/>
               </span>
         </div>,
         <div className="capbody-content-input info">
               <span className="input input--kyo">
-                <input className="input__field input__field--kyo" type="text"
-                       id={"finishTime" + this.state.appliance["id"]}
+                <input className="input__field input__field--kyo--unabled" type="text"
+                       id={"finishTime" + this.state.appliance["id"]} disabled
                        value={this.state.appliance["finish time"]}/>
               </span>
         </div>,
@@ -1123,14 +1161,15 @@ class ApplianceCapsule extends Component {
         </div>,
         <div className="capbody-content-input info">
           <span className="input input--kyo">
-                <input className="input__field input__field--kyo" type="text"
+                <input className="input__field input__field--kyo" type="number"
                        id={"power" + this.state.appliance["id"]}
                        value={this.state.power_input}
                        onChange={this.powerInputChange}/>
           </span>
         </div>,
         <div className="capbody-content-input info">
-          <select className="cs-select cs-skin-slide" id={"gesture" + this.state.appliance["id"]} defaultValue={this.state.appliance["gesture"]}>
+          <select className="cs-select cs-skin-slide" id={"gesture" + this.state.appliance["id"]}
+                  defaultValue={this.state.appliance["gesture"]}>
             <option value="none" data-class="icon-money">None</option>
             <option value="thumb_up" data-class="icon-money">Thumb Up</option>
             <option value="heart_d" data-class="icon-money">Heart</option>
@@ -1156,7 +1195,7 @@ class ApplianceCapsule extends Component {
             </li>
             <li>
               <input id='2' type='checkbox' name={this.state.appliance["id"]}/>
-              <label htmlFor='2' onClick={this.deleteClick}>Delete</label>
+              <label htmlFor='2' className="delete_label" onClick={this.deleteClick}>Delete</label>
             </li>
             <li>
               <input id='3' type='checkbox' name={this.state.appliance["id"]}/>
@@ -1176,7 +1215,7 @@ class ApplianceCapsule extends Component {
             </li>
             <li>
               <input id='2' type='checkbox' name={this.state.appliance["id"]}/>
-              <label htmlFor='2' onClick={this.deleteClick}>Delete</label>
+              <label htmlFor='2' className="delete_label" onClick={this.deleteClick}>Delete</label>
             </li>
             <li>
               <input id='3' type='checkbox' name={this.state.appliance["id"]}/>
@@ -1198,7 +1237,7 @@ class ApplianceCapsule extends Component {
             </li>
             <li>
               <input id='2' type='checkbox' name={this.state.appliance["id"]}/>
-              <label htmlFor='2' onClick={this.deleteClick}>Delete</label>
+              <label htmlFor='2' className="delete_label" onClick={this.deleteClick}>Delete</label>
             </li>
             <li>
               <input id='3' type='checkbox' name={this.state.appliance["id"]}/>
@@ -1265,6 +1304,7 @@ class ApplianceCapsule extends Component {
     }
   }
 
+
   render() {
 
     if (this.state.detail === 1 && this.state.modify !== 1) {
@@ -1298,6 +1338,7 @@ class ApplianceCapsule extends Component {
       cardChartData = {}
     }
     return (
+
       <div className="capsule-canvas" id={"capsule-canvas" + this.state.appliance["id"]}>
         <div className="capsule-core" id={"capsule-core" + this.state.appliance["id"]}>
           <div className="v-capsule" id={"v-capsule" + this.state.appliance["id"]}
@@ -1395,48 +1436,192 @@ class Appliances extends Component {
         alert(errorThrown);
       }
     });
+
+    this.canvasClick = this.canvasClick.bind(this);
+    this.addAppliance = this.addAppliance.bind(this);
+    this.cancelClick = this.cancelClick.bind(this);
   }
 
-  submitJob() {
-    let gesture = gesture_list[document.getElementById("gesture").selectedIndex];
-    let name = document.getElementById("appname").value === "" ?
-      document.getElementById("appname").placeholder : document.getElementById("appname").value;
-    let mfrs = document.getElementById("mfrs").value === "" ?
-      document.getElementById("mfrs").placeholder : document.getElementById("mfrs").value;
-    let power = document.getElementById("power").value === "" ?
-      document.getElementById("power").placeholder : document.getElementById("power").value;
-    let ret = "Fail to send information";
-    $.ajax({
-      type: "GET",
-      async: false,
-      url: "/appliance/add_appliance",
-      data: {name: name, mfrs: mfrs, power: power, gesture: gesture},
-      context: document.body,
-      success: function (data) {
-        ret = data;
-      }
-    });
+  //这里mainCanvas的高度有个bug
 
+  toggleOptions(s) {
+
+    s.toggleClass('open');
+    let li = s.find('li');
+    let deg = s.hasClass('half') ? 180 / (li.length - 1) : 360 / li.length;
+    for (let i = 0; i < li.length; i++) {
+      let d = s.hasClass('half') ? (i * deg) - 90 : i * deg;
+      s.hasClass('open') ? this.rotate(li[i], d) : this.rotate(li[i], angleStart);
+    }
+
+  }
+
+  rotate(li, d) {
+    $({d: angleStart}).animate({d: d}, {
+      step: function (now) {
+        $(li)
+          .css({transform: 'rotate(' + now + 'deg)'})
+          .find('label')
+          .css({transform: 'rotate(' + (-now) + 'deg)'});
+      }, duration: 0
+    });
+  }
+
+  addAppliance(e) {
+
+
+  }
+
+  cancelClick() {
+
+  }
+
+  componentDidMount() {
+
+    Tools.syncReloadScripts([
+      'http://localhost:12333/js/modals/iziModal.js',
+      'http://localhost:12333/js/modals/modals.js',
+      'http://localhost:12333/js/dropdown/classie.js',
+      'http://localhost:12333/js/dropdown/selectFx.js',
+      'http://localhost:12333/js/dropdown/dropdown_for_add.js'], function () {
+    });
+  }
+
+  canvasClick(e) {
+
+
+    //鼠标相对于浏览器窗口可视区域的X，Y坐标（窗口坐标），可视区域不包括工具栏和滚动条
+    let y = e.clientY;
+    let x = e.clientX;
+
+    // alert("x: " + x + ",y: " + y);
+
+    let main_canvas = $("#mainCanvas");
+    let parent_y = main_canvas[0].getBoundingClientRect().top;
+    let parent_x = main_canvas[0].getBoundingClientRect().left;
+
+
+    // alert("px: " + parent_x + ",py: " + parent_y);
+
+    let ev = e || window.event;
+    let elm = ev.target || ev.srcElement;
+    let selector = $(document).find(".selector.canvas-flag");
+    let selectors = $(document).find(".selector").not(selector);
+
+    // alert(selectors.length);
+
+    // alert(elm.tagName + "," +selector.length);
+
+    if (elm.tagName === 'INPUT') {
+      this.toggleOptions(selector);
+    }
+
+    let x_off = x - parent_x;
+    let y_off = y - parent_y;
+
+    // alert(x_off + "," + y_off);
+    // alert(e.target.tagNam/e + x_off + ", " + y_off);
+
+    // alert(elm.tagName);
+
+    // alert("haha");
+
+    let single = 1;
+
+    for (let i = 0; i < selectors.length; i++) {
+      let sel = selectors[i];
+      if ($(sel).hasClass('open')) {
+        this.toggleOptions($(sel));
+        single = 0;
+      }
+    }
+
+    if (selector.hasClass('open') || selector.hasClass('half')) {
+      // alert("has opened");
+      this.toggleOptions(selector);
+    }
+    else if (single) {
+      // alert("not opened");
+      selector.css("left", x_off);
+      selector.css("top", y_off);
+      // alert("shit");
+      this.toggleOptions(selector);
+    }
   }
 
 
   render() {
 
     this.constructor();
-    let other_capsules = $(".capsule-canvas");
+    console.log("here")
+    console.log(this.addAppliance);
+    return [
 
-    return (
+      //模态框
+      <div id="modal-custom" className="iziModal">
+        <button data-iziModal-close className="icon-close"></button>
+        <header>
+          <p>Appliance information</p>
+        </header>
+        <section>
+          <input type="text" placeholder="Name" id="new_app_name"/>
+          <input type="text" placeholder="Manufacture" id="new_app_manufacture"/>
+          <input type="number" placeholder="Power" id="new_app_power"/>
+          <div className="underline-div">
+            <select className="cs-select cs-skin-underline" id="new_app_gesture">
+              <option value="" disabled selected>Choose a gesture</option>
+              <option value="none">None</option>
+              <option value="thumb_up">Thumb Up</option>
+              <option value="heart_d">Heart</option>
+              <option value="victory">Victory</option>
+              <option value="bad">Bad</option>
+            </select>
+          </div>
+          <div className="space-div">
+          </div>
+          <footer>
+            <button data-iziModal-close id="cancel-btn">Cancel</button>
+            <button type="button" className="submit">Create Appliance</button>
+          </footer>
+        </section>
+      </div>,
 
-      <div className="animated fadeIn">
+      <div className="remodal" data-remodal-id="deleteModal"
+           role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
+        <button data-remodal-action="close" className="remodal-close" aria-label="Close"></button>
+        <div>
+          <h2>Attention</h2>
+          <p>
+            Are you sure to delete this appliance?
+          </p>
+        </div>
+        <br/>
+        <button data-remodal-action="cancel" className="remodal-cancel">No</button>
+        <button data-remodal-action="confirm" className="remodal-confirm">Yes</button>
+      </div>,
+
+      <div className="animated fadeIn" id="mainCanvas" onClick={this.canvasClick}>
+        <div className='selector canvas-flag'>
+          <ul>
+            <li>
+              {/*<Link to={this.state.appLink}>*/}
+              <input id='1' type='checkbox' name="canvas-selector-add"/>
+              <label htmlFor='1' className="trigger-custom">Add</label>
+              {/*</Link>*/}
+            </li>
+            <li>
+              <input id='2' type='checkbox' name="canvas-selector-cancel"/>
+              <label htmlFor='2'>Cancel</label>
+            </li>
+          </ul>
+        </div>
         <Row className="canvas" id="capsuleCanvas">
           {appsData.map((appliance, index) =>
             <ApplianceCapsule key={index} appliance={appliance} reload={this.render}/>
           )}
         </Row>
-
       </div>
-
-    )
+    ]
   }
 }
 
