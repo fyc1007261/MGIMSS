@@ -303,7 +303,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         if (recv_message.contains("err")) return recv_message;
 
         //当python做完了相应操作没出错时，同步数据库
-        applianceRepository.delete(appliance);
+        applianceRepository.deleteByappid(appliance.getAppId());
         response.addHeader("Access-Control-Allow-Origin", "*");
         return recv_message;
     }
