@@ -49,15 +49,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers( "/**").permitAll()
-                .antMatchers( "/appliance/**").hasRole("USER")
-                .antMatchers( "/**").permitAll()
 
+ //             .antMatchers( "/**").permitAll()
+                .antMatchers( "/appliance/**").hasRole("USER")         
+                .antMatchers( "/main/**").access("hasRole('USER')")
 
                 .and()
                 .formLogin().loginPage("/login").defaultSuccessUrl("/main").permitAll()
+
                 .and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/login")
+                .logout()
+                .logoutUrl("/logout").logoutSuccessUrl("/login")
                 .and()
                 .cors();
 
