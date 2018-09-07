@@ -71,8 +71,10 @@ const getBadge = (status) => {
         status === 'Banned' ? 'danger' :
           'primary'
 };
-let appsData;
-let appInfo;
+
+let appsData = $.parseJSON("{\"data\":[]}")["data"];
+let appInfo = $.parseJSON("{\"data\":[]}")["data"];
+
 let angleStart = -360;
 let ColorScheme = [["#3c5e79", "#F9F7EC", "#187da0", "cadetblue", "primary"],
   ["#3c5e79", "#F9F7EC", "#187da0", "cadetblue", "primary"],
@@ -80,6 +82,12 @@ let ColorScheme = [["#3c5e79", "#F9F7EC", "#187da0", "cadetblue", "primary"],
   ["#bed371", "#F9F7EC", "#d6e973", "#d6e973", "success"],
   ["#f6b3a9", "#F9F7EC", "#f8d3b9", "#f8d6c5", "danger"],
   ["#f6b3a9", "#F9F7EC", "#f8d3b9", "#f8d6c5", "danger"]];
+let buttonColorScheme = [["#6e8efb", "#a777e3"],
+  ["#6e8efb", "#a777e3"],
+  ["#85da29", "#59cf98"],
+  ["#85da29", "#59cf98"],
+  ["#efa38e", "#f77a73"],
+  ["#efa38e", "#f77a73"]];
 let cardChartData = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
@@ -438,11 +446,6 @@ class ApplianceCapsule extends Component {
     // $(".capbody-content").textfill({maxFontPixels: 13, innerTag: 'p'});
     $(".capbody-item").textfill({maxFontPixels: 12, innerTag: 'span'});
 
-    Tools.syncReloadScripts([
-      'http://localhost:12333/js/modals/remodal.js',
-      'http://localhost:12333/js/modals/remodal2.js'], function () {
-    });
-
   }
 
   componentDidUpdate() {
@@ -769,9 +772,20 @@ class ApplianceCapsule extends Component {
   modifyClick(e) {
     e.stopPropagation();
 
-    let input = $(e.target).parent().find("input")[0];
+    let ev = e || window.event;
+    let elm = ev.target || ev.srcElement;
+    let id;
 
-    let id = "capsule-canvas" + input.name;
+    if(elm.tagName === 'P'){
+      id = "capsule-canvas" + $(e.target).attr('name');
+    }
+    else{
+      let input = $(e.target).parent().find("input")[0];
+      id = "capsule-canvas" + input.name;
+    }
+
+
+
     let this_capsule = $("#" + id);
 
     let this_capsule_core = this_capsule.find('.capsule-core');
@@ -793,6 +807,8 @@ class ApplianceCapsule extends Component {
     let this_lightSwitch = this_capsule_core.find('.lightDiv');
 
     let this_input = this_capsule_core.find('.capbody-content-input');
+
+    let this_buttons = this_mask.find('.awesomeButton');
 
     let this_thermalSwitch = this_capsule_core.find('.thermalDiv');
 
@@ -846,6 +862,9 @@ class ApplianceCapsule extends Component {
 
       this_input.removeClass("input-move-h");
       this_input.addClass("input-move-back");
+
+      this_buttons.removeClass("buttons-move-h");
+      this_buttons.addClass("buttons-move-back");
 
       other_capsules.removeClass("fade-others");
       other_capsules.addClass("fade-others-back");
@@ -945,6 +964,9 @@ class ApplianceCapsule extends Component {
       this_input.removeClass("input-move-back");
       this_input.addClass("input-move-h");
 
+      this_buttons.removeClass("buttons-move-back");
+      this_buttons.addClass("buttons-move-h");
+
       other_capsules.addClass("fade");
 
       let that = this;
@@ -960,8 +982,8 @@ class ApplianceCapsule extends Component {
 
         Tools.syncReloadScripts([
           'http://localhost:12333/js/dropdown/classie.js',
-          'http://localhost:12333/js/dropdown/selectFx.js', 'http://localhost:12333/js/dropdown/dropdown.js',
-          'http://localhost:12333/js/buttons/buttons.js'], function () {
+          'http://localhost:12333/js/dropdown/selectFx.js',
+          'http://localhost:12333/js/dropdown/dropdown.js'], function () {
         });
       }
 
@@ -980,21 +1002,21 @@ class ApplianceCapsule extends Component {
     alert("delete");
     e.stopPropagation();
 
-    $.ajax({
-      type: "POST",
-      async: false,
-      url: "http://localhost:12333/appliance/delete_appliance",
-      data: {aid: this.state.appliance["id"]},
-      success: function (data) {
-
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        alert("！！！!");
-        alert(jqXHR);
-        alert(textStatus);
-        alert(errorThrown);
-      }
-    });
+    // $.ajax({
+    //   type: "POST",
+    //   async: false,
+    //   url: "http://localhost:12333/appliance/delete_appliance",
+    //   data: {aid: this.state.appliance["id"]},
+    //   success: function (data) {
+    //
+    //   },
+    //   error: function (jqXHR, textStatus, errorThrown) {
+    //     alert("！！！!");
+    //     alert(jqXHR);
+    //     alert(textStatus);
+    //     alert(errorThrown);
+    //   }
+    // });
 
     return false;
   }
@@ -1195,7 +1217,7 @@ class ApplianceCapsule extends Component {
             </li>
             <li>
               <input id='2' type='checkbox' name={this.state.appliance["id"]}/>
-              <label htmlFor='2' className="delete_label" onClick={this.deleteClick}>Delete</label>
+              <label htmlFor='2' className="delete_label">Delete</label>
             </li>
             <li>
               <input id='3' type='checkbox' name={this.state.appliance["id"]}/>
@@ -1215,7 +1237,7 @@ class ApplianceCapsule extends Component {
             </li>
             <li>
               <input id='2' type='checkbox' name={this.state.appliance["id"]}/>
-              <label htmlFor='2' className="delete_label" onClick={this.deleteClick}>Delete</label>
+              <label htmlFor='2' className="delete_label">Delete</label>
             </li>
             <li>
               <input id='3' type='checkbox' name={this.state.appliance["id"]}/>
@@ -1237,7 +1259,7 @@ class ApplianceCapsule extends Component {
             </li>
             <li>
               <input id='2' type='checkbox' name={this.state.appliance["id"]}/>
-              <label htmlFor='2' className="delete_label" onClick={this.deleteClick}>Delete</label>
+              <label htmlFor='2' className="delete_label">Delete</label>
             </li>
             <li>
               <input id='3' type='checkbox' name={this.state.appliance["id"]}/>
@@ -1255,17 +1277,31 @@ class ApplianceCapsule extends Component {
 
   displayButtons() {
     if (this.state.modify === 1) {
-      return (
-        <div className="haha">
-          <a className="awesomeButton" href="#" data-title="Awesome Button"></a>
-          <Button color="primary" onClick={this.confirmModify} className="mr-1">
-            Confirm
-          </Button>
-          <Button color="primary" onClick={this.revokeModify} className="mr-1">
-            Revoke
-          </Button>
-        </div>
-      )
+      {/*<Button color="primary" onClick={this.confirmModify} className="mr-1">*/}
+      {/*Confirm*/}
+      {/*</Button>*/}
+      {/*<Button color="primary" onClick={this.revokeModify} className="mr-1">*/}
+      {/*Revoke*/}
+      {/*</Button>*/}
+      return [
+          <div className="awesomeButton leftButton" style={{background: "linear-gradient(135deg, "
+            + buttonColorScheme[this.state.appliance["id"] % 6][0] + ","
+            + buttonColorScheme[this.state.appliance["id"] % 6][1] + ")" }}
+               onClick={this.confirmModify}>
+              <p>Confirm</p>
+          </div>,
+          <div className="awesomeButton middleButton" style={{background: "linear-gradient(135deg, "
+            + buttonColorScheme[this.state.appliance["id"] % 6][0] + ","
+            + buttonColorScheme[this.state.appliance["id"] % 6][1] + ")" }}
+            onClick={this.revokeModify}>
+              <p>Revoke</p>
+          </div>,
+          <div className="awesomeButton rightButton" style={{background: "linear-gradient(135deg, "
+            + buttonColorScheme[this.state.appliance["id"] % 6][0] + ","
+            + buttonColorScheme[this.state.appliance["id"] % 6][1] + ")" }} onClick={this.modifyClick}>
+            <p name={this.state.appliance["id"]}>Return</p>
+          </div>
+      ]
     }
   }
 
@@ -1437,6 +1473,8 @@ class Appliances extends Component {
       }
     });
 
+
+    this.displayCapsuleCanvas = this.displayCapsuleCanvas.bind(this);
     this.canvasClick = this.canvasClick.bind(this);
     this.addAppliance = this.addAppliance.bind(this);
     this.cancelClick = this.cancelClick.bind(this);
@@ -1478,12 +1516,15 @@ class Appliances extends Component {
 
   componentDidMount() {
 
+
     Tools.syncReloadScripts([
       'http://localhost:12333/js/modals/iziModal.js',
       'http://localhost:12333/js/modals/modals.js',
       'http://localhost:12333/js/dropdown/classie.js',
       'http://localhost:12333/js/dropdown/selectFx.js',
-      'http://localhost:12333/js/dropdown/dropdown_for_add.js'], function () {
+      'http://localhost:12333/js/dropdown/dropdown_for_add.js',
+      'http://localhost:12333/js/modals/remodal.js',
+      'http://localhost:12333/js/modals/remodal2.js'], function () {
     });
   }
 
@@ -1547,6 +1588,25 @@ class Appliances extends Component {
       // alert("shit");
       this.toggleOptions(selector);
     }
+  }
+
+  displayCapsuleCanvas(){
+
+    if (appsData.toString() === ""){
+      alert("here");
+      return (
+        <Row>
+        <p>You have no appliance, click to add</p>
+        </Row>
+      )
+    }
+    return (
+      <Row className="canvas" id="capsuleCanvas">
+        {appsData.map((appliance, index) =>
+          <ApplianceCapsule key={index} appliance={appliance} reload={this.render}/>
+        )}
+      </Row>
+    );
   }
 
 
@@ -1615,11 +1675,7 @@ class Appliances extends Component {
             </li>
           </ul>
         </div>
-        <Row className="canvas" id="capsuleCanvas">
-          {appsData.map((appliance, index) =>
-            <ApplianceCapsule key={index} appliance={appliance} reload={this.render}/>
-          )}
-        </Row>
+        {this.displayCapsuleCanvas()}
       </div>
     ]
   }

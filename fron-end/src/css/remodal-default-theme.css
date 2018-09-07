@@ -13,6 +13,7 @@
 
 /* Default theme styles for the background */
 
+
 .remodal-bg.remodal-is-opening,
 .remodal-bg.remodal-is-opened {
   -webkit-filter: blur(3px);
@@ -22,7 +23,7 @@
 /* Default theme styles of the overlay */
 
 .remodal-overlay {
-  background: rgba(43, 46, 56, 0.9);
+  background: rgba(43, 46, 56, 0.4);
 }
 
 .remodal-overlay.remodal-is-opening,
@@ -60,8 +61,13 @@
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 
-  color: #2b2e38;
+  color: #566473;
   background: #fff;
+
+  /*border-radius:  15px;*/
+  /*-moz-border-radius:  15px;*/
+  /*-webkit-border-radius:  15px;*/
+
 }
 
 .remodal.remodal-is-opening,
@@ -159,21 +165,29 @@
 
   border: 0;
   outline: 0;
+
 }
 
 .remodal-confirm {
   color: #fff;
   background: #81c784;
+  border-radius:   0 25px 25px 0;
+  -moz-border-radius:  0 25px 25px 0;
+  -webkit-border-radius:  0 25px 25px 0;
 }
 
 .remodal-confirm:hover,
 .remodal-confirm:focus {
   background: #66bb6a;
+
 }
 
 .remodal-cancel {
   color: #fff;
   background: #e57373;
+  border-radius:    25px 0 0 25px;
+  -moz-border-radius:  25px 0 0 25px;
+  -webkit-border-radius:  25px 0 0 25px;
 }
 
 .remodal-cancel:hover,

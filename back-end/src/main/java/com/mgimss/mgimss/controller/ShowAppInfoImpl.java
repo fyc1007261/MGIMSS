@@ -46,6 +46,8 @@ public class ShowAppInfoImpl implements ShowAppInfo {
     @Autowired
     public GetUserContext getUserContext;
 
+
+    //java calls
     public String get_all_status(HttpServletResponse response){
         try{
             User user = getUserContext.getUser();
@@ -84,10 +86,12 @@ public class ShowAppInfoImpl implements ShowAppInfo {
             return buf.toString();
         }
         catch (Exception ex){
+            response.addHeader("Access-Control-Allow-Origin", "*");
             return "{\"data\":[]}";
         }
     }
 
+    //java calls
     public String get_info_by_id(Long id, HttpServletResponse response){
         User user = getUserContext.getUser();
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), id);
@@ -193,6 +197,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         return buf.toString();
     }
 
+    //java calls
     public String get_jobs(HttpServletResponse response){
         User user = getUserContext.getUser();
         List<Job> jobList = runningJobRepository.findByUid(user.getUid());
@@ -219,6 +224,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         return buf.toString();
     }
 
+    //java calls
     public String get_job_by_id(Long id, HttpServletResponse response) {
         TimeToString timeToString = new TimeToString();
         Job job = runningJobRepository.findByJobId(id);
@@ -239,6 +245,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         return buf.toString();
     }
 
+    //simulator calls
     public String get_jobs1_by_id(Long id){
         Job job = runningJobRepository.findByJobId(id);
         if (job==null)
@@ -250,7 +257,7 @@ public class ShowAppInfoImpl implements ShowAppInfo {
         return job.getSimulatio1data();
     }
 
-
+    //simulator calls
     public  String get_jobs2_by_id(Long id){
         Job job = runningJobRepository.findByJobId(id);
         if (job==null)
