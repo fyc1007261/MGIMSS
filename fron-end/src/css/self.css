@@ -27,8 +27,6 @@
   src: url('../fonts/gotham-rounded-light.otf');
 }
 
-
-
 .dChart {
   width: 10px;
   height: 10px;
@@ -712,6 +710,7 @@
   -webkit-animation-fill-mode: forwards;
   -webkit-animation-delay: 1s; /* Safari 和 Chrome */
   opacity: 0;
+  z-index: 10;
 }
 
 .input-move-h{
@@ -730,6 +729,9 @@
   -webkit-animation-fill-mode: forwards;
   -webkit-animation-delay: 0s; /* Safari 和 Chrome */
 }
+
+
+
 
 .capbody-content p {
   font-family: gotham-rounded-light;
@@ -3351,6 +3353,45 @@
 }
 
 @-o-keyframes capBtnFade /* Opera */
+{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes buttonsFade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes buttonsFade /* Firefox */
+{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes buttonsFade /* Safari 和 Chrome */
+{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-o-keyframes buttonsFade /* Opera */
 {
   from {
     opacity: 1;

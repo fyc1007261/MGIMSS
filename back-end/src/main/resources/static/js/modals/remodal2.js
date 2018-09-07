@@ -2,15 +2,17 @@ $('.delete_label').click(function (e) {
 
         // alert("here");
         var id = e.target.previousSibling.name;
-        alert(id);
+        // alert(id);
         var inst = $('[data-remodal-id=deleteModal]').remodal();
 
         inst.open();
 
-        alert("here");
 
         $(document).on('confirmation', '.remodal', function () {
-
+            // alert("why here?");
+            if (id === null) {
+                return;
+            }
             $.ajax({
                 type: "POST",
                 async: false,
@@ -26,6 +28,11 @@ $('.delete_label').click(function (e) {
                     alert(errorThrown);
                 }
             });
+
+        });
+        $(document).on('cancellation', '.remodal', function () {
+            // alert("why here?");
+            id = null;
 
         });
     }

@@ -7,6 +7,7 @@ import com.mgimss.mgimss.entity.User;
 import com.mgimss.mgimss.repository.ApplianceRepository;
 import com.mgimss.mgimss.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.mgimss.mgimss.utils.GetUserContext;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,11 +39,12 @@ public class UserControllerImpl implements UserController {
     @Autowired
     private ApplianceRepository applianceRepository;
 
+    @Autowired
+    public GetUserContext getUserContext;
+
     public ModelAndView getUserInfo()
     {
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        User user = (User) auth.getPrincipal();
+        User user = getUserContext.getUser();
 
         System.out.println(user.getUid());
 
@@ -55,9 +57,7 @@ public class UserControllerImpl implements UserController {
                                        String new_email, String new_phone,
                                        String new_host, String new_port)
     {
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        User user = (User) auth.getPrincipal();
+        User user = getUserContext.getUser();
 
         user.setUsername(new_username);
         user.setPassword(new_password);
@@ -103,9 +103,8 @@ public class UserControllerImpl implements UserController {
     }
 
     public String get_user_info() {
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        User user = (User) auth.getPrincipal();
+
+        User user = getUserContext.getUser();
 
         Long app_num = applianceRepository.findNumByUser(user.getUid());
 
@@ -123,9 +122,7 @@ public class UserControllerImpl implements UserController {
     }
 
     public String update_user_info(String new_email, String new_phone) {
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        User user = (User) auth.getPrincipal();
+        User user = getUserContext.getUser();
 
         user.setEmail(new_email);
         user.setPhone(new_phone);
@@ -136,9 +133,7 @@ public class UserControllerImpl implements UserController {
     }
 
     public String change_avatar(String new_avatarURL) {
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-        User user = (User) auth.getPrincipal();
+        User user = getUserContext.getUser();
 
         user.setAvatarURL(new_avatarURL);
         userRepository.save(user);

@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
 
+
     <list default="true" id="cf52ae84-55df-4c02-a241-f900ed1af645" name="Default" comment="" />
+
     <ignored path="$PROJECT_DIR$/venv/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -169,7 +171,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+
     <frame x="-11" y="-11" width="1942" height="1046" extended-state="6" />
+
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
