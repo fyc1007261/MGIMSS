@@ -1316,21 +1316,21 @@ class ApplianceCapsule extends Component {
                      id={"lightSense" + this.state.appliance["id"]} label/>
         </div>,
         <div className="thermalDiv">
-          <AppSwitch checked={this.state.appliance["s2name"] === "Active"}
+          <AppSwitch checked={this.state.appliance["s3name"] === "Active"}
                      onClick={this.switch_thermal_status}
                      className={'mx-1 capbody-Btn'} variant={'3d'} outline={'alt'}
                      color={ColorScheme[this.state.appliance["id"] % 6][4]}
                      id={"lightSense" + this.state.appliance["id"]} label/>
         </div>,
         <div className="motionDiv">
-          <AppSwitch checked={this.state.appliance["s3name"] === "Active"}
+          <AppSwitch checked={this.state.appliance["s4name"] === "Active"}
                      onClick={this.switch_motion_status}
                      className={'mx-1 capbody-Btn'} variant={'3d'} outline={'alt'}
                      color={ColorScheme[this.state.appliance["id"] % 6][4]}
                      id={"lightSense" + this.state.appliance["id"]} label/>
         </div>,
         <div className="rangeDiv">
-          <AppSwitch checked={this.state.appliance["s4name"] === "Active"}
+          <AppSwitch checked={this.state.appliance["s2name"] === "Active"}
                      onClick={this.switch_range_status}
                      className={'mx-1 capbody-Btn'} variant={'3d'} outline={'alt'}
                      color={ColorScheme[this.state.appliance["id"] % 6][4]}
@@ -1466,10 +1466,11 @@ class Appliances extends Component {
         appsData = $.parseJSON(data.toString())["data"];
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert("！！！!");
-        alert(jqXHR);
-        alert(textStatus);
-        alert(errorThrown);
+        // alert("！！！!");
+        // alert(jqXHR);
+        // alert(textStatus);
+        // alert(errorThrown);
+        appsData = "err";
       }
     });
 
@@ -1593,10 +1594,17 @@ class Appliances extends Component {
   displayCapsuleCanvas(){
 
     if (appsData.toString() === ""){
+      return (
+        <Row className="no-app-canvas">
+          <p className = "no-app-message">You have no appliance, click anywhere to ＋ </p>
+        </Row>
+      )
+    }
+    else if(appsData.toString() === "err"){
       alert("here");
       return (
-        <Row>
-        <p>You have no appliance, click to add</p>
+        <Row className="no-app-canvas">
+          <p className = "no-app-message">Something goes wrong, flush and try again please ~</p>
         </Row>
       )
     }
@@ -1621,7 +1629,7 @@ class Appliances extends Component {
       <div id="modal-custom" className="iziModal">
         <button data-iziModal-close className="icon-close"></button>
         <header>
-          <p>Appliance information</p>
+          <p>Appliance   information</p>
         </header>
         <section>
           <input type="text" placeholder="Name" id="new_app_name"/>

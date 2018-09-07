@@ -30,6 +30,7 @@ var clickeventtype = mobilecheck() ? 'touchstart' : 'click';
 
   [].slice.call(document.querySelectorAll('.button--sonar')).forEach(function(el) {
     el.addEventListener(clickeventtype, function(ev) {
+        ev.stopPropagation();
       if( el.getAttribute('data-state') !== 'locked' ) {
         classie.add(el, 'button--active');
         onEndAnimation(el, function() {
