@@ -977,7 +977,7 @@ class ApplianceCapsule extends Component {
   }
 
   deleteClick(e) {
-    alert("delete");
+
     e.stopPropagation();
 
     $.ajax({
@@ -986,7 +986,7 @@ class ApplianceCapsule extends Component {
       url: "http://localhost:12333/appliance/delete_appliance",
       data: {aid: this.state.appliance["id"]},
       success: function (data) {
-
+        window.location.reload();
       },
       error: function (jqXHR, textStatus, errorThrown) {
         alert("！！！!");
