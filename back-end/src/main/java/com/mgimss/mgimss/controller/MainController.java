@@ -19,18 +19,19 @@ public class MainController {
     public String login(){
         return "login.html";
     }
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @RequestMapping(value = "/main/**", method = RequestMethod.GET)
     public String jump2() {
+        System.out.println("haha");
         return "index.html";
     }
-    @RequestMapping(value = "/main/{any}", method = RequestMethod.GET)
-    public String jump3(@PathVariable(value = "any") String any) {
-        return "index.html";
-    }
-    @RequestMapping(value = "/main/{any1}/{any2}", method = RequestMethod.GET)
-    public String jump4(@PathVariable(value = "any1") String any1, @PathVariable(value = "any2") String any2) {
-        return "index.html";
-    }
+//    @RequestMapping(value = "/main/{any}", method = RequestMethod.GET)
+//    public String jump3(@PathVariable(value = "any") String any) {
+//        return "index.html";
+//    }
+//    @RequestMapping(value = "/main/{any1}/{any2}", method = RequestMethod.GET)
+//    public String jump4(@PathVariable(value = "any1") String any1, @PathVariable(value = "any2") String any2) {
+//        return "index.html";
+//    }
 
 }
 

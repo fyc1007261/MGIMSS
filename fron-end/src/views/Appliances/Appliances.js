@@ -999,8 +999,9 @@ class ApplianceCapsule extends Component {
   }
 
   deleteClick(e) {
-    alert("delete");
+
     e.stopPropagation();
+
 
     // $.ajax({
     //   type: "POST",
@@ -1017,6 +1018,7 @@ class ApplianceCapsule extends Component {
     //     alert(errorThrown);
     //   }
     // });
+
 
     return false;
   }
