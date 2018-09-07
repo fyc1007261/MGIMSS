@@ -7,7 +7,9 @@
  * Licensed under MIT (https://coreui.io/license)
  */
 /*!
- * Bootstrap v4.1.3 (https://getbootstrap.com/)
+
+ * Bootstrap v4.1.1 (https://getbootstrap.com/)
+
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -192,9 +194,10 @@ img {
   vertical-align: middle;
   border-style: none; }
 
-svg {
-  overflow: hidden;
-  vertical-align: middle; }
+
+svg:not(:root) {
+  overflow: hidden; }
+
 
 table {
   border-collapse: collapse; }
@@ -2354,6 +2357,10 @@ input[type="button"].btn-block {
     flex: 1 1 auto;
     width: 1%;
     margin-bottom: 0; }
+    .input-group > .form-control:focus,
+    .input-group > .custom-select:focus,
+    .input-group > .custom-file:focus {
+      z-index: 3; }
     .input-group > .form-control + .form-control,
     .input-group > .form-control + .custom-select,
     .input-group > .form-control + .custom-file,
@@ -2364,12 +2371,8 @@ input[type="button"].btn-block {
     .input-group > .custom-file + .custom-select,
     .input-group > .custom-file + .custom-file {
       margin-left: -1px; }
-  .input-group > .form-control:focus,
-  .input-group > .custom-select:focus,
-  .input-group > .custom-file .custom-file-input:focus ~ .custom-file-label {
-    z-index: 3; }
-  .input-group > .custom-file .custom-file-input:focus {
-    z-index: 4; }
+
+
   .input-group > .form-control:not(:last-child),
   .input-group > .custom-select:not(:last-child) {
     border-top-right-radius: 0;
@@ -2572,7 +2575,7 @@ input[type="button"].btn-block {
   .custom-select:focus {
     border-color: #8ad4ee;
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(138, 212, 238, 0.5); }
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(138, 212, 238, 0.5); }
     .custom-select:focus::-ms-value {
       color: #5c6873;
       background-color: #fff; }
@@ -2617,8 +2620,6 @@ input[type="button"].btn-block {
     box-shadow: 0 0 0 0.2rem rgba(32, 168, 216, 0.25); }
     .custom-file-input:focus ~ .custom-file-label::after {
       border-color: #8ad4ee; }
-  .custom-file-input:disabled ~ .custom-file-label {
-    background-color: #e4e7ea; }
   .custom-file-input:lang(en) ~ .custom-file-label::after {
     content: "Browse"; }
 
@@ -2673,11 +2674,12 @@ input[type="button"].btn-block {
     background-color: #20a8d8;
     border: 0;
     border-radius: 1rem;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     appearance: none; }
-    @media screen and (prefers-reduced-motion: reduce) {
-      .custom-range::-webkit-slider-thumb {
-        transition: none; } }
+
+    .custom-range::-webkit-slider-thumb:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px #e4e5e6, 0 0 0 0.2rem rgba(32, 168, 216, 0.25); }
+
     .custom-range::-webkit-slider-thumb:active {
       background-color: #b6e4f4; }
   .custom-range::-webkit-slider-runnable-track {
@@ -2694,11 +2696,12 @@ input[type="button"].btn-block {
     background-color: #20a8d8;
     border: 0;
     border-radius: 1rem;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     appearance: none; }
-    @media screen and (prefers-reduced-motion: reduce) {
-      .custom-range::-moz-range-thumb {
-        transition: none; } }
+
+    .custom-range::-moz-range-thumb:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px #e4e5e6, 0 0 0 0.2rem rgba(32, 168, 216, 0.25); }
+
     .custom-range::-moz-range-thumb:active {
       background-color: #b6e4f4; }
   .custom-range::-moz-range-track {
@@ -2718,11 +2721,12 @@ input[type="button"].btn-block {
     background-color: #20a8d8;
     border: 0;
     border-radius: 1rem;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     appearance: none; }
-    @media screen and (prefers-reduced-motion: reduce) {
-      .custom-range::-ms-thumb {
-        transition: none; } }
+
+    .custom-range::-ms-thumb:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px #e4e5e6, 0 0 0 0.2rem rgba(32, 168, 216, 0.25); }
+
     .custom-range::-ms-thumb:active {
       background-color: #b6e4f4; }
   .custom-range::-ms-track {
@@ -2740,16 +2744,6 @@ input[type="button"].btn-block {
     margin-right: 15px;
     background-color: #c8ced3;
     border-radius: 1rem; }
-
-.custom-control-label::before,
-.custom-file-label,
-.custom-select {
-  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
-  @media screen and (prefers-reduced-motion: reduce) {
-    .custom-control-label::before,
-    .custom-file-label,
-    .custom-select {
-      transition: none; } }
 
 .nav {
   display: flex;
@@ -3747,12 +3741,12 @@ input[type="button"].btn-block {
   color: #000;
   text-shadow: 0 1px 0 #fff;
   opacity: .5; }
+  .close:hover, .close:focus {
+    color: #000;
+    text-decoration: none;
+    opacity: .75; }
   .close:not(:disabled):not(.disabled) {
     cursor: pointer; }
-    .close:not(:disabled):not(.disabled):hover, .close:not(:disabled):not(.disabled):focus {
-      color: #000;
-      text-decoration: none;
-      opacity: .75; }
 
 button.close {
   padding: 0;
@@ -4114,19 +4108,17 @@ button.close {
   display: none;
   align-items: center;
   width: 100%;
+  transition: transform 0.6s ease;
   backface-visibility: hidden;
   perspective: 1000px; }
+  @media screen and (prefers-reduced-motion: reduce) {
+    .carousel-item {
+      transition: none; } }
 
 .carousel-item.active,
 .carousel-item-next,
 .carousel-item-prev {
-  display: block;
-  transition: transform 0.6s ease; }
-  @media screen and (prefers-reduced-motion: reduce) {
-    .carousel-item.active,
-    .carousel-item-next,
-    .carousel-item-prev {
-      transition: none; } }
+  display: block; }
 
 .carousel-item-next,
 .carousel-item-prev {

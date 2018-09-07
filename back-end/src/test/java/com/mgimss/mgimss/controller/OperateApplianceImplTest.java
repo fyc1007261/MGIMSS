@@ -50,6 +50,7 @@ public class OperateApplianceImplTest {
     private GetUserContext mockGetUser;
     private ApplianceRepository mockAppRepo;
     private GestureRepository mockGestRepo;
+    private DailyRepository mockDailyRepo;
     private RunningJobRepository mockRJobRepo;
     private PendingJobRepository mockPDJobRepo;
     private AppStatusRepository mockAppStatusRepo;
@@ -93,6 +94,9 @@ public void before() throws Exception {
     when(mockAppRepo.findByUser(1L)).thenReturn(applianceList);
     when(mockAppRepo.findByUserAndAid(1L, 1L)).thenReturn(applianceList.get(0));
 
+    mockDailyRepo = mock(DailyRepository.class);
+    when(mockDailyRepo.findByDateAndApp(new Date(0L), 1L)).thenReturn(null);
+
     mockPDJobRepo = mock(PendingJobRepository.class);
     when(mockPDJobRepo.findByAppliance(2L)).thenReturn(null);
 
@@ -111,6 +115,7 @@ public void before() throws Exception {
     operateAppliance.appStatusRepository = mockAppStatusRepo;
     operateAppliance.runningJobRepository = mockRJobRepo;
     operateAppliance.finishedJobRepository = mockFNJobRepo;
+    operateAppliance.dailyRepository = mockDailyRepo;
 
 
 } 
