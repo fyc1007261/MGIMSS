@@ -87,7 +87,7 @@ public class BatteryControllerImpl implements BatteryController{
                 List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(0L,user.getUid());
                 for (int ii = 0 ;ii<sensorapp.size();ii++)
                 {
-                    open_close_appliance2(sensorapp.get(ii).getAid(),"off");
+                    open_close_appliance2(sensorapp.get(ii).getAid(),"off",user.getUid());
                 }
             }
             else
@@ -102,7 +102,7 @@ public class BatteryControllerImpl implements BatteryController{
                 List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(0L,user.getUid());
                 for (int ii = 0 ;ii<sensorapp.size();ii++)
                 {
-                    open_close_appliance2(sensorapp.get(ii).getAid(),"on");
+                    open_close_appliance2(sensorapp.get(ii).getAid(),"on",user.getUid());
                 }
                 Speechgenrate.voice("当前光照过暗，是否要开启照明设备");
             }
@@ -113,7 +113,7 @@ public class BatteryControllerImpl implements BatteryController{
                 List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(1L,user.getUid());
                 for (int ii = 0 ;ii<sensorapp.size();ii++)
                 {
-                    open_close_appliance2(sensorapp.get(ii).getAid(),"off");
+                    open_close_appliance2(sensorapp.get(ii).getAid(),"off",user.getUid());
                 }
             }
             else
@@ -128,7 +128,7 @@ public class BatteryControllerImpl implements BatteryController{
                 List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(1L,user.getUid());
                 for (int ii = 0 ;ii<sensorapp.size();ii++)
                 {
-                    open_close_appliance2(sensorapp.get(ii).getAid(),"on");
+                    open_close_appliance2(sensorapp.get(ii).getAid(),"on",user.getUid());
                 }
                 Speechgenrate.voice("发现有人靠近，是否要开启照明设备");
             }
@@ -139,7 +139,7 @@ public class BatteryControllerImpl implements BatteryController{
                 List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(2L,user.getUid());
                 for (int ii = 0 ;ii<sensorapp.size();ii++)
                 {
-                    open_close_appliance2(sensorapp.get(ii).getAid(),"off");
+                    open_close_appliance2(sensorapp.get(ii).getAid(),"off",user.getUid());
                 }
             }
             else
@@ -154,7 +154,7 @@ public class BatteryControllerImpl implements BatteryController{
                 List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(2L,user.getUid());
                 for (int ii = 0 ;ii<sensorapp.size();ii++)
                 {
-                    open_close_appliance2(sensorapp.get(ii).getAid(),"on");
+                    open_close_appliance2(sensorapp.get(ii).getAid(),"on",user.getUid());
                 }
                 Speechgenrate.voice("温度过高，是否要开启空调");
             }
@@ -164,7 +164,7 @@ public class BatteryControllerImpl implements BatteryController{
                 List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(3L,user.getUid());
                 for (int ii = 0 ;ii<sensorapp.size();ii++)
                 {
-                    open_close_appliance2(sensorapp.get(ii).getAid(),"on");
+                    open_close_appliance2(sensorapp.get(ii).getAid(),"on",user.getUid());
                 }
                 //open_close_appliance2(0L,"on");
             }
@@ -173,7 +173,7 @@ public class BatteryControllerImpl implements BatteryController{
                 List<Sensor> sensorapp = sensorRepository.find2ByNameAndUid(3L,user.getUid());
                 for (int ii = 0 ;ii<sensorapp.size();ii++)
                 {
-                    open_close_appliance2(sensorapp.get(ii).getAid(),"off");
+                    open_close_appliance2(sensorapp.get(ii).getAid(),"off",user.getUid());
                 }
                 //open_close_appliance2(0L,"off");
             }
@@ -308,7 +308,7 @@ public class BatteryControllerImpl implements BatteryController{
 
     }
 
-    public String open_close_appliance2(Long aid, String option){
+    public String open_close_appliance2(Long aid, String option,Long uid){
         User user;
         String port;
         String host;
@@ -320,7 +320,7 @@ public class BatteryControllerImpl implements BatteryController{
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
 
-        user = getUserContext.getUser();
+        user = userRepository.findByUid(uid);
 
         System.out.println("APPLIANCE");
         if(option.equals("on")) new_state = 1;

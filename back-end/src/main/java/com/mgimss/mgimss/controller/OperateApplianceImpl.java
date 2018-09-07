@@ -76,7 +76,7 @@ public class OperateApplianceImpl implements OperateAppliance {
         //用电器的id
         aid = Long.valueOf(id);
         //当前用户
-        user = getUserContext.getUser();
+        user = userRepository.findByUid(Long.valueOf(uid));
         //用电器
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
 
@@ -145,7 +145,7 @@ public class OperateApplianceImpl implements OperateAppliance {
 
         send_time = new Date();
         aid = Long.valueOf(id);
-        user = getUserContext.getUser();
+        user = userRepository.findByUid(Long.valueOf(uid));
         Appliance appliance = applianceRepository.findByUserAndAid(user.getUid(), aid);
 
         if(appliance == null){
