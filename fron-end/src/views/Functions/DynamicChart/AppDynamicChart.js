@@ -166,19 +166,19 @@ class CurrentChart extends Component {
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
 
             i = labels.length;
-            if (i === props.count - 1){
-              time.setTime(time.getTime() + 1000 * interval);
-              labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-              currentPoints.push(appsData[0]["current"]);
-            }
-            else{
+            // if (i === props.count - 1){
+            //   time.setTime(time.getTime() + 1000 * interval);
+            //   labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
+            //   currentPoints.push(appsData[0]["current"]);
+            // }
+            // else{
               for (i; i < props.count; i++) {
                 time.setTime(time.getTime() + 1000 * interval);
                 // //alert("time: "+time);
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
               }
-            }
+            // }
 
           }
 
@@ -236,19 +236,19 @@ class CurrentChart extends Component {
             i = labels.length;
 
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
-            if (i === props.count - 1){
-              time.setTime(time.getTime() + 1000 * interval);
-              labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-              currentPoints.push(appsData[0]["current"]);
-            }
-            else{
+            // if (i === props.count - 1){
+            //   time.setTime(time.getTime() + 1000 * interval);
+            //   labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
+            //   currentPoints.push(appsData[0]["current"]);
+            // }
+            // else{
               for (i; i < props.count; i++) {
                 time.setTime(time.getTime() + 1000 * interval);
                 // //alert("time: "+time);
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
               }
-            }
+            // }
 
           }
 
@@ -566,19 +566,19 @@ class CurrentChart extends Component {
             i = labels.length;
 
 
-            if (i === this.state.count - 1){
-              time.setTime(time.getTime() + 1000 * interval);
-              labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-              currentPoints.push(appsData[0]["current"]);
-            }
-            else{
+            // if (i === this.state.count - 1){
+            //   time.setTime(time.getTime() + 1000 * interval);
+            //   labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
+            //   currentPoints.push(appsData[0]["current"]);
+            // }
+            // else{
               for (i; i < this.state.count; i++) {
                 time.setTime(time.getTime() + 1000 * interval);
                 // //alert("time: "+time);
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
               }
-            }
+            // }
 
           }
 
@@ -637,19 +637,19 @@ class CurrentChart extends Component {
 
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
 
-            if (i === this.state.count - 1){
-              time.setTime(time.getTime() + 1000 * interval);
-              labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-              currentPoints.push(appsData[0]["current"]);
-            }
-            else{
+            // if (i === this.state.count - 1){
+            //   time.setTime(time.getTime() + 1000 * interval);
+            //   labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
+            //   currentPoints.push(appsData[0]["current"]);
+            // }
+            // else{
               for (i; i < this.state.count; i++) {
                 time.setTime(time.getTime() + 1000 * interval);
                 // //alert("time: "+time);
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 currentPoints.push(0);
               }
-            }
+            // }
           }
         }
 
@@ -921,16 +921,16 @@ class VoltageChart extends Component {
 
             i = labels.length;
 
-            if (i === props.count - 1) {
-
-              time.setTime(time.getTime() + 1000 * interval);
-
-              labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-
-              currentPoints.push(appsData[0]["voltage"]);
-            }
-
-            else {
+            // if (i === props.count - 1) {
+            //
+            //   time.setTime(time.getTime() + 1000 * interval);
+            //
+            //   labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
+            //
+            //   currentPoints.push(appsData[0]["voltage"]);
+            // }
+            //
+            // else {
 
               for (i; i < props.count; i++) {
 
@@ -944,7 +944,7 @@ class VoltageChart extends Component {
 
               }
 
-            }
+            // }
 
           }
 
@@ -1003,19 +1003,19 @@ class VoltageChart extends Component {
 
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
 
-            if (i === props.count - 1){
-              time.setTime(time.getTime() + 1000 * interval);
-              labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-              voltagePoints.push(appsData[0]["voltage"]);
-            }
-            else{
+            // if (i === props.count - 1){
+            //   time.setTime(time.getTime() + 1000 * interval);
+            //   labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
+            //   voltagePoints.push(appsData[0]["voltage"]);
+            // }
+            // else{
               for (i; i < props.count; i++) {
                 time.setTime(time.getTime() + 1000 * interval);
                 // //alert("time: "+time);
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 voltagePoints.push(0);
               }
-            }
+            // }
 
           }
 
@@ -1031,19 +1031,19 @@ class VoltageChart extends Component {
           let time = start_time;
 
           let i = 0;
-          if (i === props.count - 1){
-            time.setTime(time.getTime() + 1000 * interval);
-            labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-            voltagePoints.push(appsData[0]["voltage"]);
-          }
-          else{
+          // if (i === props.count - 1){
+          //   time.setTime(time.getTime() + 1000 * interval);
+          //   labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
+          //   voltagePoints.push(appsData[0]["voltage"]);
+          // }
+          // else{
             for (i; i < props.count; i++) {
               time.setTime(time.getTime() + 1000 * interval);
               // //alert("time: "+time);
               labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
               voltagePoints.push(0);
             }
-          }
+          // }
 
         }
 
@@ -1271,13 +1271,13 @@ class VoltageChart extends Component {
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
 
             i = labels.length;
-
-            if (i === this.state.count - 1){
-              time.setTime(time.getTime() + 1000 * interval);
-              labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-              voltagePoints.push(appsData[0]["voltage"]);
-            }
-            else{
+            //
+            // if (i === this.state.count - 1){
+            //   time.setTime(time.getTime() + 1000 * interval);
+            //   labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
+            //   voltagePoints.push(appsData[0]["voltage"]);
+            // }
+            // else{
               for (i; i < this.state.count; i++) {
                 time.setTime(time.getTime() + 1000 * interval);
                 // //alert("time: "+time);
@@ -1285,7 +1285,7 @@ class VoltageChart extends Component {
                 voltagePoints.push(0);
               }
 
-            }
+            // }
 
           }
 
@@ -1344,19 +1344,19 @@ class VoltageChart extends Component {
 
             time = new Date(appsData[0]["time"].replace(/-/g, "/"));
 
-            if (i === this.state.count - 1){
-              time.setTime(time.getTime() + 1000 * interval);
-              labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
-              voltagePoints.push(appsData[0]["voltage"]);
-            }
-            else{
+            // if (i === this.state.count - 1){
+            //   time.setTime(time.getTime() + 1000 * interval);
+            //   labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
+            //   voltagePoints.push(appsData[0]["voltage"]);
+            // }
+            // else{
               for (i; i < this.state.count; i++) {
                 time.setTime(time.getTime() + 1000 * interval);
                 // //alert("time: "+time);
                 labels.push(time.getHours().toString() + ":" + time.getMinutes().toString() + ":" + time.getSeconds().toString() + "." + time.getMilliseconds());
                 voltagePoints.push(0);
               }
-            }
+            // }
 
           }
 

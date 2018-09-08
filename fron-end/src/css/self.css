@@ -3802,5 +3802,21 @@
   width: 0;
 }
 
+.no-app-canvas{
+  height: 470px;
+  text-align: center;
+  position: relative;
+}
+
+.no-app-message{
+  position: relative;
+  height:20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: neoteric;
+  font-size: 20px;
+}
+
 
 

@@ -223,7 +223,7 @@ class ApplianceCapsule extends Component {
         this.state.appliance["start time"] = "Not scheduled";
         this.state.appliance["end time"] = "Not scheduled";
       }
-      this.props.reload();
+      // this.props.reload();
     }
     else {
       alert(ret_val);
@@ -375,7 +375,7 @@ class ApplianceCapsule extends Component {
     let m_input = $('#' + m_id).val();
     let p_input = $('#' + p_id).val();
     let g_input = $("#" + g_id + "  option:selected").val();
-    alert(m_input + ", " + p_input + "," + g_input);
+    // alert(m_input + ", " + p_input + "," + g_input);
 
     let ret_val = "Error with connection";
 
@@ -400,9 +400,6 @@ class ApplianceCapsule extends Component {
       }
     });
     if (ret_val !== "success") {
-      alert(ret_val);
-    }
-    else {
       alert(ret_val);
     }
   }
@@ -1025,7 +1022,7 @@ class ApplianceCapsule extends Component {
 
 
   cancelClick(e) {
-    alert("cancel");
+    // alert("cancel");
     e.stopPropagation();
     return false;
   }
@@ -1318,21 +1315,21 @@ class ApplianceCapsule extends Component {
                      id={"lightSense" + this.state.appliance["id"]} label/>
         </div>,
         <div className="thermalDiv">
-          <AppSwitch checked={this.state.appliance["s2name"] === "Active"}
+          <AppSwitch checked={this.state.appliance["s3name"] === "Active"}
                      onClick={this.switch_thermal_status}
                      className={'mx-1 capbody-Btn'} variant={'3d'} outline={'alt'}
                      color={ColorScheme[this.state.appliance["id"] % 6][4]}
                      id={"lightSense" + this.state.appliance["id"]} label/>
         </div>,
         <div className="motionDiv">
-          <AppSwitch checked={this.state.appliance["s3name"] === "Active"}
+          <AppSwitch checked={this.state.appliance["s4name"] === "Active"}
                      onClick={this.switch_motion_status}
                      className={'mx-1 capbody-Btn'} variant={'3d'} outline={'alt'}
                      color={ColorScheme[this.state.appliance["id"] % 6][4]}
                      id={"lightSense" + this.state.appliance["id"]} label/>
         </div>,
         <div className="rangeDiv">
-          <AppSwitch checked={this.state.appliance["s4name"] === "Active"}
+          <AppSwitch checked={this.state.appliance["s2name"] === "Active"}
                      onClick={this.switch_range_status}
                      className={'mx-1 capbody-Btn'} variant={'3d'} outline={'alt'}
                      color={ColorScheme[this.state.appliance["id"] % 6][4]}
@@ -1472,6 +1469,7 @@ class Appliances extends Component {
         alert(jqXHR);
         alert(textStatus);
         alert(errorThrown);
+        appsData = "err";
       }
     });
 
@@ -1595,10 +1593,17 @@ class Appliances extends Component {
   displayCapsuleCanvas(){
 
     if (appsData.toString() === ""){
+      return (
+        <Row className="no-app-canvas">
+          <p className = "no-app-message">You have no appliance, click anywhere to ＋ </p>
+        </Row>
+      )
+    }
+    else if(appsData.toString() === "err"){
       alert("here");
       return (
-        <Row>
-        <p>You have no appliance, click to add</p>
+        <Row className="no-app-canvas">
+          <p className = "no-app-message">Something goes wrong, flush and try again please ~</p>
         </Row>
       )
     }

@@ -1,20 +1,4 @@
-export default {
-  items: [
-    {
-      name: 'About',
-      url: '/main/about',
-      icon: 'cui-aperture',
-    },
-    {
-      name: 'Dashboard',
-      url: '/main/dashboard',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
-    },
-    // {
+// {
     //   title: true,
     //   name: 'Theme',
     //   wrapper: {            // optional wrapper object
@@ -260,26 +244,34 @@ export default {
     //     },
     //   ],
     // },
+export default {
+  items: [
     {
       title: true,
-      name: 'Appliances',
+      name: 'Info',
+    },
+    {
+      name: 'About',
+      url: '/main/about',
+      icon: 'cui-aperture',
+      badge: {
+        variant: 'info',
+        text: 'NEW',
+      },
+    },
+    {
+      title: true,
+      name: 'Appliance',
     },
     {
       name: 'Appliances',
       url: '/main/apps',
-      icon: 'icon-cursor',
-      children: [
-        {
-          name: 'Appliances',
-          url: '/main/apps',
-          icon: 'cui-list',
-        },
-        {
-          name: 'Schedule',
-          url: '/main/schedule',
-          icon: 'cui-browser',
-        },
-      ],
+      icon: 'cui-list',
+    },
+    {
+      name: 'Schedule',
+      url: '/main/schedule',
+      icon: 'cui-browser',
     },
     {
       title: true,
@@ -290,30 +282,32 @@ export default {
       },
     },
     {
-      name: 'Charts',
-      url: '/main/fun',
-      icon: 'icon-cursor',
-      children: [
-        {
-          name: 'Power Use',
-          url: '/main/fun/poweruse',
-          icon: 'cui-bar-chart',
-        }
-      ],
+      name: 'Power Use',
+      url: '/main/fun/poweruse',
+      icon: 'cui-bar-chart',
+    },
+    {
+      name: 'Charge Board',
+      url: '/main/dashboard',
+      icon: 'cui-battery-full',
     },
     {
       title: true,
-      name: 'AI',
+      name: 'AI Assistant',
     },
     {
-      name: 'AI小微',
+      name: 'AI Wei',
       url: '/main/getMedia',
-      icon: 'icon-cursor',
+      icon: 'fa fa-circle-o-notch',
+      badge: {
+        variant: 'info',
+        text: 'HOT',
+      },
     },
     {
-      name: '小微预测',
+      name: 'Wei forcast',
       url: '/main/forecast',
-      icon: 'icon-cursor',
+      icon: 'cui-graph',
     },
     {
       title: true,
@@ -340,23 +334,10 @@ export default {
         },
         // {
         //   name: 'Notification',
-        //   url: '/main/user/notification',
+        //   url: '/main/usertification',
         //   icon: 'cui-bullhorn',
         // },
       ],
-    },
-    {
-      name: 'Download CoreUI',
-      url: 'http://coreui.io/react/',
-      icon: 'icon-cloud-download',
-      class: 'mt-auto',
-      variant: 'success',
-    },
-    {
-      name: 'Try CoreUI PRO',
-      url: 'http://coreui.io/pro/react/',
-      icon: 'icon-layers',
-      variant: 'danger',
     },
   ],
 };
