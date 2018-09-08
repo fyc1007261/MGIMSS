@@ -223,7 +223,7 @@ class ApplianceCapsule extends Component {
         this.state.appliance["start time"] = "Not scheduled";
         this.state.appliance["end time"] = "Not scheduled";
       }
-      this.props.reload();
+      // this.props.reload();
     }
     else {
       alert(ret_val);
@@ -375,7 +375,7 @@ class ApplianceCapsule extends Component {
     let m_input = $('#' + m_id).val();
     let p_input = $('#' + p_id).val();
     let g_input = $("#" + g_id + "  option:selected").val();
-    alert(m_input + ", " + p_input + "," + g_input);
+    // alert(m_input + ", " + p_input + "," + g_input);
 
     let ret_val = "Error with connection";
 
@@ -400,9 +400,6 @@ class ApplianceCapsule extends Component {
       }
     });
     if (ret_val !== "success") {
-      alert(ret_val);
-    }
-    else {
       alert(ret_val);
     }
   }
@@ -1025,7 +1022,7 @@ class ApplianceCapsule extends Component {
 
 
   cancelClick(e) {
-    alert("cancel");
+    // alert("cancel");
     e.stopPropagation();
     return false;
   }
@@ -1468,10 +1465,12 @@ class Appliances extends Component {
         appsData = $.parseJSON(data.toString())["data"];
       },
       error: function (jqXHR, textStatus, errorThrown) {
+
         // alert("！！！!");
         // alert(jqXHR);
         // alert(textStatus);
         // alert(errorThrown);
+
         appsData = "err";
       }
     });

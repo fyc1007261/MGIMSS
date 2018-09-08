@@ -221,6 +221,10 @@ public class Schedule {
                         }
                         doTime += timeSlice;
                     }
+                    if (simulation2data.size() == 0)
+                    {
+                        simulation2data = simulation1data;
+                    }
                     Job job = pendingJobRepository.findByAppliance(pendJob.get(i).getAppliance().getAppId());
                     job.setIntTrueStartTime(maxTime);
                     job.setIntTrueStopTime(maxTime+pendJob.get(i).getLastTime());
@@ -240,7 +244,11 @@ public class Schedule {
                 {
                     Long tmod = nowTime % timeSlice;
 
-                    Long doTime = (startTime/timeSlice*timeSlice)+timeSlice+tmod;//为该job在何时开始
+                    Long doTime = (startTime/timeSlice*timeSlice)+tmod;//为该job在何时开始
+                    if(doTime < startTime)
+                    {
+                        doTime = doTime+timeSlice;
+                    }
                     Long maxcost = Long.MAX_VALUE;
                     Long maxTime = doTime;//对于给定的一个job它的最有开始时间
                     ArrayList<Long> simulation1data = new ArrayList();
@@ -385,6 +393,10 @@ public class Schedule {
                             simulation1data = showdata1;
                         }
                         doTime += timeSlice;
+                    }
+                    if (simulation2data.size() == 0)
+                    {
+                        simulation2data = simulation1data;
                     }
                     Job job = pendingJobRepository.findByAppliance(pendJob.get(i).getAppliance().getAppId());
                     job.setIntTrueStartTime(maxTime);

@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" name="Welcome" render={() => window.location.href="/welcome.html"} />
+          <Route exact path="/" name="Welcome" render={() => window.location.href="/welcome"} />
           <Route path="/main" name="Home" component={DefaultLayout} />
           <Route exact path="/login" name="Login Page" render={() => window.location.href="/login.html"} />
           <Route exact path="/register" name="Register Page" render={() => window.location.href="/login.html"} />

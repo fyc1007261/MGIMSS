@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class MainController {
 
-    @RequestMapping("/welcome.html")
+    @RequestMapping("/welcome")
     public String jump1() {
         return "welcome.html";
     }
