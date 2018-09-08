@@ -14,6 +14,8 @@ let jobsData = [{"id":1, "Status":"Pending",  "Appliance":"app1", "Duration":"10
   {"id":3, "status": "Running", "app_name":"app3", "duration":"1h"}];
 
 
+require('../../css/all.css');
+
 const gesture_list = ['none', 'thumb_up', 'heart_d', 'victory'];
 const gesture_show = ['None', 'Thumb up', 'Heart with two fingers', 'Victory'];
 

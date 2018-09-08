@@ -33,6 +33,7 @@
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn-hangzhou.goeasy.io/goeasy.js"></script>
+
     <script type="text/javascript">
       let goEasy = new GoEasy({
         appkey: 'BS-a877d9d456a5459f982c7dfef47f42d0'
@@ -62,6 +63,142 @@
 
         }});
     </script>
+    <style>
+
+      .base {
+        height: 60px;
+        position: absolute;
+        width: 60px;
+        transform: translate(30%) rotateX(45deg) rotateZ(45deg);
+        transform-style: preserve-3d;
+        cursor: pointer;
+      }
+
+      .cube,
+      .cube:after,
+      .cube:before {
+        content: '';
+        float: left;
+        height: 30px;
+        position: absolute;
+        width: 30px;
+      }
+
+      /* Top */
+      .cube {
+        background-color: #05afd1;
+        position: relative;
+        transform: translateZ(30px);
+        transform-style: preserve-3d;
+        box-shadow: 130px 130px 15px rgba(0, 0, 0, 0.1);
+        animation: anim 1s infinite;
+      }
+
+      .swift{
+        animation: anim 0.5s infinite;
+      }
+      .normal{
+        animation: anim 1s infinite;
+      }
+      .cube:after {
+        background-color: #049dbc;
+        transform: rotateX(-90deg) translateY(30px);
+        transform-origin: 100% 100%;
+      }
+      .cube:before {
+        background-color: #048ca7;
+        transform: rotateY(90deg) translateX(30px);
+        transform-origin: 100% 0;
+      }
+      .cube:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .cube:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .cube:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .cube:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .cube:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .cube:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+      .cube:nth-child(7) {
+        animation-delay: 0.35s;
+      }
+      .cube:nth-child(8) {
+        animation-delay: 0.4s;
+      }
+      .cube:nth-child(9) {
+        animation-delay: 0.45s;
+      }
+
+      .cubeColor1{
+        background-color: #05e0ff;
+      }
+
+      .cubeColor2{
+        background-color: #05cbf2;
+      }
+
+      .cubeColor3{
+        background-color: #05c1e7;
+      }
+
+      @keyframes anim {
+        50% {
+          transform: translateZ(5px);
+        }
+      }
+
+
+      .center {
+        position: absolute;
+        margin: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      .menu {
+        width: 40px;
+        height: 40px;
+        z-index: 1000000;
+      }
+
+
+
+      .title {
+        width: 300px;
+        height: 10px;
+        top: 60px;
+      }
+
+      .item {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 90px;
+        height:  80px;
+        border-radius: 50% / 50%;
+        /*background-color: white;*/
+        cursor: pointer;
+        text-align: center;
+        line-height: 40px;
+      }
+
+      i {
+        font-size: 24px;
+        color: #222222;
+      }
+
+    </style>
 
   </head>
 
@@ -94,10 +231,20 @@
   -->
 
   <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
+
+
     <div id="root"></div>
+
+    <div class="center menu haha" id="Menu">
+      <div id="myMenu"></div>
+    </div>
+
+    <script src="%PUBLIC_URL%/js/prefixfree.min.js" type="text/javascript"></script>
+    <script src="%PUBLIC_URL%/js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="%PUBLIC_URL%/js/jquery-ui.min.js"></script>
+    <script src='%PUBLIC_URL%/js/anime.js'></script>
+    <script src="%PUBLIC_URL%/js/index.js"></script>
+
     <video width="100%" height="100%" id="video" style="display:none">
     </video>
     <script>
@@ -105,34 +252,28 @@
       playVideo.muted=true;
       console.log(playVideo)
     </script>
-    <div id="KeFuDiv" class="KeFuDiv" onmousedown="MoveDiv(KeFuDiv,event);">
-      <img id = "luyin" src="%PUBLIC_URL%/luyin.jpg" class="img-circle" height="70px" width="70px" onmousedown="startRecording()" onmouseup="stopRecord()">
+    <!--<div id="KeFuDiv" class="KeFuDiv" onmousedown="MoveDiv(KeFuDiv,event);">-->
+      <!--<img id = "luyin" src="%PUBLIC_URL%/luyin.jpg" class="img-circle" height="70px" width="70px" onmousedown="startRecording()" onmouseup="stopRecord()">-->
       <!--<a href='#' onmousedown="startRecording()" onmouseup="stopRecord()"><span>录音</span></a>-->
       <!--<a href='#'onClick="stopRecord()"><span>识别语音</span></a>-->
-    </div><!--KeFuDiv end-->
+    <!--</div>&lt;!&ndash;KeFuDiv end&ndash;&gt;-->
+
 
     <script type="text/javascript" src="http://7xnlea.com2.z0.glb.qiniucdn.com/online.js"></script>
     <script type="text/javascript">
       //初始位置
-      gID("KeFuDiv").style.top = (document.documentElement.clientHeight - gID("KeFuDiv").offsetHeight)/2 +"px";
-      gID("KeFuDiv").style.right = document.documentElement.clientWidth - gID("KeFuDiv").offsetWidth +"px";
-      //开始滚动
-      ScrollDiv('KeFuDiv');
+      gID("Menu").style.top = (document.documentElement.clientHeight - gID("Menu").offsetHeight)/2 +"px";
+      gID("Menu").style.left = document.documentElement.clientWidth - gID("Menu").offsetWidth*12 +"px";
+      // // //开始滚动
+      ScrollDiv('Menu');
+
+
     </script>
     <style>
-      .KeFuDiv{position:absolute;height:80px;width:80px;color:#fff;font-size:20px;text-align: center;cursor: pointer;}
-      .KeFuDiv p{line-height: 80px;font-weight:bold;}
+      /*.KeFuDiv{position:absolute;height:80px;width:80px;color:#fff;font-size:20px;text-align: center;cursor: pointer;}*/
+      /*.KeFuDiv p{line-height: 80px;font-weight:bold;}*/
     </style>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
   <script>
 
@@ -402,9 +543,6 @@
 
     })(window);
 
-
-
-
     /* 音频 */
     var recorder;
     var audio = document.querySelector('audio');
@@ -419,8 +557,9 @@
       img.src="%PUBLIC_URL%/luyin.jpg";
     }
     function startRecording() {
-      var img = document.getElementById("luyin");
-      img.src="%PUBLIC_URL%/luyin2.gif";
+      // alert("haha");
+      // var img = document.getElementById("luyin");
+      // img.src="%PUBLIC_URL%/luyin2.gif";
       HZRecorder.get(function (rec) {
         recorder = rec;
         recorder.start();
@@ -474,8 +613,8 @@
     };
 
     function stopRecord(){
-      var img = document.getElementById("luyin");
-      img.src="%PUBLIC_URL%/luyin.jpg";
+      // var img = document.getElementById("luyin");
+      // img.src="%PUBLIC_URL%/luyin.jpg";
       recorder.stop();
       var record = recorder.getBlob();
       var reader = new FileReader();
@@ -507,6 +646,60 @@
       recorder.play(audio);
     };
 
-
   </script>
+
+
+<script>
+  /*小微*/
+  let touchY = 0;
+  let mousetouchY = 0;
+  let swift = 0;
+  $(".item").on({
+    click: function(e) {
+      if(swift === 0){
+        swift = 1;
+        let cube =  $('.cube');
+        cube.removeClass('normal');
+        cube.addClass('swift');
+        startRecording();
+      }
+      else{
+        swift = 0;
+        let cube =  $('.cube');
+        cube.removeClass('swift');
+        cube.addClass('normal');
+        stopRecord();
+      }
+      let touch = e.touches[0];
+      mousetouchY = touch.clientY;
+    },
+    touchmove: function(e) {
+      clearTimeout(timeOutEvent);
+      timeOutEvent = 0;
+      let touch = e.touches[0];
+      if(Math.abs(touch.clientY - touchY) < 10){
+        e.preventDefault();
+      }
+    },
+    mousemove: function(e) {
+      clearTimeout(mousetimeOutEvent);
+      mousetimeOutEvent = 0;
+      let touch = e.touches[0];
+      if(Math.abs(touch.clientY - mousetouchY) < 10){
+        e.preventDefault();
+      }
+    }
+  });
+  //
+  // $(function() {
+  //   window.onscroll = function () {
+  //     let top1 = document.body.scrollTop;
+  //     if (top1 >= 300)
+  //       $("#Menu").css("position", "absolute").css("top", top1);       //300为div初始位置，当滚动条距离顶部的距离大于300时，使div与滚动条保持相同高度
+  //     else
+  //       $("#Menu").css("position", "absolute").css("top", 300);
+  //   }
+  // });
+
+</script>
 </html>

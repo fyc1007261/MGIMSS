@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Jumbotron, Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem, Col, Row } from 'reactstrap';
 
+require('../../css/all.css');
+
 const items = [
   {
     src: 'https://res.cloudinary.com/breezeeee/image/upload/v1536130598/mgimss/About/1.jpg',
@@ -80,18 +82,18 @@ class About extends Component {
         <Row>
           <Col xs="12" xl="6">
             <Jumbotron>
-              <h1 className="display-3">Hello, world!</h1>
-              <p className="lead">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
+              <h1 className="display-3">Welcome</h1>
+              <p className="lead">Greetings! Happy to have you here.</p>
               <hr className="my-2" />
-              <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+              <p>It may take a while before you're familiar with this. Have fun!</p>
             </Jumbotron>
           </Col>
           <Col xs="12" xl="6">
             <Jumbotron>
-              <h1 className="display-3">Hello, world!</h1>
-              <p className="lead">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
+              <h1 className="display-3">to MGIMSS!</h1>
+              <p className="lead">MGIMSS helps you save time and money!</p>
               <hr className="my-2" />
-              <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+              <p>Comfortable, fast and free life comes from simple clicks!</p>
             </Jumbotron>
           </Col>
         </Row>

@@ -10,6 +10,8 @@ import $ from 'jquery';
 const CLOUDINARY_UPLOAD_PRESET = 'Avatar';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/breezeeee/upload';
 
+require('../../../css/profile.css');
+
 class ContactForm extends Component {
 
   constructor(props) {
@@ -123,7 +125,7 @@ class Avatar extends Component {
 
   render() {
     return(
-      <Col xs="24" sm="12" lg="6">
+      <Col xs={{size:12}} sm={{size:12}} lg={{size:6, offset:3}} className="profile">
         <Card>
           <ContactForm/>
         </Card>

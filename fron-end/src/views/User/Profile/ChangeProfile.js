@@ -152,7 +152,7 @@ class UpdateProfile extends Component {
 
   render() {
     return(
-      <div className="profile-card">
+      <div className="profile-card profile">
         <p>
           <img src={avatarURL} alt="avatar"/>
         </p>

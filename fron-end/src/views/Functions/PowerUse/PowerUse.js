@@ -4,6 +4,8 @@ import TotalPowerUse from './TotalPowerUse';
 import AppsPowerUse from './AppsPowerUse';
 import HighestPowerUse from './HighestPowerUse';
 
+require('../../../css/all.css');
+
 class PowerUse extends Component {
 
   constructor(props) {

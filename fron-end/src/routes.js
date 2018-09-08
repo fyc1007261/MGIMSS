@@ -3,9 +3,16 @@ import Loadable from 'react-loadable'
 
 import DefaultLayout from './containers/DefaultLayout';
 
+require('./css/Loading.css');
+
 
 function Loading() {
-  return <div>Loading...</div>;
+  return  <div className="sk-folding-cube cube-pos">
+    <div className="sk-cube1 sk-cube"></div>
+    <div className="sk-cube2 sk-cube"></div>
+    <div className="sk-cube4 sk-cube"></div>
+    <div className="sk-cube3 sk-cube"></div>
+  </div>;
 }
 
 const Breadcrumbs = Loadable({

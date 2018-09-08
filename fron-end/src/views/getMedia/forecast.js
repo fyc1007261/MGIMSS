@@ -16,6 +16,9 @@ import 'echarts/lib/component/markPoint';
 var showtu1 = [];
 var showtu2 = [];
 var showtu3 = [];
+
+require('../../css/all.css');
+
 class ECharts  extends Component {
   componentWillMount() {
 

@@ -75,7 +75,7 @@ class Schedules extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xl={8}>
+          <Col xl={{size: 8, offset: 2}}>
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify"></i> Schedules
