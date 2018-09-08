@@ -1,3 +1,4 @@
+
 // {
     //   title: true,
     //   name: 'Theme',
@@ -261,6 +262,7 @@ export default {
     },
     {
       title: true,
+
       name: 'Appliance',
     },
     {

@@ -27,6 +27,11 @@
   src: url('../fonts/gotham-rounded-light.otf');
 }
 
+@font-face {
+  font-family: Klaxons;
+  src: url('../fonts/Klaxons.otf');
+}
+
 .dChart {
   width: 10px;
   height: 10px;
@@ -3808,6 +3813,7 @@
   position: relative;
 }
 
+
 .no-app-message{
   position: relative;
   height:20px;
@@ -3817,6 +3823,3 @@
   font-family: neoteric;
   font-size: 20px;
 }
-
-
-

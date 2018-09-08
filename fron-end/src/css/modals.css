@@ -646,7 +646,8 @@ footer ul li a:hover {
   height: 100%;
   line-height: 60px;
   font-size: 17px;
-  font-family: verdanai;
+  font-family: Klaxons;
+  font-style: italic;
 }
 
 #modal-custom .iziModal-content header a.active {

@@ -1465,10 +1465,12 @@ class Appliances extends Component {
         appsData = $.parseJSON(data.toString())["data"];
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert("！！！!");
-        alert(jqXHR);
-        alert(textStatus);
-        alert(errorThrown);
+
+        // alert("！！！!");
+        // alert(jqXHR);
+        // alert(textStatus);
+        // alert(errorThrown);
+
         appsData = "err";
       }
     });
@@ -1628,7 +1630,7 @@ class Appliances extends Component {
       <div id="modal-custom" className="iziModal">
         <button data-iziModal-close className="icon-close"></button>
         <header>
-          <p>Appliance information</p>
+          <p>Appliance   information</p>
         </header>
         <section>
           <input type="text" placeholder="Name" id="new_app_name"/>
