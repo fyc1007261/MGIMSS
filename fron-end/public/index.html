@@ -13,7 +13,6 @@
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
 
     <link href="./style.css">
-    <link href="./cube-wei.css">
     <!--<link rel="stylesheet" type="text/css" href="css/reset.css"/>-->
     <!--<link rel="stylesheet" href="bootstrap/css/bootstrap.css">-->
     <!--<link rel="stylesheet" type="text/css" href="css/willesPlay.css"/>-->
@@ -156,7 +155,7 @@
           transform: translateZ(5px);
         }
       }
-      
+
 
       .center {
         position: absolute;
@@ -558,8 +557,9 @@
       img.src="%PUBLIC_URL%/luyin.jpg";
     }
     function startRecording() {
-      var img = document.getElementById("luyin");
-      img.src="%PUBLIC_URL%/luyin2.gif";
+      // alert("haha");
+      // var img = document.getElementById("luyin");
+      // img.src="%PUBLIC_URL%/luyin2.gif";
       HZRecorder.get(function (rec) {
         recorder = rec;
         recorder.start();
@@ -613,8 +613,8 @@
     };
 
     function stopRecord(){
-      var img = document.getElementById("luyin");
-      img.src="%PUBLIC_URL%/luyin.jpg";
+      // var img = document.getElementById("luyin");
+      // img.src="%PUBLIC_URL%/luyin.jpg";
       recorder.stop();
       var record = recorder.getBlob();
       var reader = new FileReader();
@@ -690,16 +690,16 @@
       }
     }
   });
-
-  $(function() {
-    window.onscroll = function () {
-      let top1 = document.body.scrollTop;
-      if (top1 >= 300)
-        $("#Menu").css("position", "absolute").css("top", top1);       //300为div初始位置，当滚动条距离顶部的距离大于300时，使div与滚动条保持相同高度
-      else
-        $("#Menu").css("position", "absolute").css("top", 300);
-    }
-  });
+  //
+  // $(function() {
+  //   window.onscroll = function () {
+  //     let top1 = document.body.scrollTop;
+  //     if (top1 >= 300)
+  //       $("#Menu").css("position", "absolute").css("top", top1);       //300为div初始位置，当滚动条距离顶部的距离大于300时，使div与滚动条保持相同高度
+  //     else
+  //       $("#Menu").css("position", "absolute").css("top", 300);
+  //   }
+  // });
 
 </script>
 </html>
