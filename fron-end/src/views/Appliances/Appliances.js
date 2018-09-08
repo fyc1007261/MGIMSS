@@ -10,6 +10,7 @@ import {getStyle} from '@coreui/coreui/dist/js/coreui-utilities';
 import {CurrentChart, VoltageChart} from "../Functions/DynamicChart/AppDynamicChart";
 import Tools from './Tools/Tools'
 
+require('../../css/all.css');
 require('../../css/self.css');
 require('../../css/style.css');
 require('../../css/card.css');

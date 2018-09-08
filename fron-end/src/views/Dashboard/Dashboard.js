@@ -28,6 +28,8 @@ import $ from "jquery";
 // const brandPrimary = getStyle('--primary')
 const brandSuccess = getStyle('--success')
 const brandInfo = getStyle('--info')
+
+require('../../css/all.css');
 // const brandWarning = getStyle('--warning')
 // const brandDanger = getStyle('--danger')
 //

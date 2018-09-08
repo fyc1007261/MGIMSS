@@ -7,6 +7,8 @@ import {VoltageChart} from "../Functions/DynamicChart/AppDynamicChart";
 let appsData = [];
 
 
+require('../../css/all.css');
+
 class Appliance extends Component {
 
   constructor(props){

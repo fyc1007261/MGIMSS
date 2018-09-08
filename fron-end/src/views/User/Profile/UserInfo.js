@@ -3,7 +3,25 @@ import { Row, Col, Button } from 'reactstrap';
 import '../../../css/profile_card.css';
 import $ from "jquery";
 
+require('../../../css/profile.css');
+
 class UserInfo extends Component {
+
+  constructor(pops){
+    super(pops);
+    this.logout = this.logout.bind(this);
+  }
+
+  logout(){
+    $.ajax({
+      url:"/logout",
+      async:false,
+      type:"get",
+      success:function (data) {
+      }
+    });
+  }
+
   render() {
     // let username = "Ming";
     // let num_of_apps = 11;
@@ -44,13 +62,11 @@ class UserInfo extends Component {
         </p>
         <h3>{username}</h3>
         <Row>
-          <Col>
+          <Col xs={{size:12}} sm={{size:3}} className="user-button">
+            <Button block outline color="danger" className="btn-pill"
+                    onClick={this.logout}>Logout</Button>
           </Col>
-          <Col>
-          </Col>
-          <Col>
-          </Col>
-          <Col>
+          <Col xs={{size:12}} sm={{size:3 , offset: 6}}  className="user-button">
             <Button block outline color="primary" className="btn-pill"
                     onClick={this.props.SetChangeState}>Modify</Button>
           </Col>

@@ -1,0 +1,57 @@
+
+.profile{
+  top:65px;
+  animation: bodyShowUp 1s ease-in-out;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+  -moz-animation: bodyShowUp 1s ease-in-out;
+  -moz-animation-delay: 0s;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation: bodyShowUp 1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-delay: 0s; /* Safari 和 Chrome */
+}
+
+.user-button{
+  padding-top: 20px;
+}
+
+
+@keyframes bodyShowUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes bodyShowUp /* Firefox */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes bodyShowUp /* Safari 和 Chrome */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes bodyShowUp /* Opera */
+{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
