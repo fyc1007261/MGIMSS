@@ -25,11 +25,11 @@ public class GetUserContext {
 
     public User getUser(){
 //        System.out.println(userRepository.findByUid(1L));
-//        SecurityContext ctx = SecurityContextHolder.getContext();
-//        Authentication auth = ctx.getAuthentication();
-//        if (auth==null)
-//            return null;
-//        return (User) auth.getPrincipal();
-        return getUserContext.userRepository.findByUid(1L);
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        Authentication auth = ctx.getAuthentication();
+        if (auth==null)
+            return null;
+        return (User) auth.getPrincipal();
+//        return getUserContext.userRepository.findByUid(1L);
     }
 }

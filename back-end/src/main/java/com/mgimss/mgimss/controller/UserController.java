@@ -15,13 +15,6 @@ import javax.servlet.http.HttpSession;
 @RestController
 public interface UserController {
 
-    @RequestMapping("/user")
-    ModelAndView getUserInfo();
-
-    @RequestMapping("user/updateInfo")
-    ModelAndView updateUserInfo(String new_username, String new_password,
-                                String new_email, String new_phone,
-                                String new_host, String new_port);
 
     @RequestMapping("/signup")
     ModelAndView signUp(HttpServletRequest request, String username, String password,

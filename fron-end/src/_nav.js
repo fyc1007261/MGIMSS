@@ -319,13 +319,7 @@ export default {
         attributes: {},
       },
     },
-    {
-      name: 'User',
-      url: '/main/user',
-      icon: 'icon-user',
-      children: [
-        {
-          name: 'Profile',
+    {    name: 'Profile',
           url: '/main/user/profile',
           icon: 'cui-clipboard',
         },
@@ -339,7 +333,6 @@ export default {
         //   url: '/main/usertification',
         //   icon: 'cui-bullhorn',
         // },
-      ],
-    },
+
   ],
 };

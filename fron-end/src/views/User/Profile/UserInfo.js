@@ -18,8 +18,10 @@ class UserInfo extends Component {
       async:false,
       type:"get",
       success:function (data) {
+        window.location.href = "/login";
       }
     });
+
   }
 
   render() {

@@ -42,38 +42,6 @@ public class UserControllerImpl implements UserController {
     @Autowired
     public GetUserContext getUserContext;
 
-    public ModelAndView getUserInfo()
-    {
-        User user = getUserContext.getUser();
-
-        System.out.println(user.getUid());
-
-        ModelAndView mav = new ModelAndView("user");
-        mav.addObject("user", user);
-        return mav;
-    }
-
-    public ModelAndView updateUserInfo(String new_username, String new_password,
-                                       String new_email, String new_phone,
-                                       String new_host, String new_port)
-    {
-        User user = getUserContext.getUser();
-
-        user.setUsername(new_username);
-        user.setPassword(new_password);
-        user.setEmail(new_email);
-        user.setPhone(new_phone);
-        user.setHardwareHost(new_host);
-        user.setHardwarePort(new_port);
-
-        userRepository.save(user);
-
-        ModelAndView mav = new ModelAndView("user");
-        mav.addObject("user", user);
-        return mav;
-
-    }
-
     public ModelAndView signUp(HttpServletRequest request, String username, String password,
                                String phone, String email, String host, String port)
     {
@@ -98,8 +66,8 @@ public class UserControllerImpl implements UserController {
         SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
 
         request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
-        ModelAndView mav = new ModelAndView("main/main");
-        return mav;
+
+        return  new ModelAndView("redirect:/main/user");
     }
 
     public String get_user_info() {

@@ -12,6 +12,7 @@ import com.mgimss.mgimss.repository.AppStatusRepository;
 import com.mgimss.mgimss.repository.ApplianceRepository;
 import com.mgimss.mgimss.repository.PendingJobRepository;
 import com.mgimss.mgimss.repository.UserRepository;
+import com.mgimss.mgimss.utils.GetUserContext;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -46,6 +47,8 @@ public class Speech {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    public GetUserContext getUserContext;
     @Autowired
     PendingJobRepository pendingJobRepository;
     @RequestMapping("/webSpeech")
@@ -340,7 +343,8 @@ public class Speech {
 //        SecurityContext ctx = SecurityContextHolder.getContext();
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
-        user = userRepository.findByUid(Long.valueOf(1));
+//        user = userRepository.findByUid(Long.valueOf(1));
+        user = getUserContext.getUser();
         //获得新电器应分配的aid
         Set<Appliance> present_apps = user.getAppliances();
         if (present_apps.size() == 0) aid = Long.valueOf(1);
@@ -358,6 +362,7 @@ public class Speech {
         Map<String, String> map = new HashMap<>();
         map.put("id", String.valueOf(aid));
         map.put("name", name);
+        map.put("power", String.valueOf(perPower));
         map.put("option", "add");
 
         send_message = MapToJson(map);
@@ -383,8 +388,8 @@ public class Speech {
 //        Authentication auth = ctx.getAuthentication();
 //        user = (User) auth.getPrincipal();
 
-        user = userRepository.findByUid(Long.valueOf(1));
-
+//        user = userRepository.findByUid(Long.valueOf(1));
+        user = getUserContext.getUser();
         System.out.println("APPLIANCE");
         if(option.equals("on")) new_state = 1;
         else if (option.equals("off")) new_state = 0;
