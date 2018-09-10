@@ -116,6 +116,7 @@ public void before() throws Exception {
     operateAppliance.runningJobRepository = mockRJobRepo;
     operateAppliance.finishedJobRepository = mockFNJobRepo;
     operateAppliance.dailyRepository = mockDailyRepo;
+    operateAppliance.userRepository = userRepository;
 
 
 } 
